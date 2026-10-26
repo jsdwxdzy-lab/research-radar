@@ -127,6 +127,12 @@ html[data-theme="dark"] .tname{color:hsl(var(--h,220) 80% 70%)}
 .chead{display:flex;align-items:flex-start;gap:8px}
 .ctitle{flex:1;font-weight:600;font-size:14.5px;line-height:1.42}
 .ctitle a:hover{color:var(--accent)}
+.zh{margin-top:2px;font-weight:500;font-size:13px;color:var(--text)}
+.zhabs{color:var(--text)}
+.trust{margin-left:4px;font-size:10.5px;padding:1px 5px;border-radius:999px;border:1px solid var(--line)}
+.trust.high{color:#15803d;border-color:#86efac}
+.trust.mid{color:var(--muted)}
+.trust.low{color:#a16207;border-color:#fcd34d}
 .icon{width:24px;height:24px;border-radius:6px;color:var(--muted);line-height:1;display:grid;place-items:center;flex:0 0 auto}
 .icon:hover{background:var(--panel-2);color:var(--accent)}
 .btn-star.on{color:#f59e0b}
@@ -316,10 +322,10 @@ function save(){
 function touch(){ save(); }
 function itemCopy(it){
   return {
-    k:it.k, t:it.t, a:it.a||'', au:it.au||[], v:it.v||'', u:it.u||'',
+    k:it.k, t:it.t, tz:it.tz||'', a:it.a||'', az:it.az||'', au:it.au||[], v:it.v||'', u:it.u||'',
     p:it.p||'', d:it.d||'', s:it.s||0, tp:it.tp||[], kw:it.kw||[],
     src:it.src||[], kind:it.kind||'paper', ax:it.ax||'', doi:it.doi||'',
-    who:it.who||[], why:it.why||''
+    who:it.who||[], why:it.why||'', rv:it.rv||'', tr:it.tr||'', tw:it.tw||''
   };
 }
 function applyKept(){
@@ -360,7 +366,7 @@ function matches(it){
   if(state.sources.length && !it.src.some(s=>state.sources.includes(s))) return false;
   if(state.q){
     const q=state.q.toLowerCase();
-    const hay=(it.t+' '+(it.a||'')+' '+it.au.join(' ')+' '+it.v+' '+it.kw.join(' ')).toLowerCase();
+    const hay=(it.t+' '+(it.tz||'')+' '+(it.a||'')+' '+(it.az||'')+' '+it.au.join(' ')+' '+it.v+' '+it.kw.join(' ')).toLowerCase();
     if(!hay.includes(q)) return false;
   }
   return true;
@@ -396,7 +402,7 @@ function starCount(){ return ITEMS.filter(it=>state.star[it.k]).length; }
 function renderViews(){
   const defs=[['today','今天',ITEMS.filter(i=>i.d===TODAY).length],
               ['unread','未读',unreadCount()],
-              ['star','星标',starCount()],
+              ['star','只看收藏',starCount()],
               ['week','近 7 天',ITEMS.filter(i=>daysAgo(i.d)<=6).length],
               ['all','全部',ITEMS.length]];
   $('#views').innerHTML=defs.map(([v,label,n])=>
@@ -459,19 +465,22 @@ function card(it){
   const srcs=it.src.length>1?`<span class="multi">多源×${it.src.length}</span>`:'';
   const who=(it.who||[]).map(w=>`<button class="who" data-q="${esc(w)}" title="按作者搜索">👤 ${esc(w)}</button>`).join('');
   const open=openSet.has(it.k);
+  const trustLab={high:'高',mid:'中',low:'低'}[it.tr]||'';
+  const comment=it.rv||it.why||'';
   return `<article class="card${read?' read':''}${star?' starred':''}${open?' open':''}" data-k="${esc(it.k)}" style="--h:${h}">
     <div class="chead">
       <button class="icon btn-read" title="标记已读 / 未读 (m)">${read?'✓':'○'}</button>
-      <div class="ctitle"><a href="${esc(it.u||'#')}" target="_blank" rel="noopener" data-open="1">${hl(it.t)}</a></div>
-      <span class="score" title="相关度 ${it.s}">${it.s}</span>
-      <button class="icon btn-star${star?' on':''}" title="星标 (s)">${star?'★':'☆'}</button>
+      <div class="ctitle"><a href="${esc(it.u||'#')}" target="_blank" rel="noopener" data-open="1">${hl(it.t)}</a>${it.tz?`<div class="zh">${esc(it.tz)}</div>`:''}</div>
+      <span class="score" title="相关度 ${it.s}${it.tw?' · '+it.tw:''}">${it.s}${trustLab?`<span class="trust ${esc(it.tr)}">可信${trustLab}</span>`:''}</span>
+      <button class="icon btn-star${star?' on':''}" title="收藏 (s)">${star?'★':'☆'}</button>
     </div>
     <div class="cmeta">${it.tp.map(chip).join('')}${kind}
       ${it.v?`<span class="venue">${esc(it.v)}</span>`:''}
       <span>${esc(it.p||it.d)}</span>${who}${srcs}</div>
     ${it.kw.length?`<div class="ckw">${it.kw.slice(0,6).map(k=>`<span>${esc(k)}</span>`).join('')}</div>`:''}
-    ${it.why?`<div class="cwhy">💡 ${esc(it.why)}</div>`:''}
+    ${comment?`<div class="cwhy">短评 ${esc(comment)}</div>`:''}
     <div class="cabs">${esc(it.a)||'<i>（无摘要）</i>'}</div>
+    ${it.az?`<div class="cabs zhabs">${esc(it.az)}</div>`:''}
     <div class="cfoot">
       <button class="link btn-more">${open?'收起':'详情'}</button>
       ${it.ax?`<a class="link" href="https://arxiv.org/pdf/${esc(it.ax)}" target="_blank" rel="noopener">PDF</a>`:''}
@@ -490,7 +499,7 @@ function card(it){
 function renderList(){
   const list=$('#list');
   if(!view.length){
-    const scope={today:'今天',week:'近 7 天',unread:'未读',star:'星标',day:'这一天'}[state.view]||'当前视图';
+    const scope={today:'今天',week:'近 7 天',unread:'未读',star:'只看收藏',day:'这一天'}[state.view]||'当前视图';
     const hint=(state.q&&state.view!=='all')
       ? `<button class="tool" id="searchAll" style="margin-top:10px">在全部历史里搜「${esc(state.q)}」</button>`
       : '';
@@ -522,7 +531,7 @@ function renderList(){
   const m=$('#more'); if(m) m.onclick=()=>{ state.limit+=120; touch(); renderList(); };
 }
 function renderCrumb(){
-  const names={today:'今天',unread:'未读',star:'星标',week:'近 7 天',all:'全部',day:(state.date||'')};
+  const names={today:'今天',unread:'未读',star:'只看收藏',week:'近 7 天',all:'全部',day:(state.date||'')};
   const label=state.view==='day'?(state.date||''):names[state.view];
   const bits=[];
   if(state.topics.length) bits.push(state.topics.map(t=>TNAME[t]||t).join(' + '));
@@ -670,12 +679,12 @@ function toggleHelp(force){
     <tr><td>j / ↓</td><td>下一条</td></tr>
     <tr><td>k / ↑</td><td>上一条</td></tr>
     <tr><td>o</td><td>打开原文（并标记已读）</td></tr>
-    <tr><td>s</td><td>星标</td></tr>
+    <tr><td>s</td><td>收藏，侧栏「只看收藏」只显示这些</td></tr>
     <tr><td>m</td><td>已读 / 未读</td></tr>
     <tr><td>e</td><td>展开详情与备注</td></tr>
     <tr><td>/</td><td>搜索</td></tr>
     <tr><td>Esc</td><td>关闭 / 清除筛选</td></tr></table>
-    <p class="muted" style="font-size:12px;margin:10px 0 0">阅读状态、星标、备注存在这台浏览器里，换浏览器不会同步。点星标会留下文章副本：超过 120 天或数据库清理之后，仍可在「星标」和「全部」里看到。取消星标后，过期文章不再保留。</p>
+    <p class="muted" style="font-size:12px;margin:10px 0 0">阅读状态、收藏、备注存在这台浏览器里，换浏览器不会同步。点星标会留下文章副本：超过 120 天或数据库清理之后，仍可在「只看收藏」和「全部」里看到。取消收藏后，过期文章不再保留。</p>
     </div></div>`;
 }
 

@@ -61,10 +61,15 @@ def fetch(cfg: dict, since: date, log=print) -> list[dict]:
             src = (loc.get("source") or {}) if isinstance(loc, dict) else {}
             venue = clean(src.get("display_name", "") or "")
             doi = row.get("doi") or ""
-            authors = [
-                clean((a.get("author") or {}).get("display_name", ""), 60)
-                for a in (row.get("authorships") or [])[:12]
-            ]
+            authors = []
+            corresponding = []
+            for person in (row.get("authorships") or [])[:12]:
+                name = clean((person.get("author") or {}).get("display_name", ""), 60)
+                if not name:
+                    continue
+                authors.append(name)
+                if person.get("is_corresponding"):
+                    corresponding.append(name)
             kind = "paper"
             if row.get("type") in ("preprint", "posted-content"):
                 kind = "preprint"
@@ -81,7 +86,11 @@ def fetch(cfg: dict, since: date, log=print) -> list[dict]:
                     "published": parse_date(row.get("publication_date")),
                     "doi": doi,
                     "arxiv_id": "",
-                    "extra": {"type": row.get("type", ""), "query": query},
+                    "extra": {
+                        "type": row.get("type", ""),
+                        "query": query,
+                        "corresponding": corresponding,
+                    },
                 }
             )
             kept += 1

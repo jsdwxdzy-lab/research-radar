@@ -10,7 +10,15 @@ from .util import now
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = Path(__file__).resolve().parent / "web" / "dashboard.html"
-HUE = {"csp": 255, "crystal-gen": 300, "mlip": 190, "property": 25, "defect": 145, "ai4s": 215}
+HUE = {
+    "csp": 255,
+    "crystal-gen": 300,
+    "gen-model": 320,
+    "vision-gen": 280,
+    "gen-math": 40,
+    "mlip": 190,
+    "ai4s": 215,
+}
 
 
 def _kw(matched: list) -> list[str]:
@@ -53,6 +61,11 @@ def _row(r) -> dict:
         "ax": r["arxiv_id"] or "",
         "doi": r["doi"] or "",
         "who": extra.get("author_hits") or [],
+        "tz": "",
+        "az": "",
+        "rv": "",
+        "tr": extra.get("trust") or "",
+        "tw": extra.get("trust_why") or "",
     }
 
 
@@ -122,8 +135,13 @@ def collect(cfg: dict, conn, days: int = 120) -> dict:
             )
 
     notes = store.load_agent_notes(conn, today.isoformat())
+    translated = store.load_annotation_map(conn)
     for it in items:
         it["why"] = notes["items"].get(it["k"], "")
+        ann = translated.get(it["k"]) or {}
+        it["tz"] = ann.get("title_zh") or ""
+        it["az"] = ann.get("abstract_zh") or ""
+        it["rv"] = ann.get("review") or ""
     overview = notes["overview"]
 
     return {

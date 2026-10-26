@@ -100,13 +100,20 @@ class Matcher:
         # keep the leading topics only, so tags stay meaningful
         topics = [tid for tid, s in sorted(topic_scores.items(), key=lambda kv: -kv[1]) if s >= 0.55 * best]
 
-        author_hits = [name for name, rx in self.authors if rx.search(item.get("authors", "") or "")]
+        extra_in = dict(item.get("extra") or {})
+        author_blob = (item.get("authors") or "") + " " + " ".join(extra_in.get("corresponding") or [])
+        author_hits = [name for name, rx in self.authors if rx.search(author_blob)]
         venue = (item.get("venue", "") or "").lower()
         venue_boost = max([b for v, b in self.venues if v and v in venue] or [0.0])
+        trust, trust_why = _trust(item, author_hits, venue_boost)
 
         score = best + venue_boost
         if author_hits:
             score += 3.0
+        if trust == "high":
+            score += 0.4
+        elif trust == "low":
+            score *= 0.92
         if item.get("kind") == "release":
             # a release only matters when it touches a tracked topic
             score += 2.5
@@ -136,11 +143,44 @@ class Matcher:
         item["matched"] = [
             {"topic": tid, "kw": kw, "w": w} for tid in topics for kw, w, _ in hits_by_topic[tid]
         ]
-        item["extra"] = dict(item.get("extra") or {})
+        item["extra"] = extra_in
         item["extra"]["author_hits"] = author_hits
         item["extra"]["venue_boost"] = venue_boost
+        item["extra"]["trust"] = trust
+        item["extra"]["trust_why"] = trust_why
         item["extra"]["topic_names"] = {tid: name_by_topic[tid] for tid in topics}
         return item
+
+
+def _trust(item: dict, author_hits: list[str], venue_boost: float) -> tuple[str, str]:
+    """High / mid / low from venue and watched authors. Country is not a signal."""
+    reasons = []
+    venue = (item.get("venue") or "").strip()
+    kind = item.get("kind") or ""
+    abstract = (item.get("abstract") or "").strip()
+    low_venue = (not venue) or venue.lower().startswith("arxiv")
+    if author_hits:
+        reasons.append("作者：" + "、".join(author_hits[:3]))
+    if venue_boost >= 0.7:
+        reasons.append("期刊在重点名单")
+    elif venue_boost > 0:
+        reasons.append("期刊在关注名单")
+    if author_hits or venue_boost >= 0.7:
+        level = "high"
+    elif venue_boost > 0 or (venue and not low_venue and kind != "preprint"):
+        level = "mid"
+        if venue and not low_venue:
+            reasons.append("正式发表")
+    else:
+        level = "low"
+        if low_venue:
+            reasons.append("预印本或来源不明")
+        if not author_hits:
+            reasons.append("作者不在关注名单")
+    if not abstract and level != "high":
+        level = "low"
+        reasons.append("没有摘要")
+    return level, "；".join(reasons)
 
     def explain(self, text: str) -> list[dict]:
         item = {"title": text, "abstract": "", "authors": "", "venue": "", "source": "x"}

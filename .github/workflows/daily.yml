@@ -41,6 +41,7 @@ jobs:
       - name: Fetch, score, render
         env:
           AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
+          USTC_LLM_KEY: ${{ secrets.USTC_LLM_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOURS: ${{ inputs.hours }}
           BACKFILL: ${{ inputs.backfill }}

@@ -2,7 +2,7 @@
   "profile": {
     "owner": "zhouy",
     "timezone": "Asia/Shanghai",
-    "field_zh": "计算化学 / 有机分子晶体（CSP、晶体生成模型、机器学习势、功能导向筛选）"
+    "field_zh": "计算化学 / 有机分子晶体，以及生成模型、视觉生成与相关数学"
   },
   "run": {
     "lookback_hours": 40,
@@ -99,6 +99,97 @@
       ]
     },
     {
+      "id": "gen-model",
+      "name": "生成模型、新模型与新架构",
+      "weight": 1.1,
+      "tier": "core",
+      "require_any": [
+        "generat",
+        "diffusion",
+        "flow matching",
+        "autoregressive",
+        "latent"
+      ],
+      "keywords": {
+        "diffusion model": 2.4,
+        "flow matching": 2.6,
+        "rectified flow": 2.6,
+        "consistency model": 2.2,
+        "autoregressive": 1.6,
+        "score-based": 2.0,
+        "generative model": 2.2,
+        "diffusion transformer": 2.4,
+        "state space model": 1.8,
+        "mamba": 1.6,
+        "foundation model": 1.2
+      },
+      "zh_hints": [
+        "生成模型",
+        "扩散",
+        "流匹配",
+        "新架构"
+      ]
+    },
+    {
+      "id": "vision-gen",
+      "name": "视觉生成",
+      "weight": 1.05,
+      "tier": "core",
+      "require_any": [
+        "image",
+        "video",
+        "visual",
+        "pixel",
+        "vision"
+      ],
+      "keywords": {
+        "text-to-image": 3.0,
+        "text-to-video": 3.0,
+        "image generation": 2.6,
+        "video generation": 2.6,
+        "world model": 2.2,
+        "latent diffusion": 2.4,
+        "image synthesis": 2.2,
+        "video diffusion": 2.6,
+        "visual generation": 2.4
+      },
+      "zh_hints": [
+        "视觉生成",
+        "图像生成",
+        "视频生成"
+      ]
+    },
+    {
+      "id": "gen-math",
+      "name": "生成模型相关数学",
+      "weight": 1.0,
+      "tier": "core",
+      "min_hits": 2,
+      "require_any": [
+        "diffusion",
+        "flow",
+        "generative",
+        "score-based",
+        "transport"
+      ],
+      "keywords": {
+        "stochastic differential": 2.2,
+        "probability flow": 2.6,
+        "optimal transport": 2.2,
+        "fokker-planck": 2.4,
+        "schrodinger bridge": 2.6,
+        "schrödinger bridge": 2.6,
+        "score-based": 1.8,
+        "wasserstein": 1.8,
+        "flow matching": 2.0
+      },
+      "zh_hints": [
+        "最优传输",
+        "概率流",
+        "随机微分方程"
+      ]
+    },
+    {
       "id": "mlip",
       "name": "机器学习势与通用势函数（MLIP / UMA）",
       "weight": 1.1,
@@ -141,81 +232,6 @@
         "机器学习势",
         "势能面",
         "通用势"
-      ]
-    },
-    {
-      "id": "property",
-      "name": "功能导向的晶体性质与高通量筛选",
-      "weight": 0.95,
-      "require_any": [
-        "crystal",
-        "molecul",
-        "material",
-        "solid",
-        "lattice",
-        "polymer",
-        "organic"
-      ],
-      "keywords": {
-        "high-throughput": 2.0,
-        "structure-property": 2.0,
-        "property prediction": 2.0,
-        "materials discovery": 2.0,
-        "crystal screening": 2.5,
-        "candidate screening": 1.8,
-        "second harmonic generation": 2.5,
-        "nonlinear optical": 2.5,
-        "shg": 2.0,
-        "charge transport": 2.0,
-        "carrier mobility": 2.0,
-        "thermal conductivity": 1.5,
-        "mechanical properties": 1.2,
-        "elastic constants": 1.5,
-        "dielectric": 1.2,
-        "band gap": 1.0,
-        "photostability": 1.5,
-        "co-crystal": 1.5
-      },
-      "tier": "adjacent",
-      "zh_hints": [
-        "高通量",
-        "筛选",
-        "性质",
-        "功能材料"
-      ]
-    },
-    {
-      "id": "defect",
-      "name": "缺陷、无序与固溶体",
-      "weight": 0.7,
-      "keywords": {
-        "point defect": 2.5,
-        "defect formation energy": 3.0,
-        "solid solution": 2.5,
-        "configurational entropy": 2.0,
-        "disorder": 1.2,
-        "vacancy": 1.5,
-        "phase stability": 1.8,
-        "sublattice": 1.5,
-        "special quasirandom": 2.5
-      },
-      "tier": "adjacent",
-      "require_any": [
-        "crystal",
-        "molecul",
-        "organic",
-        "sublattice",
-        "solid solution",
-        "oxide",
-        "perovskite",
-        "semiconductor",
-        "lattice"
-      ],
-      "zh_hints": [
-        "缺陷",
-        "固溶",
-        "无序",
-        "掺杂"
       ]
     },
     {
@@ -294,7 +310,11 @@
     "O. Anatole von Lilienfeld",
     "Bartomeu Monserrat",
     "Erin R. Johnson",
-    "Jack D. Evans"
+    "Jack D. Evans",
+    "Yaron Lipman",
+    "Tero Karras",
+    "Robin Rombach",
+    "Jascha Sohl-Dickstein"
   ],
   "venue_boosts": {
     "journal of the american chemical society": 0.9,
@@ -328,7 +348,10 @@
         "cond-mat.soft",
         "physics.chem-ph",
         "physics.comp-ph",
-        "cs.LG"
+        "cs.LG",
+        "cs.CV",
+        "cs.AI",
+        "stat.ML"
       ],
       "max_results_per_category": 100,
       "weight": 1.0,
@@ -367,9 +390,9 @@
         "crystal structure generation model",
         "machine learning interatomic potential",
         "foundation model atomistic simulation",
-        "high-throughput crystal property screening",
-        "defect formation energy solid",
-        "solid solution configurational entropy"
+        "diffusion model image generation",
+        "flow matching generative model",
+        "video generation diffusion transformer"
       ]
     },
     "rss": {

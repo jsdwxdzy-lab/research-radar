@@ -8,7 +8,7 @@ import sys
 from datetime import timedelta
 from pathlib import Path
 
-from . import agent, dashboard, http, render, store
+from . import agent, annotate, dashboard, http, render, store
 from .score import Matcher
 from .sources import REGISTRY
 from .util import (
@@ -219,6 +219,12 @@ def run(
             log(f"  ! agent 失败（不影响日报）: {exc}")
     elif use_agent:
         log("  · agent 未配置或未启用，跳过点评")
+
+    if not dry_run:
+        try:
+            annotate.run(cfg, conn, log=log)
+        except Exception as exc:
+            log(f"  ! 短评/翻译失败（不影响日报）: {exc}")
 
     trends = render.topic_trends(conn, run_date, cfg)
     calendar = render.upcoming_events(cfg, run_date)

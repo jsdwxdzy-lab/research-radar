@@ -55,6 +55,14 @@ CREATE TABLE IF NOT EXISTS runs (
     digest TEXT,
     note TEXT
 );
+CREATE TABLE IF NOT EXISTS annotations (
+    key TEXT PRIMARY KEY,
+    title_zh TEXT,
+    abstract_zh TEXT,
+    review TEXT,
+    model TEXT,
+    created TEXT
+);
 """
 
 
@@ -178,6 +186,49 @@ def finish_run(conn: sqlite3.Connection, run_id: int, **fields) -> None:
 
 def recent_runs(conn: sqlite3.Connection, limit: int = 10) -> list[dict]:
     return [dict(r) for r in conn.execute("SELECT * FROM runs ORDER BY id DESC LIMIT ?", (limit,))]
+
+
+def pending_annotations(conn: sqlite3.Connection, limit: int) -> list[dict]:
+    rows = conn.execute(
+        """SELECT * FROM items
+           WHERE first_seen >= date('now','-120 day')
+             AND key NOT IN (SELECT key FROM annotations)
+           ORDER BY first_seen DESC, score DESC
+           LIMIT ?""",
+        (int(limit),),
+    ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def save_annotations(conn: sqlite3.Connection, rows: list[dict], model: str) -> None:
+    from .util import now as _now
+
+    created = _now().isoformat(timespec="seconds")
+    conn.executemany(
+        """INSERT OR REPLACE INTO annotations
+           (key, title_zh, abstract_zh, review, model, created)
+           VALUES (?,?,?,?,?,?)""",
+        [
+            (r["key"], r.get("title_zh", ""), r.get("abstract_zh", ""), r.get("review", ""), model, created)
+            for r in rows
+        ],
+    )
+    conn.commit()
+
+
+def load_annotation_map(conn: sqlite3.Connection) -> dict:
+    try:
+        rows = conn.execute("SELECT key, title_zh, abstract_zh, review FROM annotations").fetchall()
+    except sqlite3.OperationalError:
+        return {}
+    return {
+        r["key"]: {
+            "title_zh": r["title_zh"] or "",
+            "abstract_zh": r["abstract_zh"] or "",
+            "review": r["review"] or "",
+        }
+        for r in rows
+    }
 
 
 def prune(conn: sqlite3.Connection, keep_days: int) -> int:
