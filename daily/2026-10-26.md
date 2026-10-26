@@ -1,7 +1,7 @@
 # 科研雷达 · 2026-10-26（周一）
 
 > 领域：计算化学 / 有机分子晶体（CSP、晶体生成模型、机器学习势、功能导向筛选）  
-> 自动生成 16:53 · 抓取窗口 10-25 00:53 → 现在 · 候选 483 → 本轮入库 19 → 今日累计 **23**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 17:14 · 抓取窗口 10-25 01:14 → 现在 · 候选 481 → 本轮入库 19 → 今日累计 **23**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
@@ -133,11 +133,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 342 | ok |
-| crossref | 33 | ok |
+| crossref | 34 | ok |
 | openalex | 67 | ok |
-| rss | 80 | ok |
+| rss | 77 | ok |
 | github | 0 | ok |
 
-> 原始 522 → 去重 483 → 剔除标题噪声 18 → 低相关度 446 → 入库 19。
+> 原始 520 → 去重 481 → 剔除标题噪声 18 → 低相关度 444 → 入库 19。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
