@@ -1,0 +1,84 @@
+name: daily-radar
+
+on:
+  schedule:
+    # 23:30 UTC = 07:30 Asia/Shanghai。GitHub 的 cron 可能延迟几分钟到几十分钟
+    - cron: "30 23 * * *"
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: "回看小时数（留空则用 config.json 里的 lookback_hours）"
+        required: false
+        default: ""
+      backfill:
+        description: "补历史：按发表日期而不是今天写入 first_seen"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-radar
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch, score, render
+        env:
+          AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOURS: ${{ inputs.hours }}
+          BACKFILL: ${{ inputs.backfill }}
+        run: |
+          set -euo pipefail
+          ARGS=""
+          if [ -n "${HOURS:-}" ]; then ARGS="--hours ${HOURS}"; fi
+          if [ "${BACKFILL:-false}" = "true" ]; then ARGS="${ARGS} --backfill"; fi
+          python3 -B -m radar run ${ARGS}
+
+      - name: Stage changes
+        id: stage
+        run: |
+          git add -A
+          git diff --cached --stat | tail -25
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "没有新条目，跳过提交"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.stage.outputs.changed == 'true'
+        run: |
+          git config user.name "radar-bot"
+          git config user.email "radar-bot@users.noreply.github.com"
+          git commit -m "radar: $(date -u +%Y-%m-%d) 自动更新"
+          git push
+
+      - name: Summary
+        if: always()
+        run: |
+          TODAY=$(python3 -B scripts/count_today.py || echo "n/a")
+          {
+            echo "### 科研雷达 $(date -u +%F)"
+            echo ""
+            echo "- 今日新增条目：${TODAY}"
+            echo "- 看板：https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+            echo "- 有提交：${{ steps.stage.outputs.changed }}"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "provider": "openai-compatible",
+  "base_url": "https://agent-team-api.myrimate.cn/v1",
+  "model": "claude-opus-5-5",
+  "api_key_env": "AGENT_API_KEY",
+  "max_items": 6,
+  "max_chars": 900,
+  "max_tokens": 1600,
+  "temperature": 0.3,
+  "timeout_seconds": 120,
+  "json_mode": true,
+  "api_key_file": "~/.config/research-radar/agent_key"
+}

@@ -1,0 +1,458 @@
+{
+  "profile": {
+    "owner": "zhouy",
+    "timezone": "Asia/Shanghai",
+    "field_zh": "计算化学 / 有机分子晶体（CSP、晶体生成模型、机器学习势、功能导向筛选）"
+  },
+  "run": {
+    "lookback_hours": 40,
+    "openalex_lookback_days": 8,
+    "max_items_total": 45,
+    "per_topic": 7,
+    "min_score": 2.6,
+    "min_score_news": 1.2,
+    "max_abstract_chars": 320,
+    "min_score_adjacent": 4.6
+  },
+  "topics": [
+    {
+      "id": "csp",
+      "name": "分子晶体结构预测（CSP）与能量图景",
+      "weight": 1.15,
+      "keywords": {
+        "crystal structure prediction": 3.0,
+        "crystal structure prediction (csp)": 3.0,
+        "molecular crystal": 2.5,
+        "molecular crystals": 2.5,
+        "polymorph": 2.5,
+        "polymorphism": 2.2,
+        "polymorph screening": 2.8,
+        "crystal energy landscape": 3.0,
+        "energy landscape": 1.6,
+        "lattice energy": 2.0,
+        "basin hopping": 2.6,
+        "threshold clustering": 3.0,
+        "monte carlo tree search": 1.8,
+        "conformational search": 1.6,
+        "crystal packing": 1.6,
+        "co-crystal": 2.0,
+        "cocrystal": 2.0,
+        "space group": 1.2,
+        "crystal structure": 1.1,
+        "organic crystal": 2.0,
+        "pharmaceutical crystal": 2.0,
+        "dispersion-corrected": 1.0
+      },
+      "tier": "core",
+      "require_any": [
+        "crystal",
+        "polymorph",
+        "lattice",
+        "molecul",
+        "solid",
+        "co-crystal"
+      ],
+      "zh_hints": [
+        "晶体",
+        "多晶型",
+        "结构预测",
+        "晶型",
+        "晶格能"
+      ]
+    },
+    {
+      "id": "crystal-gen",
+      "name": "生成模型与逆向设计",
+      "weight": 1.1,
+      "keywords": {
+        "crystal generation": 3.0,
+        "generative model": 1.6,
+        "generative models": 1.6,
+        "diffusion model": 1.6,
+        "flow matching": 2.0,
+        "de novo": 1.6,
+        "inverse design": 2.0,
+        "variational autoencoder": 1.0,
+        "symmetry-aware": 1.6,
+        "wyckoff": 2.0,
+        "packora": 3.0,
+        "clari": 3.0,
+        "oxtal": 3.0,
+        "score-based": 1.6,
+        "molecule generation": 2.0,
+        "structure generation": 2.0
+      },
+      "tier": "core",
+      "require_any": [
+        "crystal",
+        "wyckoff",
+        "lattice",
+        "atomistic",
+        "molecul",
+        "periodic"
+      ],
+      "zh_hints": [
+        "生成模型",
+        "扩散模型",
+        "流匹配",
+        "逆向设计"
+      ]
+    },
+    {
+      "id": "mlip",
+      "name": "机器学习势与通用势函数（MLIP / UMA）",
+      "weight": 1.1,
+      "keywords": {
+        "machine learning interatomic potential": 3.0,
+        "machine-learned interatomic potential": 3.0,
+        "interatomic potential": 2.0,
+        "neural network potential": 2.5,
+        "mlip": 3.0,
+        "mace": 2.0,
+        "mattersim": 2.0,
+        "omol25": 2.5,
+        "equivariant": 1.5,
+        "active learning": 1.5,
+        "uncertainty quantification": 1.0,
+        "potential energy surface": 1.5,
+        "nequip": 2.0,
+        "allegro": 2.0,
+        "e3nn": 2.0,
+        "density functional theory": 0.8,
+        "fine-tuning": 0.7,
+        "delta learning": 1.6,
+        "interatomic potential model": 1.5
+      },
+      "tier": "core",
+      "require_any": [
+        "potential",
+        "atomistic",
+        "dft",
+        "density functional",
+        "simulat",
+        "molecul",
+        "material",
+        "crystal",
+        "force field",
+        "interatomic"
+      ],
+      "zh_hints": [
+        "势函数",
+        "机器学习势",
+        "势能面",
+        "通用势"
+      ]
+    },
+    {
+      "id": "property",
+      "name": "功能导向的晶体性质与高通量筛选",
+      "weight": 0.95,
+      "require_any": [
+        "crystal",
+        "molecul",
+        "material",
+        "solid",
+        "lattice",
+        "polymer",
+        "organic"
+      ],
+      "keywords": {
+        "high-throughput": 2.0,
+        "structure-property": 2.0,
+        "property prediction": 2.0,
+        "materials discovery": 2.0,
+        "crystal screening": 2.5,
+        "candidate screening": 1.8,
+        "second harmonic generation": 2.5,
+        "nonlinear optical": 2.5,
+        "shg": 2.0,
+        "charge transport": 2.0,
+        "carrier mobility": 2.0,
+        "thermal conductivity": 1.5,
+        "mechanical properties": 1.2,
+        "elastic constants": 1.5,
+        "dielectric": 1.2,
+        "band gap": 1.0,
+        "photostability": 1.5,
+        "co-crystal": 1.5
+      },
+      "tier": "adjacent",
+      "zh_hints": [
+        "高通量",
+        "筛选",
+        "性质",
+        "功能材料"
+      ]
+    },
+    {
+      "id": "defect",
+      "name": "缺陷、无序与固溶体",
+      "weight": 0.7,
+      "keywords": {
+        "point defect": 2.5,
+        "defect formation energy": 3.0,
+        "solid solution": 2.5,
+        "configurational entropy": 2.0,
+        "disorder": 1.2,
+        "vacancy": 1.5,
+        "phase stability": 1.8,
+        "sublattice": 1.5,
+        "special quasirandom": 2.5
+      },
+      "tier": "adjacent",
+      "require_any": [
+        "crystal",
+        "molecul",
+        "organic",
+        "sublattice",
+        "solid solution",
+        "oxide",
+        "perovskite",
+        "semiconductor",
+        "lattice"
+      ],
+      "zh_hints": [
+        "缺陷",
+        "固溶",
+        "无序",
+        "掺杂"
+      ]
+    },
+    {
+      "id": "ai4s",
+      "name": "AI for Science 方法与自动化",
+      "weight": 0.8,
+      "min_hits": 2,
+      "require_any": [
+        "crystal",
+        "molecul",
+        "material",
+        "chem",
+        "solid",
+        "atomistic",
+        "scientist"
+      ],
+      "keywords": {
+        "large language model": 1.0,
+        "llm": 0.8,
+        "agent": 1.0,
+        "autonomous": 1.5,
+        "self-driving lab": 2.0,
+        "autonomous laboratory": 2.0,
+        "graph neural network": 1.2,
+        "bayesian optimization": 1.5,
+        "transfer learning": 0.8,
+        "benchmark": 0.8,
+        "dataset": 0.6,
+        "representation learning": 1.0,
+        "multimodal": 0.8
+      },
+      "tier": "core",
+      "zh_hints": [
+        "智能体",
+        "自动化",
+        "大模型",
+        "主动学习"
+      ]
+    }
+  ],
+  "exclude_patterns": [
+    "erratum",
+    "corrigendum",
+    "correction to",
+    "retraction",
+    "retracted",
+    "comment on",
+    "reply to",
+    "editorial",
+    "book review",
+    "obituary",
+    "issue information",
+    "table of contents",
+    "front cover",
+    "back cover",
+    "cover picture",
+    "in this issue",
+    "author index",
+    "title page",
+    "index pages",
+    "call for papers",
+    "publisher's note"
+  ],
+  "watch_authors": [
+    "Graeme M. Day",
+    "David J. Wales",
+    "Noa Marom",
+    "Angelos Michaelides",
+    "Alexandre Tkatchenko",
+    "Kim E. Jelfs",
+    "Claire S. Adjiman",
+    "Volker L. Deringer",
+    "Michele Ceriotti",
+    "Gabor Csanyi",
+    "Shyue Ping Ong",
+    "O. Anatole von Lilienfeld",
+    "Bartomeu Monserrat",
+    "Erin R. Johnson",
+    "Jack D. Evans"
+  ],
+  "venue_boosts": {
+    "journal of the american chemical society": 0.9,
+    "chemical science": 0.8,
+    "nature communications": 0.8,
+    "nature chemistry": 0.9,
+    "nature materials": 0.9,
+    "nature computational science": 0.9,
+    "npj computational materials": 0.9,
+    "journal of chemical theory and computation": 0.8,
+    "journal of physical chemistry letters": 0.7,
+    "crystal growth & design": 0.8,
+    "crystal growth and design": 0.8,
+    "acta crystallographica": 0.7,
+    "iucrj": 0.9,
+    "journal of chemical physics": 0.6,
+    "physical review letters": 0.6,
+    "digital discovery": 0.8,
+    "angewandte chemie": 0.7,
+    "matter": 0.7,
+    "journal of physical chemistry c": 0.5,
+    "crystengcomm": 0.5,
+    "chemical reviews": 0.6,
+    "arxiv": 0.0
+  },
+  "sources": {
+    "arxiv": {
+      "enabled": true,
+      "categories": [
+        "cond-mat.mtrl-sci",
+        "cond-mat.soft",
+        "physics.chem-ph",
+        "physics.comp-ph",
+        "cs.LG"
+      ],
+      "max_results_per_category": 100,
+      "weight": 1.0,
+      "lookback_days": 7
+    },
+    "crossref": {
+      "enabled": true,
+      "issns": {
+        "0002-7863": "J. Am. Chem. Soc.",
+        "2041-6520": "Chem. Sci.",
+        "2041-1723": "Nat. Commun.",
+        "1549-9618": "J. Chem. Theory Comput.",
+        "1948-7185": "J. Phys. Chem. Lett.",
+        "1528-7483": "Cryst. Growth Des.",
+        "2052-5206": "Acta Cryst. B",
+        "2052-2525": "IUCrJ",
+        "0021-9606": "J. Chem. Phys.",
+        "2057-3960": "npj Comput. Mater.",
+        "2635-098X": "Digital Discovery",
+        "1466-8033": "CrystEngComm",
+        "1932-7447": "J. Phys. Chem. C",
+        "2590-2385": "Matter"
+      },
+      "rows_per_journal": 25,
+      "weight": 1.0,
+      "lookback_days": 0
+    },
+    "openalex": {
+      "enabled": true,
+      "weight": 1.05,
+      "per_page": 25,
+      "api_key": "",
+      "queries": [
+        "molecular crystal structure prediction",
+        "polymorph prediction crystal",
+        "crystal structure generation model",
+        "machine learning interatomic potential",
+        "foundation model atomistic simulation",
+        "high-throughput crystal property screening",
+        "defect formation energy solid",
+        "solid solution configurational entropy"
+      ]
+    },
+    "rss": {
+      "enabled": true,
+      "weight": 0.9,
+      "feeds": [
+        {
+          "url": "https://www.nature.com/nchem.rss",
+          "name": "Nature Chemistry"
+        },
+        {
+          "url": "https://www.nature.com/nmat.rss",
+          "name": "Nature Materials"
+        },
+        {
+          "url": "https://www.nature.com/npjcompumats.rss",
+          "name": "npj Comput. Mater."
+        },
+        {
+          "url": "https://www.nature.com/ncomms.rss",
+          "name": "Nature Communications"
+        },
+        {
+          "url": "https://www.nature.com/nature.rss",
+          "name": "Nature"
+        },
+        {
+          "url": "https://www.sciencedaily.com/rss/matter_energy/chemistry.xml",
+          "name": "ScienceDaily Chemistry"
+        },
+        {
+          "url": "https://www.sciencedaily.com/rss/matter_energy/materials_science.xml",
+          "name": "ScienceDaily Materials"
+        }
+      ],
+      "lookback_days": 5
+    },
+    "github": {
+      "enabled": true,
+      "weight": 1.0,
+      "repos": [
+        "ACEsuit/mace",
+        "facebookresearch/fairchem",
+        "microsoft/mattersim",
+        "orbital-materials/orb-models",
+        "deepmodeling/deepmd-kit",
+        "materialsvirtuallab/matgl",
+        "qzhu2017/PyXtal",
+        "materialsproject/pymatgen",
+        "rdkit/rdkit",
+        "torchsim/torch-sim"
+      ]
+    }
+  },
+  "output": {
+    "daily_dir": "daily",
+    "latest": "latest.md",
+    "keep_days": 400
+  },
+  "notify": {
+    "macos_notification": true
+  },
+  "calendar_file": "config/events.json",
+  "venue_block_patterns": [
+    "zenodo",
+    "figshare",
+    "dryad",
+    "osf\\.io",
+    "research square",
+    "ssrn",
+    "authorea",
+    "publication database",
+    "preprints\\.org",
+    "protocols\\.io",
+    "scienceopen",
+    "europepmc"
+  ],
+  "negative_patterns": [
+    "operational design domain",
+    "autonomous driving",
+    "self-driving vehicle",
+    "traffic",
+    "protein structure prediction",
+    "recommender system"
+  ]
+}

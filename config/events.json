@@ -1,0 +1,76 @@
+{
+  "_note": "年度会议/活动近似日历。month/day 为通常举办时间，逐年会变动 —— 以官网为准。新增条目可自由编辑本文件。",
+  "window_days": 120,
+  "events": [
+    {
+      "name": "APS March Meeting",
+      "month": 3,
+      "day": 10,
+      "url": "https://www.aps.org/meetings/march",
+      "note": "凝聚态/材料模拟大本营，MLIP 与晶体方法学分会场集中"
+    },
+    {
+      "name": "ACS Spring National Meeting",
+      "month": 3,
+      "day": 20,
+      "url": "https://www.acs.org/meetings.html",
+      "note": "COMP 分会（计算化学）与晶体学相关 symposium"
+    },
+    {
+      "name": "MRS Spring Meeting",
+      "month": 4,
+      "day": 15,
+      "url": "https://www.mrs.org/spring-meeting",
+      "note": "材料信息学、机器学习势相关 session"
+    },
+    {
+      "name": "ACA Annual Meeting",
+      "month": 7,
+      "day": 20,
+      "url": "https://www.amercrystalassn.org/",
+      "note": "美国晶体学协会年会，CSP / 粉末衍射方向"
+    },
+    {
+      "name": "ACS Fall National Meeting",
+      "month": 8,
+      "day": 17,
+      "url": "https://www.acs.org/meetings.html",
+      "note": "秋季年会，COMP/PHYS 分会"
+    },
+    {
+      "name": "CCP5 Annual Meeting",
+      "month": 9,
+      "day": 10,
+      "url": "https://www.ccp5.ac.uk/",
+      "note": "英国凝聚态模拟社区年会，分子晶体与增强采样常见"
+    },
+    {
+      "name": "Faraday Discussions (RSC, 多场/年)",
+      "month": 9,
+      "day": 15,
+      "url": "https://www.rsc.org/events/faraday-discussions",
+      "note": "主题轮换，遇到 crystal / machine learning 主题值得投"
+    },
+    {
+      "name": "MRS Fall Meeting",
+      "month": 12,
+      "day": 1,
+      "url": "https://www.mrs.org/fall-meeting",
+      "note": "材料计算与 AI 相关 session"
+    },
+    {
+      "name": "NeurIPS + ML4PS / AI4Science workshops",
+      "month": 12,
+      "day": 8,
+      "url": "https://neurips.cc/",
+      "note": "机器学习与物理科学交叉方法的最新动向"
+    },
+    {
+      "name": "CECAM workshops / schools（全年滚动）",
+      "month": 6,
+      "day": 1,
+      "url": "https://www.cecam.org/events",
+      "note": "分子模拟、增强采样、CSP 主题的工作坊与暑期学校，需常查官网"
+    }
+  ]
+}

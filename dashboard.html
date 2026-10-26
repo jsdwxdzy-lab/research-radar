@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>科研雷达 · Research Radar</title>
+<style>
+:root{
+  --bg:#f5f6f8; --panel:#ffffff; --panel-2:#fafbfc; --text:#15181e; --muted:#6b7280;
+  --line:#e4e7ec; --line-2:#eef0f4; --accent:#4f46e5; --accent-2:#eef2ff;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+  --radius:12px; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
+}
+html[data-theme="dark"]{
+  --bg:#0e1014; --panel:#15181e; --panel-2:#1a1e26; --text:#e7e9ee; --muted:#98a1b0;
+  --line:#252b35; --line-2:#1e232c; --accent:#8b93ff; --accent-2:#20243a;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+@media (prefers-color-scheme: dark){
+  html[data-theme="auto"]{
+    --bg:#0e1014; --panel:#15181e; --panel-2:#1a1e26; --text:#e7e9ee; --muted:#98a1b0;
+    --line:#252b35; --line-2:#1e232c; --accent:#8b93ff; --accent-2:#20243a;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;font-size:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.hidden{display:none !important}
+.muted{color:var(--muted)}
+.spacer{flex:1}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;
+  padding:10px 18px;background:color-mix(in srgb,var(--panel) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.brand{font-weight:650;letter-spacing:.02em;white-space:nowrap}
+.brand .sub{font-weight:400;color:var(--muted);font-size:12px;margin-left:8px}
+.search{flex:1;max-width:520px;position:relative}
+.search input{width:100%;padding:8px 12px 8px 30px;border-radius:9px;border:1px solid var(--line);
+  background:var(--panel-2);color:var(--text);font-size:13px;outline:none}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent)}
+.search .ico{position:absolute;left:10px;top:8px;color:var(--muted);font-size:13px}
+.tops{display:flex;gap:6px;align-items:center}
+.tops button{padding:7px 11px;border-radius:8px;border:1px solid transparent;color:var(--muted);font-size:13px}
+.tops button:hover{background:var(--panel-2);color:var(--text)}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:264px minmax(0,1fr);align-items:start}
+.sidebar{position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;padding:14px 12px 40px;
+  border-right:1px solid var(--line);background:var(--panel)}
+.sidebar h3{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+  margin:18px 6px 8px;font-weight:600}
+.viewlist{display:flex;flex-direction:column;gap:1px}
+.view{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;color:var(--text);font-size:13px;width:100%;text-align:left}
+.view:hover{background:var(--panel-2)}
+.view.on{background:var(--accent-2);color:var(--accent);font-weight:600}
+.view .n{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.view.on .n{color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:5px;padding:0 4px}
+.fchip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:11.5px;
+  border:1px solid var(--line);color:var(--muted);background:var(--panel-2)}
+.fchip:hover{border-color:var(--accent);color:var(--accent)}
+.fchip.on{background:color-mix(in srgb,hsl(var(--h,220) 65% 55%) 16%,transparent);
+  border-color:hsl(var(--h,220) 60% 55%);color:hsl(var(--h,220) 55% 42%)}
+html[data-theme="dark"] .fchip.on{color:hsl(var(--h,220) 80% 72%)}
+.fchip .dot{width:6px;height:6px;border-radius:50%;background:hsl(var(--h,220) 60% 55%)}
+.datelist{display:flex;flex-direction:column;gap:1px;max-height:320px;overflow-y:auto}
+.date{display:flex;align-items:center;gap:8px;padding:5px 9px;border-radius:7px;font-size:12.5px;color:var(--muted);width:100%;text-align:left}
+.date:hover{background:var(--panel-2);color:var(--text)}
+.date.on{background:var(--accent-2);color:var(--accent);font-weight:600}
+.date .n{margin-left:auto;font-family:var(--mono);font-size:11px}
+.health{margin-top:22px;padding:10px 8px 0;border-top:1px solid var(--line-2);font-size:11.5px;color:var(--muted)}
+.health div{display:flex;gap:6px;align-items:center;padding:2px 0}
+.health .ok{color:#16a34a}.health .bad{color:#dc2626}
+
+/* ---------- main ---------- */
+.main{padding:18px 22px 80px;max-width:1020px}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.crumb{font-size:15px;font-weight:650}
+.crumb small{font-weight:400;color:var(--muted);font-size:12px;margin-left:8px}
+.tool{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel);font-size:12.5px;color:var(--muted)}
+.tool:hover{border-color:var(--accent);color:var(--accent)}
+select.tool{appearance:none;padding-right:8px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+/* overview + why */
+.overview{margin:0 0 12px;padding:12px 16px;border-left:3px solid var(--accent)}
+.overview .ovhead{font-size:11.5px;color:var(--muted);letter-spacing:.04em;margin-bottom:5px}
+.overview p{margin:0;font-size:13.5px;line-height:1.7}
+.cwhy{margin-top:8px;font-size:12.5px;color:color-mix(in srgb,var(--accent) 45%,var(--text));
+  background:color-mix(in srgb,var(--accent) 7%,transparent);border-radius:7px;padding:6px 9px;line-height:1.6}
+
+/* trend */
+.trend{margin:6px 0 14px;padding:12px 14px}
+.trend-head{display:flex;align-items:center;font-size:12px;color:var(--muted);margin-bottom:8px}
+.trend-head .mini{margin-left:auto;color:var(--accent);font-size:12px}
+.trend-body{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
+.trow{display:grid;grid-template-columns:74px 1fr 66px;align-items:center;gap:10px;padding:5px 6px;border-radius:8px;text-align:left}
+.trow:hover{background:var(--panel-2)}
+.trow.on{background:var(--accent-2)}
+.tname{font-size:12px;font-weight:600;color:hsl(var(--h,220) 55% 42%);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-theme="dark"] .tname{color:hsl(var(--h,220) 80% 70%)}
+.spark{display:flex;align-items:flex-end;gap:2px;height:26px;border-bottom:1px solid var(--line-2)}
+.spark .bar{flex:1;background:hsl(var(--h,220) 60% 78%);border-radius:2px 2px 0 0;min-height:2px}
+.spark .bar.now{background:hsl(var(--h,220) 60% 52%)}
+.tnum{font-family:var(--mono);font-size:12px;text-align:right}
+.tnum i{font-style:normal;font-size:10.5px;margin-left:4px}
+.tnum .up{color:#16a34a}.tnum .down{color:#dc2626}
+.tnum .new{color:var(--accent)}.tnum .flat{color:var(--muted)}
+
+/* cards */
+.daybar{display:flex;align-items:center;gap:8px;margin:22px 0 10px;font-size:13px}
+.daybar b{font-family:var(--mono)}
+.daybar .wd{color:var(--muted)}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-left:3px solid hsl(var(--h,220) 55% 65%);
+  border-radius:10px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow);transition:border-color .12s}
+.card:hover{border-color:var(--line);border-left-color:hsl(var(--h,220) 55% 55%)}
+.card.read{opacity:.62}
+.card.read:hover{opacity:1}
+.card.focus{outline:2px solid var(--accent);outline-offset:1px}
+.chead{display:flex;align-items:flex-start;gap:8px}
+.ctitle{flex:1;font-weight:600;font-size:14.5px;line-height:1.42}
+.ctitle a:hover{color:var(--accent)}
+.icon{width:24px;height:24px;border-radius:6px;color:var(--muted);line-height:1;display:grid;place-items:center;flex:0 0 auto}
+.icon:hover{background:var(--panel-2);color:var(--accent)}
+.btn-star.on{color:#f59e0b}
+.score{font-family:var(--mono);font-size:11.5px;color:var(--muted);background:var(--panel-2);
+  padding:2px 6px;border-radius:6px;flex:0 0 auto;margin-top:2px}
+.cmeta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:7px 0 0;font-size:11.5px;color:var(--muted)}
+.chip{padding:1.5px 7px;border-radius:999px;font-size:11px;
+  background:color-mix(in srgb,hsl(var(--h,220) 65% 55%) 14%,transparent);
+  color:hsl(var(--h,220) 55% 40%);border:1px solid color-mix(in srgb,hsl(var(--h,220) 65% 55%) 28%,transparent)}
+html[data-theme="dark"] .chip{color:hsl(var(--h,220) 80% 74%)}
+.chip.kind{--h:0;background:var(--panel-2);color:var(--muted);border-color:var(--line)}
+.venue{font-style:italic}
+.who{color:#7c3aed}
+.multi{background:var(--panel-2);padding:1px 6px;border-radius:999px;border:1px solid var(--line)}
+.ckw{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.ckw span{font-size:11px;color:var(--muted);background:var(--panel-2);border-radius:5px;padding:1px 6px;
+  border:1px solid var(--line-2);font-family:var(--mono)}
+.cabs{margin-top:7px;font-size:12.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card.open .cabs{-webkit-line-clamp:unset;display:block}
+.cfoot{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:11.5px;color:var(--muted)}
+.link{color:var(--muted)}
+.link:hover{color:var(--accent)}
+.more{border-top:1px dashed var(--line);margin-top:9px;padding-top:8px;font-size:12px;color:var(--muted)}
+.mrow{margin:3px 0}
+.mrow b{color:var(--text);font-weight:600;margin-right:6px}
+textarea.note{width:100%;margin-top:8px;min-height:46px;resize:vertical;border-radius:8px;border:1px solid var(--line);
+  background:var(--panel-2);color:var(--text);padding:7px 9px;font-size:12.5px;font-family:inherit;outline:none}
+textarea.note:focus{border-color:var(--accent)}
+.empty{padding:40px 10px;text-align:center;color:var(--muted);font-size:13px}
+.empty b{display:block;color:var(--text);font-size:14px;margin-bottom:6px}
+.morebtn{width:100%;margin:10px 0 0;padding:10px;border-radius:10px;border:1px dashed var(--line);
+  color:var(--muted);font-size:12.5px}
+.morebtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* calendar */
+.events{margin-top:18px;padding:12px 14px}
+.events h3{font-size:12px;color:var(--muted);margin:0 0 8px;font-weight:600}
+.ev{display:flex;align-items:center;gap:9px;padding:5px 0;border-top:1px solid var(--line-2);font-size:12.5px}
+.ev b{font-family:var(--mono);color:var(--accent);min-width:44px}
+.ev em{margin-left:auto;font-style:normal;color:var(--muted);font-size:11px}
+
+/* stats */
+.stats{margin-top:18px;padding:12px 14px}
+.stats h3{font-size:12px;color:var(--muted);margin:0 0 8px;font-weight:600}
+.stats .grp{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
+.stats .grp b{font-size:11px;color:var(--muted);font-weight:600;width:100%;margin-bottom:2px}
+.stats .kv{font-size:11.5px;padding:2px 7px;border-radius:999px;background:var(--panel-2);
+  border:1px solid var(--line-2);color:var(--muted)}
+.stats .kv:hover{border-color:var(--accent);color:var(--accent)}
+.stats .kv i{font-style:normal;font-family:var(--mono);font-size:10.5px;margin-left:4px;opacity:.7}
+mark{background:color-mix(in srgb,var(--accent) 28%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+
+/* toast + help */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#111827;color:#fff;
+  padding:9px 14px;border-radius:9px;font-size:12.5px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.help{position:fixed;inset:0;background:rgba(0,0,0,.35);display:grid;place-items:center;z-index:70}
+.help .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;max-width:420px;width:92%}
+.help h4{margin:0 0 10px}
+.help table{width:100%;border-collapse:collapse;font-size:12.5px}
+.help td{padding:3px 0;color:var(--muted)}
+.help td:first-child{width:96px;color:var(--text);font-family:var(--mono)}
+.err{position:fixed;left:12px;bottom:12px;right:12px;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;
+  padding:10px;border-radius:8px;font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;z-index:99}
+
+@media print{
+  .sidebar,.tops,.search .ico,.toolbar,#trend,#events,#stats,.cfoot,.icon,.btn-more,.toast,.help{display:none !important}
+  .layout{display:block}
+  .main{padding:0;max-width:none}
+  .card{break-inside:avoid;box-shadow:none;border:1px solid #ddd;border-left-width:3px}
+  body{background:#fff}
+}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;gap:0 16px;max-height:none}
+  .sidebar>section:last-of-type,.health{grid-column:1/-1}
+  .datelist{flex-direction:row;overflow-x:auto;max-height:none}
+  .date{white-space:nowrap}
+  .trend-body{grid-template-columns:1fr}
+  .main{padding:14px 12px 60px}
+  .topbar{gap:8px;padding:9px 12px}
+  .brand .sub{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">科研雷达 <span class="sub" id="generated"></span></div>
+  <div class="search">
+    <span class="ico">⌕</span>
+    <input id="q" type="search" placeholder="搜索标题 / 摘要 / 作者 / 期刊 …  按 / 聚焦" autocomplete="off">
+  </div>
+  <div class="tops">
+    <button id="btnTheme" title="深浅色">◐</button>
+    <button id="btnHelp" title="快捷键 (?)">?</button>
+    <button id="btnExport" title="导出当前列表">导出</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <nav class="viewlist" id="views"></nav>
+
+    <section>
+      <h3>主题分区</h3>
+      <div class="filters" id="topicFilter"></div>
+    </section>
+
+    <section>
+      <h3>来源</h3>
+      <div class="filters" id="sourceFilter"></div>
+    </section>
+
+    <section>
+      <h3>历史日报</h3>
+      <div class="datelist" id="dateList"></div>
+    </section>
+
+    <div class="health" id="health"></div>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="crumb" id="crumb"></div>
+      <div class="spacer"></div>
+      <select class="tool" id="sort">
+        <option value="score">按相关度</option>
+        <option value="date">按时间</option>
+        <option value="venue">按期刊</option>
+        <option value="topic">按主题分区</option>
+      </select>
+      <button class="tool" id="btnReadAll" title="把当前列表全部标记已读">全部已读</button>
+      <button class="tool" id="btnClear">清除筛选</button>
+    </div>
+
+    <div class="panel overview" id="overview"></div>
+    <div class="panel trend" id="trend"></div>
+    <div id="list"></div>
+    <div class="panel stats" id="stats"></div>
+    <div class="panel events" id="events"></div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="helpHost"></div>
+
+<script>
+const DATA = {"overview":"今天最值得看的是第1条：它结合CSP、力场晶格能与晶格动力学、Δ-ML能量校正和缩放配分函数，用代表性取代超胞系综估算蒽/吖啶/吩嗪二元、三元混晶的组成依赖自由能，直接对应你关注的固溶与能量图景，可借鉴为稳定性评估流程。其次是第2条Orbitol：它以Wyckoff轨道为token，按指定空间群生成晶体，是无机晶体生成方向的对标工作。它的对称性约束思路能否迁移到分子晶体的分子位点，是值得追的线索。","generated":"2026-10-26 16:53","today":"2026-10-26","field":"计算化学 / 有机分子晶体（CSP、晶体生成模型、机器学习势、功能导向筛选）","owner":"zhouy","topics":[{"id":"csp","name":"分子晶体结构预测（CSP）与能量图景","short":"CSP","tier":"core","hue":255},{"id":"crystal-gen","name":"生成模型与逆向设计","short":"生成设计","tier":"core","hue":300},{"id":"mlip","name":"机器学习势与通用势函数（MLIP / UMA）","short":"MLIP","tier":"core","hue":190},{"id":"property","name":"功能导向的晶体性质与高通量筛选","short":"性质筛选","tier":"adjacent","hue":25},{"id":"defect","name":"缺陷、无序与固溶体","short":"缺陷无序","tier":"adjacent","hue":145},{"id":"ai4s","name":"AI for Science 方法与自动化","short":"AI4S","tier":"core","hue":215}],"days":[{"d":"2026-10-26","n":23},{"d":"2026-10-23","n":4},{"d":"2026-10-22","n":3},{"d":"2026-10-21","n":2},{"d":"2026-10-20","n":4}],"items":[{"k":"doi:10.1021/acs.cgd.6c00999","t":"Structure and Stability Prediction of Binary and Ternary Molecular Mixed Crystals Using Ensemble Free Energies","a":"Mixed crystals provide a route to tune the properties of molecular solids through continuous changes in composition. However, predicting their stability is challenging because it requires determining both substitution energies and configurational entropy across large configuration spaces. Here, we combine crystal structure prediction, force field lattice energy and lattice dynamics calculations, and Δ-machine-learning energy corrections with a scaled partition-function approach to assess structure prediction and evaluate binary and ternary mixed crystals of anthracene (ANT), acridine (ACR), and phenazine (PNZ). The composition-dependent ensemble free energy (ΔGensemble) was estimated without exhaustive enumeration of all configurations from representative ensembles of substituted supercell models of mixed crystals. Crystal structure prediction reproduces the known polymorphs as the lowes","au":["Anthony J. R. Payne","Sarah Madeira","Graeme Matthew Day"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c00999","p":"2026-10-22","d":"2026-10-26","s":10.4,"tp":["csp"],"kw":["crystal structure prediction","crystal structure","lattice energy"],"src":["openalex","crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c00999","who":["Graeme M. Day"],"why":"用代表性取代超胞系综代替穷举来估算混晶ΔG，CSP复现已知多晶型，直接服务固溶研究。"},{"k":"arxiv:2610.30086","t":"Orbitol: Crystal Generation on Wyckoff Orbits","a":"Generative models propose crystalline materials by learning composition and geometry, but unconditional sampling gives no direct control over the space group, which constrains whether responses such as piezoelectricity are symmetry-allowed. We present Orbitol, a crystal generator built on the Crystalite diffusion Transformer that replaces atom tokens with Wyckoff-orbit tokens. Given a space group and a collection of occupied Wyckoff positions, Orbitol generates the atom type and free coordinates of each orbit together with a compatible lattice, so every valid structure is invariant under the operations of the requested group. It generates structures two to three orders of magnitude faster than the symmetry-aware baselines at the evaluated settings. On MP-20, 13.8% of Orbitol's attempts yielded stable or metastable, unique and novel structures that retained the requested space group after","au":["Ivan Žugec","Joshua Rosenthal","Ivor Lončarić","Jan-Willem van de Meent","Tin Hadži Veljković"],"v":"arXiv","u":"https://arxiv.org/abs/2610.30086","p":"2026-10-21","d":"2026-10-26","s":10.0,"tp":["crystal-gen"],"kw":["crystal generation","generative models","symmetry-aware","wyckoff"],"src":["openalex"],"kind":"preprint","ax":"","doi":"10.48550/arxiv.2610.30086","who":[],"why":"用Wyckoff轨道token约束空间群，比对称性基线快两到三个数量级，MP-20上13.8%为稳定新结构。"},{"k":"t:1cb3085840a024","t":"Automatically Building and Updating a Knowledge Graph of MLIP Models","a":"Complementing the many efforts in providing semantic representations of concepts, notions, and entities in materials science, we report and illustrate a process by which we can automatically build a knowledge graph of the fast evolving field of machine learning applied to the prediction of material properties, focusing on MLIP (Machine Learning Interatomic Potential). This LLM-based process relies on multiple steps, from information extraction in documents and articles to a validation loop using SHACL constraints to detect and correct errors. It is carried out on a model-by-model basis, focusing on the consistency of representation, therefore enabling an iterative construction where the addition of new models is facilitated. We illustrate the process by showing a few interesting aspects that can be queried from a knowledge graph built from the models listed in the Matbench Discovery lead","au":["Alexis Beer","L. Klochko","Mathieu d’Aquin"],"v":"HAL","u":"https://hal.science/hal-05785570","p":"2026-10-25","d":"2026-10-26","s":9.9,"tp":["mlip"],"kw":["machine learning interatomic potential","interatomic potential","mlip"],"src":["openalex"],"kind":"paper","ax":"","doi":"","who":[],"why":"关联较弱，可作为背景；用LLM加SHACL校验自动构建MLIP知识图谱，便于追踪通用势进展。"},{"k":"arxiv:2610.26301","t":"Machine Learning-Assisted Discovery of Carbon-Related Defect Formation Mechanisms in Diamond","a":"Diamond is an important host material for functional defects such as solid-state spin qubits. During the defect creation by irradiation and subsequent thermal annealing, carbon-related defects, including vacancies and interstitials, are generated and can migrate to form new defect complexes. To investigate this kinetically driven process and reveal the formation mechanisms of the di-interstitials and di-vacancies in the neutral charge state, we fine-tuned a universal machine learning interatomic potential using a small dataset generated from density functional theory calculations. We obtained a barrier of 1.84 eV for mono-interstitial migration and found that two initially separated mono-interstitials only need to overcome a lower barrier to form di-interstitial configurations. Beyond the training data, the MLIP also identified the formation pathway for an additional di-interstitial conf","au":["Grace Huang","Christopher Fivecoat","Xun Xu","Mengen Wang"],"v":"arXiv","u":"https://arxiv.org/abs/2610.26301","p":"2026-10-19","d":"2026-10-26","s":9.4,"tp":["mlip"],"kw":["machine learning interatomic potential","density functional theory","interatomic potential","mlip"],"src":["openalex"],"kind":"preprint","ax":"","doi":"10.48550/arxiv.2610.26301","who":[],"why":"用小规模DFT数据微调通用势，研究金刚石间隙与空位的迁移和聚集，微调策略对缺陷建模有参考价值。"},{"k":"arxiv:2610.27762","t":"CrystalAR: Autoregressive Modeling for Symmetric Crystal Generation","a":"Deep generative modeling has achieved remarkable progress in crystal generation. Given the rich symmetries inherent in crystalline structures, recent work has sought to explicitly incorporate space-group symmetry into generative models, enabling more effective exploration of novel symmetry templates. Yet introducing symmetry templates increases the combinatorial complexity of stoichiometric relationships between atomic species and crystallographic sites, while creating a fundamental tension between flexible exploration of discrete crystallographic templates and faithful realization of these templates as continuous three-dimensional structures. To address these challenges, we propose CrystalAR, a unified autoregressive framework that models Wyckoff symmetry templates and complete crystal structures within a single generative sequence. Specifically, CrystalAR reformulates continuous coordi","au":["Ziqiao Meng","Rongsheng Chen","郑直","N. Kazeev","Zhenkun Wang","Andrey Ustyuzhanin","Wee Sun Lee"],"v":"arXiv","u":"https://arxiv.org/abs/2610.27762","p":"2026-10-20","d":"2026-10-26","s":9.4,"tp":["crystal-gen","csp"],"kw":["crystal generation","generative models","de novo","wyckoff","crystal structure prediction (csp)","crystal structure prediction","crystal structure","space group"],"src":["openalex"],"kind":"preprint","ax":"","doi":"10.48550/arxiv.2610.27762","who":[],"why":"在单一自回归序列中联合建模Wyckoff模板与完整结构，与Orbitol同属对称性生成的对标工作。"},{"k":"doi:10.1002/adma.75492","t":"Machine‐Learning‐Potential‐Driven Volcano Relationship in Grain Boundary Amorphicity and Ionic Transport of Antiperovskite Solid Electrolytes","a":"Ionic transport in solid‐state electrolytes is governed by interfacial disorder and local chemical environments, yet their microscopic design principles remain challenging because large‐scale interfacial kinetics are simulated using molecular dynamics (MD), where predictive design requires quantum‐level accuracy. Here, we use an actively learned machine learning interatomic potential (MLIP) to bridge this scale‐accuracy gap in halide‐tunable antiperovskite solid electrolytes. By varying the local Cl − /Br − ratio and quantifying interfacial amorphicity and ion flux, we identify an MLIP‐driven volcano relationship between structural disorder and ionic transport. Cl‐enriched grain boundaries remain overly ordered, whereas Br − enrichment induces excessive disorder that disrupts migration. Intermediate halide compositions maximize ionic transport through moderately amorphous environments. G","au":["Abdullah Bin Faheem","Haobo Li"],"v":"Advanced Materials","u":"https://doi.org/10.1002/adma.75492","p":"2026-10-23","d":"2026-10-26","s":9.2,"tp":["mlip"],"kw":["machine learning interatomic potential","interatomic potential","mlip"],"src":["openalex"],"kind":"paper","ax":"","doi":"10.1002/adma.75492","who":[],"why":"关联较弱，可作为背景；用主动学习MLIP揭示卤素比例、晶界无序与离子输运之间的火山关系。"},{"k":"arxiv:2610.29634","t":"Symmetry-Based Parameter Efficient Low-Rank Fine-Tuning for High-Throughput Calculation of Lattice Thermal Conductivity","a":"Accurate and efficient prediction of lattice thermal conductivity (LTC) is essential for developing materials for thermoelectric, microelectronic, and photovoltaic applications. Here, we present a methodology for high-throughput calculation of LTC across large datasets of compounds sharing a common crystal symmetry. Our approach combines fine-tuning of the MatterSim 1M universal machine-learned interatomic potential with LTC calculations based on the solution of the Boltzmann transport equation. We introduce a symmetry-based few-shot fine-tuning strategy (SBFS-FT) based on low-rank adaptation. In this approach, MatterSim 1M is fine-tuned on a small, carefully selected set of compounds that share a common crystal symmetry. The resulting potential is then applicable for accurate LTC calculations for compounds with this crystal symmetry, even if they were not included in the fine-tuning set","au":["Rustam Arabov","Konstantin Sozykin","Nikita Rybin","Alexander Shapeev"],"v":"arXiv","u":"https://arxiv.org/abs/2610.29634","p":"2026-10-21","d":"2026-10-26","s":8.4,"tp":["mlip"],"kw":["machine-learned interatomic potential","interatomic potential","fine-tuning","mattersim"],"src":["arxiv"],"kind":"preprint","ax":"2610.29634","doi":"","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c00526","t":"Slipping into Solvates: Structure-Surface-Solvent Interplay in the Mechanochemical Solvate Formation of Ivacaftor","a":"Solvate formation in molecular crystals remains difficult to predict, particularly under non-equilibrium conditions, where the initial solid state, mechanically generated surfaces, anisotropic surface chemistry, and solvent properties collectively influence solid-solvent interactions. While mechanochemical processing is widely used to access new solid forms, the structural features that control solvent incorporation during mechanical activation are not yet well understood. In this work, we investigate mechanochemically induced solvate formation in ivacaftor as a model molecular crystal, focusing on the effects of solvent nature, liquid-additive volume, milling duration, and starting solid form. Form C transformed selectively to a solvate, in MeOH, THF, and DMSO, whereas the amorphous material exhibited broader solvate-forming behavior, including hydrate and non-polar solvate formation. T","au":["Argyro Chatziadi","Adéla Koryt’áková","Eliška Zmeškalová","Jan Rohlíček","Markéta Jarošová","Morgane Poupon","Luděk Ridvan","Miroslav Šoóš"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c00526","p":"2026-10-24","d":"2026-10-26","s":7.8,"tp":["csp"],"kw":["molecular crystals","molecular crystal","crystal structure"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c00526","who":[],"why":""},{"k":"arxiv:2610.31183","t":"Unconstrained learning of equivariant atomistic properties","a":"Machine-learned interatomic potentials based on graph neural networks (GNNs) have made first-principles accuracy routine for the potential energy surface (PES). Their backbones, often O(3)-equivariant by design, are increasingly used to learn other atomistic properties. Many of these are of high angular order or pseudotensorial character, defined per atom, or expanded on large atom-centered basis sets. Such targets strain equivariant GNNs, whose tensor products grow steeply in cost with angular order and can fail to represent the target if truncated, forcing difficult trade-offs between hyperparameters. Unconstrained models like the Point-Edge Transformer (PET) instead replace explicit O(3) algebra with edge-to-edge attention and learn equivariance from data, so that the same backbone can in principle learn any equivariant property. We demonstrate how to use PET to learn molecular dipole","au":["Joseph W. Abbott","Paolo Pegolo","Pol Febrer","Michelangelo Domina","Sandra Saade","Matthias Kellner","Filippo Bigi","Philip Loche","Michele Ceriotti"],"v":"arXiv","u":"https://arxiv.org/abs/2610.31183","p":"2026-10-22","d":"2026-10-26","s":7.1,"tp":["mlip"],"kw":["potential energy surface","equivariant","fine-tuning"],"src":["arxiv"],"kind":"preprint","ax":"2610.31183","doi":"10.48550/arxiv.2610.31183","who":["Michele Ceriotti"],"why":""},{"k":"doi:10.1021/jacs.6c15227","t":"Mechanistic Insights of Jahn–Teller Effect Suppression in High-Entropy Prussian Blue Analogue Cathodes","a":"The Jahn–Teller (J-T) effect, as discovered by Hermann Jahn and Edward Teller in 1937, often causes lattice distortion and structural instability in Mn-based battery materials. Recent studies suggest that high-entropy design may help suppress J-T distortion, yet the underlying mechanism remains largely elusive due to their compositional complexity and structural disorder. Herein, using a Mn-based Prussian blue analogue as a case study, we employed a machine learning interatomic potential combined with synchrotron extended X-ray absorption fine structure spectroscopy (EXAFS) to elucidate the fundamental mechanism of the J-T suppression in high-entropy materials. Unexpectedly, EXAFS spectra reveal the absence of the typical J-T Mn–N bond-length splitting in our high-entropy Prussian blue analogue sample, but instead a broader Mn–N bond-length distribution. Machine learning-assisted calcula","au":["Bangjun Wu","Xiaorui Dong","Hongliang Dong","Shuyang Bian","Qiang Liu","Wenbo Zhai","Yi Yu","Yuanhui Ji","Yuping Wu","Jingyang Wang"],"v":"Journal of the American Chemical Society","u":"https://doi.org/10.1021/jacs.6c15227","p":"2026-10-23","d":"2026-10-26","s":6.7,"tp":["mlip"],"kw":["machine learning interatomic potential","interatomic potential"],"src":["openalex","crossref"],"kind":"paper","ax":"","doi":"10.1021/jacs.6c15227","who":[],"why":""},{"k":"doi:10.1016/j.apsusc.2026.168654","t":"Atomic-scale mechanisms of SiO2 plasma-enhanced chemical vapor deposition revealed by molecular dynamics with a machine-learning interatomic potential","a":"","au":["Jaehoon Kim","Minseok Moon","Hyunsung Cho","Kim Hyeon‐Deuk","Rokyeon Kim","Gyehyun Park","Seungwu Han","Youngho Kang"],"v":"Applied Surface Science","u":"https://doi.org/10.1016/j.apsusc.2026.168654","p":"2026-10-21","d":"2026-10-26","s":6.6,"tp":["mlip"],"kw":["machine learning interatomic potential","interatomic potential"],"src":["openalex"],"kind":"paper","ax":"","doi":"10.1016/j.apsusc.2026.168654","who":[],"why":""},{"k":"doi:10.26434/chemrxiv.15010773/v1","t":"Mechanical versus thermal amorphization of ZIF-4: from local rearrangements to network disorder","a":"There is mounting evidence that different amorphization routes can produce metalorganic framework (MOF) glasses with distinct structures and properties, yet the microscopic origins of these differences remain difficult to establish experimentally. Focusing on the two main synthesis methods, which are melt-quenching and ball-milling, we use molecular dynamics simulations with a machine-learning interatomic potential to compare different glasses obtained from ZIF-4. While both routes largely preserve tetrahedral zinc coordination, mechanical deformation generally produces more distorted local environments, showing that average coordination numbers alone do not capture the structural differences between these glasses. At smaller applied strain, mechanical glasses retain substantial memory of the crystalline network topology, despite pronounced changes in ring geometry. Larger strains erase ","au":["Léna Triestram","François‐Xavier Coudert"],"v":"ChemRxiv","u":"https://doi.org/10.26434/chemrxiv.15010773/v1","p":"2026-10-21","d":"2026-10-26","s":5.3,"tp":["mlip"],"kw":["machine learning interatomic potential","interatomic potential"],"src":["openalex"],"kind":"preprint","ax":"","doi":"10.26434/chemrxiv.15010773/v1","who":[],"why":""},{"k":"arxiv:2610.32905","t":"Combining Simulations and Spectroscopy to Design Protective Coatings on Sulfide Solid Electrolytes","a":"Sulfide solid electrolytes are attractive for all-solid-state batteries because of their high Li-ion conductivity and favorable processability, but their practical use is limited by electrochemical instability and moisture-induced degradation. Molecular surface coatings offer a scalable strategy to improve humidity tolerance and interfacial stability, yet there is limited understanding of the molecular-level factors governing surface interactions. By combining large-scale atomistic simulations enabled by a machine-learning potential with targeted experiments, we present a comprehensive framework for designing molecular coatings on Li$_6$PS$_5$Cl (LPSCl). Using a PET-MAD interatomic potential fine-tuned on an r$^2$SCAN reference dataset covering LPSCl surfaces, molecular adsorbates, and their interactions, we model surface adsorption of carboxylic (CA), sulfonic (SA), and phosphonic (PA) ","au":["Zhiyi Wang","Leonie Braks","Michele Ceriotti","Ali Coskun","Hanna Türk","Davide Tisi"],"v":"arXiv","u":"https://arxiv.org/abs/2610.32905","p":"2026-10-23","d":"2026-10-26","s":5.2,"tp":["mlip"],"kw":["interatomic potential"],"src":["arxiv"],"kind":"preprint","ax":"2610.32905","doi":"","who":["Michele Ceriotti"],"why":""},{"k":"doi:10.26434/chemrxiv.15010965/v1","t":"Spontaneous defect formation as the origin of superionic transitions in antifluorite-type structures","a":"Solid-state electrolytes offer the possibility of safer and higher energy density batteries, yet only a limited number of materials achieve ionic conductivities suitable for practical applications. Type-II superionic conductors, which undergo continuous temperature-driven transitions between low and high ionic conductivity regimes are strong candidates for high-performance solid state electrolytes, but the transition mechanism is not sufficiently understood. In this study, we investigate the archetypical superionic conductors Li2O and Li2S with the antifluorite structure using long-time-scale molecular dynamics simulations with an Allegro machine-learning force field (MLFF) trained on density functional theory data selected using an on-the-fly active learning procedure. To this end, superionic transitions are identified around 1450 K for Li2O and around 1100 K for Li2S through continuous","au":["Timothée Jamin","Kasper Tolborg"],"v":"ChemRxiv","u":"https://doi.org/10.26434/chemrxiv.15010965/v1","p":"2026-10-23","d":"2026-10-26","s":5.0,"tp":["mlip"],"kw":["density functional theory","active learning","allegro"],"src":["openalex"],"kind":"preprint","ax":"","doi":"10.26434/chemrxiv.15010965/v1","who":[],"why":""},{"k":"doi:10.26434/chemrxiv.15010957/v1","t":"Factorised Cartesian Atomic Cluster Expansion for Low-Cost Machine-Learning Interatomic Potentials","a":"Machine-learning interatomic potentials can reach the accuracy of density functional theory at a fraction of its cost, but the most accurate equivariant models remain expensive, mainly because of the tensor operations they perform for every pair of neighbouring atoms. We present FACE, a factorised Cartesian atomic cluster expansion that removes this bottleneck. Each neighbour contributes only a small set of radial functions and messages, and all mixing of feature channels is done once per atom, so the cost per neighbour no longer grows with the size of the model. Custom GPU kernels evaluate the remaining steps, and long-range electrostatics, dispersion and short-range repulsion attach through a single interface. We show that the training divergences we encountered originate in how the network weights are scaled, and we introduce a distillation scheme in which an ensemble generates additi","au":["Albert Linda"],"v":"ChemRxiv","u":"https://doi.org/10.26434/chemrxiv.15010957/v1","p":"2026-10-23","d":"2026-10-26","s":5.0,"tp":["mlip"],"kw":["density functional theory","equivariant","mace"],"src":["openalex"],"kind":"preprint","ax":"","doi":"10.26434/chemrxiv.15010957/v1","who":[],"why":""},{"k":"doi:10.1063/5.0350682","t":"Microscopic origin of polytype-dependent melting in SiC revealed by machine-learning molecular dynamics","a":"Predicting how crystal structure influences high-temperature stability remains a key challenge in materials modeling and design. Silicon carbide (SiC), one of the most thermally and chemically stable materials known, provides an ideal system for studying this problem because its many polytypes preserve similar local tetrahedral bonding while differing in long-range stacking geometry. To determine the impact of polytype structure on the high-temperature stability of SiC, we combine phase-coexistence machine-learning molecular dynamics with finite-temperature phonon analysis, enabled by a fine-tuned MACE interatomic potential that accurately describes crystalline, high-temperature, and disordered configurations across multiple SiC polytypes. We identify a clear stability ordering, 3C > 2H > 9R, reflected consistently in structural disordering, interlayer sliding, and finite-temperature pho","au":["Ljiljana Stojanović","S. J. Magorrian","Lara Kabalan","R.N. White","Fabian L. Thiemann","Viktor Zólyomi"],"v":"The Journal of Chemical Physics","u":"https://doi.org/10.1063/5.0350682","p":"2026-10-19","d":"2026-10-26","s":4.8,"tp":["mlip"],"kw":["interatomic potential","mace"],"src":["openalex"],"kind":"paper","ax":"","doi":"10.1063/5.0350682","who":[],"why":""},{"k":"arxiv:2610.32341","t":"Flexo-Photoresponses from First Principles","a":"Many functionally important materials, such as silicon, possess high-symmetry crystal structures that forbid even-order nonlinear optical responses, thereby limiting their application in e.g., photonics and optoelectronics. Strain gradients can effectively break symmetries, activating otherwise forbidden optical responses. Although such flexo-photoresponses have attracted considerable interest recently, a comprehensive microscopic theoretical framework is still lacking. Here, we develop a first-principles approach that can systematically evaluate a wide range of flexo-photoresponses in realistic materials. By mapping strain gradients to long-wavelength phonons within the established theory of electron-phonon coupling, our approach captures the nonlocal quantum-mechanical effects of lattice deformations on nonlinear optical responses. Applying the framework to prototypical centrosymmetric","au":["Zhichao Guo","Hua Wang","Haowei Xu"],"v":"arXiv","u":"https://arxiv.org/abs/2610.32341","p":"2026-10-23","d":"2026-10-26","s":4.8,"tp":["property"],"kw":["second harmonic generation","nonlinear optical"],"src":["arxiv"],"kind":"preprint","ax":"2610.32341","doi":"","who":[],"why":""},{"k":"arxiv:2610.29111","t":"SU(2)-Equivariant Spinor Message Passing for Molecular Magnetism","a":"Predicting molecular magnetism often requires electronic-structure calculations with spin-orbit coupling (SOC), which are costly to repeat across many molecules. The underlying electronic states can transform as spinors, yet equivariant surrogates typically use only integer-rank features. Inspired by the spinor nature of these electronic states, we develop eSpinor, an SU(2)-equivariant graph neural network that propagates spinor features. We initialize spinor features from eigenvectors of an approximate SOC Hamiltonian and use gauge-covariant message passing with a gauge-invariant readout to make predictions independent of the arbitrary eigenbasis choice. On cobalt single-molecule magnet candidates, eSpinor improves zero-field-splitting predictions relative to NequIP, including for unseen ligands. For a dysprosium magnetic resonance imaging probe, eSpinor improves real electron-spin corr","au":["Erh-Wei Sheng","Beom Seok Kang","Yuchao Lin","Danish Khan","Anima Anandkumar"],"v":"arXiv","u":"https://arxiv.org/abs/2610.29111","p":"2026-10-21","d":"2026-10-26","s":4.1,"tp":["mlip"],"kw":["equivariant","nequip"],"src":["arxiv"],"kind":"preprint","ax":"2610.29111","doi":"10.48550/arxiv.2610.29111","who":[],"why":""},{"k":"doi:10.1021/acs.jctc.6c01270","t":"Can DFT-Trained Neural Network Potentials Reproduce Structure, Solvation, and Water-Exchange Properties in Aqueous Magnesium Solutions?","a":"Magnesium ions play an essential role in many biological processes but remain challenging to model in biomolecular simulations. Despite considerable scientific effort, classical force fields fail to simultaneously reproduce key structural, thermodynamic, and kinetic solution properties, likely due to their inability to explicitly account for quantum many-body effects. Here, we develop and systematically benchmark MACE neural network potentials (NNPs) for aqueous MgCl2 solutions, trained on revPBE-D3/zd and revPBE0-D3/zd density functional theory reference data, and assess their ability to reproduce a broad range of experimental solution properties including the structure of the first hydration shell, diffusion coefficient, activity derivative, water-exchange rate, and mechanism as well as solvation free energy. Both NNPs accurately reproduce the octahedral structure of the first hydratio","au":["Sebastian Falkner","Pablo Montero de Hijes","Christoph Dellago","Nadine Schwierz"],"v":"Journal of Chemical Theory and Computation","u":"https://doi.org/10.1021/acs.jctc.6c01270","p":"2026-10-24","d":"2026-10-26","s":3.9,"tp":["mlip"],"kw":["density functional theory","mace"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.jctc.6c01270","who":[],"why":""},{"k":"doi:10.1021/acs.jctc.6c01498","t":"Δ-HGPR: A Hierarchical Gaussian Process Framework for Active-Learning Δ-Potentials","a":"Δ-learning, which uses machine learning to represent only the difference between a high-accuracy reference and a lower-accuracy base calculator, is a promising route to high-fidelity molecular dynamics (MD) with limited training data, but it has lacked a unified protocol combining hierarchical descriptors with well-defined equilibrium sampling. We propose Δ-HGPR (hierarchical Gaussian process regression for Δ-learning), a framework for learning difference potentials, and its MD instantiation, Δ-HGPR-MD. The framework combines (i) a difference potential written as an additive radial (inverse-distance) term plus a many-body machine-learning correction, determined by a single regularized least-squares fit; (ii) the ensemble force standard deviation as an active-learning indicator with an automatically scaled threshold; and (iii) a difference potential held fixed within each round so that eq","au":["Takahito Nakajima"],"v":"Journal of Chemical Theory and Computation","u":"https://doi.org/10.1021/acs.jctc.6c01498","p":"2026-10-24","d":"2026-10-26","s":3.1,"tp":["mlip"],"kw":["active learning"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.jctc.6c01498","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c01251","t":"Microenvironmental pH-Modulated Vitamin B6 Ternary Eutectics for BCS Class IV Drug Delivery","a":"The essence of developing multicomponent solid formulations for drugs with poor physicochemical and pharmacokinetic properties is rapidly evolving to cut short the consumption of resources and time. Quite a few commercially available binary drug formulations in the public domain serve as a prime illustration of the field’s success. However, the design and utilization of ternary or higher-order drug formulations can be more efficacious in terms of enhancing such properties of the drug as well as providing humidity resistance and controlling unexpected phase transitions during drug development. Low-soluble and low-permeable BCS IV class drugs continuously present a barrier by lowering their absorption in the body. Drugs mesalamine (MSA) and acetazolamide (ACZ) from the same BCS class were chosen to enhance properties by introducing the binary and ternary solid formulation approach. Soluble","au":["Archita Goswami","Bhargab Patowary","Bipul Sarma"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c01251","p":"2026-10-24","d":"2026-10-26","s":3.1,"tp":["csp"],"kw":["cocrystal"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c01251","who":[],"why":""},{"k":"arxiv:2610.32678","t":"Probing the limits of forward screening and inverse design of crystal materials","a":"Crystal materials are designed either by screening known crystals for a target property or by generating new crystals with that property. Both routes are judged against public databases of known crystals, but these databases name the same crystal differently. Several materials announced as new by recent generative and autonomous discovery campaigns have since proved to be known phases or close variants of them. The limits of both routes remain unmeasured. Here we probe them by matching the crystals of 55 databases by structure into one self-extending database of 14.6 million crystals and 131.8 million property values, each traced to its source. Only 4.5% of its crystal-property pairs carry a value. To fill the empty pairs, we developed CGTNet, an equivariant graph transformer with state-of-the-art accuracy on several tasks of two public benchmarks. Trained on each task, it forms a librar","au":["Zhilong Song","Zijun Pang","Lixue Cheng"],"v":"arXiv","u":"https://arxiv.org/abs/2610.32678","p":"2026-10-23","d":"2026-10-26","s":2.9,"tp":["crystal-gen","mlip"],"kw":["inverse design","equivariant"],"src":["arxiv"],"kind":"preprint","ax":"2610.32678","doi":"","who":[],"why":""},{"k":"arxiv:2610.26701","t":"Challenging Atomistic Foundation Models on Disordered Carbons","a":"Foundation machine-learned interatomic potentials (MLIPs) promise broad transferability, yet their out-of-domain reliability is hard to establish. Here, we use pure and O/H-containing disordered carbon spanning multiple phases, competing hybridisations and porous frameworks to stress-test six popular foundation MLIPs. We first screen all six on density functional theory (DFT) energy and force errors and binding curves, then subject four to melt-quench-anneal molecular dynamics and evaluate the resulting structural observables. Binding curves and O/H-containing trajectories reveal unphysical extrapolation and dynamical failures that low DFT energy and force errors fail to reveal. Of the models tested, MACE-MH-1 is the most consistently robust, with low DFT errors and stable MD. Despite differing architectures, OMAT-based models share structural biases, highlighting the importance of train","au":["Joseph Hart","Samuel G. H. Brookes","Fabian L. Thiemann","Christoph Schran"],"v":"arXiv","u":"https://arxiv.org/abs/2610.26701","p":"2026-10-19","d":"2026-10-26","s":2.8,"tp":["mlip"],"kw":["density functional theory","mace"],"src":["arxiv"],"kind":"preprint","ax":"2610.26701","doi":"","who":[],"why":""},{"k":"doi:10.1021/jacs.6c10255","t":"Breaking Symmetry Cancellation: Heterovalent Substitution Unlocks Ultrastrong, Phase-Matchable Nonlinearity in Deep-Ultraviolet Tetrahedral Crystals","a":"Deep-ultraviolet (deep-UV) nonlinear optical (NLO) crystals demand a challenging integration of strong second-harmonic generation (SHG), sufficient birefringence for phase matching (PM), and a wide bandgap (λ < 200 nm). In tetrahedron-based materials, the hyperpolarizabilities of constituent tetrahedra usually nearly cancel due to structural symmetry, resulting in weak SHG and small birefringence─a classic example being α-SiO2. Breaking this symmetry-driven cancellation while retaining deep-UV transparency thus represents a key chemical design challenge. Here, we report a deep-UV transparent NLO crystal BeSO4 derived from α-SiO2 via stepwise heterovalent tetrahedral substitution. This crystal crystallizes in the noncentrosymmetric tetragonal space group, with alternating BeO4 and SO4 tetrahedra forming [Be3S3O18] six-membered rings. By effectively breaking the symmetry cancellation via a","au":["Xia Zhang","Jia-Jun Zhang","Zhi Li","Xiangyu Hao","Xiwei Hu","Yi-Gang Chen","Miriding Mutailipu","Xian-Ming Zhang"],"v":"Journal of the American Chemical Society","u":"https://doi.org/10.1021/jacs.6c10255","p":"2026-10-23","d":"2026-10-23","s":7.5,"tp":["property"],"kw":["second harmonic generation","nonlinear optical","shg"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/jacs.6c10255","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c01198","t":"A Calix[4]arene Supramolecular Gel for Pharmaceutical Crystal Growth Enabled by Anion-Induced Conformational Modulation","a":"Two novel calix[4]arene derivatives (compounds 1 and 2), incorporating 1,2,3-triazole and d/l-phenylalanine moieties within the linker, have been prepared. Upon the addition of tetrabutylammonium dihydrogen phosphate (TBAHP) followed by sonication at 42−48 °C for 15 min, compound 1 formed a supramolecular gel in n-butanol, whereas 2 did not undergo gelation under identical conditions. Variable-temperature 1H NMR studies suggest that dihydrogen phosphate induces a conformational change in 1, consistent with modulation of the calix[4]arene framework, thereby exposing additional intermolecular interaction sites that promote supramolecular gel assembly. Rheological measurements demonstrated that both the mechanical stability and the storage modulus of the resulting gel increased with increasing concentrations of the Compound 1/TBAHP system in n-butanol. Although the gel exhibited thixotropic","au":["Xiuqin Cai","Jonathan W. Steed"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c01198","p":"2026-10-23","d":"2026-10-23","s":6.1,"tp":["csp"],"kw":["pharmaceutical crystal","cocrystal"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c01198","who":[],"why":""},{"k":"doi:10.1021/acs.jpcc.6c06133","t":"Improving the Temperature Stability of MgZrNb2O8 through the Synergistic Effect of Ta5 + Substitution and High-Entropy Strategy","a":"High-entropy Mg(ZrHfTiSnGe)0.2(Nb1–xTax)2O8 (x = 0–1) microwave dielectric ceramics were successfully synthesized via a solid-state reaction method. The effects of Ta5+ substitution and high entropy on sintering behavior, crystal structure, and microwave dielectric properties were systematically investigated. XRD confirms that Hf4+, Ti4+, Sn4+, Ge4+, and Ta5+ successfully entered the crystal lattice, forming a single-phase solid solution with a wolframite structure (P2/c space group). SEM images show that grains grow well, the grain size is uniform, and there are few pores. HRTEM images show that the sample has both structural long-range order and local lattice distortion. The dielectric constant (εr) increases with Ta5+ substitution, which is primarily attributed to the higher ionic polarizability of Ta5+ and the cation “under-bonding” effect. The continuous decline in the quality facto","au":["Yao Sun","Xiaokang Wu","Yuanming Lai","Haizhou Ran","Linqiao Zhang","Lin Xu","Qian Liu","Chongsheng Wu","Yuanxun Li","Li Yue"],"v":"The Journal of Physical Chemistry C","u":"https://doi.org/10.1021/acs.jpcc.6c06133","p":"2026-10-23","d":"2026-10-23","s":5.4,"tp":["csp"],"kw":["crystal structure","lattice energy","space group"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.jpcc.6c06133","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c01015","t":"Multimodal Fusion-Based Prediction and Preparation of Cocrystal: A Case Study of Diosmetin","a":"Cocrystals offer promising approaches for the targeted regulation of raw material properties. Nevertheless, the accurate screening of cocrystal co-formers remains a critical bottleneck in the rational preparation of cocrystals. To address this challenge, a cocrystal prediction model based on multimodal fusion was constructed by integrating molecular descriptors, fingerprints, SMILES strings and molecular graphs to screen potential co-formers. The model incorporates a dynamic attention fusion mechanism and a tailored data-balancing strategy to address unimodal limitations and class imbalance, thereby enhancing classification performance under the present evaluation framework. It demonstrated strong classification performance and outperformed the evaluated unimodal models. Diosmetin was selected as the model compound, and systematic virtual screening identified promising co-formers, leadin","au":["Yunxia Li","Di Xu","Xiaoxiao Liang","Zujin Yang","Shiyuan Liu","Yanbin Jiang"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c01015","p":"2026-10-23","d":"2026-10-23","s":3.8,"tp":["csp"],"kw":["cocrystal"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c01015","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c01241","t":"From Structurally Related Solvates to Divergent Anhydrous Polymorphs: Desolvation Pathways of Sotorasib","a":"Sotorasib is a covalent KRAS G12C inhibitor with multiple hydrogen-bonding sites and conformationally flexible groups, making it prone to solvate formation. In this work, eight sotorasib solvates were obtained and systematically characterized, and their crystal structures were determined by SCXRD. Among them, SMeOHα, SDCE, and SMIX are previously unreported solvates. Except for SMIX, the other seven solvates crystallize in the same orthorhombic space group with similar unit-cell parameters and a conserved host−host hydrogen-bonding motif, while differences in guest stoichiometry, local interactions, and lattice occupancy generate distinct packing environments. Upon guest removal, these related solvates exhibit divergent post-desolvation evolution, with lattice destabilization followed by thermal-history-dependent structural reorganization toward different anhydrous polymorphs. Under dyna","au":["Ruoxi Huang","Yue Xu","Jia Tong","Jie Lu"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c01241","p":"2026-10-22","d":"2026-10-22","s":4.7,"tp":["csp"],"kw":["space group","polymorph"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c01241","who":[],"why":""},{"k":"doi:10.1021/acs.jctc.6c01494","t":"DeepHartree: A Poisson-Coupled Neural Field for One-Shot Density Functional Theory","a":"Linear-combination-of-atomic-orbital (LCAO) density functional theory (DFT) incurs steep costs when it constructs Coulomb terms and iterates the self-consistent field (SCF) equations. Matrix-learning approaches can bypass parts of this workflow, but their outputs inherit the dimensions and conventions of a fixed orbital basis. We introduce DeepHartree, a Poisson-coupled neural field that connects continuous real-space prediction to LCAO electronic structure. An E(3)-equivariant network predicts the Hartree potential, and the Poisson equation converts this potential into electron density. Atom-centered Gaussian fields resolve the near-nuclear region, while a molecule-level correction enforces the electron count. Analytical Gaussian integrals and numerical quadrature connect the predicted fields to the Kohn–Sham matrix. One diagonalization provides estimates of frontier orbital energies an","au":["Jiankun Wu","Jinming Fan","Chao Qian","Shaodong Zhou"],"v":"Journal of Chemical Theory and Computation","u":"https://doi.org/10.1021/acs.jctc.6c01494","p":"2026-10-22","d":"2026-10-22","s":4.4,"tp":["mlip"],"kw":["density functional theory","equivariant","fine-tuning"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.jctc.6c01494","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c01031","t":"Voxelotor Polymorphs: Crystalline Diversity of a Highly Potent Sickle Cell Anaemia Drug","a":"The solid-state landscape of highly flexible organic molecules often presents profound challenges and opportunities in materials chemistry, critically dictating macroscopic, physicochemical, and biopharmaceutical properties. Herein, we report voxelotor, a BCS Class II drug historically developed for sickle cell disease, as a noteworthy model system to elucidate nucleation pathways and a non-classical structure-performance relationship, with bioavailability that is critically dependent on its solid form. We report the preferential crystallization, multigram scale-up, and comprehensive structural elucidation of seven distinct polymorphic forms (Forms I-VII), including four previously undiscovered solid phases. Single-crystal X-ray diffraction and computational lattice energy calculations, including Hirshfeld surface analysis, show that its rich polymorphic diversity is rooted in extreme to","au":["Christy P. George","Akram A. Khan","Parth S. Shaligram","Nagabhushan Shet","Tabrez R. Shaikh","Rinu Pandya","Ganesh More","Ziya Tufail","Kumar Vanka","Ajay Kumar"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c01031","p":"2026-10-22","d":"2026-10-22","s":2.9,"tp":["csp"],"kw":["lattice energy"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c01031","who":[],"why":""},{"k":"doi:10.1021/acs.jctc.6c01588","t":"MARS: Machine-Learned Force Field Framework for Automated Conformational Sampling, Vibrational Spectroscopy, and Microsolvation","a":"We present MARS, an open-source Python package for automated conformational ensemble generation, infrared spectrum prediction, and explicit microsolvation of molecular systems. Built on JAX for GPU acceleration and automatic differentiation, MARS is carried out with machine-learned force fields (MLFFs), including SO3LR and MACE, with a four-phase conformational sampling workflow combining metadynamics, multitemperature molecular dynamics, and genetic algorithms. The package provides automated vibrational mode classification using Wilson B-matrix projections and functional group identification via graph-based pattern matching. We benchmark MARS on chemically diverse systems, including alkanes, halogenated aromatics, amino acids, peptides, drug-like molecules, phosphamides, host–guest complexes, and microsolvated biomolecular models. Semiempirical quantum-chemical methods have until now pr","au":["Sergio Suárez-Dou","Miguel Gallegos","Florian N. Brünig","Alexandre Tkatchenko"],"v":"Journal of Chemical Theory and Computation","u":"https://doi.org/10.1021/acs.jctc.6c01588","p":"2026-10-21","d":"2026-10-21","s":5.5,"tp":["mlip"],"kw":["mace"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.jctc.6c01588","who":["Alexandre Tkatchenko"],"why":""},{"k":"doi:10.1021/acs.cgd.6c01209","t":"Chameleonic π-Hole Behavior in Metal−Isocyanide Complexes: N ↔ C Composition-Controlled Migration","a":"Cocrystal architecture reflects the cumulative outcome of competing and cooperating noncovalent interactions (NCIs) within the lattice. Here we demonstrate that the electrophilic π-hole of a coordinated aryl isocyanide is chameleonic: its localization migrates between the nitrogen and carbon termini of the C≡N bond in direct response to crystal composition. X-ray diffraction analysis of trans-[PdI2(CNC6H4Cl-4)2] (1) and its iodine cocrystals 1·I2 and 1·2I2, complemented by the isostructural platinum(II) analogue 2·I2, reveals three distinct binding regimes: Pd-πAr assembly in the parent complex, Pd-π-(CN) assembly at 1:1 stoichiometry, and π-(CN)-hole···I(LP) contacts at 1:2 stoichiometry. Quantum chemical analysis (Molecular Electrostatic Potential, Quantum Theory of Atoms in Molecules, NCIplot, Energy Decomposition Analysis, Natural Bond Orbital) establishes that the short C≡N bond and","au":["Mikhail A. Kinzhalov","Polina V. Komova","Rosa M. Gomila","Antonio Frontera","Vadim Yu Kukushkin","Nadezhda A. Bokach"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c01209","p":"2026-10-21","d":"2026-10-21","s":2.9,"tp":["csp"],"kw":["cocrystal"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c01209","who":[],"why":""},{"k":"doi:10.1039/d6ce00725b","t":"Dual-halogen engineering of chlorothienyl chalcone crystals for tunable noncentrosymmetric packing and enhanced terahertz nonlinear optical response","a":"Fluorine substitution optimizes crystal growth and polar packing in chlorothienyl chalcone crystals, leading to enhanced SHG response and broadband THz emission.","au":["Fanghao Xuan","Yukang Liang","Yanxi Deng","Luyao Jiang","Chuyi Liang","Yurong Ma"],"v":"CrystEngComm","u":"https://doi.org/10.1039/d6ce00725b","p":"2026-10-20","d":"2026-10-20","s":4.9,"tp":["property"],"kw":["nonlinear optical","shg"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1039/d6ce00725b","who":[],"why":""},{"k":"doi:10.1039/d6ce00683c","t":"The Effect of High Pressure on Nanoporous Molecular Crystals of Cofacial Porphyrin/Phthalocyanine Heterodimers","a":"High-pressure single-crystal X-ray diffraction was used to characterize two phthalocyanine nanoporous crystals (PNCs) based on cofacial heterodimers of tetraphenylporphyrin (TPPCo) and octa(2’,6’-di-iso-propylphenoxy)phthalocyanine [(dipPhO)8PcCo], with and without a 4,4’-bipyridine \"wall-tie\" ligand....","au":["Gemma Turner","Nikolaos-Angelos Stamos","Shannah Kerrigan","Rebecca Blake","James Ross Brookes","Aston M Summers","Stephanie Bird","Rosemary Young","Alan Riboldi-Tunnicliffe","Rachel Williamson"],"v":"CrystEngComm","u":"https://doi.org/10.1039/d6ce00683c","p":"2026-10-20","d":"2026-10-20","s":3.7,"tp":["csp"],"kw":["molecular crystals"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1039/d6ce00683c","who":[],"why":""},{"k":"doi:10.1107/s2052252526008912","t":"The overlooked ZIF: reviving [Cu(imidazolato) 2 ] from 1960s literature","a":"Metal–organic frameworks (MOFs), and in particular zeolitic imidazolate frameworks (ZIFs), are amongst the most well studied materials in modern chemistry. MOFs emerged as an explicit subfield of chemistry in the late 1980s and 1990s. However, much foundational work was accomplished in earlier decades. Here, we detail the structural and gas-adsorption characterization of [Cu(im) 2 ] (im = imidazolate), a ZIF that was widely reported in the early 1960s. This compound exists as several polymorphs. We re-prepared the historic blue polymorph [Cu(im) 2 ]-B, which has a sodalite topology, confirmed its identity by single-crystal X-ray diffraction, and measured its gas-adsorption isotherms. We conclude that the true origin of ZIFs lies with a copper(II) framework discovered more than 60 years ago that has been overlooked by recent literature.","au":["Cara Bosman","Shane G. Telfer"],"v":"IUCrJ","u":"https://doi.org/10.1107/s2052252526008912","p":"2026-10-20","d":"2026-10-20","s":3.5,"tp":["csp"],"kw":["polymorph"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1107/s2052252526008912","who":[],"why":""},{"k":"doi:10.1021/acs.cgd.6c00813","t":"Insights into the Nature and Thermal Phase Behavior of Mechanochemically Prepared Multicomponent Solids of 2-Amino-5-nitropyridine with para -Substituted Benzoic Acids","a":"The thermal phase behavior of binary systems consisting of the supramolecular building block 2-amino-5-nitropyridine (ANP) with five systematically varied series of para-substituted aromatic acids (4XBA), viz, benzoic acid (BA), 4-fluorobenzoic acid (4FBA), 4-chlorobenzoic acid (4CBA), 4-bromobenzoic acid (4BBA), and 4-iodobenzoic acid (4IBA), was investigated separately. While single-crystal structures of 1:1 ANP-4FBA, 1:1 ANP-4CBA, and 1:1 ANP-4BBA in this series are known, their bulk thermodynamic stability and mechanochemical phase behavior have remained unmapped. The bulk binary mixtures of various compositions were prepared by an environmentally friendly mechanochemical neat grinding method. The thermal properties of the ground materials were thoroughly mapped using differential scanning calorimetry (DSC). The solid−liquid thermal binary phase diagrams were systematically construct","au":["K. S. Prabhuswamy","S. Naveen","Y. N. Sudhakar","P. A. Suchetan"],"v":"Crystal Growth & Design","u":"https://doi.org/10.1021/acs.cgd.6c00813","p":"2026-10-20","d":"2026-10-20","s":2.9,"tp":["csp"],"kw":["cocrystal"],"src":["crossref"],"kind":"paper","ax":"","doi":"10.1021/acs.cgd.6c00813","who":[],"why":""}],"trends":{"csp":{"2026-10-22":3,"2026-10-20":4,"2026-10-24":2,"2026-10-23":3,"2026-10-21":1},"crystal-gen":{"2026-10-21":1,"2026-10-20":1,"2026-10-23":1},"mlip":{"2026-10-25":1,"2026-10-19":3,"2026-10-23":6,"2026-10-21":5,"2026-10-22":2,"2026-10-24":2},"property":{"2026-10-23":2,"2026-10-20":1}},"events":[{"n":"MRS Fall Meeting","d":"2026-12-01","in":36,"u":"https://www.mrs.org/fall-meeting","note":"材料计算与 AI 相关 session"},{"n":"NeurIPS + ML4PS / AI4Science workshops","d":"2026-12-08","in":43,"u":"https://neurips.cc/","note":"机器学习与物理科学交叉方法的最新动向"}],"health":[],"run":{"started":"2026-10-26T16:53","status":"running","fetched":null,"new":null,"kept":null}};
+(function(){
+'use strict';
+if(!DATA){ document.body.innerHTML='<p style="padding:24px;font-family:sans-serif">这是模板文件。请先运行 <code>python3 -m radar dashboard</code> 生成 dashboard.html。</p>'; return; }
+
+window.onerror=function(msg,src,line,col){ var d=document.createElement('div'); d.className='err';
+  d.textContent='JS 错误：'+msg+' @'+line+':'+col; document.body.appendChild(d); };
+
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>Array.from(el.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const DAY=86400000;
+const TODAY=DATA.today;
+const TOPICS=DATA.topics||[], TNAME={}, THUE={};
+TOPICS.forEach(t=>{TNAME[t.id]=t.short||t.id; THUE[t.id]=t.hue;});
+const ITEMS=DATA.items||[], DAYS=DATA.days||[], EVENTS=DATA.events||[], TREND=DATA.trends||{};
+const SRCNAME={arxiv:'arXiv',crossref:'期刊',openalex:'OpenAlex',rss:'新闻',github:'工具'};
+
+const LS='research-radar.v1';
+const DEFAULTS={view:'today',topics:[],sources:[],q:'',date:null,sort:'score',
+  read:{},star:{},note:{},theme:'auto',lastVisit:0,limit:80};
+let state=Object.assign({},DEFAULTS);
+let view=[], focusIdx=-1, saveTimer=null;
+const openSet=new Set();   // expanded cards survive re-renders
+
+function load(){
+  try{ const raw=localStorage.getItem(LS); if(raw) state=Object.assign({},DEFAULTS,JSON.parse(raw)); }
+  catch(e){ console.warn('localStorage 不可用：阅读状态仅在本次会话有效',e); }
+}
+function save(){
+  try{ localStorage.setItem(LS,JSON.stringify(state)); }catch(e){}
+}
+function touch(){ save(); }
+
+function daysAgo(d){ try{ return Math.round((new Date(TODAY+'T00:00:00')-new Date(d+'T00:00:00'))/DAY);}catch(e){ return 999; } }
+function weekday(d){ try{ return '日一二三四五六'[new Date(d+'T00:00:00').getDay()]; }catch(e){ return ''; } }
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('on'),1600); }
+
+/* ---------------- filtering ---------------- */
+function inView(it){
+  const v=state.view;
+  if(v==='today') return it.d===TODAY;
+  if(v==='unread') return !state.read[it.k];
+  if(v==='star') return !!state.star[it.k];
+  if(v==='week') return daysAgo(it.d)<=6;
+  if(v==='day') return it.d===state.date;
+  return true;
+}
+function base(){ return ITEMS.filter(inView); }
+function matches(it){
+  if(!inView(it)) return false;
+  if(state.topics.length && !it.tp.some(t=>state.topics.includes(t))) return false;
+  if(state.sources.length && !it.src.some(s=>state.sources.includes(s))) return false;
+  if(state.q){
+    const q=state.q.toLowerCase();
+    const hay=(it.t+' '+(it.a||'')+' '+it.au.join(' ')+' '+it.v+' '+it.kw.join(' ')).toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+function hl(text){
+  const safe=esc(text);
+  if(!state.q) return safe;
+  try{
+    const q=state.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    return safe.replace(new RegExp(q,'gi'), m=>`<mark>${m}</mark>`);
+  }catch(e){ return safe; }
+}
+function sortItems(list){
+  const s=state.sort;
+  if(s==='topic'){
+    const order={}; TOPICS.forEach((t,i)=>order[t.id]=i);
+    return list.sort((a,b)=>{
+      const ia=order[a.tp[0]]==null?99:order[a.tp[0]], ib=order[b.tp[0]]==null?99:order[b.tp[0]];
+      return ia-ib || b.s-a.s;
+    });
+  }
+  return list.sort((a,b)=>{
+    if(s==='date') return (b.p||b.d).localeCompare(a.p||a.d)||b.s-a.s;
+    if(s==='venue') return (a.v||'~').localeCompare(b.v||'~')||b.s-a.s;
+    return b.s-a.s;
+  });
+}
+function compute(){ view=sortItems(ITEMS.filter(matches)); }
+function unreadCount(){ return ITEMS.filter(it=>!state.read[it.k]).length; }
+function starCount(){ return ITEMS.filter(it=>state.star[it.k]).length; }
+
+/* ---------------- sidebar ---------------- */
+function renderViews(){
+  const defs=[['today','今天',ITEMS.filter(i=>i.d===TODAY).length],
+              ['unread','未读',unreadCount()],
+              ['star','星标',starCount()],
+              ['week','近 7 天',ITEMS.filter(i=>daysAgo(i.d)<=6).length],
+              ['all','全部',ITEMS.length]];
+  $('#views').innerHTML=defs.map(([v,label,n])=>
+    `<button class="view${state.view===v?' on':''}" data-view="${v}">${label}<span class="n">${n}</span></button>`).join('');
+}
+function renderFilters(){
+  const b=base(), cnt={}, scnt={};
+  b.forEach(i=>{ i.tp.forEach(t=>cnt[t]=(cnt[t]||0)+1); i.src.forEach(x=>scnt[x]=(scnt[x]||0)+1); });
+  $('#topicFilter').innerHTML=TOPICS.map(t=>{
+    const on=state.topics.includes(t.id);
+    return `<button class="fchip${on?' on':''}" style="--h:${t.hue}" data-topic="${t.id}">
+      <span class="dot"></span>${esc(t.short)}<span class="muted">${cnt[t.id]||0}</span></button>`;
+  }).join('');
+  $('#sourceFilter').innerHTML=Object.keys(SRCNAME).filter(s=>scnt[s]).map(s=>
+    `<button class="fchip${state.sources.includes(s)?' on':''}" data-source="${s}" style="--h:220">${SRCNAME[s]}<span class="muted">${scnt[s]}</span></button>`).join('');
+}
+function renderDates(){
+  $('#dateList').innerHTML=(DAYS.length?DAYS.map(d=>
+    `<button class="date${state.view==='day'&&state.date===d.d?' on':''}" data-date="${d.d}">
+      ${d.d.slice(5)}<span class="muted">周${weekday(d.d)}</span><span class="n">${d.n}</span></button>`).join('')
+    :'<div class="muted" style="padding:6px 9px">暂无历史</div>');
+}
+function renderHealth(){
+  const h=DATA.health||[];
+  $('#health').innerHTML=['<div style="margin-bottom:4px">本次抓取</div>'].concat(h.map(x=>
+    `<div><span class="${x.err?'bad':'ok'}">●</span>${esc(x.src)}<span class="spacer"></span>${x.n}${x.err?' ⚠':''}</div>`)
+  ).concat([`<div style="margin-top:6px">生成于 ${esc(DATA.generated)}</div>`]).join('');
+}
+
+/* ---------------- trend ---------------- */
+function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function lastDays(n){ const out=[]; for(let i=n-1;i>=0;i--){ const d=new Date(TODAY+'T00:00:00'); d.setDate(d.getDate()-i); out.push(ymd(d)); } return out; }
+function renderTrend(){
+  const days=lastDays(14);
+  const rows=TOPICS.map(t=>{
+    const ser=days.map(d=>(TREND[t.id]||{})[d]||0);
+    const max=Math.max(1,...ser);
+    const cur=ser.slice(7).reduce((a,b)=>a+b,0), prev=ser.slice(0,7).reduce((a,b)=>a+b,0);
+    const dlabel=prev?`${cur>=prev?'+':''}${Math.round((cur-prev)/prev*100)}%`:(cur?'NEW':'–');
+    const cls=!prev?(cur?'new':'flat'):(cur>=prev?'up':'down');
+    const bars=ser.map((v,i)=>`<span class="bar${i>=7?' now':''}" style="height:${Math.max(2,v/max*26)}px" title="${days[i]} · ${v} 条"></span>`).join('');
+    const on=state.topics.includes(t.id);
+    return `<button class="trow${on?' on':''}" data-topic="${t.id}" style="--h:${t.hue}">
+      <span class="tname">${esc(t.short)}</span>
+      <span class="spark">${bars}</span>
+      <span class="tnum">${cur}<i class="${cls}">${dlabel}</i></span>
+    </button>`;
+  }).join('');
+  $('#trend').innerHTML=`<div class="trend-head">近 14 天各主题新增（前 7 天 vs 后 7 天，点一行可筛选）<button class="mini" id="toggleTrend">收起</button></div>
+    <div class="trend-body" id="trendBody">${rows}</div>`;
+  $('#trendBody').classList.toggle('hidden',!!state.trendHidden);
+}
+function toggleTrend(){ state.trendHidden=!state.trendHidden; touch(); $('#trendBody').classList.toggle('hidden',!!state.trendHidden); $('#toggleTrend').textContent=state.trendHidden?'展开':'收起'; }
+
+/* ---------------- list ---------------- */
+function chip(t){ return `<span class="chip" style="--h:${THUE[t]||210}">${esc(TNAME[t]||t)}</span>`; }
+function card(it){
+  const read=!!state.read[it.k], star=!!state.star[it.k], h=THUE[it.tp[0]]||210;
+  const kind=it.kind==='news'?'<span class="chip kind">新闻</span>':(it.kind==='release'?'<span class="chip kind">工具</span>':'');
+  const srcs=it.src.length>1?`<span class="multi">多源×${it.src.length}</span>`:'';
+  const who=(it.who||[]).map(w=>`<button class="who" data-q="${esc(w)}" title="按作者搜索">👤 ${esc(w)}</button>`).join('');
+  const open=openSet.has(it.k);
+  return `<article class="card${read?' read':''}${star?' starred':''}${open?' open':''}" data-k="${esc(it.k)}" style="--h:${h}">
+    <div class="chead">
+      <button class="icon btn-read" title="标记已读 / 未读 (m)">${read?'✓':'○'}</button>
+      <div class="ctitle"><a href="${esc(it.u||'#')}" target="_blank" rel="noopener" data-open="1">${hl(it.t)}</a></div>
+      <span class="score" title="相关度 ${it.s}">${it.s}</span>
+      <button class="icon btn-star${star?' on':''}" title="星标 (s)">${star?'★':'☆'}</button>
+    </div>
+    <div class="cmeta">${it.tp.map(chip).join('')}${kind}
+      ${it.v?`<span class="venue">${esc(it.v)}</span>`:''}
+      <span>${esc(it.p||it.d)}</span>${who}${srcs}</div>
+    ${it.kw.length?`<div class="ckw">${it.kw.slice(0,6).map(k=>`<span>${esc(k)}</span>`).join('')}</div>`:''}
+    ${it.why?`<div class="cwhy">💡 ${esc(it.why)}</div>`:''}
+    <div class="cabs">${esc(it.a)||'<i>（无摘要）</i>'}</div>
+    <div class="cfoot">
+      <button class="link btn-more">${open?'收起':'详情'}</button>
+      ${it.ax?`<a class="link" href="https://arxiv.org/pdf/${esc(it.ax)}" target="_blank" rel="noopener">PDF</a>`:''}
+      ${it.doi?`<a class="link" href="https://doi.org/${esc(it.doi)}" target="_blank" rel="noopener">DOI</a>`:''}
+      <span class="spacer"></span>
+      <button class="link btn-copy">复制引用</button>
+    </div>
+    <div class="more${open?'':' hidden'}">
+      <div class="mrow"><b>作者</b>${esc(it.au.join('; ')||'—')}</div>
+      <div class="mrow"><b>全部命中</b>${esc(it.kw.join('、')||'—')}</div>
+      <div class="mrow"><b>来源</b>${esc(it.src.map(s=>SRCNAME[s]||s).join(' / ')||'—')}</div>
+      <textarea class="note" rows="2" placeholder="备注：为什么留它 / 和我的课题什么关系…">${esc(state.note[it.k]||'')}</textarea>
+    </div>
+  </article>`;
+}
+function renderList(){
+  const list=$('#list');
+  if(!view.length){
+    const scope={today:'今天',week:'近 7 天',unread:'未读',star:'星标',day:'这一天'}[state.view]||'当前视图';
+    const hint=(state.q&&state.view!=='all')
+      ? `<button class="tool" id="searchAll" style="margin-top:10px">在全部历史里搜「${esc(state.q)}」</button>`
+      : '';
+    list.innerHTML=`<div class="empty"><b>${esc(scope)}里没有符合条件的条目</b>
+      换个分区、清空搜索，或者等到明天 07:40 的新一轮抓取。${hint}</div>`;
+    const b=$('#searchAll'); if(b) b.onclick=()=>{ state.view='all'; state.limit=DEFAULTS.limit; touch(); renderAll(); };
+    renderCrumb(); return;
+  }
+  const shown=view.slice(0,state.limit);
+  const byTopic=state.sort==='topic';
+  let html='', last=null;
+  shown.forEach(it=>{
+    const g=byTopic?('tp:'+(it.tp[0]||'other')):it.d;
+    if(g!==last){
+      last=g;
+      if(byTopic){
+        const tid=it.tp[0]||'other', n=view.filter(x=>(x.tp[0]||'other')===tid).length;
+        html+=`<div class="daybar"><span class="chip" style="--h:${THUE[tid]||210}">${esc(TNAME[tid]||'其他')}</span><span class="muted">${n} 条</span></div>`;
+      }else{
+        const n=view.filter(x=>x.d===it.d).length;
+        html+=`<div class="daybar"><b>${it.d}</b><span class="wd">周${weekday(it.d)}</span><span class="muted">${n} 条</span>${it.d===TODAY?'<span class="chip kind">今天</span>':''}</div>`;
+      }
+    }
+    html+=card(it);
+  });
+  if(view.length>shown.length) html+=`<button class="morebtn" id="more">继续加载（还有 ${view.length-shown.length} 条）</button>`;
+  list.innerHTML=html;
+  renderCrumb();
+  const m=$('#more'); if(m) m.onclick=()=>{ state.limit+=120; touch(); renderList(); };
+}
+function renderCrumb(){
+  const names={today:'今天',unread:'未读',star:'星标',week:'近 7 天',all:'全部',day:(state.date||'')};
+  const label=state.view==='day'?(state.date||''):names[state.view];
+  const bits=[];
+  if(state.topics.length) bits.push(state.topics.map(t=>TNAME[t]||t).join(' + '));
+  if(state.sources.length) bits.push(state.sources.map(s=>SRCNAME[s]||s).join(' + '));
+  if(state.q) bits.push('“'+state.q+'”');
+  const unread=view.filter(x=>!state.read[x.k]).length;
+  $('#crumb').innerHTML=`${esc(label)} <small>${view.length} 条${unread?` · 未读 ${unread}`:''}${bits.length?' · '+esc(bits.join(' · ')):''}</small>`;
+}
+function renderStats(){
+  if(!view.length){ $('#stats').innerHTML=''; return; }
+  const vc={}, kc={}, tc={};
+  view.forEach(it=>{ if(it.v) vc[it.v]=(vc[it.v]||0)+1; it.kw.forEach(k=>kc[k]=(kc[k]||0)+1); it.tp.forEach(t=>tc[t]=(tc[t]||0)+1); });
+  const top=(obj,n)=>Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,n);
+  const kv=(label,arr,kind)=>`<div class="grp"><b>${label}</b>${arr.map(([k,n])=>
+    `<button class="kv" data-q="${esc(k)}">${esc(k)}<i>${n}</i></button>`).join('')||'<span class="muted" style="font-size:11.5px">—</span>'}</div>`;
+  $('#stats').innerHTML=`<h3>当前筛选的构成（点任意项可直接搜索）</h3>
+    ${kv('主题', top(tc,6).map(([t,n])=>[TNAME[t]||t,n]),'t')}
+    ${kv('期刊', top(vc,6),'v')}
+    ${kv('高频命中词', top(kc,10),'k')}`;
+}
+function renderEvents(){
+  const ev=EVENTS||[];
+  renderStats();
+  $('#events').innerHTML=`<h3>会议与活动（未来 120 天，日期以官网为准）</h3>`+
+    (ev.length?ev.map(e=>`<a class="ev" href="${esc(e.u)}" target="_blank" rel="noopener">
+      <b>${e.d.slice(5)}</b><span>${esc(e.n)}</span><em>${e.in} 天后</em></a>`).join('')
+    :'<div class="muted">暂无</div>');
+}
+
+/* ---------------- actions ---------------- */
+function renderOverview(){
+  const host=$('#overview'); const o=(DATA.overview||'').trim();
+  if(!o){ host.remove(); return; }
+  host.innerHTML=`<div class="ovhead">今日点评 · 由配置的 agent 生成</div><p>${esc(o)}</p>`;
+}
+function renderAll(){ compute(); renderViews(); renderFilters(); renderDates(); renderList(); renderTrend(); renderEvents(); }
+function toggleRead(k){ state.read[k]=!state.read[k]; if(!state.read[k]) delete state.read[k]; touch(); renderAll(); }
+function toggleStar(k){ state.star[k]=!state.star[k]; if(!state.star[k]) delete state.star[k]; touch(); renderAll(); }
+function markAllRead(){ view.forEach(it=>state.read[it.k]=true); touch(); renderAll(); toast('已把当前 '+view.length+' 条标记为已读'); }
+function clearFilters(){ state.topics=[]; state.sources=[]; state.q=''; state.limit=DEFAULTS.limit; $('#q').value=''; touch(); renderAll(); }
+function copyText(text,okMsg){
+  const done=()=>toast(okMsg||'已复制');
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,()=>fallback()); }
+  else fallback();
+  function fallback(){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');done();}catch(e){toast('复制失败，请手动选择');} ta.remove(); }
+}
+function bibtex(it){
+  const year=(it.p||it.d||'').slice(0,4);
+  const first=(it.au[0]||'anon').split(/\s+/).slice(-1)[0].toLowerCase().replace(/[^a-z]/g,'');
+  const key=(first||'ref')+year+(it.k||'').replace(/[^a-z0-9]/gi,'').slice(-4);
+  const authors=it.au.join(' and ');
+  const fields=[`title = {${it.t}}`,authors?`author = {${authors}}`:'',it.v?`journal = {${it.v}}`:'',
+    year?`year = {${year}}`:'',it.doi?`doi = {${it.doi}}`:'',it.ax?`eprint = {${it.ax}}`:(it.u?`url = {${it.u}}`:'')].filter(Boolean);
+  return `@article{${key},\n  ${fields.join(',\n  ')}\n}`;
+}
+function mdOf(list){
+  const lines=[`# 科研雷达 · ${TODAY} · 导出 ${list.length} 条`,''];
+  list.forEach(it=>{
+    lines.push(`- **[${it.t}](${it.u})**`);
+    const meta=[it.v,it.p,it.tp.map(t=>TNAME[t]||t).join('/'),`相关度 ${it.s}`].filter(Boolean).join(' · ');
+    lines.push(`  ${meta}`);
+    if(it.a) lines.push(`  > ${it.a}`);
+  });
+  return lines.join('\n')+'\n';
+}
+function download(name,text){
+  const blob=new Blob([text],{type:'text/markdown;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
+  document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
+}
+function setTheme(t){ state.theme=t; touch(); document.documentElement.dataset.theme=t; toast('主题：'+({auto:'跟随系统',light:'浅色',dark:'深色'}[t])); }
+
+/* ---------------- events ---------------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-view],[data-topic],[data-source],[data-date],[data-open],.btn-read,.btn-star,.btn-more,.btn-copy');
+  if(!t) return;
+  if(t.dataset.q!==undefined&&t.classList.contains('who')){ state.q=t.dataset.q; $('#q').value=state.q; state.limit=DEFAULTS.limit; touch(); renderAll(); window.scrollTo({top:0,behavior:'smooth'}); return; }
+  if(t.dataset.view){ state.view=t.dataset.view; state.date=null; state.limit=DEFAULTS.limit; touch(); renderAll(); return; }
+  if(t.dataset.topic){ const id=t.dataset.topic; const i=state.topics.indexOf(id);
+    if(i>=0) state.topics.splice(i,1); else state.topics.push(id);
+    state.limit=DEFAULTS.limit; touch(); renderAll(); return; }
+  if(t.dataset.source){ const id=t.dataset.source; const i=state.sources.indexOf(id);
+    if(i>=0) state.sources.splice(i,1); else state.sources.push(id);
+    state.limit=DEFAULTS.limit; touch(); renderAll(); return; }
+  if(t.dataset.date){ state.view='day'; state.date=t.dataset.date; state.limit=DEFAULTS.limit; touch(); renderAll();
+    window.scrollTo({top:0,behavior:'smooth'}); return; }
+  const cardEl=t.closest('.card'); if(!cardEl) return; const k=cardEl.dataset.k;
+  if(t.classList.contains('btn-read')){ toggleRead(k); return; }
+  if(t.classList.contains('btn-star')){ toggleStar(k); return; }
+  if(t.classList.contains('btn-more')){
+    if(openSet.has(k)) openSet.delete(k); else openSet.add(k);
+    cardEl.classList.toggle('open'); t.textContent=openSet.has(k)?'收起':'详情'; return; }
+  if(t.classList.contains('btn-copy')){ const it=ITEMS.find(x=>x.k===k); if(it) copyText(bibtex(it),'已复制 BibTeX'); return; }
+  if(t.dataset.open){ state.read[k]=true; touch(); const dot=cardEl.querySelector('.btn-read'); if(dot) dot.textContent='✓'; cardEl.classList.add('read'); renderViews(); }
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='q'){ state.q=e.target.value.trim(); state.limit=DEFAULTS.limit; clearTimeout(saveTimer);
+    saveTimer=setTimeout(()=>{touch(); renderAll();},140); return; }
+  if(e.target.classList.contains('note')){
+    const k=e.target.closest('.card').dataset.k; const v=e.target.value;
+    if(v) state.note[k]=v; else delete state.note[k]; touch(); }
+});
+$('#sort').addEventListener('change',e=>{ state.sort=e.target.value; touch(); compute(); renderList(); });
+$('#btnReadAll').addEventListener('click',markAllRead);
+$('#btnClear').addEventListener('click',clearFilters);
+$('#btnExport').onclick=()=>{ if(!view.length){toast('当前没有可导出的条目');return;} download(`radar-${TODAY}.md`,mdOf(view)); toast('已导出 Markdown'); };
+$('#btnTheme').onclick=()=>{ const order=['auto','light','dark']; setTheme(order[(order.indexOf(state.theme)+1)%3]); };
+$('#btnHelp').onclick=()=>toggleHelp();
+$('#helpHost').addEventListener('click',e=>{ if(e.target.closest('.help')===e.target||e.target.dataset.close!==undefined) toggleHelp(false); });
+document.addEventListener('keydown',e=>{
+  const tag=(e.target.tagName||'').toLowerCase(); if(tag==='input'||tag==='textarea'||tag==='select') { if(e.key==='Escape') e.target.blur(); return; }
+  if(e.metaKey||e.ctrlKey||e.altKey) return;
+  if(e.key==='/'){ e.preventDefault(); $('#q').focus(); return; }
+  if(e.key==='?'){ e.preventDefault(); toggleHelp(); return; }
+  if(e.key==='j'||e.key==='ArrowDown'){ e.preventDefault(); moveFocus(1); return; }
+  if(e.key==='k'||e.key==='ArrowUp'){ e.preventDefault(); moveFocus(-1); return; }
+  if(e.key==='Escape'){ toggleHelp(false); clearFilters(); return; }
+  const el=document.querySelector('.card.focus'); if(!el){ if(['o','s','m','e'].includes(e.key)){ moveFocus(1);} else return; }
+  const k=el&&el.dataset.k; if(!k) return;
+  if(e.key==='o'){ const it=ITEMS.find(x=>x.k===k); if(it&&it.u){ state.read[k]=true; touch(); window.open(it.u,'_blank','noopener'); renderAll(); } }
+  if(e.key==='s'){ toggleStar(k); }
+  if(e.key==='m'){ toggleRead(k); }
+  if(e.key==='e'){ if(openSet.has(k)) openSet.delete(k); else openSet.add(k);
+    el.classList.toggle('open'); const b=el.querySelector('.btn-more'); if(b) b.textContent=openSet.has(k)?'收起':'详情'; }
+});
+function moveFocus(dir){
+  const cards=$$('#list .card'); if(!cards.length) return;
+  const cur=cards.findIndex(c=>c.classList.contains('focus'));
+  focusIdx=cur<0?0:Math.max(0,Math.min(cards.length-1,cur+dir));
+  cards.forEach(c=>c.classList.remove('focus'));
+  const el=cards[focusIdx]; el.classList.add('focus'); el.scrollIntoView({block:'center',behavior:'smooth'});
+}
+function toggleHelp(force){
+  const host=$('#helpHost');
+  if(host.firstChild && force!==true){ host.innerHTML=''; return; }
+  if(force===false){ host.innerHTML=''; return; }
+  host.innerHTML=`<div class="help"><div class="box"><h4>快捷键</h4><table>
+    <tr><td>j / ↓</td><td>下一条</td></tr>
+    <tr><td>k / ↑</td><td>上一条</td></tr>
+    <tr><td>o</td><td>打开原文（并标记已读）</td></tr>
+    <tr><td>s</td><td>星标</td></tr>
+    <tr><td>m</td><td>已读 / 未读</td></tr>
+    <tr><td>e</td><td>展开详情与备注</td></tr>
+    <tr><td>/</td><td>搜索</td></tr>
+    <tr><td>Esc</td><td>关闭 / 清除筛选</td></tr></table>
+    <p class="muted" style="font-size:12px;margin:10px 0 0">阅读状态、星标、备注存在浏览器本地；换浏览器不会同步。</p>
+    </div></div>`;
+}
+
+/* ---------------- init ---------------- */
+load();
+if(state.view==='day'&&!state.date) state.view='today';
+if(state.lastVisit){
+  const fresh=ITEMS.filter(i=>i.d===TODAY&&!state.read[i.k]).length;
+  if(fresh) setTimeout(()=>toast(`今天有 ${fresh} 条未读`),600);
+}
+state.lastVisit=Date.now(); save();
+document.documentElement.dataset.theme=state.theme||'auto';
+$('#q').value=state.q||'';
+$('#sort').value=state.sort||'score';
+$('#generated').textContent=`${DATA.generated} · ${DATA.items.length} 条 · ${DATA.days.length} 天`;
+renderOverview();
+renderAll();
+})();
+</script>
+</body>
+</html>
