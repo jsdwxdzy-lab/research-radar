@@ -479,8 +479,8 @@ function card(it){
       <span>${esc(it.p||it.d)}</span>${who}${srcs}</div>
     ${it.kw.length?`<div class="ckw">${it.kw.slice(0,6).map(k=>`<span>${esc(k)}</span>`).join('')}</div>`:''}
     ${comment?`<div class="cwhy">短评 ${esc(comment)}</div>`:''}
-    <div class="cabs">${esc(it.a)||'<i>（无摘要）</i>'}</div>
-    ${it.az?`<div class="cabs zhabs">${esc(it.az)}</div>`:''}
+    ${it.az?`<div class="cabs zhabs"><strong>中文摘要：</strong>${esc(it.az)}</div>`:(it.a?'<div class="cabs zhabs">中文翻译待补齐</div>':'')}
+    <div class="cabs"><strong>原文摘要：</strong>${esc(it.a)||'<i>（来源未提供摘要）</i>'}</div>
     <div class="cfoot">
       <button class="link btn-more">${open?'收起':'详情'}</button>
       ${it.ax?`<a class="link" href="https://arxiv.org/pdf/${esc(it.ax)}" target="_blank" rel="noopener">PDF</a>`:''}
