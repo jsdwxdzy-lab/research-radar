@@ -77,7 +77,7 @@ def enabled(cfg: dict) -> bool:
 
 
 def chat(cfg: dict, messages: list[dict], max_tokens: int = 1200, temperature: float | None = None) -> dict:
-    """POST /chat/completions. Returns {text, model, usage}."""
+    """POST /chat/completions. Returns {text, model, usage, finish_reason}."""
     base = (cfg.get("base_url") or "").rstrip("/")
     url = base + ("/chat/completions" if base.endswith("/v1") else "/v1/chat/completions")
     body = {
@@ -107,8 +107,10 @@ def chat(cfg: dict, messages: list[dict], max_tokens: int = 1200, temperature: f
         raise RuntimeError(f"HTTP {exc.code}: {detail}") from exc
     except urllib.error.URLError as exc:
         raise RuntimeError(f"连接失败: {exc.reason}") from exc
-    text = ((data.get("choices") or [{}])[0].get("message") or {}).get("content") or ""
-    return {"text": text, "model": data.get("model") or body["model"], "usage": data.get("usage") or {}}
+    choice = (data.get("choices") or [{}])[0]
+    text = (choice.get("message") or {}).get("content") or ""
+    return {"text": text, "model": data.get("model") or body["model"],
+            "usage": data.get("usage") or {}, "finish_reason": choice.get("finish_reason")}
 
 
 def _parse_json(text: str) -> dict:

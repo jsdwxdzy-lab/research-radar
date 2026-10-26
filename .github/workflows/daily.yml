@@ -26,7 +26,7 @@ concurrency:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
           ARGS=""
           if [ -n "${HOURS:-}" ]; then ARGS="--hours ${HOURS}"; fi
           if [ "${BACKFILL:-false}" = "true" ]; then ARGS="${ARGS} --backfill"; fi
-          python3 -B -m radar run ${ARGS}
+          python3 -u -B -m radar run ${ARGS}
 
       - name: Stage changes
         id: stage

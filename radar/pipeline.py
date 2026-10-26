@@ -180,7 +180,7 @@ def run(
             dropped_low += 1
             continue
         it["title"] = clean(it.get("title", ""), 300)
-        it["abstract"] = strip_abstract_label(clean(it.get("abstract", ""), 1600))
+        it["abstract"] = strip_abstract_label(clean(it.get("abstract", "")))
         kept.append(it)
 
     kept.sort(key=lambda i: -i["score"])

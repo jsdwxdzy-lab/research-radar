@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SHORT = {
     "csp": "CSP",
     "crystal-gen": "生成设计",
+    "gen-model": "生成模型",
+    "vision-gen": "视觉生成",
+    "gen-math": "生成数学",
     "mlip": "MLIP",
     "property": "性质筛选",
     "defect": "缺陷无序",

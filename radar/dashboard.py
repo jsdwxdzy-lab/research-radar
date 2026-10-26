@@ -47,7 +47,7 @@ def _row(r) -> dict:
     return {
         "k": r["key"],
         "t": r["title"],
-        "a": (r["abstract"] or "")[:900],
+        "a": r["abstract"] or "",
         "au": authors[:10],
         "v": r["venue"] or "",
         "u": r["url"] or "",

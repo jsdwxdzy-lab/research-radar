@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from pathlib import Path
 
 from . import agent, store
@@ -15,11 +16,13 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "config" / "review.json"
 
 PROMPT = """你是科研阅读助手。对下面每一条文献按输入顺序各输出一块，块与块之间只放一行 === 。
-每块三行，以 TITLE:、ABS:、REV: 开头。不要使用英文双引号，引用词语时用「」。
+每块四个字段，以 TITLE:、ABS:、REV:、END: 开头。不要使用英文双引号，引用词语时用「」。
 
 TITLE: 中文标题。方法名、模型名可保留英文。
-ABS: 中文摘要，尽量忠实翻译，不要缩成一句话。没有摘要就写（无）。
+ABS: 完整翻译所提供的全部摘要，逐句保留信息，不总结、不省略、不补写来源未提供的内容。没有摘要就写（无）。
 REV: 80–140 字短评。写出方法或对象、它实际做了什么、和「有机分子晶体 / 生成模型 / 视觉生成 / 相关数学」哪一类更近。不要编造未出现的数字或结论。关系弱就直说。
+END: 完整
+完成该条全部内容后才写 END 字段。
 
 文献：
 {material}
@@ -56,7 +59,7 @@ def _material(items: list[dict], max_chars: int) -> str:
     blocks = []
     for i, it in enumerate(items, 1):
         abstract = (it.get("abstract") or "").strip()
-        if len(abstract) > max_chars:
+        if max_chars > 0 and len(abstract) > max_chars:
             abstract = abstract[:max_chars] + "…"
         blocks.append(
             f"{i}. 标题：{it.get('title', '')}\n"
@@ -68,10 +71,10 @@ def _material(items: list[dict], max_chars: int) -> str:
 
 def _fields(block: str) -> dict:
     current = None
-    buf = {"TITLE": [], "ABS": [], "REV": []}
+    buf = {"TITLE": [], "ABS": [], "REV": [], "END": []}
     for line in block.splitlines():
         jumped = False
-        for name in ("TITLE", "ABS", "REV"):
+        for name in ("TITLE", "ABS", "REV", "END"):
             if line.startswith(name + ":"):
                 current = name
                 buf[name].append(line[len(name) + 1 :].strip())
@@ -83,29 +86,39 @@ def _fields(block: str) -> dict:
 
 
 def _one_batch(cfg: dict, items: list[dict]) -> list[dict]:
-    prompt = PROMPT.format(material=_material(items, int(cfg.get("abstract_chars", 700))))
+    # Full-abstract annotations never accept the legacy preview length limit.
+    prompt = PROMPT.format(material=_material(items, 0))
     result = agent.chat(
         cfg,
         [
-            {"role": "system", "content": "按要求的 TITLE/ABS/REV 格式输出，不要 JSON，不要英文双引号。"},
+            {"role": "system", "content": "按要求的 TITLE/ABS/REV/END 格式输出，完整翻译摘要，不要 JSON，不要英文双引号。"},
             {"role": "user", "content": prompt},
         ],
-        max_tokens=int(cfg.get("max_tokens", 3500)),
+        max_tokens=int(cfg.get("max_tokens", 6000)),
         temperature=float(cfg.get("temperature", 0.2)),
     )
+    if result.get("finish_reason") not in (None, "stop"):
+        raise ValueError("模型输出未完整结束，本轮不缓存")
     text = (result.get("text") or "").strip()
     blocks = [b.strip() for b in text.split("===") if b.strip()]
     if len(blocks) < len(items):
         blocks = [b.strip() for b in text.split("\n\n") if "TITLE:" in b]
+    if len(blocks) != len(items):
+        raise ValueError(f"返回 {len(blocks)} 块，输入 {len(items)} 条")
     out = []
     for src, block in zip(items, blocks):
         fields = _fields(block)
-        title = fields["TITLE"][:300]
-        abstract = fields["ABS"][:1200]
+        if fields["END"] != "完整":
+            raise ValueError("缺少完整结束标记，本轮不缓存")
+        title = fields["TITLE"]
+        abstract = fields["ABS"]
         if abstract in {"（无）", "(无)", "无"}:
             abstract = ""
         review = fields["REV"][:400]
-        out.append({"key": src["key"], "title_zh": title, "abstract_zh": abstract, "review": review})
+        if not title or not review or ((src.get("abstract") or "").strip() and not abstract):
+            raise ValueError("标题、摘要或短评缺失，本轮不缓存")
+        out.append({"key": src["key"], "title_zh": title, "abstract_zh": abstract,
+                    "review": review, "source_hash": store.annotation_source_hash(src)})
     if len(out) != len(items):
         raise ValueError(f"返回 {len(out)} 块，输入 {len(items)} 条")
     if not any(row["title_zh"] or row["review"] for row in out):
@@ -130,26 +143,25 @@ def run(cfg_main: dict, conn, log=print, limit: int | None = None) -> int:
     if not pending:
         log("  · 短评/翻译：没有新条目")
         return 0
-    batch_size = max(1, int(cfg.get("batch_size", 2)))
+    # One complete abstract per call avoids silent batch omissions and runaway fallback calls.
+    deadline = time.monotonic() + max(1, int(cfg.get("max_seconds_per_run", 600)))
     done = 0
     model = cfg.get("model", "")
-    for start in range(0, len(pending), batch_size):
-        batch = pending[start : start + batch_size]
+    for number, item in enumerate(pending, 1):
+        remaining = int(deadline - time.monotonic())
+        if remaining < 1:
+            log("  · 短评/翻译：达到本轮时间预算，剩余条目下次继续")
+            break
+        call_cfg = dict(cfg)
+        call_cfg["timeout_seconds"] = min(int(cfg.get("timeout_seconds", 180)), remaining)
+        log(f"  · 完整摘要翻译：开始 {number}/{len(pending)}")
         try:
-            rows = _one_batch(cfg, batch)
+            rows = _one_batch(call_cfg, [item])
+            store.save_annotations(conn, rows, model)
         except Exception as exc:
-            log(f"  ! 短评批次失败（{len(batch)} 条）：{exc}")
-            if len(batch) == 1:
-                continue
-            for it in batch:
-                try:
-                    rows = _one_batch(cfg, [it])
-                    store.save_annotations(conn, rows, model)
-                    done += len(rows)
-                except Exception as exc2:
-                    log(f"  ! 单条失败：{exc2}")
+            # Do not include provider response bodies or credential-bearing URLs in public logs.
+            log(f"  ! 完整摘要翻译失败（{type(exc).__name__}），保留原译文，下次重试")
             continue
-        store.save_annotations(conn, rows, model)
         done += len(rows)
-        log(f"  · 短评/翻译：{done}/{len(pending)}")
+        log(f"  · 完整摘要翻译：完成 {done}/{len(pending)}")
     return done

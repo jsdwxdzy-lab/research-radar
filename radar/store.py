@@ -1,6 +1,7 @@
 """SQLite persistence: dedupe across runs, keep history for trends."""
 from __future__ import annotations
 
+import hashlib
 import json
 import sqlite3
 from datetime import datetime, timedelta
@@ -8,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "state" / "radar.sqlite3"
+ANNOTATION_VERSION = 2
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS items (
@@ -62,6 +64,11 @@ CREATE TABLE IF NOT EXISTS annotations (
     review TEXT,
     model TEXT,
     created TEXT
+);
+CREATE TABLE IF NOT EXISTS annotation_inputs (
+    key TEXT PRIMARY KEY,
+    source_hash TEXT NOT NULL,
+    version INTEGER NOT NULL
 );
 """
 
@@ -188,32 +195,61 @@ def recent_runs(conn: sqlite3.Connection, limit: int = 10) -> list[dict]:
     return [dict(r) for r in conn.execute("SELECT * FROM runs ORDER BY id DESC LIMIT ?", (limit,))]
 
 
+def annotation_source_hash(item: dict) -> str:
+    fields = [item.get(name) or "" for name in ("title", "abstract", "authors", "venue")]
+    return hashlib.sha256(json.dumps(fields, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
 def pending_annotations(conn: sqlite3.Connection, limit: int) -> list[dict]:
+    if int(limit) <= 0:
+        return []
     rows = conn.execute(
-        """SELECT * FROM items
-           WHERE first_seen >= date('now','-120 day')
-             AND key NOT IN (SELECT key FROM annotations)
-           ORDER BY first_seen DESC, score DESC
-           LIMIT ?""",
-        (int(limit),),
-    ).fetchall()
-    return [dict(r) for r in rows]
+        """SELECT i.*, a.title_zh AS cached_title, a.abstract_zh AS cached_abstract,
+                  a.review AS cached_review, m.source_hash AS cached_hash,
+                  m.version AS cached_version
+           FROM items i
+           LEFT JOIN annotations a ON a.key=i.key
+           LEFT JOIN annotation_inputs m ON m.key=i.key
+           WHERE i.first_seen >= date('now','-120 day')
+           ORDER BY (a.key IS NOT NULL), i.first_seen DESC, i.score DESC"""
+    )
+    pending = []
+    for row in rows:
+        item = dict(row)
+        cached = {name: item.pop("cached_" + name) for name in
+                  ("title", "abstract", "review", "hash", "version")}
+        complete = (bool((cached["title"] or "").strip())
+                    and bool((cached["review"] or "").strip())
+                    and (not (item.get("abstract") or "").strip()
+                         or bool((cached["abstract"] or "").strip())))
+        if (not complete or cached["version"] != ANNOTATION_VERSION
+                or cached["hash"] != annotation_source_hash(item)):
+            pending.append(item)
+            if len(pending) >= int(limit):
+                break
+    return pending
 
 
 def save_annotations(conn: sqlite3.Connection, rows: list[dict], model: str) -> None:
     from .util import now as _now
 
     created = _now().isoformat(timespec="seconds")
-    conn.executemany(
-        """INSERT OR REPLACE INTO annotations
-           (key, title_zh, abstract_zh, review, model, created)
-           VALUES (?,?,?,?,?,?)""",
-        [
-            (r["key"], r.get("title_zh", ""), r.get("abstract_zh", ""), r.get("review", ""), model, created)
-            for r in rows
-        ],
-    )
-    conn.commit()
+    with conn:
+        conn.executemany(
+            """INSERT INTO annotations (key, title_zh, abstract_zh, review, model, created)
+               VALUES (?,?,?,?,?,?) ON CONFLICT(key) DO UPDATE SET
+               title_zh=excluded.title_zh, abstract_zh=excluded.abstract_zh,
+               review=excluded.review, model=excluded.model, created=excluded.created""",
+            [(r["key"], r.get("title_zh", ""), r.get("abstract_zh", ""),
+              r.get("review", ""), model, created) for r in rows],
+        )
+        conn.executemany(
+            """INSERT INTO annotation_inputs (key, source_hash, version) VALUES (?,?,?)
+               ON CONFLICT(key) DO UPDATE SET source_hash=excluded.source_hash,
+               version=excluded.version""",
+            [(r["key"], r["source_hash"], ANNOTATION_VERSION)
+             for r in rows if r.get("source_hash")],
+        )
 
 
 def load_annotation_map(conn: sqlite3.Connection) -> dict:
