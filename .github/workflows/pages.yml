@@ -66,8 +66,8 @@ jobs:
               if current != previous:
                   print('Pages build: ' + str(state) + ' ' + str(build.get('commit')), flush=True)
                   previous = current
-              if state == 'errored' and build.get('commit') == expected:
-                  raise SystemExit('Pages build failed for the expected commit')
+              # The latest-build endpoint can briefly return a cancelled earlier build.
+              # Wait for the requested build and verify its actual public bytes.
               if state == 'built' and build.get('commit') == expected:
                   try:
                       req = urllib.request.Request(public_url, headers={'User-Agent': 'research-radar-pages-verify'})
