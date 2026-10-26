@@ -291,12 +291,16 @@ const DAY=86400000;
 const TODAY=DATA.today;
 const TOPICS=DATA.topics||[], TNAME={}, THUE={};
 TOPICS.forEach(t=>{TNAME[t.id]=t.short||t.id; THUE[t.id]=t.hue;});
-const ITEMS=DATA.items||[], DAYS=DATA.days||[], EVENTS=DATA.events||[], TREND=DATA.trends||{};
+const DATA_ITEMS=DATA.items||[];
+const DATA_DAYS=(DATA.days||[]).map(d=>({d:d.d,n:d.n}));
+let ITEMS=DATA_ITEMS.slice();
+let DAYS=DATA_DAYS.slice();
+const EVENTS=DATA.events||[], TREND=DATA.trends||{};
 const SRCNAME={arxiv:'arXiv',crossref:'期刊',openalex:'OpenAlex',rss:'新闻',github:'工具'};
 
 const LS='research-radar.v1';
 const DEFAULTS={view:'today',topics:[],sources:[],q:'',date:null,sort:'score',
-  read:{},star:{},note:{},theme:'auto',lastVisit:0,limit:80};
+  read:{},star:{},kept:{},note:{},theme:'auto',lastVisit:0,limit:80};
 let state=Object.assign({},DEFAULTS);
 let view=[], focusIdx=-1, saveTimer=null;
 const openSet=new Set();   // expanded cards survive re-renders
@@ -306,9 +310,34 @@ function load(){
   catch(e){ console.warn('localStorage 不可用：阅读状态仅在本次会话有效',e); }
 }
 function save(){
-  try{ localStorage.setItem(LS,JSON.stringify(state)); }catch(e){}
+  try{ localStorage.setItem(LS,JSON.stringify(state)); }
+  catch(e){ toast('浏览器存不下更多收藏副本'); }
 }
 function touch(){ save(); }
+function itemCopy(it){
+  return {
+    k:it.k, t:it.t, a:it.a||'', au:it.au||[], v:it.v||'', u:it.u||'',
+    p:it.p||'', d:it.d||'', s:it.s||0, tp:it.tp||[], kw:it.kw||[],
+    src:it.src||[], kind:it.kind||'paper', ax:it.ax||'', doi:it.doi||'',
+    who:it.who||[], why:it.why||''
+  };
+}
+function applyKept(){
+  if(!state.kept || typeof state.kept!=='object') state.kept={};
+  const live={};
+  DATA_ITEMS.forEach(it=>{ live[it.k]=it; });
+  Object.keys(state.star||{}).forEach(k=>{ if(live[k]) state.kept[k]=itemCopy(live[k]); });
+  Object.keys(state.kept).forEach(k=>{ if(!state.star[k]) delete state.kept[k]; });
+  const extra=[];
+  Object.keys(state.kept).forEach(k=>{
+    if(!live[k] && state.kept[k]) extra.push(state.kept[k]);
+  });
+  ITEMS=DATA_ITEMS.concat(extra);
+  const counts={};
+  DATA_DAYS.forEach(d=>{ counts[d.d]=d.n; });
+  extra.forEach(it=>{ if(it.d) counts[it.d]=(counts[it.d]||0)+1; });
+  DAYS=Object.keys(counts).sort((a,b)=>b.localeCompare(a)).map(d=>({d:d, n:counts[d]}));
+}
 
 function daysAgo(d){ try{ return Math.round((new Date(TODAY+'T00:00:00')-new Date(d+'T00:00:00'))/DAY);}catch(e){ return 999; } }
 function weekday(d){ try{ return '日一二三四五六'[new Date(d+'T00:00:00').getDay()]; }catch(e){ return ''; } }
@@ -531,7 +560,13 @@ function renderOverview(){
 }
 function renderAll(){ compute(); renderViews(); renderFilters(); renderDates(); renderList(); renderTrend(); renderEvents(); }
 function toggleRead(k){ state.read[k]=!state.read[k]; if(!state.read[k]) delete state.read[k]; touch(); renderAll(); }
-function toggleStar(k){ state.star[k]=!state.star[k]; if(!state.star[k]) delete state.star[k]; touch(); renderAll(); }
+function toggleStar(k){
+  if(state.star[k]) delete state.star[k];
+  else state.star[k]=true;
+  applyKept();
+  touch();
+  renderAll();
+}
 function markAllRead(){ view.forEach(it=>state.read[it.k]=true); touch(); renderAll(); toast('已把当前 '+view.length+' 条标记为已读'); }
 function clearFilters(){ state.topics=[]; state.sources=[]; state.q=''; state.limit=DEFAULTS.limit; $('#q').value=''; touch(); renderAll(); }
 function copyText(text,okMsg){
@@ -640,12 +675,13 @@ function toggleHelp(force){
     <tr><td>e</td><td>展开详情与备注</td></tr>
     <tr><td>/</td><td>搜索</td></tr>
     <tr><td>Esc</td><td>关闭 / 清除筛选</td></tr></table>
-    <p class="muted" style="font-size:12px;margin:10px 0 0">阅读状态、星标、备注存在浏览器本地；换浏览器不会同步。</p>
+    <p class="muted" style="font-size:12px;margin:10px 0 0">阅读状态、星标、备注存在这台浏览器里，换浏览器不会同步。点星标会留下文章副本：超过 120 天或数据库清理之后，仍可在「星标」和「全部」里看到。取消星标后，过期文章不再保留。</p>
     </div></div>`;
 }
 
 /* ---------------- init ---------------- */
 load();
+applyKept();
 if(state.view==='day'&&!state.date) state.view='today';
 if(state.lastVisit){
   const fresh=ITEMS.filter(i=>i.d===TODAY&&!state.read[i.k]).length;
@@ -655,7 +691,7 @@ state.lastVisit=Date.now(); save();
 document.documentElement.dataset.theme=state.theme||'auto';
 $('#q').value=state.q||'';
 $('#sort').value=state.sort||'score';
-$('#generated').textContent=`${DATA.generated} · ${DATA.items.length} 条 · ${DATA.days.length} 天`;
+$('#generated').textContent=`${DATA.generated} · ${ITEMS.length} 条 · ${DAYS.length} 天`;
 renderOverview();
 renderAll();
 })();
