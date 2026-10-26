@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 from pathlib import Path
 
@@ -160,7 +161,11 @@ def run(cfg_main: dict, conn, log=print, limit: int | None = None) -> int:
             store.save_annotations(conn, rows, model)
         except Exception as exc:
             # Do not include provider response bodies or credential-bearing URLs in public logs.
-            log(f"  ! 完整摘要翻译失败（{type(exc).__name__}），保留原译文，下次重试")
+            status = re.match(r"HTTP\s+(\d{3})(?:\b|:)", str(exc))
+            detail = " HTTP " + status.group(1) if status else ""
+            if str(exc).startswith("连接失败"):
+                detail = " 网络连接失败"
+            log(f"  ! 完整摘要翻译失败（{type(exc).__name__}{detail}），保留原译文，下次重试")
             continue
         done += len(rows)
         log(f"  · 完整摘要翻译：完成 {done}/{len(pending)}")

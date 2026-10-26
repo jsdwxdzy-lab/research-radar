@@ -53,8 +53,9 @@ def _candidate_key_files(cfg: dict) -> list[Path]:
     out: list[Path] = []
     if cfg.get("api_key_file"):
         out.append(Path(os.path.expanduser(cfg["api_key_file"])))
-    out.append(ROOT.parent / ".secrets" / "agent_key")          # sibling of the project
-    out.append(Path.home() / ".config" / "research-radar" / "agent_key")
+    if cfg.get("api_key_env", "AGENT_API_KEY") == "AGENT_API_KEY":
+        out.append(ROOT.parent / ".secrets" / "agent_key")
+        out.append(Path.home() / ".config" / "research-radar" / "agent_key")
     return out
 
 
@@ -88,12 +89,15 @@ def chat(cfg: dict, messages: list[dict], max_tokens: int = 1200, temperature: f
     }
     if cfg.get("json_mode", True):
         body["response_format"] = {"type": "json_object"}
+    credential = api_key(cfg)
+    if not credential:
+        raise RuntimeError("没有找到该接口的专用凭据")
     req = urllib.request.Request(
         url,
         data=json.dumps(body).encode("utf-8"),
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key(cfg)}",
+            "Authorization": f"Bearer {credential}",
             "User-Agent": "research-radar/0.2",
         },
         method="POST",

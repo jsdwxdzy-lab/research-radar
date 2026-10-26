@@ -1,0 +1,57 @@
+name: review-service-health
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check translation service from the cloud runner
+        env:
+          USTC_LLM_KEY: ${{ secrets.USTC_LLM_KEY }}
+        run: |
+          python3 -B -u - <<'PY'
+          import json
+          import os
+          import socket
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          cfg = json.load(open('config/review.json', encoding='utf-8'))
+          credential = os.environ.get('USTC_LLM_KEY', '').strip()
+          if not credential:
+              raise SystemExit('Translation credential is not configured')
+          host = urllib.parse.urlsplit(cfg['base_url']).hostname
+          try:
+              records = socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)
+              print('DNS resolution succeeded: ' + str(len(records)) + ' records', flush=True)
+          except OSError as exc:
+              raise SystemExit('DNS resolution failed: ' + type(exc).__name__)
+          body = {'model': cfg['model'], 'messages': [{'role': 'user', 'content': '只回复两个字：正常'}],
+                  'max_tokens': 64, 'temperature': 0}
+          request = urllib.request.Request(cfg['base_url'].rstrip('/') + '/chat/completions',
+              data=json.dumps(body).encode(), method='POST',
+              headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + credential,
+                       'User-Agent': 'research-radar-health'})
+          started = time.monotonic()
+          try:
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  data = json.load(response)
+              choice = (data.get('choices') or [{}])[0]
+              print(json.dumps({'http': 200, 'seconds': round(time.monotonic()-started, 1),
+                                'finish_reason': choice.get('finish_reason')}, ensure_ascii=False))
+          except urllib.error.HTTPError as exc:
+              raise SystemExit('Translation service HTTP ' + str(exc.code))
+          except urllib.error.URLError as exc:
+              raise SystemExit('Translation network failure: ' + type(exc.reason).__name__)
+          except Exception as exc:
+              raise SystemExit('Translation request failed: ' + type(exc).__name__)
+          PY

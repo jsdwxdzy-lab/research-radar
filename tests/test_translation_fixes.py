@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 STAGE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(STAGE))
-from radar import annotate, dashboard, store
+from radar import agent, annotate, dashboard, store
 
 
 def connection():
@@ -126,6 +126,15 @@ class TranslationFixes(unittest.TestCase):
         abstract = 'Original. ' * 400 + 'LAST_SENTENCE'
         item = add_item(conn, abstract=abstract)
         self.assertEqual(dashboard._row(item)['a'], abstract)
+
+    def test_review_credentials_do_not_fall_back_to_overview_key_files(self):
+        self.assertEqual(agent._candidate_key_files({'api_key_env': 'USTC_LLM_KEY'}), [])
+
+    def test_missing_interface_credential_stops_before_network(self):
+        with patch.object(agent, 'api_key', return_value=''), patch.object(agent.urllib.request, 'urlopen') as request:
+            with self.assertRaisesRegex(RuntimeError, '专用凭据'):
+                agent.chat({'base_url': 'https://example.invalid'}, [])
+        request.assert_not_called()
 
     def test_all_proposed_python_files_parse(self):
         for path in (STAGE / 'radar').rglob('*.py'):
