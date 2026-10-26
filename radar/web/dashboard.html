@@ -504,7 +504,7 @@ function renderList(){
       ? `<button class="tool" id="searchAll" style="margin-top:10px">在全部历史里搜「${esc(state.q)}」</button>`
       : '';
     list.innerHTML=`<div class="empty"><b>${esc(scope)}里没有符合条件的条目</b>
-      换个分区、清空搜索，或者等到明天 07:40 的新一轮抓取。${hint}</div>`;
+      可切换到「近 7 天」或「全部」查看已有论文。每天 07:30 启动更新。${hint}</div>`;
     const b=$('#searchAll'); if(b) b.onclick=()=>{ state.view='all'; state.limit=DEFAULTS.limit; touch(); renderAll(); };
     renderCrumb(); return;
   }
