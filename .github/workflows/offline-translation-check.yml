@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      RADAR_TRANSLATION_CACHE: ${{ runner.temp }}/radar-translation-models
+      RADAR_TRANSLATION_CACHE: ${{ github.workspace }}/../radar-translation-models
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           cache: pip
           cache-dependency-path: requirements-translation.txt
       - name: Install CPU translation runtime
