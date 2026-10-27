@@ -76,12 +76,13 @@ def benchmark(cfg: dict, output: Path):
         raise AssertionError('Network access attempted during offline inference')
     with patch.object(socket.socket, 'connect', deny), patch.object(socket, 'create_connection', deny), \
             patch.object(urllib.request, 'urlopen', deny):
-        translator = offline.Translator(cfg)
+        translator = offline.build_translator(cfg)
         for item in selected:
             tick = time.monotonic()
             title = translator.translate(item['title'])
             abstract = translator.translate(item['abstract'])
-            chunks = offline.split_text(item['abstract'], translator.source.encode, translator.max_tokens)
+            chunks = (translator.chunks(item['abstract']) if hasattr(translator, 'chunks') else
+                      offline.split_text(item['abstract'], translator.source.encode, translator.max_tokens))
             record = {'key': item['key'], 'url': item['url'], 'topics': json.loads(item.get('topics') or '[]'),
                 'title': item['title'], 'title_zh': title, 'abstract': item['abstract'], 'abstract_zh': abstract,
                 'previous_qwen_abstract': item.get('qwen_abstract'), 'source_chunks': len(chunks),
@@ -89,7 +90,7 @@ def benchmark(cfg: dict, output: Path):
             results.append(record)
             print(json.dumps({'number': len(results), 'seconds': record['seconds'], 'source_chunks': len(chunks),
                 'translated_chunks': record['translated_chunks'], 'title_zh': title}, ensure_ascii=False), flush=True)
-    report = {'model': offline.MODEL_ID, 'archive_sha256': cfg['archive_sha256'],
+    report = {'model': getattr(translator, 'model_id', offline.MODEL_ID), 'archive_sha256': cfg.get('archive_sha256'),
         'network_disabled_during_inference': True, 'papers': len(results),
         'seconds': round(time.monotonic()-started, 2), 'results': results}
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -99,11 +100,15 @@ def benchmark(cfg: dict, output: Path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--prepare', action='store_true')
+    parser.add_argument('--hymt', action='store_true')
     parser.add_argument('--config', type=Path, required=True)
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
     if args.prepare:
-        prepare_trial(args.config)
+        if args.hymt:
+            offline.prepare(json.loads(args.config.read_text()))
+        else:
+            prepare_trial(args.config)
     else:
         benchmark(json.loads(args.config.read_text()), args.output)
 

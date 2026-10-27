@@ -1,0 +1,36 @@
+name: hymt-translation-check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      RADAR_TRANSLATION_CACHE: ${{ github.workspace }}/../radar-translation-models
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-hymt-trial.txt
+      - name: Install dedicated CPU translation runtime
+        run: python -m pip install --prefer-binary -r requirements-hymt-trial.txt
+      - uses: actions/cache@v4
+        with:
+          path: ${{ env.RADAR_TRANSLATION_CACHE }}
+          key: hymt-1.8b-q4-v1
+      - name: Prepare public model weights
+        run: python -B -u scripts/benchmark_translation.py --prepare --hymt --config config/translation-hymt-trial.json
+      - name: Translate ten public papers with networking disabled
+        run: python -B -u scripts/benchmark_translation.py --config config/translation-hymt-trial.json --output "$RUNNER_TEMP/hymt-benchmark.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hymt-translation-samples
+          path: ${{ runner.temp }}/hymt-benchmark.json
+          retention-days: 7

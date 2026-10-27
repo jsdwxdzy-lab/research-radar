@@ -52,6 +52,10 @@ def model_paths(cfg: dict) -> tuple[Path, Path]:
 
 
 def prepare(cfg: dict, log=print) -> None:
+    if cfg.get('engine') == 'hymt':
+        from .hymt_translate import prepare as prepare_hymt
+        prepare_hymt(cfg, log=log)
+        return
     try:
         model_paths(cfg)
         log("离线翻译模型：使用已有缓存")
@@ -169,7 +173,7 @@ def run(cfg: dict, conn, log=print, limit: int | None = None) -> int:
     if not pending:
         log("  · 离线翻译：没有待补齐的标题或摘要，保留已有译文")
         return 0
-    translator = Translator(cfg)
+    translator = build_translator(cfg)
     deadline = time.monotonic() + int(cfg.get("max_seconds_per_run", 900))
     done = 0
     for number, item in enumerate(pending, 1):
@@ -182,12 +186,20 @@ def run(cfg: dict, conn, log=print, limit: int | None = None) -> int:
             if not title or (item.get("abstract", "").strip() and not abstract):
                 raise ValueError("译文缺失")
             store.save_translations(conn, [{"key": item["key"], "title_zh": title,
-                "abstract_zh": abstract, "source_hash": store.annotation_source_hash(item)}], MODEL_ID)
+                "abstract_zh": abstract, "source_hash": store.annotation_source_hash(item)}],
+                getattr(translator, 'model_id', MODEL_ID))
             done += 1
             log(f"  · 离线翻译：完成 {number}/{len(pending)}（标题和完整摘要）")
         except Exception as exc:
             log(f"  ! 离线翻译失败（{type(exc).__name__}），保留已有译文，下次重试")
     return done
+
+
+def build_translator(cfg: dict):
+    if cfg.get('engine') == 'hymt':
+        from .hymt_translate import Translator as HYTranslator
+        return HYTranslator(cfg)
+    return Translator(cfg)
 
 
 def main() -> int:
