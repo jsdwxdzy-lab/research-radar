@@ -145,6 +145,7 @@ class Translator:
                 if not missing:
                     break
                 if attempt:
+                    self.last_validation_issue = {'source': part, 'translation': value, 'missing': missing}
                     raise ValueError('关键科研术语或百分比未保留，本条不缓存')
                 # Retry the original sentence with explicit constraints; never
                 # patch a finished translation by hand or drop the failing tail.

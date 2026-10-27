@@ -50,12 +50,14 @@ def prepare_trial(output: Path):
     print(json.dumps({'archive_sha256': digest, 'archive_bytes': archive.stat().st_size, 'prepared': True}), flush=True)
 
 
-def benchmark(cfg: dict, output: Path, limit: int = 10):
+def benchmark(cfg: dict, output: Path, limit: int = 10, focus_title: str = ''):
     conn = sqlite3.connect('file:' + str(ROOT / 'state' / 'radar.sqlite3') + '?mode=ro', uri=True)
     conn.row_factory = sqlite3.Row
     rows = [dict(row) for row in conn.execute(
         "SELECT i.*, a.abstract_zh AS qwen_abstract FROM items i LEFT JOIN annotations a ON a.key=i.key "
         "WHERE length(i.abstract)>0 ORDER BY i.score DESC")]
+    if focus_title:
+        rows = [row for row in rows if focus_title.casefold() in row['title'].casefold()]
     selected = []
     # Cover the longest input and the leading paper in each topic, then fill by score.
     candidates = sorted(rows, key=lambda i: -len(i['abstract']))[:2]
@@ -104,7 +106,15 @@ def benchmark(cfg: dict, output: Path, limit: int = 10):
                 translator.set_context(item['title'])
             title_fn = getattr(translator, 'translate_title', translator.translate)
             title = title_fn(item['title'])
-            abstract = translator.translate(item['abstract'])
+            try:
+                abstract = translator.translate(item['abstract'])
+            except ValueError:
+                issue = getattr(translator, 'last_validation_issue', None)
+                if issue:
+                    print(json.dumps({'validation_issue': issue}, ensure_ascii=False), flush=True)
+                    output.write_text(json.dumps({'validation_issue': issue, 'completed_results': results},
+                        ensure_ascii=False, indent=2), encoding='utf-8')
+                raise
             chunks = (translator.chunks(item['abstract']) if hasattr(translator, 'chunks') else
                       offline.split_text(item['abstract'], translator.source.encode, translator.max_tokens))
             record = {'key': item['key'], 'url': item['url'], 'topics': json.loads(item.get('topics') or '[]'),
@@ -128,7 +138,8 @@ def main():
     parser.add_argument('--hymt', '--configured-model', dest='configured_model', action='store_true')
     parser.add_argument('--config', type=Path, required=True)
     parser.add_argument('--output', type=Path)
-    parser.add_argument('--limit', type=int, choices=(4, 10), default=10)
+    parser.add_argument('--limit', type=int, choices=(1, 4, 10), default=10)
+    parser.add_argument('--focus-title', default='')
     args = parser.parse_args()
     if args.prepare:
         if args.configured_model:
@@ -136,7 +147,7 @@ def main():
         else:
             prepare_trial(args.config)
     else:
-        benchmark(json.loads(args.config.read_text()), args.output, args.limit)
+        benchmark(json.loads(args.config.read_text()), args.output, args.limit, args.focus_title)
 
 
 if __name__ == '__main__':
