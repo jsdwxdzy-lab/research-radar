@@ -12,46 +12,75 @@ jobs:
     timeout-minutes: 2
     steps:
       - uses: actions/checkout@v4
-      - name: Check translation service from the cloud runner
+      - name: Check DNS, TCP, TLS and Qwen API
         env:
           USTC_LLM_KEY: ${{ secrets.USTC_LLM_KEY }}
         run: |
           python3 -B -u - <<'PY'
+          import ipaddress
           import json
           import os
           import socket
+          import sqlite3
+          import ssl
           import time
           import urllib.error
           import urllib.parse
           import urllib.request
+          from radar import annotate
 
-          cfg = json.load(open('config/review.json', encoding='utf-8'))
+          cfg = annotate.load_config()
           credential = os.environ.get('USTC_LLM_KEY', '').strip()
           if not credential:
               raise SystemExit('Translation credential is not configured')
           host = urllib.parse.urlsplit(cfg['base_url']).hostname
+
+          def fail(stage, exc):
+              print(json.dumps({'stage': stage, 'ok': False, 'error_type': type(exc).__name__}), flush=True)
+              raise SystemExit(1)
+
           try:
               records = socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)
-              print('DNS resolution succeeded: ' + str(len(records)) + ' records', flush=True)
+              addresses = {record[4][0] for record in records}
+              print(json.dumps({'stage': 'dns', 'ok': True, 'addresses': len(addresses),
+                                'all_addresses_public': all(ipaddress.ip_address(a).is_global for a in addresses)}), flush=True)
           except OSError as exc:
-              raise SystemExit('DNS resolution failed: ' + type(exc).__name__)
-          body = {'model': cfg['model'], 'messages': [{'role': 'user', 'content': '只回复两个字：正常'}],
-                  'max_tokens': 64, 'temperature': 0}
-          request = urllib.request.Request(cfg['base_url'].rstrip('/') + '/chat/completions',
-              data=json.dumps(body).encode(), method='POST',
-              headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + credential,
-                       'User-Agent': 'research-radar-health'})
-          started = time.monotonic()
+              fail('dns', exc)
           try:
-              with urllib.request.urlopen(request, timeout=20) as response:
-                  data = json.load(response)
-              choice = (data.get('choices') or [{}])[0]
-              print(json.dumps({'http': 200, 'seconds': round(time.monotonic()-started, 1),
-                                'finish_reason': choice.get('finish_reason')}, ensure_ascii=False))
+              started = time.monotonic()
+              connection = socket.create_connection((host, 443), timeout=8)
+              print(json.dumps({'stage': 'tcp', 'ok': True, 'seconds': round(time.monotonic()-started, 1)}), flush=True)
+          except OSError as exc:
+              fail('tcp', exc)
+          try:
+              started = time.monotonic()
+              with ssl.create_default_context().wrap_socket(connection, server_hostname=host):
+                  pass
+              print(json.dumps({'stage': 'tls', 'ok': True, 'seconds': round(time.monotonic()-started, 1)}), flush=True)
+          except OSError as exc:
+              fail('tls', exc)
+          request = urllib.request.Request(cfg['base_url'].rstrip('/') + '/models',
+              headers={'Authorization': 'Bearer ' + credential, 'User-Agent': 'research-radar-health'})
+          try:
+              with urllib.request.urlopen(request, timeout=12) as response:
+                  models = json.load(response)
+              available = any(row.get('id') == cfg['model'] for row in models.get('data', []))
+              print(json.dumps({'stage': 'model_access', 'ok': True, 'configured_model_available': available}), flush=True)
           except urllib.error.HTTPError as exc:
-              raise SystemExit('Translation service HTTP ' + str(exc.code))
-          except urllib.error.URLError as exc:
-              raise SystemExit('Translation network failure: ' + type(exc.reason).__name__)
+              print(json.dumps({'stage': 'model_access', 'ok': False, 'http': exc.code}), flush=True)
+              raise SystemExit(1)
           except Exception as exc:
-              raise SystemExit('Translation request failed: ' + type(exc).__name__)
+              fail('model_access', exc)
+          try:
+              conn = sqlite3.connect('file:state/radar.sqlite3?mode=ro', uri=True)
+              conn.row_factory = sqlite3.Row
+              item = dict(conn.execute("SELECT * FROM items WHERE length(abstract)>0 ORDER BY first_seen DESC,score DESC LIMIT 1").fetchone())
+              cfg['timeout_seconds'] = 45
+              started = time.monotonic()
+              rows = annotate._one_batch(cfg, [item])
+              print(json.dumps({'stage': 'qwen_translation', 'ok': True,
+                                'seconds': round(time.monotonic()-started, 1),
+                                'translated_abstract_characters': len(rows[0]['abstract_zh'])}), flush=True)
+          except Exception as exc:
+              fail('qwen_translation', exc)
           PY
