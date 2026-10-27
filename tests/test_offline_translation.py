@@ -72,6 +72,20 @@ class OfflineTranslationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '百分比'):
             translator.translate('The structures ranked in the top 10%.')
 
+    def test_compound_sentence_falls_back_to_complete_source_clauses(self):
+        translator = local_llm_translate.Translator.__new__(local_llm_translate.Translator)
+        translator.chunks = lambda text: [text]
+        translator.engine = Mock()
+        def result(text):
+            return {'choices': [{'text': text, 'finish_reason': 'stop'}]}
+        translator.engine.create_completion.side_effect = [result('中位数高九倍，24%进入前10名。'),
+            result('中位数高九倍，24%进入前10名。'), result('中位数高九倍。'), result('且24%进入前10%。')]
+        source = 'The median was nine times higher, and 24% ranked in the top 10%.'
+        self.assertEqual(translator.translate(source), '中位数高九倍。\n且24%进入前10%。')
+        prompts = [call.kwargs['prompt'] for call in translator.engine.create_completion.call_args_list]
+        self.assertIn('The median was nine times higher,', prompts[2])
+        self.assertIn('and 24% ranked in the top 10%.', prompts[3])
+
     def test_qwen_chunk_packing_keeps_the_complete_input(self):
         translator = local_llm_translate.Translator.__new__(local_llm_translate.Translator)
         translator.max_tokens = 80

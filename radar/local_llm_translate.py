@@ -145,6 +145,16 @@ class Translator:
                 if not missing:
                     break
                 if attempt:
+                    boundaries = [m.end() for m in re.finditer(r'[,;]\s+', part)]
+                    if boundaries:
+                        cut = min(boundaries, key=lambda n: abs(n - len(part) // 2))
+                        if 0 < cut < len(part):
+                            # An awkward compound sentence can keep producing
+                            # the same unit error. Translate its source clauses
+                            # separately, with the same validation on each one.
+                            value = self.translate(part[:cut].strip()) + '\n' + self.translate(part[cut:].strip())
+                            break
+                    self.last_validation_issue = {'source': part, 'translation': value, 'missing': missing}
                     raise ValueError('关键科研术语或百分比未保留，本条不缓存')
                 # Retry the original sentence with explicit constraints; never
                 # patch a finished translation by hand or drop the failing tail.

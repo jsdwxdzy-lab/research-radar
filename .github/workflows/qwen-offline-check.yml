@@ -7,7 +7,11 @@ on:
         description: Number of public papers to translate
         type: choice
         default: '10'
-        options: ['10', '4']
+        options: ['10', '4', '1']
+      focus_title:
+        description: Optional title substring for a focused diagnostic
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -27,6 +31,8 @@ jobs:
           cache-dependency-path: requirements-hymt-trial.txt
       - name: Install dedicated CPU translation runtime
         run: python -m pip install --prefer-binary -r requirements-hymt-trial.txt
+      - name: Check translation regressions
+        run: python -B -m unittest discover -s tests
       - uses: actions/cache@v4
         with:
           path: ${{ env.RADAR_TRANSLATION_CACHE }}
@@ -36,8 +42,10 @@ jobs:
       - name: Translate public papers with networking disabled
         env:
           SAMPLE_COUNT: ${{ inputs.sample_count }}
-        run: python -B -u scripts/benchmark_translation.py --config config/translation-qwen-trial.json --output "$RUNNER_TEMP/qwen-offline-benchmark.json" --limit "$SAMPLE_COUNT"
+          FOCUS_TITLE: ${{ inputs.focus_title }}
+        run: python -B -u scripts/benchmark_translation.py --config config/translation-qwen-trial.json --output "$RUNNER_TEMP/qwen-offline-benchmark.json" --limit "$SAMPLE_COUNT" --focus-title "$FOCUS_TITLE"
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: qwen-offline-samples
           path: ${{ runner.temp }}/qwen-offline-benchmark.json
