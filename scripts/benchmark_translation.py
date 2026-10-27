@@ -70,6 +70,7 @@ def benchmark(cfg: dict, output: Path):
     if len(selected) != 10:
         raise ValueError('Need ten public papers')
     results = []
+    quality = []
     started = time.monotonic()
     # Prove model construction and all inference work without network access.
     def deny(*args, **kwargs):
@@ -77,6 +78,26 @@ def benchmark(cfg: dict, output: Path):
     with patch.object(socket.socket, 'connect', deny), patch.object(socket, 'create_connection', deny), \
             patch.object(urllib.request, 'urlopen', deny):
         translator = offline.build_translator(cfg)
+        if cfg.get('engine') == 'qwen-offline':
+            checks = [
+                ('The structures are stable or metastable.', lambda s: '亚稳' in s and '不稳定' not in s),
+                ('79% of the structures matched no entry in the Materials Project database.',
+                    lambda s: '79%' in s and any(word in s for word in ('没有', '未', '不', '无'))),
+                ('The mixed crystals contain anthracene, acridine and phenazine.',
+                    lambda s: all(word in s for word in ('蒽', '吖啶', '吩嗪'))),
+                ('We learn a flow from inlier text embeddings.',
+                    lambda s: '异常' not in s and any(word in s for word in ('内点', '正常', '非离群', '内群'))),
+                ('The median figure of merit was nine times higher.',
+                    lambda s: any(word in s for word in ('中位', '中值')) and '平均' not in s),
+            ]
+            for source, check in checks:
+                translated = translator.translate(source)
+                passed = check(translated)
+                quality.append({'source': source, 'translation': translated, 'passed': passed})
+                print(json.dumps({'quality_check': source, 'translation': translated, 'passed': passed}, ensure_ascii=False), flush=True)
+            if not all(row['passed'] for row in quality):
+                output.write_text(json.dumps({'quality_checks': quality}, ensure_ascii=False, indent=2), encoding='utf-8')
+                raise ValueError('Critical scientific translation checks failed')
         for item in selected:
             tick = time.monotonic()
             title = translator.translate(item['title'])
@@ -92,7 +113,7 @@ def benchmark(cfg: dict, output: Path):
                 'translated_chunks': record['translated_chunks'], 'title_zh': title}, ensure_ascii=False), flush=True)
     report = {'model': getattr(translator, 'model_id', offline.MODEL_ID), 'archive_sha256': cfg.get('archive_sha256'),
         'network_disabled_during_inference': True, 'papers': len(results),
-        'seconds': round(time.monotonic()-started, 2), 'results': results}
+        'seconds': round(time.monotonic()-started, 2), 'quality_checks': quality, 'results': results}
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps({k: v for k, v in report.items() if k != 'results'}, ensure_ascii=False), flush=True)
 

@@ -24,7 +24,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ${{ env.RADAR_TRANSLATION_CACHE }}
-          key: qwen3-1.7b-q8-v1
+          key: qwen3-4b-instruct-q4-v1
       - name: Prepare public model weights
         run: python -B -u scripts/benchmark_translation.py --prepare --configured-model --config config/translation-qwen-trial.json
       - name: Translate ten public papers with networking disabled

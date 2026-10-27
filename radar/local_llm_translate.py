@@ -10,9 +10,9 @@ import urllib.request
 import uuid
 
 ROOT = Path(__file__).resolve().parent.parent
-MODEL_ID = "Qwen/Qwen3-1.7B-GGUF:Q8_0"
-MODEL_URL = "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q8_0.gguf"
-MODEL_SHA256 = "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a"
+MODEL_ID = "Qwen3-4B-Instruct-2507:Q4_K_M"
+MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf"
+MODEL_SHA256 = "2fde00ce69dd4899c70d020845e2638353015bba0fdf161b3eb965f2bca4464e"
 GLOSSARY = """参考下面的科研术语翻译（仅在原文出现时使用）：
 crystal structure prediction 翻译成 晶体结构预测
 molecular crystal 翻译成 分子晶体
@@ -22,6 +22,9 @@ Prussian blue analogue 翻译成 普鲁士蓝类似物
 antiperovskite 翻译成 反钙钛矿
 phenazine 翻译成 吩嗪
 Jahn-Teller effect 翻译成 Jahn–Teller 效应
+anthracene 翻译成 蒽
+acridine 翻译成 吖啶
+metastable 翻译成 亚稳态
 
 """
 
@@ -31,7 +34,7 @@ def model_path() -> Path:
                 Path.home() / ".cache" / "research-radar" / "translation").expanduser().resolve()
     if root == ROOT or ROOT in root.parents:
         raise ValueError("翻译模型缓存必须放在项目目录外")
-    return root / ("qwen3-1.7b-q8-" + MODEL_SHA256[:16]) / "model.gguf"
+    return root / ("qwen3-4b-instruct-q4-" + MODEL_SHA256[:16]) / "model.gguf"
 
 
 def prepare(cfg: dict, log=print) -> None:
@@ -46,7 +49,7 @@ def prepare(cfg: dict, log=print) -> None:
     download = target.parent / (uuid.uuid4().hex + '.download')
     request = urllib.request.Request(MODEL_URL, headers={'User-Agent': 'research-radar-model-setup'})
     digest = hashlib.sha256()
-    log('离线翻译模型：下载作者公开权重（约 1.83 GB，不需要密钥）')
+    log('离线翻译模型：下载作者公开权重（约 2.50 GB，不需要密钥）')
     with urllib.request.urlopen(request, timeout=120) as response, download.open('wb') as out:
         while True:
             block = response.read(1024 * 1024)
@@ -99,10 +102,10 @@ class Translator:
         for part in parts:
             prompt = (GLOSSARY + '将以下文本翻译为简体中文，注意只需要输出翻译后的结果，不要额外解释。'
                 '完整保留原文信息，不要总结或省略；方法名、模型名保留原拼写，保留化学式与数值：\n\n' + part)
-            # Qwen's documented non-thinking ChatML prefix; no remote chat endpoint.
+            # This Instruct checkpoint is non-thinking; use its standard ChatML template.
             formatted = ('<|im_start|>system\n你是严谨的科研英译中翻译员。只输出完整译文。<|im_end|>\n'
                 '<|im_start|>user\n' + prompt + '<|im_end|>\n'
-                '<|im_start|>assistant\n<think>\n\n</think>\n\n')
+                '<|im_start|>assistant\n')
             result = self.engine.create_completion(prompt=formatted, max_tokens=3072,
                 temperature=0.0, top_p=1.0, repeat_penalty=1.05,
                 stop=['<|im_end|>', '<|endoftext|>'], echo=False)
