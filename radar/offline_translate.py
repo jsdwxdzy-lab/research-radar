@@ -185,7 +185,10 @@ def run(cfg: dict, conn, log=print, limit: int | None = None) -> int:
             log("  · 离线翻译：达到时间预算，剩余条目下次继续")
             break
         try:
-            title = item.get("cached_title_zh") or translator.translate(item.get("title") or "")
+            if hasattr(translator, 'set_context'):
+                translator.set_context(item.get('title') or '')
+            title_fn = getattr(translator, 'translate_title', translator.translate)
+            title = item.get("cached_title_zh") or title_fn(item.get("title") or "")
             abstract = item.get("cached_abstract_zh") or translator.translate(item.get("abstract") or "")
             if not title or (item.get("abstract", "").strip() and not abstract):
                 raise ValueError("译文缺失")
@@ -222,7 +225,7 @@ def main() -> int:
     conn = store.connect()
     pending = store.pending_translations(conn, 1000000)
     count = conn.execute("SELECT count(*) FROM items WHERE first_seen >= date('now','-120 day')").fetchone()[0]
-    print(json.dumps({"translation_engine": "offline-opus-mt", "visible_items": count,
+    print(json.dumps({"translation_engine": cfg.get('engine', 'offline-opus-mt'), "visible_items": count,
         "pending_translations": len(pending)}, ensure_ascii=False))
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:

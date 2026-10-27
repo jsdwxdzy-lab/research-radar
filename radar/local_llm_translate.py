@@ -11,7 +11,7 @@ import uuid
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL_ID = "Qwen3-4B-Instruct-2507:Q4_K_M"
-MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf"
+MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-4B-Instruct-2507-GGUF/resolve/ae44f08e1392f39c0e474af10c3ff8355c8b6688/Qwen_Qwen3-4B-Instruct-2507-Q4_K_M.gguf"
 MODEL_SHA256 = "2fde00ce69dd4899c70d020845e2638353015bba0fdf161b3eb965f2bca4464e"
 GLOSSARY = """参考下面的科研术语翻译（仅在原文出现时使用）：
 crystal structure prediction 翻译成 晶体结构预测
@@ -25,6 +25,9 @@ Jahn-Teller effect 翻译成 Jahn–Teller 效应
 anthracene 翻译成 蒽
 acridine 翻译成 吖啶
 metastable 翻译成 亚稳态
+cathode 翻译成 正极
+anode 翻译成 负极
+median 翻译成 中位数
 
 """
 
@@ -77,20 +80,27 @@ class Translator:
         self.max_tokens = int(cfg.get('max_source_tokens', 1024))
         self.source = self
         self.model_id = MODEL_ID
+        self.model_sha256 = MODEL_SHA256
+        self.protected_terms = []
 
     def encode(self, text: str, **kwargs) -> list[int]:
         return self.engine.tokenize(text.encode('utf-8'), add_bos=False, special=False)
 
     def chunks(self, text: str) -> list[str]:
         from .offline_translate import split_text
-        pieces = split_text(text, self.encode, self.max_tokens)
-        packed = []
-        for piece in pieces:
-            if packed and len(self.encode(packed[-1] + ' ' + piece)) <= self.max_tokens:
-                packed[-1] += ' ' + piece
-            else:
-                packed.append(piece)
-        return packed
+        # One source sentence at a time avoids abstract-level summarization and
+        # keeps numerical/negative statements tied to their local context.
+        return split_text(text, self.encode, self.max_tokens)
+
+    def set_context(self, title: str) -> None:
+        match = re.match(r'^([A-Za-z][A-Za-z0-9._-]{1,40}):\s*(.+)$', title)
+        self.protected_terms = [match.group(1)] if match else []
+
+    def translate_title(self, title: str) -> str:
+        match = re.match(r'^([A-Za-z][A-Za-z0-9._-]{1,40}):\s*(.+)$', title)
+        if match:
+            return match.group(1) + '：' + self.translate(match.group(2))
+        return self.translate(title)
 
     def translate(self, text: str) -> str:
         if not text.strip():
@@ -100,7 +110,8 @@ class Translator:
         parts = self.chunks(text)
         translated = []
         for part in parts:
-            prompt = (GLOSSARY + '将以下文本翻译为简体中文，注意只需要输出翻译后的结果，不要额外解释。'
+            names = ''.join(name + ' 翻译成 ' + name + '\n' for name in getattr(self, 'protected_terms', []))
+            prompt = (GLOSSARY + names + '将以下文本翻译为简体中文，注意只需要输出翻译后的结果，不要额外解释。'
                 '完整保留原文信息，不要总结或省略；方法名、模型名保留原拼写，保留化学式与数值：\n\n' + part)
             # This Instruct checkpoint is non-thinking; use its standard ChatML template.
             formatted = ('<|im_start|>system\n你是严谨的科研英译中翻译员。只输出完整译文。<|im_end|>\n'
@@ -117,5 +128,8 @@ class Translator:
                 raise ValueError('模型意外输出思考内容，本条不缓存')
             if not value or not re.search(r'[\u3400-\u9fff]', value):
                 raise ValueError('离线模型没有生成中文译文')
+            for english, chinese in (('median', '中位'), ('metastable', '亚稳'), ('cathode', '正极')):
+                if re.search(r'\b' + english + r's?\b', part, re.I) and chinese not in value:
+                    raise ValueError('关键科研术语未保留，本条不缓存')
             translated.append(value)
         return '\n'.join(translated)

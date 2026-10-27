@@ -50,7 +50,7 @@ def prepare_trial(output: Path):
     print(json.dumps({'archive_sha256': digest, 'archive_bytes': archive.stat().st_size, 'prepared': True}), flush=True)
 
 
-def benchmark(cfg: dict, output: Path):
+def benchmark(cfg: dict, output: Path, limit: int = 10):
     conn = sqlite3.connect('file:' + str(ROOT / 'state' / 'radar.sqlite3') + '?mode=ro', uri=True)
     conn.row_factory = sqlite3.Row
     rows = [dict(row) for row in conn.execute(
@@ -65,10 +65,10 @@ def benchmark(cfg: dict, output: Path):
     for item in candidates:
         if item['key'] not in [old['key'] for old in selected]:
             selected.append(item)
-        if len(selected) == 10:
+        if len(selected) == limit:
             break
-    if len(selected) != 10:
-        raise ValueError('Need ten public papers')
+    if len(selected) != limit:
+        raise ValueError('Not enough public papers')
     results = []
     quality = []
     started = time.monotonic()
@@ -100,7 +100,10 @@ def benchmark(cfg: dict, output: Path):
                 raise ValueError('Critical scientific translation checks failed')
         for item in selected:
             tick = time.monotonic()
-            title = translator.translate(item['title'])
+            if hasattr(translator, 'set_context'):
+                translator.set_context(item['title'])
+            title_fn = getattr(translator, 'translate_title', translator.translate)
+            title = title_fn(item['title'])
             abstract = translator.translate(item['abstract'])
             chunks = (translator.chunks(item['abstract']) if hasattr(translator, 'chunks') else
                       offline.split_text(item['abstract'], translator.source.encode, translator.max_tokens))
@@ -111,7 +114,8 @@ def benchmark(cfg: dict, output: Path):
             results.append(record)
             print(json.dumps({'number': len(results), 'seconds': record['seconds'], 'source_chunks': len(chunks),
                 'translated_chunks': record['translated_chunks'], 'title_zh': title}, ensure_ascii=False), flush=True)
-    report = {'model': getattr(translator, 'model_id', offline.MODEL_ID), 'archive_sha256': cfg.get('archive_sha256'),
+    report = {'model': getattr(translator, 'model_id', offline.MODEL_ID),
+        'model_sha256': getattr(translator, 'model_sha256', cfg.get('archive_sha256')),
         'network_disabled_during_inference': True, 'papers': len(results),
         'seconds': round(time.monotonic()-started, 2), 'quality_checks': quality, 'results': results}
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -124,6 +128,7 @@ def main():
     parser.add_argument('--hymt', '--configured-model', dest='configured_model', action='store_true')
     parser.add_argument('--config', type=Path, required=True)
     parser.add_argument('--output', type=Path)
+    parser.add_argument('--limit', type=int, choices=(4, 10), default=10)
     args = parser.parse_args()
     if args.prepare:
         if args.configured_model:
@@ -131,7 +136,7 @@ def main():
         else:
             prepare_trial(args.config)
     else:
-        benchmark(json.loads(args.config.read_text()), args.output)
+        benchmark(json.loads(args.config.read_text()), args.output, args.limit)
 
 
 if __name__ == '__main__':

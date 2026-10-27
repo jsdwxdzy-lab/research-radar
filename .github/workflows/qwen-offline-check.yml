@@ -2,6 +2,12 @@ name: qwen-offline-check
 
 on:
   workflow_dispatch:
+    inputs:
+      sample_count:
+        description: Number of public papers to translate
+        type: choice
+        default: '10'
+        options: ['10', '4']
 
 permissions:
   contents: read
@@ -28,7 +34,9 @@ jobs:
       - name: Prepare public model weights
         run: python -B -u scripts/benchmark_translation.py --prepare --configured-model --config config/translation-qwen-trial.json
       - name: Translate ten public papers with networking disabled
-        run: python -B -u scripts/benchmark_translation.py --config config/translation-qwen-trial.json --output "$RUNNER_TEMP/qwen-offline-benchmark.json"
+        env:
+          SAMPLE_COUNT: ${{ inputs.sample_count }}
+        run: python -B -u scripts/benchmark_translation.py --config config/translation-qwen-trial.json --output "$RUNNER_TEMP/qwen-offline-benchmark.json" --limit "$SAMPLE_COUNT"
       - uses: actions/upload-artifact@v4
         with:
           name: qwen-offline-samples
