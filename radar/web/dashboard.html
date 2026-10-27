@@ -470,7 +470,7 @@ function card(it){
   return `<article class="card${read?' read':''}${star?' starred':''}${open?' open':''}" data-k="${esc(it.k)}" style="--h:${h}">
     <div class="chead">
       <button class="icon btn-read" title="标记已读 / 未读 (m)">${read?'✓':'○'}</button>
-      <div class="ctitle"><a href="${esc(it.u||'#')}" target="_blank" rel="noopener" data-open="1">${hl(it.t)}</a>${it.tz?`<div class="zh">${esc(it.tz)}</div>`:''}</div>
+      <div class="ctitle"><a href="${esc(it.u||'#')}" target="_blank" rel="noopener" data-open="1">${hl(it.tz||it.t)}</a>${it.tz?`<div class="zh">${esc(it.t)}</div>`:''}</div>
       <span class="score" title="相关度 ${it.s}${it.tw?' · '+it.tw:''}">${it.s}${trustLab?`<span class="trust ${esc(it.tr)}">可信${trustLab}</span>`:''}</span>
       <button class="icon btn-star${star?' on':''}" title="收藏 (s)">${star?'★':'☆'}</button>
     </div>
