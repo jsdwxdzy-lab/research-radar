@@ -100,12 +100,12 @@ def benchmark(cfg: dict, output: Path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--prepare', action='store_true')
-    parser.add_argument('--hymt', action='store_true')
+    parser.add_argument('--hymt', '--configured-model', dest='configured_model', action='store_true')
     parser.add_argument('--config', type=Path, required=True)
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
     if args.prepare:
-        if args.hymt:
+        if args.configured_model:
             offline.prepare(json.loads(args.config.read_text()))
         else:
             prepare_trial(args.config)

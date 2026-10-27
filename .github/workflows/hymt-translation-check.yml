@@ -8,6 +8,8 @@ permissions:
 
 jobs:
   benchmark:
+    # Trial only; this model was not selected for the globally public board.
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

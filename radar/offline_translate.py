@@ -52,6 +52,10 @@ def model_paths(cfg: dict) -> tuple[Path, Path]:
 
 
 def prepare(cfg: dict, log=print) -> None:
+    if cfg.get('engine') == 'qwen-offline':
+        from .local_llm_translate import prepare as prepare_qwen
+        prepare_qwen(cfg, log=log)
+        return
     if cfg.get('engine') == 'hymt':
         from .hymt_translate import prepare as prepare_hymt
         prepare_hymt(cfg, log=log)
@@ -196,6 +200,9 @@ def run(cfg: dict, conn, log=print, limit: int | None = None) -> int:
 
 
 def build_translator(cfg: dict):
+    if cfg.get('engine') == 'qwen-offline':
+        from .local_llm_translate import Translator as QwenTranslator
+        return QwenTranslator(cfg)
     if cfg.get('engine') == 'hymt':
         from .hymt_translate import Translator as HYTranslator
         return HYTranslator(cfg)
