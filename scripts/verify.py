@@ -111,11 +111,27 @@ def remote(base: str) -> None:
     else:
         check("看板内含 generated 字段", False)
 
-    m3 = re.search(r'"items":\[(.*?)\],"trends"', html)
-    if m3:
-        n = m3.group(1).count('"k":')
-        check("条目数 > 0", n > 0, f"{n} 条")
-    check("有今日点评（需要 AGENT_API_KEY）", "今日点评" in html, "没有也不影响主流程")
+    try:
+        marker = re.search(r"const DATA\s*=\s*", html)
+        if marker is None:
+            raise ValueError("未找到数据入口")
+        data, _ = json.JSONDecoder().raw_decode(html[marker.end():])
+        items = data.get("items", [])
+        check("条目数 > 0", bool(items), f"{len(items)} 条")
+        titles = sum(bool(i.get("tz")) for i in items)
+        abstracts = [i for i in items if (i.get("a") or "").strip()]
+        translated = sum(bool((i.get("az") or "").strip()) for i in abstracts)
+        check("中文标题已补齐", bool(items) and titles == len(items), f"{titles}/{len(items)}")
+        check("来源摘要均有中文翻译", translated == len(abstracts), f"{translated}/{len(abstracts)}")
+        if data.get("overview"):
+            check("每日总览数据存在", isinstance(data["overview"], str))
+        else:
+            print("INFO  本轮无每日总览；论文与翻译不受影响")
+    except (ValueError, TypeError, AttributeError) as exc:
+        check("看板数据可解析", False, str(exc))
+    for label, marker in [("待读清单", "待读清单"), ("完整摘要阅读", "完整摘要阅读"),
+                          ("论文对比", 'id="compareDialog"'), ("阅读记录备份", "research-radar-reading")]:
+        check(label + "已部署", marker in html)
 
 
 def main() -> int:
