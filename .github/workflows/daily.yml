@@ -27,6 +27,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      RADAR_TRANSLATION_CACHE: ${{ github.workspace }}/../radar-translation-models
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,12 +38,28 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-translation.txt
+
+      - name: Install CPU translation runtime
+        run: python -m pip install --prefer-binary -r requirements-translation.txt
+
+      - name: Restore offline model cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.RADAR_TRANSLATION_CACHE }}
+          key: qwen3-4b-instruct-q4-v1
+
+      - name: Prepare offline model
+        run: python -B -u -m radar.offline_translate prepare
+
+      - name: Check translation regressions
+        run: python -B -m unittest discover -s tests
 
       - name: Fetch, score, render
         env:
           AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
-          USTC_LLM_KEY: ${{ secrets.USTC_LLM_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOURS: ${{ inputs.hours }}
           BACKFILL: ${{ inputs.backfill }}
@@ -71,6 +89,11 @@ jobs:
           git config user.email "radar-bot@users.noreply.github.com"
           git commit -m "radar: $(date -u +%Y-%m-%d) 自动更新"
           git push
+
+      # Persist completed translations before reporting a missing-translation failure.
+      # The next run can continue from this checkpoint instead of starting over.
+      - name: Verify title and full abstract translation coverage
+        run: python -B -m radar.offline_translate verify
 
       - name: Summary
         if: always()

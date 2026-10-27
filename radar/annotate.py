@@ -1,7 +1,7 @@
-"""Chinese titles, abstracts, and short reviews via a second OpenAI-compatible endpoint.
+"""Chinese titles/abstracts via an offline model, retaining the legacy Qwen API helper.
 
-The key stays outside the repo (env USTC_LLM_KEY or .secrets/ustc_llm_key).
-Results are cached in SQLite so a daily run only calls the model for new items.
+New translations and legacy reviews have separate caches. Credentials are never
+read by the enabled offline path.
 """
 from __future__ import annotations
 
@@ -128,10 +128,15 @@ def _one_batch(cfg: dict, items: list[dict]) -> list[dict]:
 
 
 def run(cfg_main: dict, conn, log=print, limit: int | None = None) -> int:
+    from . import offline_translate
+    translation_cfg = offline_translate.load_config()
+    if translation_cfg.get("enabled"):
+        # Translation does not read credentials or wait for the campus API.
+        return offline_translate.run(translation_cfg, conn, log=log, limit=limit)
     cfg = load_config()
-    cfg["api_key"] = api_key(cfg)
     if not cfg.get("enabled"):
         return 0
+    cfg["api_key"] = api_key(cfg)
     if not cfg["api_key"]:
         log("  · 短评/翻译：没有 USTC_LLM_KEY，跳过")
         return 0

@@ -33,7 +33,7 @@ jobs:
           key: qwen3-4b-instruct-q4-v1
       - name: Prepare public model weights
         run: python -B -u scripts/benchmark_translation.py --prepare --configured-model --config config/translation-qwen-trial.json
-      - name: Translate ten public papers with networking disabled
+      - name: Translate public papers with networking disabled
         env:
           SAMPLE_COUNT: ${{ inputs.sample_count }}
         run: python -B -u scripts/benchmark_translation.py --config config/translation-qwen-trial.json --output "$RUNNER_TEMP/qwen-offline-benchmark.json" --limit "$SAMPLE_COUNT"

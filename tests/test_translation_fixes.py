@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 STAGE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(STAGE))
-from radar import agent, annotate, dashboard, store
+from radar import agent, annotate, dashboard, offline_translate, store
 
 
 def connection():
@@ -36,6 +36,11 @@ def full_result(abstract='完整摘要', end=True):
 
 
 class TranslationFixes(unittest.TestCase):
+    def setUp(self):
+        legacy_mode = patch.object(offline_translate, 'load_config', return_value={'enabled': False})
+        legacy_mode.start()
+        self.addCleanup(legacy_mode.stop)
+
     def test_long_input_and_translation_survive(self):
         original = 'Original sentence. ' * 200 + 'SOURCE_LAST_SENTENCE'
         chinese = '保留全部信息。' * 400 + '译文最后一句'

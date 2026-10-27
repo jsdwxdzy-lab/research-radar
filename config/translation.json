@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "engine": "qwen-offline",
+  "threads": 4,
+  "max_source_tokens": 1024,
+  "max_per_run": 200,
+  "max_seconds_per_run": 1200
+}

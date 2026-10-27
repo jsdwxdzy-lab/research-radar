@@ -25,9 +25,10 @@ Jahn-Teller effect 翻译成 Jahn–Teller 效应
 anthracene 翻译成 蒽
 acridine 翻译成 吖啶
 metastable 翻译成 亚稳态
-cathode 翻译成 正极
-anode 翻译成 负极
+cathode 翻译成 阴极（电池放电语境中为正极）
+anode 翻译成 阳极（电池放电语境中为负极）
 median 翻译成 中位数
+space group 翻译成 空间群
 
 """
 
@@ -117,19 +118,37 @@ class Translator:
             formatted = ('<|im_start|>system\n你是严谨的科研英译中翻译员。只输出完整译文。<|im_end|>\n'
                 '<|im_start|>user\n' + prompt + '<|im_end|>\n'
                 '<|im_start|>assistant\n')
-            result = self.engine.create_completion(prompt=formatted, max_tokens=3072,
-                temperature=0.0, top_p=1.0, repeat_penalty=1.05,
-                stop=['<|im_end|>', '<|endoftext|>'], echo=False)
-            choice = result['choices'][0]
-            if choice.get('finish_reason') != 'stop':
-                raise ValueError('离线译文未完整结束，本条不缓存')
-            value = (choice.get('text') or '').strip()
-            if '<think>' in value or '</think>' in value:
-                raise ValueError('模型意外输出思考内容，本条不缓存')
-            if not value or not re.search(r'[\u3400-\u9fff]', value):
-                raise ValueError('离线模型没有生成中文译文')
-            for english, chinese in (('median', '中位'), ('metastable', '亚稳'), ('cathode', '正极')):
-                if re.search(r'\b' + english + r's?\b', part, re.I) and chinese not in value:
-                    raise ValueError('关键科研术语未保留，本条不缓存')
+            percentages = re.findall(r'\d+(?:\.\d+)?\s*%', part)
+            for attempt in range(2):
+                result = self.engine.create_completion(prompt=formatted, max_tokens=3072,
+                    temperature=0.0, top_p=1.0, repeat_penalty=1.05,
+                    stop=['<|im_end|>', '<|endoftext|>'], echo=False)
+                choice = result['choices'][0]
+                if choice.get('finish_reason') != 'stop':
+                    raise ValueError('离线译文未完整结束，本条不缓存')
+                value = (choice.get('text') or '').strip()
+                if '<think>' in value or '</think>' in value:
+                    raise ValueError('模型意外输出思考内容，本条不缓存')
+                if not value or not re.search(r'[\u3400-\u9fff]', value):
+                    raise ValueError('离线模型没有生成中文译文')
+                missing = []
+                normalized = re.sub(r'\s+', '', value).replace('％', '%')
+                actual_percentages = set(re.findall(r'\d+(?:\.\d+)?%', normalized))
+                for token in percentages:
+                    if re.sub(r'\s+', '', token) not in actual_percentages:
+                        missing.append(token)
+                for english, allowed in (('median', ('中位数', '中值')), ('metastable', ('亚稳态', '亚稳')),
+                                         ('cathode', ('阴极', '正极')), ('anode', ('阳极', '负极')),
+                                         ('space group', ('空间群',))):
+                    if re.search(r'\b' + english + r's?\b', part, re.I) and not any(word in value for word in allowed):
+                        missing.append('/'.join(allowed))
+                if not missing:
+                    break
+                if attempt:
+                    raise ValueError('关键科研术语或百分比未保留，本条不缓存')
+                # Retry the original sentence with explicit constraints; never
+                # patch a finished translation by hand or drop the failing tail.
+                constraint = '翻译时必须完整保留这些数字、百分号和术语：' + '、'.join(missing) + '。\n'
+                formatted = formatted.replace('<|im_start|>user\n', '<|im_start|>user\n' + constraint, 1)
             translated.append(value)
         return '\n'.join(translated)

@@ -1,5 +1,2 @@
-# CPU-only runtime for the public OPUS-MT English-Chinese model.
-ctranslate2==4.8.4
-sentencepiece==0.2.1
-numpy==2.5.4
-PyYAML==6.0.3
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python==0.3.36

@@ -18,9 +18,9 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: requirements-translation.txt
+          cache-dependency-path: requirements-opus-trial.txt
       - name: Install CPU translation runtime
-        run: python -m pip install -r requirements-translation.txt
+        run: python -m pip install -r requirements-opus-trial.txt
       - name: Prepare public model weights
         run: python -B -u scripts/benchmark_translation.py --prepare --config "$RUNNER_TEMP/translation-trial.json"
       - name: Translate ten public papers with networking disabled

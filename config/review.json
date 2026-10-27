@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "base_url": "https://api.llm.ustc.edu.cn/v1",
   "model": "qwen3.8-reasoner",
   "api_key_env": "USTC_LLM_KEY",

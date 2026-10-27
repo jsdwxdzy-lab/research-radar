@@ -70,6 +70,14 @@ CREATE TABLE IF NOT EXISTS annotation_inputs (
     source_hash TEXT NOT NULL,
     version INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS translations (
+    key TEXT PRIMARY KEY,
+    title_zh TEXT NOT NULL,
+    abstract_zh TEXT NOT NULL,
+    source_hash TEXT NOT NULL,
+    model TEXT NOT NULL,
+    created TEXT NOT NULL
+);
 """
 
 
@@ -257,7 +265,7 @@ def load_annotation_map(conn: sqlite3.Connection) -> dict:
         rows = conn.execute("SELECT key, title_zh, abstract_zh, review FROM annotations").fetchall()
     except sqlite3.OperationalError:
         return {}
-    return {
+    result = {
         r["key"]: {
             "title_zh": r["title_zh"] or "",
             "abstract_zh": r["abstract_zh"] or "",
@@ -265,6 +273,75 @@ def load_annotation_map(conn: sqlite3.Connection) -> dict:
         }
         for r in rows
     }
+    try:
+        offline = conn.execute("SELECT * FROM translations").fetchall()
+        legacy = {r['key']: dict(r) for r in conn.execute(
+            "SELECT a.key, a.title_zh, a.abstract_zh, m.source_hash, m.version "
+            "FROM annotations a LEFT JOIN annotation_inputs m ON m.key=a.key")}
+        items = {r['key']: dict(r) for r in conn.execute("SELECT * FROM items")}
+    except sqlite3.OperationalError:
+        return result
+    for row in offline:
+        item = items.get(row['key'])
+        if item is None:
+            continue
+        old = legacy.get(row['key']) or {}
+        fresh_legacy = (old.get('version') == ANNOTATION_VERSION
+                        and old.get('source_hash') == annotation_source_hash(item))
+        ann = result.setdefault(row['key'], {'title_zh': '', 'abstract_zh': '', 'review': ''})
+        # Fresh Qwen/manual-reviewed text wins. Offline text never supplies a review.
+        for name in ('title_zh', 'abstract_zh'):
+            if row[name] and not (fresh_legacy and old.get(name)):
+                ann[name] = row[name]
+    return result
+
+
+def pending_translations(conn: sqlite3.Connection, limit: int) -> list[dict]:
+    """Missing/stale translations, independent of whether a review exists."""
+    if int(limit) <= 0:
+        return []
+    rows = conn.execute(
+        """SELECT i.*, a.title_zh AS legacy_title, a.abstract_zh AS legacy_abstract,
+                  m.source_hash AS legacy_hash, m.version AS legacy_version,
+                  t.title_zh AS offline_title, t.abstract_zh AS offline_abstract,
+                  t.source_hash AS offline_hash
+           FROM items i
+           LEFT JOIN annotations a ON a.key=i.key
+           LEFT JOIN annotation_inputs m ON m.key=i.key
+           LEFT JOIN translations t ON t.key=i.key
+           WHERE i.first_seen >= date('now','-120 day')
+           ORDER BY (a.key IS NOT NULL OR t.key IS NOT NULL), i.first_seen DESC, i.score DESC""")
+    pending = []
+    for row in rows:
+        item = dict(row)
+        cached = {name: item.pop(name) for name in ('legacy_title', 'legacy_abstract',
+            'legacy_hash', 'legacy_version', 'offline_title', 'offline_abstract', 'offline_hash')}
+        digest = annotation_source_hash(item)
+        legacy_fresh = (cached['legacy_hash'] == digest
+                        and cached['legacy_version'] == ANNOTATION_VERSION)
+        offline_fresh = cached['offline_hash'] == digest
+        title = (cached['legacy_title'] if legacy_fresh else '') or (cached['offline_title'] if offline_fresh else '')
+        abstract = (cached['legacy_abstract'] if legacy_fresh else '') or (cached['offline_abstract'] if offline_fresh else '')
+        if (title or '').strip() and (not (item.get('abstract') or '').strip() or (abstract or '').strip()):
+            continue
+        item['cached_title_zh'] = title or ''
+        item['cached_abstract_zh'] = abstract or ''
+        pending.append(item)
+        if len(pending) >= int(limit):
+            break
+    return pending
+
+
+def save_translations(conn: sqlite3.Connection, rows: list[dict], model: str) -> None:
+    from .util import now as _now
+    created = _now().isoformat(timespec='seconds')
+    with conn:
+        conn.executemany(
+            """INSERT INTO translations (key, title_zh, abstract_zh, source_hash, model, created)
+               VALUES (?,?,?,?,?,?) ON CONFLICT(key) DO UPDATE SET
+               title_zh=excluded.title_zh, abstract_zh=excluded.abstract_zh,
+               source_hash=excluded.source_hash, model=excluded.model, created=excluded.created""",
+            [(r['key'], r['title_zh'], r['abstract_zh'], r['source_hash'], model, created) for r in rows])
 
 
 def prune(conn: sqlite3.Connection, keep_days: int) -> int:
