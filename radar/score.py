@@ -20,6 +20,15 @@ class Matcher:
             if not isinstance(groups, list) or any(not isinstance(g, list) or not g or
                     any(not isinstance(term, str) or not term.strip() for term in g) for g in groups):
                 raise ValueError("require_all_groups 必须是非空关键词组的列表")
+            subject = topic.get("require_subject_any") or {}
+            if not isinstance(subject, dict) or any(field not in ("title", "text") for field in subject):
+                raise ValueError("require_subject_any 仅支持 title / text 字段")
+            if any(not isinstance(terms, list) or
+                   any(not isinstance(term, str) or not term.strip() for term in terms)
+                   for terms in subject.values()):
+                raise ValueError("require_subject_any 字段必须是关键词列表")
+            subject_patterns = {field: [keyword_regex(term) for term in subject.get(field, [])]
+                                for field in ("title", "text")}
             self.topics.append(
                 {
                     "id": topic["id"],
@@ -30,6 +39,7 @@ class Matcher:
                         keyword_regex(r) for r in (topic.get("require_any") or [])
                     ],
                     "require_all_groups": [[keyword_regex(term) for term in group] for group in groups],
+                    "require_subject_any": subject_patterns,
                     "keywords": kws,
                 }
             )
@@ -81,6 +91,12 @@ class Matcher:
             if topic["require_any"] and not any(rx.search(text) for rx in topic["require_any"]):
                 continue
             if any(not any(rx.search(text) for rx in group) for group in topic["require_all_groups"]):
+                continue
+            subject = topic["require_subject_any"]
+            if (subject["title"] or subject["text"]) and not (
+                any(rx.search(title) for rx in subject["title"]) or
+                any(rx.search(text) for rx in subject["text"])
+            ):
                 continue
             hits = []
             for kw, weight, rx in topic["keywords"]:

@@ -81,6 +81,17 @@ class TopicRetargetTests(unittest.TestCase):
         item=scored('First principles calculation of ferroelectricity in barium titanate')
         self.assertNotIn('ferro-calc',item['topics'])
 
+    def test_molecular_dynamics_does_not_make_an_inorganic_solid_organic(self):
+        for title in ['First-principles ferroelectricity in IrOOH',
+                      'Ferroelectric domain growth in wurtzite AlN']:
+            item=scored(title,'Density functional theory and molecular dynamics predict ferroelectric switching.')
+            self.assertNotIn('ferro-calc',item['topics'])
+
+    def test_organic_molecule_interface_engineering_remains_in_scope(self):
+        item=scored('Molecular interface engineering of ferroelectric heterostructures',
+                    'Density functional theory describes chiral-molecule interface engineering and molecular packing.')
+        self.assertIn('ferro-calc',item['topics'])
+
     def test_chiral_crystal_packing(self):
         item=scored('Crystal packing of enantiopure and racemic organic molecules')
         self.assertIn('chiral-crystal',item['topics']);self.assertTrue(eligible(CFG,item))
@@ -103,6 +114,30 @@ class TopicRetargetTests(unittest.TestCase):
     def test_solution_asymmetric_catalysis_without_solid_context(self):
         item=scored('Enantioselective synthesis of chiral organic molecules in solution')
         self.assertNotIn('chiral-crystal',item['topics'])
+
+    def test_inorganic_crystal_with_chiral_molecules_in_background_is_not_molecular_crystal(self):
+        item=scored('Chiroptical signatures in intrinsically chiral B20 PtGa crystals',
+                    'Unlike chiral molecules, inorganic crystals use lattice chirality for organic electrosynthesis.')
+        self.assertNotIn('chiral-crystal',item['topics'])
+
+    def test_liquid_crystal_nmr_medium_is_not_a_molecular_solid(self):
+        item=scored('Biphasic polyarylisocyanide liquid crystals for enantiodiscrimination',
+                    'The chiral liquid crystal medium resolves enantiomers and organic molecules in a racemic mixture.')
+        self.assertNotIn('chiral-crystal',item['topics'])
+
+    def test_generic_chiral_microscopy_is_not_a_molecular_crystal_subject(self):
+        item=scored('Foundations of second harmonic generation circular dichroism microscopy',
+                    'Chiral microscopy probes twisted crystals from molecular to microscopic length scales.')
+        self.assertNotIn('chiral-crystal',item['topics'])
+
+    def test_generic_title_with_explicit_molecular_crystal_subject_is_kept(self):
+        item=scored('Spontaneous chiral symmetry breaking in a single crystal',
+                    'This molecular crystal consists of organic molecules and develops homochiral packing.')
+        self.assertIn('chiral-crystal',item['topics'])
+
+    def test_invalid_subject_scope_is_rejected(self):
+        cfg=copy.deepcopy(CFG);cfg['topics'][0]['require_subject_any']={'title':'not a list'}
+        with self.assertRaises(ValueError):Matcher(cfg)
 
     def test_invalid_and_group_is_rejected(self):
         cfg=copy.deepcopy(CFG);cfg['topics'][0]['require_all_groups']=[[]]
