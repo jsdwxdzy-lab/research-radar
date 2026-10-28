@@ -6,7 +6,8 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from . import render, store
-from .util import now
+from .util import now, parse_date
+from .score import Matcher, eligible
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = Path(__file__).resolve().parent / "web" / "dashboard.html"
@@ -18,6 +19,8 @@ HUE = {
     "gen-math": 40,
     "mlip": 190,
     "ai4s": 215,
+    "ferro-calc": 16,
+    "chiral-crystal": 145,
 }
 
 
@@ -76,7 +79,28 @@ def collect(cfg: dict, conn, days: int = 120) -> dict:
         "SELECT * FROM items WHERE first_seen >= ? ORDER BY first_seen DESC, score DESC",
         (since,),
     ).fetchall()
-    items = [_row(r) for r in rows]
+    if cfg.get("topics"):
+        matcher = Matcher(cfg)
+        items = []
+        for row in rows:
+            candidate = dict(row)
+            try:
+                candidate["extra"] = json.loads(candidate.get("extra") or "{}")
+            except (ValueError, TypeError):
+                candidate["extra"] = {}
+            candidate["published"] = parse_date(candidate.get("published"))
+            if matcher.excluded(candidate):
+                continue
+            matcher.score(candidate, today)
+            if not eligible(cfg, candidate):
+                continue
+            updated = dict(row)
+            for field in ("topics", "matched", "extra"):
+                updated[field] = json.dumps(candidate[field], ensure_ascii=False)
+            updated["score"] = candidate["score"]
+            items.append(_row(updated))
+    else:
+        items = [_row(r) for r in rows]
 
     counts: dict[str, int] = {}
     for it in items:

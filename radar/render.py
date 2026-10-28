@@ -20,6 +20,8 @@ SHORT = {
     "property": "性质筛选",
     "defect": "缺陷无序",
     "ai4s": "AI4S",
+    "ferro-calc": "铁电计算",
+    "chiral-crystal": "手性晶体",
 }
 
 

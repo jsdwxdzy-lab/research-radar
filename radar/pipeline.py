@@ -9,7 +9,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from . import agent, annotate, dashboard, http, render, store
-from .score import Matcher
+from .score import Matcher, eligible
 from .sources import REGISTRY
 from .util import (
     canonical_key, clean, norm_doi, norm_title, now, parse_date,
@@ -160,23 +160,12 @@ def run(
     matcher = Matcher(cfg)
     items = _merge(raw)
     kept, dropped_excluded, dropped_low = [], 0, 0
-    tier_of = {t["id"]: t.get("tier", "core") for t in cfg.get("topics", [])}
-    thresholds = {
-        "core": float(cfg["run"]["min_score"]),
-        "adjacent": float(cfg["run"].get("min_score_adjacent", cfg["run"]["min_score"] * 1.8)),
-    }
-    min_news = float(cfg["run"].get("min_score_news", cfg["run"]["min_score"]))
     for it in items:
         if matcher.excluded(it):
             dropped_excluded += 1
             continue
         matcher.score(it, run_date)
-        if it.get("kind") in ("news", "release"):
-            threshold = min_news
-        else:
-            tier = min((tier_of.get(t, "core") for t in it["topics"]), key=lambda x: 0 if x == "core" else 1, default="core")
-            threshold = thresholds.get(tier, thresholds["core"])
-        if it["score"] < threshold:
+        if not eligible(cfg, it):
             dropped_low += 1
             continue
         it["title"] = clean(it.get("title", ""), 300)

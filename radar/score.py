@@ -10,11 +10,16 @@ from .util import keyword_regex
 class Matcher:
     def __init__(self, cfg: dict):
         self.topics = []
+        self.config = cfg
         for topic in cfg.get("topics", []):
             kws = [
                 (kw, float(w), keyword_regex(kw)) for kw, w in (topic.get("keywords") or {}).items()
             ]
             kws.sort(key=lambda t: -len(t[0]))
+            groups = topic.get("require_all_groups") or []
+            if not isinstance(groups, list) or any(not isinstance(g, list) or not g or
+                    any(not isinstance(term, str) or not term.strip() for term in g) for g in groups):
+                raise ValueError("require_all_groups 必须是非空关键词组的列表")
             self.topics.append(
                 {
                     "id": topic["id"],
@@ -24,6 +29,7 @@ class Matcher:
                     "require_any": [
                         keyword_regex(r) for r in (topic.get("require_any") or [])
                     ],
+                    "require_all_groups": [[keyword_regex(term) for term in group] for group in groups],
                     "keywords": kws,
                 }
             )
@@ -73,6 +79,8 @@ class Matcher:
         name_by_topic = {}
         for topic in self.topics:
             if topic["require_any"] and not any(rx.search(text) for rx in topic["require_any"]):
+                continue
+            if any(not any(rx.search(text) for rx in group) for group in topic["require_all_groups"]):
                 continue
             hits = []
             for kw, weight, rx in topic["keywords"]:
@@ -191,3 +199,18 @@ def _trust(item: dict, author_hits: list[str], venue_boost: float) -> tuple[str,
         return [
             {"topic": k, "keywords": v, "score": item["score"]} for k, v in per_topic.items()
         ]
+
+
+def eligible(cfg: dict, item: dict) -> bool:
+    """One relevance threshold shared by ingestion and the current dashboard."""
+    if not item.get("topics"):
+        return False
+    run = cfg.get("run") or {}
+    tiers = {t["id"]: t.get("tier", "core") for t in cfg.get("topics", [])}
+    core = any(tiers.get(t, "core") == "core" for t in item["topics"])
+    threshold = float(run.get("min_score", 2.6))
+    if item.get("kind") in ("news", "release"):
+        threshold = float(run.get("min_score_news", threshold))
+    if not core:
+        threshold = max(threshold, float(run.get("min_score_adjacent", float(run.get("min_score", 2.6)) * 1.8)))
+    return float(item.get("score") or 0) >= threshold
