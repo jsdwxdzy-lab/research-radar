@@ -2,8 +2,11 @@ name: daily-radar
 
 on:
   schedule:
-    # 23:30 UTC = 07:30 Asia/Shanghai。GitHub 的 cron 可能延迟几分钟到几十分钟
+    # 23:30 UTC = 07:30 Asia/Shanghai。GitHub 的 cron 可能延迟数小时或漏触发；后续时段兜底
     - cron: "30 23 * * *"
+    # 08:47 / 10:13 Shanghai：已完成则跳过抓取与翻译
+    - cron: "47 0 * * *"
+    - cron: "13 2 * * *"
   workflow_dispatch:
     inputs:
       hours:
@@ -34,8 +37,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          ref: main
+
+      - name: Decide whether a scheduled retry is needed
+        id: gate
+        run: python3 -B scripts/daily_update_needed.py --event "${{ github.event_name }}" --output "$GITHUB_OUTPUT"
 
       - name: Set up Python
+        if: steps.gate.outputs.needed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -43,21 +52,26 @@ jobs:
           cache-dependency-path: requirements-translation.txt
 
       - name: Install CPU translation runtime
+        if: steps.gate.outputs.needed == 'true'
         run: python -m pip install --prefer-binary -r requirements-translation.txt
 
       - name: Restore offline model cache
+        if: steps.gate.outputs.needed == 'true'
         uses: actions/cache@v4
         with:
           path: ${{ env.RADAR_TRANSLATION_CACHE }}
           key: qwen3-4b-instruct-q4-v1
 
       - name: Prepare offline model
+        if: steps.gate.outputs.needed == 'true'
         run: python -B -u -m radar.offline_translate prepare
 
       - name: Check translation regressions
+        if: steps.gate.outputs.needed == 'true'
         run: python -B -m unittest discover -s tests
 
       - name: Fetch, score, render
+        if: steps.gate.outputs.needed == 'true'
         env:
           AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,6 +85,7 @@ jobs:
           python3 -u -B -m radar run ${ARGS}
 
       - name: Stage changes
+        if: steps.gate.outputs.needed == 'true'
         id: stage
         run: |
           git add -A
@@ -83,7 +98,7 @@ jobs:
           fi
 
       - name: Commit and push
-        if: steps.stage.outputs.changed == 'true'
+        if: steps.gate.outputs.needed == 'true' && steps.stage.outputs.changed == 'true'
         run: |
           git config user.name "radar-bot"
           git config user.email "radar-bot@users.noreply.github.com"
@@ -93,6 +108,7 @@ jobs:
       # Persist completed translations before reporting a missing-translation failure.
       # The next run can continue from this checkpoint instead of starting over.
       - name: Verify title and full abstract translation coverage
+        if: steps.gate.outputs.needed == 'true'
         run: python -B -m radar.offline_translate verify
 
       - name: Summary
