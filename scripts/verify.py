@@ -57,7 +57,7 @@ def local() -> None:
     check("index.html 存在（Pages 入口）", index.exists())
     if board.exists():
         html = board.read_text(encoding="utf-8", errors="replace")
-        check("看板内嵌数据", "const DATA" in html)
+        check("看板内嵌数据", bool(re.search(r"\b(?:const|let) DATA\s*=", html)))
         m = re.search(r'"generated":"([0-9-]{10})', html)
         today = datetime.now(TZ).date()
         if m:
@@ -95,7 +95,7 @@ def remote(base: str) -> None:
         print("提示：首次开启 Pages 需要 1–3 分钟；确认 Settings → Pages 的 Source 是 main / (root)")
         print(f"      {html[:200]}")
         return
-    check("页面是科研雷达看板", "科研雷达" in html and "const DATA" in html)
+    check("页面是科研雷达看板", "科研雷达" in html and bool(re.search(r"\b(?:const|let) DATA\s*=", html)))
 
     status2, _ = fetch(base + "dashboard.html")
     check(f"{base}dashboard.html 可访问", status2 == 200, f"HTTP {status2}")
@@ -112,7 +112,7 @@ def remote(base: str) -> None:
         check("看板内含 generated 字段", False)
 
     try:
-        marker = re.search(r"const DATA\s*=\s*", html)
+        marker = re.search(r"(?:const|let) DATA\s*=\s*", html)
         if marker is None:
             raise ValueError("未找到数据入口")
         data, _ = json.JSONDecoder().raw_decode(html[marker.end():])

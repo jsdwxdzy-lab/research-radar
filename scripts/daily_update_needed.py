@@ -58,7 +58,7 @@ def main() -> int:
     else:
         try:
             html = args.board.read_text(encoding='utf-8')
-            marker = re.search(r'const DATA\s*=\s*', html)
+            marker = re.search(r'(?:const|let) DATA\s*=\s*', html)
             if marker is None:
                 raise ValueError('missing data marker')
             data, _ = json.JSONDecoder().raw_decode(html[marker.end():])

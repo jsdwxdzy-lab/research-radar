@@ -196,6 +196,11 @@ def build(cfg: dict, conn, out: Path | None = None, days: int = 120) -> Path:
     html = TEMPLATE.read_text(encoding="utf-8").replace("/*__DATA__*/null", payload)
     target = out or (ROOT / "dashboard.html")
     target.write_text(html, encoding="utf-8")
+    # Machine-readable board snapshot for cross-device freshness checks.
+    (target.parent / "data.json").write_text(
+        json.dumps(data, ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8",
+    )
     # GitHub Pages serves index.html at the folder root
     if target.name == "dashboard.html":
         (target.parent / "index.html").write_text(html, encoding="utf-8")

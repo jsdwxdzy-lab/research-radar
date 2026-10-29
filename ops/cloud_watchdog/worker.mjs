@@ -5,7 +5,7 @@ const RAW='https://raw.githubusercontent.com/jsdwxdzy-lab/research-radar/main/in
 
 export function shanghaiDay(now){return new Date(now+8*3600000).toISOString().slice(0,10)}
 export function parseBoard(html){
-    const match=html.match(/^const DATA\s*=\s*(\{[^\n]*\});?\s*$/m);
+    const match=html.match(/^(?:const|let) DATA\s*=\s*(\{[^\n]*\});?\s*$/m);
     if(!match)throw Error('board-data-missing');
     return JSON.parse(match[1]);
 }

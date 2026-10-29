@@ -1,0 +1,15 @@
+name = "research-radar-sync"
+main = "worker.mjs"
+compatibility_date = "2026-10-29"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "READING_KV"
+id = "2528c3472f474dcd9bf7dcc094403a63"
+preview_id = "2528c3472f474dcd9bf7dcc094403a63"
+
+[vars]
+ALLOWED_ORIGIN = "https://jsdwxdzy-lab.github.io"
+
+# Set with: wrangler secret put RADAR_SYNC_TOKEN
+# Optional while Cloudflare Access is being configured; Access JWT also unlocks the API.
