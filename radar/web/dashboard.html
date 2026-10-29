@@ -61,7 +61,9 @@ if(!DATA)return;
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeUrl=u=>{try{const x=new URL(u);return ['https:','http:'].includes(x.protocol)?x.href:''}catch{return ''}};
-const TODAY=new Date(Date.now()+8*3600000).toISOString().slice(0,10), TOPICS=DATA.topics||[],LIVE=DATA.items||[],TNAME=Object.fromEntries(TOPICS.map(t=>[t.id,t.short||t.name||t.id])),THUE=Object.fromEntries(TOPICS.map(t=>[t.id,t.hue]));
+const shanghaiDay=()=>new Date(Date.now()+8*3600000).toISOString().slice(0,10);
+let TODAY=shanghaiDay();
+const TOPICS=DATA.topics||[],LIVE=DATA.items||[],TNAME=Object.fromEntries(TOPICS.map(t=>[t.id,t.short||t.name||t.id])),THUE=Object.fromEntries(TOPICS.map(t=>[t.id,t.hue]));
 const SOURCES={arxiv:'arXiv',crossref:'期刊',openalex:'OpenAlex',rss:'新闻',github:'工具'},LS='research-radar.v1';
 let state={view:'today',topics:[],sources:[],q:'',date:null,sort:'score',read:{},star:{},queue:{},kept:{},note:{},theme:'auto',limit:60,quick:[]};
 let items=[],view=[],selected=null,language='zh',compared=[],searchTimer,toastTimer,lastReaderTrigger=null;
@@ -81,7 +83,7 @@ function highlight(s){if(!state.q)return esc(s);const q=state.q.replace(/[.*+?^$
 function label(){return {today:'今天',week:'近 7 天',unread:'所有未读',queue:'待读清单',star:'只看收藏',all:'全部文献',notes:'我的备注',day:state.date}[state.view]||'全部文献'}
 function nav(){const defs=[['today','◷','今天',items.filter(i=>i.d===TODAY).length],['queue','☷','待读清单',items.filter(i=>state.queue[i.k]).length],['star','☆','只看收藏',items.filter(i=>state.star[i.k]).length],['unread','○','所有未读',items.filter(i=>!state.read[i.k]).length],['week','▤','近 7 天',items.filter(i=>age(i.d)>=0&&age(i.d)<7).length],['all','▦','全部文献',items.length],['notes','✎','我的备注',items.filter(i=>(state.note[i.k]||'').trim()).length]];$('#views').innerHTML=defs.map(([id,icon,name,n])=>`<button class="nav ${state.view===id?'active':''}" data-view="${id}" ${state.view===id?'aria-current="page"':''}><span class="nav-icon" aria-hidden="true">${icon}</span>${name}<span class="nav-count">${n}</span></button>`).join('');}
 function filters(){const base=items.filter(scope),tc={},sc={};base.forEach(i=>{i.tp.forEach(t=>tc[t]=(tc[t]||0)+1);i.src.forEach(s=>sc[s]=(sc[s]||0)+1)});$('#topics').innerHTML=TOPICS.map(t=>`<button class="topic ${state.topics.includes(t.id)?'active':''}" data-topic="${esc(t.id)}" aria-pressed="${state.topics.includes(t.id)}"><span class="dot" style="--h:${Number(t.hue)||220}"></span>${esc(TNAME[t.id])}<span class="nav-count">${tc[t.id]||0}</span></button>`).join('');$('#sources').innerHTML=Object.entries(SOURCES).map(([id,name])=>`<button class="source-chip ${state.sources.includes(id)?'active':''}" data-source="${id}" aria-pressed="${state.sources.includes(id)}">${name} ${sc[id]||0}</button>`).join('');$('#dates').innerHTML=(DATA.days||[]).map(d=>`<button class="date-button ${state.view==='day'&&state.date===d.d?'active':''}" data-date="${esc(d.d)}"><span>${esc(d.d.slice(5))}</span><span>${d.n} 条</span></button>`).join('');$('#quickFilters').innerHTML=[['unread','只看未读'],['translated','有中文摘要'],['pdf','有 arXiv PDF']].map(([id,name])=>`<button class="quick ${state.quick.includes(id)?'active':''}" data-quick="${id}" aria-pressed="${state.quick.includes(id)}">${name}</button>`).join('')+`<button class="text-button" data-action="clear-filters">重置筛选</button>`;const bits=[...state.topics.map(t=>TNAME[t]||t),...state.sources.map(t=>SOURCES[t]||t)];if(state.q)bits.push('搜索：'+state.q);$('#activeFilters').textContent=bits.join(' · ');}
-function header(){const n=LIVE.filter(i=>i.d===TODAY).length,withAbs=LIVE.filter(i=>i.a).length,translated=LIVE.filter(i=>i.a&&i.az).length;$('#edition').textContent=TODAY.replaceAll('-',' / ')+' · DAILY RESEARCH';$('#introSub').textContent=`今日新增 ${n} 条 · 看板共 ${LIVE.length} 条 · 继续你的科研阅读`;const old=DATA.today!==TODAY||!String(DATA.run?.started||'').startsWith(TODAY+'T');$('#status').innerHTML=`<span class="pill ${old?'amber':'green'}">${old?'◷ 今天尚未更新':'● 已更新'} ${esc(DATA.generated.slice(5))}</span><p>中文摘要 ${translated}/${withAbs} · 07:30 计划更新 · 延迟时自动补跑</p><details class="health-details"><summary>查看数据状态</summary>${(DATA.health||[]).map(h=>`<div>${esc(SOURCES[h.src]||h.src)} · ${h.n} 条${h.err?' · '+esc(h.err):' · 正常'}</div>`).join('')}</details>`;}
+function header(){const fetchedToday=DATA.today===TODAY&&DATA.run?.status==='ok'&&String(DATA.run?.started||'').startsWith(TODAY+'T'),sourceErrors=(DATA.health||[]).some(h=>h.err);const n=LIVE.filter(i=>i.d===TODAY).length,withAbs=LIVE.filter(i=>i.a).length,translated=LIVE.filter(i=>i.a&&i.az).length;$('#edition').textContent=TODAY.replaceAll('-',' / ')+' · DAILY RESEARCH';$('#introSub').textContent=n?`今日新增 ${n} 条 · 看板共 ${LIVE.length} 条 · 继续你的科研阅读`:(fetchedToday?`今日已检索，暂无新增命中 · 看板共 ${LIVE.length} 条`:`今天尚未完成检索 · 看板共 ${LIVE.length} 条`);const old=!fetchedToday;$('#status').innerHTML=`<span class="pill ${old||sourceErrors?'amber':'green'}">${old?'◷ 今天尚未更新':sourceErrors?'◷ 已检索，来源待重试':'● 已更新'} ${esc(DATA.generated.slice(5))}</span><p>中文摘要 ${translated}/${withAbs} · 07:30 计划更新 · 延迟时自动补跑</p><details class="health-details"><summary>查看数据状态</summary>${(DATA.health||[]).map(h=>`<div>${esc(SOURCES[h.src]||h.src)} · ${h.n} 条${h.err?' · '+esc(h.err):' · 正常'}</div>`).join('')}</details>`;}
 function picks(){const candidates=view.filter(i=>!state.read[i.k]),chosen=[],seen=new Set();for(const i of candidates){const t=i.tp[0]||'other';if(!seen.has(t)){chosen.push(i);seen.add(t)}if(chosen.length===3)break;}for(const i of candidates)if(chosen.length<3&&!chosen.includes(i))chosen.push(i);$('#brief').classList.toggle('hidden',!chosen.length||!!state.q||['queue','star','notes'].includes(state.view));$('#picks').innerHTML=chosen.map(i=>`<button class="pick" data-read="${esc(i.k)}"><div class="pick-label">${esc(TNAME[i.tp[0]]||'研究线索')} · 相关度 ${i.s}</div><h3>${esc(i.tz||i.t)}</h3><p>${esc(i.v||SOURCES[i.src[0]]||'文献')} · ${esc(i.p||i.d)}</p></button>`).join('');}
 function paper(i){const title=i.tz||i.t,summary=i.rv||i.why||i.az||i.a||'来源未提供摘要，可查看原始页面。',read=!!state.read[i.k];return `<article class="paper ${selected===i.k?'selected':''} ${read?'is-read':''}" data-key="${esc(i.k)}"><div class="paper-top">${!read?'<span class="read-indicator" title="未读"></span>':'<span>已读</span>'}<span class="paper-topic" style="--h:${THUE[i.tp[0]]||220}">${esc(i.tp.map(t=>TNAME[t]||t).join(' / '))}</span><span class="grow"></span><span class="score" title="现有关键词匹配评分">相关度 ${i.s}</span>${i.tr?`<span class="trust ${esc(i.tr)}" title="${esc(i.tw||'关注作者、期刊和发表类型线索')}">可信${({high:'高',mid:'中',low:'低'}[i.tr]||'')}</span>`:''}</div><h3><button class="paper-title" data-read="${esc(i.k)}">${highlight(title)}</button></h3>${i.tz?`<p class="english-title" title="${esc(i.t)}">${esc(i.t)}</p>`:''}<div class="paper-meta"><span>${esc(i.v||SOURCES[i.src[0]]||'文献')}</span><span>· ${esc(i.p||i.d)}</span>${i.au.length?`<span>· ${esc(i.au.slice(0,2).join(' / '))}${i.au.length>2?' 等':''}</span>`:''}</div><p class="paper-desc">${highlight(summary)}</p><div class="paper-bottom"><button class="text-button" data-read="${esc(i.k)}">阅读摘要 ↗</button><span class="grow"></span><button class="${state.queue[i.k]?'on':''}" data-action="queue" data-key="${esc(i.k)}" aria-pressed="${!!state.queue[i.k]}">${state.queue[i.k]?'✓ 已加入待读':'+ 待读'}</button><button class="${state.star[i.k]?'starred':''}" data-action="star" data-key="${esc(i.k)}" aria-label="${state.star[i.k]?'取消收藏':'收藏'}：${esc(title)}" aria-pressed="${!!state.star[i.k]}">${state.star[i.k]?'★ 收藏':'☆ 收藏'}</button><button class="${compared.includes(i.k)?'on':''}" data-action="compare" data-key="${esc(i.k)}" aria-pressed="${compared.includes(i.k)}">${compared.includes(i.k)?'✓ 对比':'对比'}</button></div></article>`}
 function list(){ $('#viewTitle').textContent=label();$('#resultCount').textContent=`${view.length} 条 · ${view.filter(i=>!state.read[i.k]).length} 未读`;$('#paperList').innerHTML=view.length?view.slice(0,state.limit).map(paper).join('')+(view.length>state.limit?`<button class="load-more" data-action="more">继续加载 · 还有 ${view.length-state.limit} 条</button>`:''):`<div class="empty"><h3>${state.view==='queue'?'把想读的论文放在这里':state.view==='star'?'收藏值得长期参考的论文':'没有符合条件的文献'}</h3><p>${state.view==='queue'?'在文献卡片上点“待读”，即可安排接下来的阅读。':'可以切换“全部文献”，或重置当前筛选。'}</p><button class="text-button" data-action="show-all" style="margin-top:12px">查看全部文献 →</button></div>`;}
@@ -110,6 +112,44 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')return;if(e.ctrlKey|
 $('#readerDialog').addEventListener('close',focusReaderTrigger);
 const wide=matchMedia('(min-width:1200px)'),mobile=matchMedia('(max-width:759px)');wide.addEventListener('change',reader);mobile.addEventListener('change',()=>{$('#filterDetails').open=!mobile.matches});$('#filterDetails').open=!mobile.matches;
 if(!['today','queue','star','unread','week','all','notes','day'].includes(state.view)||state.view==='day'&&!state.date)state.view='today';state.quick=state.quick.filter(x=>['unread','translated','pdf'].includes(x));$('#search').value=state.q;$('#sort').value=state.sort;theme();header();if(DATA.overview){$('#overview').classList.remove('hidden');$('#overview').innerHTML='<strong>今日阅读参考</strong>'+esc(DATA.overview)}trends();render();
+
+// BEGIN freshness checks (read-only requests; never send reading records).
+let freshnessBusy=false,lastFreshnessCheck=0;
+function refreshCalendar(){
+    const next=shanghaiDay();
+    if(next===TODAY||document.hidden||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+    TODAY=next;header();trends();render();
+}
+async function checkForUpdates(force=false){
+    refreshCalendar();
+    if(document.hidden||freshnessBusy||(!force&&Date.now()-lastFreshnessCheck<60000))return;
+    freshnessBusy=true;lastFreshnessCheck=Date.now();
+    try{
+        const url=new URL('./',location.href);url.searchParams.set('radar_check',String(Math.floor(Date.now()/60000)));
+        const response=await fetch(url,{cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(10000)});
+        if(!response.ok)throw Error('unavailable');
+        const html=await response.text(),match=html.match(/^const DATA\s*=\s*(\{[^\n]*\});?\s*$/m);
+        if(!match)return;
+        const next=JSON.parse(match[1]);
+        if(typeof next.generated!=='string'||!Array.isArray(next.items)||next.generated<=DATA.generated)return;
+        let notice=$('#freshnessNotice');
+        if(!notice){notice=document.createElement('div');notice.id='freshnessNotice';notice.className='match-box';notice.setAttribute('role','status');$('#status').after(notice)}
+        notice.replaceChildren();
+        const message=document.createElement('span');message.textContent='服务器已更新至 '+next.generated+'。 ';
+        const button=document.createElement('button');button.className='secondary';button.textContent='载入最新看板';
+        button.addEventListener('click',()=>{save();location.reload()});notice.append(message,button);
+    }catch{
+        // Keep the currently readable snapshot. A network error is not proof of a server failure.
+    }finally{freshnessBusy=false}
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkForUpdates()});
+window.addEventListener('focus',()=>checkForUpdates());
+window.addEventListener('pageshow',()=>checkForUpdates());
+setInterval(()=>checkForUpdates(),5*60*1000);
+setInterval(refreshCalendar,60000);
+checkForUpdates();
+// END freshness checks.
+
 })();
 </script>
 </body></html>

@@ -248,11 +248,6 @@ def run(
         Path(digest_path).write_text(text, encoding="utf-8")
         (ROOT / cfg["output"]["latest"]).write_text(text, encoding="utf-8")
         render.write_index(cfg, daily_dir)
-        try:
-            board = dashboard.build(cfg, conn)
-            log(f"  看板 → {board}")
-        except Exception as exc:  # the board must never break the daily digest
-            log(f"  ! dashboard failed: {type(exc).__name__}: {exc}")
         store.prune(conn, int(cfg["output"].get("keep_days", 400)))
         if cfg.get("notify", {}).get("macos_notification") and new_items:
             top = new_items[0]
@@ -283,6 +278,11 @@ def run(
         digest=digest_path,
         note=note,
     )
+
+    # Embed completed fetch statistics, including a legitimate zero-new result.
+    # A render error must fail the job instead of publishing yesterday's board.
+    board = dashboard.build(cfg, conn)
+    log(f"  看板 → {board}")
 
     summary = {
         "run_id": run_id,

@@ -4,8 +4,8 @@ on:
   schedule:
     # 23:30 UTC = 07:30 Asia/Shanghai。GitHub 的 cron 可能延迟数小时或漏触发；后续时段兜底
     - cron: "30 23 * * *"
-    # 08:47 / 10:13 Shanghai：已完成则跳过抓取与翻译
-    - cron: "47 0 * * *"
+    # 08:47—12:47 Shanghai 每小时检查，另保留 10:13；完成后只检查并跳过
+    - cron: "47 0-4 * * *"
     - cron: "13 2 * * *"
   workflow_dispatch:
     inputs:
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
-      RADAR_TRANSLATION_CACHE: ${{ github.workspace }}/../radar-translation-models
+      RADAR_TRANSLATION_CACHE: ${{ runner.temp }}/radar-translation-models
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.RADAR_TRANSLATION_CACHE }}
-          key: qwen3-4b-instruct-q4-v1
+          key: qwen3-4b-instruct-q4-v2
 
       - name: Prepare offline model
         if: steps.gate.outputs.needed == 'true'
@@ -68,7 +68,9 @@ jobs:
 
       - name: Check translation regressions
         if: steps.gate.outputs.needed == 'true'
-        run: python -B -m unittest discover -s tests
+        run: |
+          python -B -m unittest discover -s tests
+          node --test tests/dashboard_freshness.test.cjs ops/cloud_watchdog/worker.test.mjs
 
       - name: Fetch, score, render
         if: steps.gate.outputs.needed == 'true'

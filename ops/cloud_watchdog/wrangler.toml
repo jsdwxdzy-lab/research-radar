@@ -1,0 +1,10 @@
+name = "research-radar-watchdog"
+main = "worker.mjs"
+compatibility_date = "2026-10-29"
+workers_dev = false
+
+[triggers]
+# UTC 00:07–04:47 = Shanghai 08:07–12:47; independently checks every 20 minutes.
+crons = ["7,27,47 0-4 * * *"]
+
+# Set RADAR_GITHUB_TOKEN through Cloudflare's secret binding, never in this file.

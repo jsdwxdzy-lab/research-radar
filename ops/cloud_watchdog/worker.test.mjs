@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import worker,{check,decide,fresh,parseBoard,shanghaiDay} from './worker.mjs';
+const now=Date.parse('2026-10-29T00:07:00Z');
+const board=()=>({today:'2026-10-29',generated:'2026-10-29 08:00',run:{status:'ok',started:'2026-10-29T07:35'},health:[{src:'arxiv',err:''}],items:[{tz:'中文标题',a:'English',az:'中文摘要'}]});
+const recent=(age,status='completed')=>({created_at:new Date(now-age*60000).toISOString(),status});
+test('Shanghai midnight is handled',()=>assert.equal(shanghaiDay(Date.parse('2026-10-28T16:00:00Z')),'2026-10-29'));
+test('zero new papers is a complete update',()=>assert.equal(fresh(board(),'2026-10-29'),true));
+test('yesterday cannot pass',()=>{const b=board();b.run.started='2026-10-28T23:59';assert.equal(fresh(b,'2026-10-29'),false)});
+test('missing translation cannot pass',()=>{const b=board();b.items[0].az='';assert.equal(fresh(b,'2026-10-29'),false)});
+test('missing source abstract is valid',()=>{const b=board();b.items[0].a='';b.items[0].az='';assert.equal(fresh(b,'2026-10-29'),true)});
+test('source errors need retry',()=>{const b=board();b.health[0].err='timeout';assert.equal(fresh(b,'2026-10-29'),false)});
+test('complete public board has no side effects',()=>assert.equal(decide({now,publicBoard:board()}).action,'none'));
+test('missing trigger dispatches daily',()=>assert.equal(decide({now}).action,'daily'));
+test('publication lag only dispatches pages',()=>assert.equal(decide({now,repositoryBoard:board()}).action,'pages'));
+test('in-progress daily is not duplicated',()=>assert.equal(decide({now,dailyRuns:[recent(80,'in_progress')]}).reason,'job-in-progress'));
+test('abnormally old job is flagged instead of cancelling or queuing more',()=>assert.equal(decide({now,dailyRuns:[recent(120,'queued')]}).reason,'attention-long-running-job'));
+test('daily retry cools down for 45 minutes',()=>assert.equal(decide({now,dailyRuns:[recent(30)]}).action,'wait'));
+test('failed daily can retry later',()=>assert.equal(decide({now,dailyRuns:[recent(50)]}).action,'daily'));
+test('pages retry cools down for 10 minutes',()=>assert.equal(decide({now,repositoryBoard:board(),pagesRuns:[recent(5)]}).action,'wait'));
+test('payload is parsed as JSON without executing JavaScript',()=>assert.deepEqual(parseBoard('const DATA = '+JSON.stringify(board())+';\nalert(1)'),board()));
+test('HTTP cannot trigger updates',()=>assert.equal(worker.fetch().status,404));
+test('current board makes one anonymous read and never sends local reading state',async()=>{
+    const calls=[];const result=await check({RADAR_GITHUB_TOKEN:'test-placeholder'},now,async(url,options)=>{calls.push({url,options});return new Response('const DATA = '+JSON.stringify(board())+';')});
+    assert.equal(result.action,'none');assert.equal(calls.length,1);assert.equal(calls[0].options.headers.Authorization,undefined);
+});
+test('API outage never blindly dispatches and exposes no credential in errors',async()=>{
+    const calls=[];await assert.rejects(check({RADAR_GITHUB_TOKEN:'test-placeholder'},now,async(url,options)=>{calls.push(options.method||'GET');return new Response('',{status:503})}),/read-http-503/);
+    assert.equal(calls.includes('POST'),false);
+});
+test('missing daily run invokes exactly the fixed GitHub endpoint',async()=>{
+    const calls=[];const result=await check({RADAR_GITHUB_TOKEN:'test-placeholder'},now,async(url,options)=>{calls.push({url,options});
+        if(options.method==='POST')return new Response(null,{status:204});
+        if(url.includes('/actions/workflows/'))return Response.json({workflow_runs:[]});
+        return new Response('stale');
+    });
+    assert.equal(result.action,'daily');const posts=calls.filter(c=>c.options.method==='POST');assert.equal(posts.length,1);
+    assert.equal(posts[0].url,'https://api.github.com/repos/jsdwxdzy-lab/research-radar/actions/workflows/daily.yml/dispatches');
+    assert.equal(posts[0].options.body,JSON.stringify({ref:'main'}));
+    assert(calls.filter(c=>!c.url.startsWith('https://api.github.com/')).every(c=>!c.options.headers.Authorization));
+});
