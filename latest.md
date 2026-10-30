@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-10-30（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:48 · 抓取窗口 10-28 19:48 → 现在 · 候选 893 → 本轮入库 41 → 今日累计 **14**（本次 +4） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:48 · 抓取窗口 10-28 20:48 → 现在 · 候选 508 → 本轮入库 33 → 今日累计 **17**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Learning Between the Lines: Interaction Interpolation in a Multi Element Machine Learning…（7.8）
-- **本周条目最多**：化学相关生成模型（分子、材料与反应）（24 篇）
+- **本周条目最多**：化学相关生成模型（分子、材料与反应）（25 篇）
 - **升温主题**：分子晶体结构预测（CSP）与能量图景、化学相关生成模型（分子、材料与反应）、视觉生成（低优先级）、生成模型相关数学、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 6 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 手性分子与分子晶体 1 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 6 · 化学相关生成模型（分子、材料与反应） 4 · 生成模型相关数学 3 · 分子晶体结构预测（CSP）与能量图景 2 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -51,24 +51,39 @@
   <sub>命中：molecular crystals</sub>
   > Efficient photoswitchable second-order nonlinear optical (NLO) materials are highly attractive for optical signal processing.
 
-### 化学相关生成模型（分子、材料与反应） · 升温 ↑2.5×
+### 化学相关生成模型（分子、材料与反应） · 升温 ↑2.6×
 
 - **[Towards Generalizing Pretrained All-Atom Representations to Unified Binder Design](https://arxiv.org/abs/2610.37994)**
   `生成模型` · *arXiv* · 2026-10-27 · [PDF](https://arxiv.org/pdf/2610.37994)
   <sub>命中：diffusion models、diffusion model</sub>
   > PairFormer-based all-atom models demonstrate strong capabilities in biomolecular binder design. However, existing methods often use all-atom representations for modality-specific binder design, such a…
 
+- **[MoLRSI: A Recursive Self-Improving AI agent for Molecular Discovery](https://arxiv.org/abs/2610.39714)**
+  `生成模型` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39714)
+  <sub>命中：molecular design、de novo</sub>
+  > Molecular discovery requires navigating vast combinatorial search spaces while balancing competing biological objectives.
+
 - **[EVA-Flow: Learning Shared Chemistry for Unified Environment-Aware Molecular Conformation Generation](https://doi.org/10.48550/arxiv.2610.36280)**
   `生成模型` `CSP` · *arXiv* · 2026-10-26
   <sub>命中：conformer generation、crystal packing</sub>
   > Molecular 3D structures underpin simulations of thermodynamics, kinetics, crystallization, and nucleation, making their accurate prediction central to drug discovery and materials design.
 
-### 生成模型相关数学 · 升温 ↑2.6×
+### 生成模型相关数学 · 升温 ↑3.4×
+
+- **[Fast rigid rotational alignment of voxelized 3-D density maps in sliced Wasserstein distance](https://arxiv.org/abs/2610.39214)**
+  `生成数学` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39214)
+  <sub>命中：optimal transport、wasserstein</sub>
+  > We develop a fast method for the rigid alignment of voxelized three-dimensional density functions over $\mathsf{SO}(3)$ using sliced optimal transport.
 
 - **[Finite-Step Geometry of Marginal-Preserving Velocity Fields in Generative Flows](https://arxiv.org/abs/2610.37936)**
   `生成数学` · *arXiv* · 2026-10-27 · [PDF](https://arxiv.org/pdf/2610.37936)
   <sub>命中：probability flow、wasserstein</sub>
   > Generative flows can admit different velocity fields that induce the same continuous marginal evolution but behave differently after numerical discretization.
+
+- **[sDMD: Sinkhorn Distribution Matching Distillation](https://arxiv.org/abs/2610.39889)**
+  `生成数学` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39889)
+  <sub>命中：optimal transport、wasserstein</sub>
+  > Distribution Matching Distillation (DMD) distills multi-step diffusion models into few-step generators by minimizing reverse KL divergence.
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑3.5×
 
@@ -111,12 +126,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 632 | ok |
+| arxiv | 200 | ok |
 | crossref | 136 | ok |
 | openalex | 106 | ok |
 | rss | 102 | ok |
 | github | 1 | ok |
 
-> 原始 977 → 去重 893 → 剔除标题噪声 49 → 低相关度 803 → 入库 41。
+> 原始 545 → 去重 508 → 剔除标题噪声 40 → 低相关度 435 → 入库 33。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
