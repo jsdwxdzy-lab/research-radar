@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-10-31（周六）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:28 · 抓取窗口 10-29 19:28 → 现在 · 候选 859 → 本轮入库 50 → 今日累计 **20**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:28 · 抓取窗口 10-29 20:28 → 现在 · 候选 558 → 本轮入库 40 → 今日累计 **21**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Computational data for: "Thermal Activation under Electrochemical Conditions: CO and N2 Bo…（15.9）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（30 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（31 篇）
 - **升温主题**：分子晶体结构预测（CSP）与能量图景、晶体生成模型与逆向设计、化学相关生成模型（分子、材料与反应）、视觉生成（低优先级）、生成模型相关数学、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化、铁电计算（有机与分子材料）、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 12 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 3 · 铁电计算（有机与分子材料） 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 13 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 3 · 铁电计算（有机与分子材料） 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -68,7 +68,7 @@
   <sub>命中：molecular generation、diffusion model</sub>
   > The search for working fluids that balance thermodynamic performance, safety, and environmental sustainability remains a pressing challenge for refrigeration and heat pump technologies.
 
-### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑4.7×
+### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑4.8×
 
 - **[Direct simulation of LiNi₀.₈Mn₀.₁Co₀.₁O₂ transport properties using an efficient and accurate machine learning potential](https://doi.org/10.24435/materialscloud:16-07)**
   `MLIP` · *NCCR MARVEL* · 2026-10-29
@@ -100,10 +100,10 @@
   <sub>命中：density functional theory、mlip</sub>
   > Accurately predicting the transport properties of liquid electrolytes is critical for next-generation battery design and requires force fields that are both quantum-mechanically accurate and fast enou…
 
-- **[Correcting the Liquid Densities of Universal Machine-Learning Interatomic Potentials Using Local-Number-Density Repulsion](https://doi.org/10.26434/chemrxiv.15011258/v2)**
-  `MLIP` · *ChemRxiv* · 2026-10-29
-  <sub>命中：mlip</sub>
-  > Universal machine-learning interatomic potentials (MLIPs) such as UMA, trained on reference data from meta-generalized gradient approximation or hybrid functionals that incorporate dispersion interact…
+- **[Fine-Tuning Universal Machine Learning Potentials Enables Efficient Computation of Li Electrode Potentials in Battery Electrolytes](https://doi.org/10.1021/jacs.6c12519)**
+  `MLIP` · *Journal of the American Chemical Society* · 2026-10-31
+  <sub>命中：density functional theory、fine-tuning</sub>
+  > The electrode potential of Li metal is fundamental to the performance and stability of Li-metal batteries, yet its accurate prediction across diverse electrolyte chemistries remains a challenge.
 
 ### AI for Science 方法与自动化 · 新增关注
 
@@ -129,12 +129,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 640 | ok |
-| crossref | 110 | ok |
+| arxiv | 300 | ok |
+| crossref | 114 | ok |
 | openalex | 107 | ok |
 | rss | 106 | ok |
 | github | 1 | ok |
 
-> 原始 964 → 去重 859 → 剔除标题噪声 49 → 低相关度 760 → 入库 50。
+> 原始 628 → 去重 558 → 剔除标题噪声 46 → 低相关度 472 → 入库 40。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
