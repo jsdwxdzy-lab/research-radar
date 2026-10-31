@@ -1,113 +1,116 @@
-# 科研雷达 · 2026-10-30（周五）
+# 科研雷达 · 2026-10-31（周六）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:48 · 抓取窗口 10-28 20:48 → 现在 · 候选 508 → 本轮入库 33 → 今日累计 **17**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 08:08 · 抓取窗口 10-29 16:08 → 现在 · 候选 859 → 本轮入库 50 → 今日累计 **20**（本次 +20） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Learning Between the Lines: Interaction Interpolation in a Multi Element Machine Learning…（7.8）
-- **本周条目最多**：化学相关生成模型（分子、材料与反应）（25 篇）
-- **升温主题**：分子晶体结构预测（CSP）与能量图景、化学相关生成模型（分子、材料与反应）、视觉生成（低优先级）、生成模型相关数学、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 6 · 化学相关生成模型（分子、材料与反应） 4 · 生成模型相关数学 3 · 分子晶体结构预测（CSP）与能量图景 2 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
+- **最高相关度**：Computational data for: "Thermal Activation under Electrochemical Conditions: CO and N2 Bo…（15.9）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（30 篇）
+- **升温主题**：分子晶体结构预测（CSP）与能量图景、晶体生成模型与逆向设计、化学相关生成模型（分子、材料与反应）、视觉生成（低优先级）、生成模型相关数学、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化、铁电计算（有机与分子材料）、手性分子与分子晶体
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 12 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 3 · 铁电计算（有机与分子材料） 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
-1. **[Learning Between the Lines: Interaction Interpolation in a Multi Element Machine Learning Interatomic Potential](https://arxiv.org/abs/2610.38876)**
-   `MLIP` · *arXiv* · 2026-10-28 · [PDF](https://arxiv.org/pdf/2610.38876)
-   <sub>命中：machine learning interatomic potential、interatomic potential、active learning</sub>
-   > The continuous development of machine learning inter-atomic potentials (MLIAPs)has greatly accelerated materials research in recent years. However, the need to con- struct custom MLIAPs for each unique problem remains a bottleneck which raises the question of the transferability of MLIAPs.
+1. **[Computational data for: "Thermal Activation under Electrochemical Conditions: CO and N2 Bond Dissociation on Co (B5)"](https://doi.org/10.11583/dtu.32532234)**
+   `MLIP` · *DTU Data* · 2026-10-29
+   <sub>命中：machine learning interatomic potential、machine-learned interatomic potential、density functional theory、interatomic potential、mlip 等 6 个</sub>
+   > This dataset contains two Jupyter notebooks and the associated computational data, in the compressed file, used to analyse and visualise results from DFT and OPES_meta simulations of CO and N2 dissociation on cobalt surface.
 
-2. **[Polymorph-Dependent Reconstruction of Excitonic Coupling under Pressure Regulates Room Temperature Phosphorescence](https://doi.org/10.1021/acs.jpclett.6c03320)**
-   `CSP` · *The Journal of Physical Chemistry Letters* · 2026-10-29
-   <sub>命中：polymorphism、polymorph</sub>
-   > Pressure-responsive organic room-temperature phosphorescence (RTP) offers a promising platform for optical sensing, information encryption, and anticounterfeiting. Understanding how external mechanical perturbations regulate triplet exciton dynamics in organic crystals remains a fundamental challenge in solid-state pho…
+2. **[A coordination-ligand reorientation mechanism for ferroelectricity in Mn(II) hybrid complex and its utility for memory application](https://doi.org/10.1038/s43246-026-01406-4)**
+   `铁电计算` · *Communications Materials* · 2026-10-28
+   <sub>命中：polarization switching、density functional、ferroelectricity、ferroelectrics、ferroelectric</sub>
+   > Moving beyond classical models of collective ion reorientation, we present a ligand-tilting design for molecular ferroelectrics. Using the asymmetric isothiocyanate (NCS⁻) ligand as a dynamic “molecular hinge,” we achieve facile polarization switching through geometric distortion and coordination-ligand flipping in the…
 
-3. **[Generative discovery of chemical reaction networks](https://arxiv.org/abs/2610.38236)**
-   `MLIP` · *arXiv* · 2026-10-28 · [PDF](https://arxiv.org/pdf/2610.38236)
-   <sub>命中：machine-learned interatomic potential、density functional theory、interatomic potential</sub>
-   > Chemical kinetics determines molecular stability, reaction selectivity and the evolution of reacting mixtures, but discovering the underlying reaction networks remains challenging. Here we introduce ReactNexus, a generative framework for kinetic-guided network exploration starting solely from reactant graphs.
+3. **[TACFormer: Transformer-Based Generative Model for Target-Conditioned De Novo PROTAC Design](https://arxiv.org/abs/2610.39891)**
+   `生成模型` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39891)
+   <sub>命中：molecule generation、generative models、generative model、de novo</sub>
+   > Targeted protein degradation (TPD) represents a fundamental shift in drug discovery, moving beyond traditional target inhibition toward the event-driven removal of disease-causing proteins.
 
-4. **[What to randomize matters: a controlled study of volume, axis and representation in low-data molecular generation](https://arxiv.org/abs/2610.38835)**
-   `生成模型` · *arXiv* · 2026-10-28 · [PDF](https://arxiv.org/pdf/2610.38835)
-   <sub>命中：molecular generation、autoregressive</sub>
-   > Chemical language models can struggle to generate new molecules when trained on small datasets, where a model may reproduce training examples rather than learn a useful generative distribution.
+4. **[Atomic-scale simulation of a bismuth liquid-metal ion source using a universal machine-learning interatomic potential](https://doi.org/10.1063/5.0356115)**
+   `MLIP` · *Journal of Applied Physics* · 2026-10-28
+   <sub>命中：machine learning interatomic potential、interatomic potential、fine-tuning、mace</sub>
+   > Liquid-metal ion sources (LMISs) are central to focused-ion-beam technology, yet a predictive atomic-scale model has been prevented by the absence of transferable interatomic potentials for the emitter metals.
 
-5. **[Mobilis: an open-source toolkit for charge transport in organic semiconductors, from crystal structures to temperaturedependent mobilities with dynamic disorder and active learning](https://doi.org/10.26434/chemrxiv.15011171/v1)**
-   `手性晶体` · *ChemRxiv* · 2026-10-28
-   <sub>命中：chiral molecules、chiral</sub>
-   > Computing a charge mobility for an organic semiconductor involves a chain of steps: monomer site energies, intermolecular couplings, the thermal fluctuation of those couplings, and a transport model whose validity depends on the ratio of coupling to reorganization energy.
+5. **[Transfer learning on universal interatomic potential embeddings improves generalization in structure-property defect models](https://doi.org/10.26434/chemrxiv.15003938/v2)**
+   `MLIP` · *ChemRxiv* · 2026-10-29
+   <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、fine-tuning、mace</sub>
+   > Oxygen vacancy formation energies govern the performance of metal oxides across energy conversion, catalysis, and electronics, yet predicting them accurately without density functional theory calculations for novel chemical systems remains challenging.
 
-6. **[Development and application of a machine learning potential for diamond surfaces and their sliding interfaces with silicon nitride and silica: effect of passivation, orientation and load](https://arxiv.org/abs/2610.38937)**
-   `MLIP` · *arXiv* · 2026-10-28 · [PDF](https://arxiv.org/pdf/2610.38937)
-   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
-   > Friction and wear of diamond are controlled by its surface chemistry, which determines whether covalent bonds form across the sliding interface. First-principles simulations have explored the role of surface orientation and passivation, but are limited to a few hundred atoms and tens of picoseconds.
+6. **[Free-Energy Landscapes of Clathrate Hydrate Polymorphism](https://doi.org/10.1021/acs.cgd.6c01293)**
+   `CSP` · *Crystal Growth & Design* · 2026-10-30
+   <sub>命中：energy landscape、polymorphism、polymorph</sub>
+   > Clathrate hydrates exhibit polymorphism among distinct hydrogen-bonded water-framework topologies, yet the structure observed during formation or transformation need not be the thermodynamically stable polymorph.
 
 ## 按主题展开
 
-### 分子晶体结构预测（CSP）与能量图景 · 升温 ↑2.3×
+### 分子晶体结构预测（CSP）与能量图景 · 升温 ↑2.4×
 
-- **[Self-Assembly of a Carboxyl -Bipyridinium Zwitterion into a High-Performance Photoswitchable NLO Crystal](https://doi.org/10.1021/acs.cgd.6c00920)**
-  `CSP` · *Crystal Growth & Design* · 2026-10-29
-  <sub>命中：molecular crystals</sub>
-  > Efficient photoswitchable second-order nonlinear optical (NLO) materials are highly attractive for optical signal processing.
+- **[Limits of geometric packing descriptors in molecular crystal energy ranking](https://doi.org/10.26434/chemrxiv.15011221/v1)**
+  `CSP` · *ChemRxiv* · 2026-10-28
+  <sub>命中：crystal structure prediction、molecular crystal、crystal structure</sub>
+  > Simple packing descriptors do not consistently reproduce molecular crystal energy rankings across chemically distinct compounds.
 
-### 化学相关生成模型（分子、材料与反应） · 升温 ↑2.6×
+- **[A New High Pressure Polymorph of Na2[C2O5] Synthesized at 41 GPa](https://doi.org/10.1021/acs.cgd.6c00659)**
+  `CSP` · *Crystal Growth & Design* · 2026-10-30
+  <sub>命中：crystal structure、space group、polymorph</sub>
+  > The inorganic pyrocarbonate Na2[C2O5] was synthesized at 41(3) GPa and 1000(300) K using a laser-heated diamond anvil cell.
 
-- **[Towards Generalizing Pretrained All-Atom Representations to Unified Binder Design](https://arxiv.org/abs/2610.37994)**
-  `生成模型` · *arXiv* · 2026-10-27 · [PDF](https://arxiv.org/pdf/2610.37994)
-  <sub>命中：diffusion models、diffusion model</sub>
-  > PairFormer-based all-atom models demonstrate strong capabilities in biomolecular binder design. However, existing methods often use all-atom representations for modality-specific binder design, such a…
+### 化学相关生成模型（分子、材料与反应） · 升温 ↑1.7×
 
-- **[MoLRSI: A Recursive Self-Improving AI agent for Molecular Discovery](https://arxiv.org/abs/2610.39714)**
-  `生成模型` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39714)
-  <sub>命中：molecular design、de novo</sub>
-  > Molecular discovery requires navigating vast combinatorial search spaces while balancing competing biological objectives.
+- **[Framework-Conditional Open Materials Generation](https://arxiv.org/abs/2610.40443)**
+  `生成模型` `生成设计` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.40443)
+  <sub>命中：generative models、flow matching、de novo</sub>
+  > Theoretical predictions of novel materials rely on a variety of techniques, from data-mining-based ion substitution methods to fully de novo generative models.
 
-- **[EVA-Flow: Learning Shared Chemistry for Unified Environment-Aware Molecular Conformation Generation](https://doi.org/10.48550/arxiv.2610.36280)**
-  `生成模型` `CSP` · *arXiv* · 2026-10-26
-  <sub>命中：conformer generation、crystal packing</sub>
-  > Molecular 3D structures underpin simulations of thermodynamics, kinetics, crystallization, and nucleation, making their accurate prediction central to drug discovery and materials design.
+- **[From molecular generation to process-relevant performance: AI-driven identification of novel working fluids](https://doi.org/10.1016/j.cej.2026.183129)**
+  `生成模型` · *Chemical Engineering Journal* · 2026-10-24
+  <sub>命中：molecular generation、diffusion model</sub>
+  > The search for working fluids that balance thermodynamic performance, safety, and environmental sustainability remains a pressing challenge for refrigeration and heat pump technologies.
 
-### 生成模型相关数学 · 升温 ↑3.4×
+### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑4.7×
 
-- **[Fast rigid rotational alignment of voxelized 3-D density maps in sliced Wasserstein distance](https://arxiv.org/abs/2610.39214)**
-  `生成数学` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39214)
-  <sub>命中：optimal transport、wasserstein</sub>
-  > We develop a fast method for the rigid alignment of voxelized three-dimensional density functions over $\mathsf{SO}(3)$ using sliced optimal transport.
+- **[Direct simulation of LiNi₀.₈Mn₀.₁Co₀.₁O₂ transport properties using an efficient and accurate machine learning potential](https://doi.org/10.24435/materialscloud:16-07)**
+  `MLIP` · *NCCR MARVEL* · 2026-10-29
+  <sub>命中：density functional theory、interatomic potential、active learning、mace</sub>
+  > The rate capability of layered lithium nickel manganese cobalt oxide (NMC) cathode materials is decisive for high-power applications such as fast charging, yet the mechanisms governing lithium-ion tra…
 
-- **[Finite-Step Geometry of Marginal-Preserving Velocity Fields in Generative Flows](https://arxiv.org/abs/2610.37936)**
-  `生成数学` · *arXiv* · 2026-10-27 · [PDF](https://arxiv.org/pdf/2610.37936)
-  <sub>命中：probability flow、wasserstein</sub>
-  > Generative flows can admit different velocity fields that induce the same continuous marginal evolution but behave differently after numerical discretization.
+- **[Unraveling Tellurium Defect‐Mediated Structural Phase Stability of Monolayer MoTe 2 Using Fine‐Tuned Machine‐Learning Interatomic Potentials](https://doi.org/10.1002/adts.70596)**
+  `MLIP` · *Advanced Theory and Simulations* · 2026-10-29
+  <sub>命中：density functional theory、interatomic potential、mlip</sub>
+  > Monolayer molybdenum ditelluride (MoTe 2 ) exhibits a small energy difference between its semiconducting 2H and semimetallic 1T’ phases, enabling structural phase transitions under external perturbati…
 
-- **[sDMD: Sinkhorn Distribution Matching Distillation](https://arxiv.org/abs/2610.39889)**
-  `生成数学` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39889)
-  <sub>命中：optimal transport、wasserstein</sub>
-  > Distribution Matching Distillation (DMD) distills multi-step diffusion models into few-step generators by minimizing reverse KL divergence.
+- **[Global Potential Energy Surface Exploration Using Generative Stochastic Surface Walking (Gen-SSW)](https://doi.org/10.1021/acs.jctc.6c01420)**
+  `MLIP` `CSP` `生成模型` · *Journal of Chemical Theory and Computation* · 2026-10-30
+  <sub>命中：potential energy surface、equivariant、molecular crystals、diffusion model</sub>
+  > Global potential energy surface (PES) exploration offers a unique way to predict the structure of material from first principles.
 
-### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑3.5×
+- **[Differentiable Electronic Grand Canonical Learning for Electrochemistry](https://arxiv.org/abs/2610.40338)**
+  `MLIP` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.40338)
+  <sub>命中：density functional theory、equivariant、mace</sub>
+  > Electronic grand-canonical density functional theory captures how structure and electronic charge respond to electrode potential and, together with statistical mechanics, how these responses give rise…
 
-- **[Where the Error Lives: Spectral Representations of Learned Kohn-Sham Hamiltonians](https://arxiv.org/abs/2610.37843)**
-  `MLIP` · *arXiv* · 2026-10-27 · [PDF](https://arxiv.org/pdf/2610.37843)
-  <sub>命中：density functional theory、equivariant、fine-tuning</sub>
-  > Kohn-Sham density functional theory (DFT) is the standard method for computing the electronic structure of molecules and materials, but its self-consistent-field (SCF) iterations make it expensive for…
+- **[Prediction of aluminium distributions in zeolites using basin-hopping and machine learning potentials](https://doi.org/10.1039/d6dd00356g)**
+  `MLIP` · *Digital Discovery* · 2026-10-30
+  <sub>命中：neural network potential</sub>
+  > We present a new method to predict the structures of aluminosilicate zeolites using an accurate neural network potential and a custom basin-hopping method and demonstrate it's utility on Chabazite, Mo…
 
-- **[Fast and transferable interatomic potential for alloys, compounds, and hydrides in the Fe–Cr–Ni–Ti–H system](https://doi.org/10.1016/j.commatsci.2026.115182)**
-  `MLIP` · *Computational Materials Science* · 2026-10-28
-  <sub>命中：interatomic potential</sub>
-  > Fast and transferable interatomic potentials are in high demand for atomistic simulations of multicomponent systems, particularly those involving compounds and hydrides.
+- **[Distilling Large-Scale Machine Learning Interatomic Potentials to Predict Long-Timescale Electrolyte Transport Properties](https://arxiv.org/abs/2610.39513)**
+  `MLIP` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39513)
+  <sub>命中：density functional theory、mlip</sub>
+  > Accurately predicting the transport properties of liquid electrolytes is critical for next-generation battery design and requires force fields that are both quantum-mechanically accurate and fast enou…
 
-- **[Paired-Isotopologue Hessian Benchmarking for Second-Order Validation of Machine-Learned Water Potentials](https://doi.org/10.1021/acs.jctc.6c01692)**
-  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-10-29
-  <sub>命中：potential energy surface</sub>
-  > Machine-learned interatomic potentials (MLIPs) are commonly validated against energies and forces, yet vibrational predictions depend on the curvature and mode information encoded in the Hessian of th…
+- **[Correcting the Liquid Densities of Universal Machine-Learning Interatomic Potentials Using Local-Number-Density Repulsion](https://doi.org/10.26434/chemrxiv.15011258/v2)**
+  `MLIP` · *ChemRxiv* · 2026-10-29
+  <sub>命中：mlip</sub>
+  > Universal machine-learning interatomic potentials (MLIPs) such as UMA, trained on reference data from meta-generalized gradient approximation or hybrid functionals that incorporate dispersion interact…
 
 ### AI for Science 方法与自动化 · 新增关注
 
-- **[HERA: Assessing an Autonomous Agent for Quantum Device Measurement](https://arxiv.org/abs/2610.39074)**
-  `AI4S` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.39074)
-  <sub>命中：large language model、autonomous、agent</sub>
-  > Large language model agents have begun to carry out laboratory measurements, but their scientific conclusions are useful only if they hold up under scrutiny.
+- **[The Athlete as a Scientist of One: Agentic Bayesian Experimental Design for Individualized Physiology from Consumer Wearables](https://arxiv.org/abs/2610.40370)**
+  `AI4S` · *arXiv* · 2026-10-29 · [PDF](https://arxiv.org/pdf/2610.40370)
+  <sub>命中：large language model、benchmark、agent、llm</sub>
+  > Large language model (LLM) agents for personal health read wearable data and recommend, but do not learn about the individual in a way that can be audited or falsified.
 
 ## 工具与模型发布
 
@@ -119,19 +122,19 @@ _（窗口内没有命中关注主题的新闻）_
 
 ## 会议与活动（未来 120 天，日期以官网为准）
 
-- **12-01**（32 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
-- **12-08**（39 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
+- **12-01**（31 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
+- **12-08**（38 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
 
 ## 运行健康
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 200 | ok |
-| crossref | 136 | ok |
-| openalex | 106 | ok |
-| rss | 102 | ok |
+| arxiv | 640 | ok |
+| crossref | 110 | ok |
+| openalex | 107 | ok |
+| rss | 106 | ok |
 | github | 1 | ok |
 
-> 原始 545 → 去重 508 → 剔除标题噪声 40 → 低相关度 435 → 入库 33。
+> 原始 964 → 去重 859 → 剔除标题噪声 49 → 低相关度 760 → 入库 50。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
