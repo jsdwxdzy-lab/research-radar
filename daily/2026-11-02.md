@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-02（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:28 · 抓取窗口 10-31 19:28 → 现在 · 候选 415 → 本轮入库 32 → 今日累计 **3**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:28 · 抓取窗口 10-31 20:28 → 现在 · 候选 328 → 本轮入库 34 → 今日累计 **5**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Reactive Molecular Dynamics of Hydrogen Evolution at Charged Interfaces Using Effective Ma…（8.4）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（29 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（30 篇）
 - **升温主题**：分子晶体结构预测（CSP）与能量图景、晶体生成模型与逆向设计、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化、铁电计算（有机与分子材料）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 1 · 分子晶体结构预测（CSP）与能量图景 1 · 手性分子与分子晶体 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1 · 分子晶体结构预测（CSP）与能量图景 1 · 手性分子与分子晶体 1
 
 ## 今日最值得看
 
@@ -17,12 +17,22 @@
    <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、equivariant</sub>
    > Understanding electrochemical reaction mechanisms requires atomistic simulations that simultaneously capture charged interfaces, explicit solvent, and long-time dynamics, which remain beyond the reach of conventional ab initio molecular dynamics.
 
-2. **[Structure, dynamics, and chemical ordering in multi-element metallic nanoparticles: an atomistic modeling and machine learning approach](https://hdl.handle.net/11567/1324359)**
+2. **[WASABI: Wasserstein Sampling via Bridge Interpolants](https://arxiv.org/abs/2610.41958)**
+   `生成模型` · *arXiv* · 2026-10-30 · [PDF](https://arxiv.org/pdf/2610.41958)
+   <sub>命中：diffusion models、diffusion model</sub>
+   > Sampling from Boltzmann distributions is a fundamental problem in physics, chemistry, and biology. We introduce WAsserstein SAmpling via Bridge Interpolants (WASABI), a method that trains a diffusion model to generate samples from a target Boltzmann distribution given access only to the energy function.
+
+3. **[Shock Loading Accesses Reaction Pathways beyond Accelerated Thermolysis](https://arxiv.org/abs/2610.41955)**
+   `MLIP` · *arXiv* · 2026-10-30 · [PDF](https://arxiv.org/pdf/2610.41955)
+   <sub>命中：potential energy surface、mace</sub>
+   > Thermolysis and shock loading can produce similar major stable products in energetic materials, despite different chemical evolution and reaction pathways. Here, we develop EMFF-MACE, a reactive machine-learning potential for C/H/N/O energetic materials, enabling thermolysis simulations of 20 materials and shock simula…
+
+4. **[Structure, dynamics, and chemical ordering in multi-element metallic nanoparticles: an atomistic modeling and machine learning approach](https://hdl.handle.net/11567/1324359)**
    `CSP` · *CINECA IRIS Institutial Research Information S…* · 2026-11-13
    <sub>命中：basin hopping</sub>
    > Over the past decades, the study of metallic nanoalloys has considerably broadened from initially monometallic, via bimetallic to increaslingly complex multimetallic systems. Initially focused on the structural, dynamical, and thermal properties of bimetallic alloys, the field has progressively expanded towards systems…
 
-3. **[Recent advances in chiral organic room‐temperature phosphorescence with circularly polarized luminescence](https://doi.org/10.1002/flm2.70167)**
+5. **[Recent advances in chiral organic room‐temperature phosphorescence with circularly polarized luminescence](https://doi.org/10.1002/flm2.70167)**
    `手性晶体` · *FlexMat.* · 2026-10-31
    <sub>命中：chiral</sub>
    > Circularly polarized room‐temperature phosphorescence (CPRTP) materials combine the dual advantages of long‐lived triplet emission and chiral optical response, demonstrating broad application prospects in information security, bioimaging, and flexible optoelectronics.
@@ -48,12 +58,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 200 | ok |
+| arxiv | 100 | ok |
 | crossref | 51 | ok |
 | openalex | 118 | ok |
 | rss | 87 | ok |
 | github | 0 | ok |
 
-> 原始 456 → 去重 415 → 剔除标题噪声 42 → 低相关度 341 → 入库 32。
+> 原始 356 → 去重 328 → 剔除标题噪声 42 → 低相关度 252 → 入库 34。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
