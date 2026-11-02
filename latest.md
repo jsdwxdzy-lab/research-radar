@@ -1,18 +1,28 @@
 # 科研雷达 · 2026-11-02（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 08:08 · 抓取窗口 10-31 16:08 → 现在 · 候选 729 → 本轮入库 29 → 今日累计 **1**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 09:08 · 抓取窗口 10-31 17:08 → 现在 · 候选 761 → 本轮入库 44 → 今日累计 **3**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Recent advances in chiral organic room‐temperature phosphorescence with circularly polariz…（2.8）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（28 篇）
+- **最高相关度**：Reactive Molecular Dynamics of Hydrogen Evolution at Charged Interfaces Using Effective Ma…（8.4）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（29 篇）
 - **升温主题**：分子晶体结构预测（CSP）与能量图景、晶体生成模型与逆向设计、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化、铁电计算（有机与分子材料）
-- **构成**：手性分子与分子晶体 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 1 · 分子晶体结构预测（CSP）与能量图景 1 · 手性分子与分子晶体 1
 
 ## 今日最值得看
 
-1. **[Recent advances in chiral organic room‐temperature phosphorescence with circularly polarized luminescence](https://doi.org/10.1002/flm2.70167)**
+1. **[Reactive Molecular Dynamics of Hydrogen Evolution at Charged Interfaces Using Effective Machine Learning Potentials](https://doi.org/10.1021/acselectrochem.6c00310)**
+   `MLIP` · *ACS electrochemistry.* · 2026-10-30
+   <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、equivariant</sub>
+   > Understanding electrochemical reaction mechanisms requires atomistic simulations that simultaneously capture charged interfaces, explicit solvent, and long-time dynamics, which remain beyond the reach of conventional ab initio molecular dynamics.
+
+2. **[Structure, dynamics, and chemical ordering in multi-element metallic nanoparticles: an atomistic modeling and machine learning approach](https://hdl.handle.net/11567/1324359)**
+   `CSP` · *CINECA IRIS Institutial Research Information S…* · 2026-11-13
+   <sub>命中：basin hopping</sub>
+   > Over the past decades, the study of metallic nanoalloys has considerably broadened from initially monometallic, via bimetallic to increaslingly complex multimetallic systems. Initially focused on the structural, dynamical, and thermal properties of bimetallic alloys, the field has progressively expanded towards systems…
+
+3. **[Recent advances in chiral organic room‐temperature phosphorescence with circularly polarized luminescence](https://doi.org/10.1002/flm2.70167)**
    `手性晶体` · *FlexMat.* · 2026-10-31
    <sub>命中：chiral</sub>
    > Circularly polarized room‐temperature phosphorescence (CPRTP) materials combine the dual advantages of long‐lived triplet emission and chiral optical response, demonstrating broad application prospects in information security, bioimaging, and flexible optoelectronics.
@@ -40,10 +50,10 @@ _（窗口内没有命中关注主题的新闻）_
 | --- | --- | --- |
 | arxiv | 622 | ok |
 | crossref | 51 | ok |
-| openalex | 75 | ok |
+| openalex | 118 | ok |
 | rss | 86 | ok |
 | github | 0 | ok |
 
-> 原始 834 → 去重 729 → 剔除标题噪声 34 → 低相关度 666 → 入库 29。
+> 原始 877 → 去重 761 → 剔除标题噪声 46 → 低相关度 671 → 入库 44。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
