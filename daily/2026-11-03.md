@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-03（周二）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-01 17:08 → 现在 · 候选 789 → 本轮入库 46 → 今日累计 **10**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-01 18:08 → 现在 · 候选 810 → 本轮入库 47 → 今日累计 **11**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：A Hybrid Message-Passing and Electric-Field Representation for Electrostatic QM/MM Embeddi…（8.8）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（29 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（30 篇）
 - **升温主题**：机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 手性分子与分子晶体 1 · 生成模型相关数学 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 手性分子与分子晶体 1 · 生成模型相关数学 1
 
 ## 今日最值得看
 
@@ -36,10 +36,10 @@
    <sub>命中：density functional theory</sub>
    > Oxidative degradation of carbonate solvents via C–H activation is observed on late transition metal oxide positive electrodes in Li-ion batteries. However, analogous reactivity of other classes of organic molecules on oxides is not well understood.
 
-6. **[Coarse-Graining Optimal Transport for Rollout-Free Post-Training of Flow Matching](https://arxiv.org/abs/2610.41269)**
-   `生成数学` · *arXiv* · 2026-10-30 · [PDF](https://arxiv.org/pdf/2610.41269)
-   <sub>命中：optimal transport、flow matching</sub>
-   > Flow matching depends critically on the coupling used to pair source and target samples. Optimal transport (OT) couplings can reduce velocity conflict and straighten trajectories; but, in practice, challenges remain: the source comes from a continuous distribution, only a finite number of target samples data are access…
+6. **[VESPER: Online Learning of Free Energies with a Multi-Tempered Variational Objective](https://arxiv.org/abs/2611.00401)**
+   `MLIP` · *arXiv* · 2026-10-30 · [PDF](https://arxiv.org/pdf/2611.00401)
+   <sub>命中：machine-learned interatomic potential、interatomic potential</sub>
+   > Computing molecular free-energy landscapes over collective variables (CVs) is central to understanding molecular mechanisms, but poses a difficult learning problem without training data available a priori.
 
 ## 按主题展开
 
@@ -57,7 +57,14 @@
   <sub>命中：flow matching</sub>
   > Generating small molecules to target protein-protein interactions (PPIs) remains one of the most challenging yet high-reward frontiers in drug discovery.
 
-### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑3.0×
+### 生成模型相关数学 · 持平
+
+- **[Coarse-Graining Optimal Transport for Rollout-Free Post-Training of Flow Matching](https://arxiv.org/abs/2610.41269)**
+  `生成数学` · *arXiv* · 2026-10-30 · [PDF](https://arxiv.org/pdf/2610.41269)
+  <sub>命中：optimal transport、flow matching</sub>
+  > Flow matching depends critically on the coupling used to pair source and target samples. Optimal transport (OT) couplings can reduce velocity conflict and straighten trajectories; but, in practice, ch…
+
+### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑3.1×
 
 - **[ORCHID: Connecting Finite-Temperature Thermodynamic Evidence to Computational Materials Discovery](https://arxiv.org/abs/2610.41164)**
   `MLIP` · *arXiv* · 2026-10-30 · [PDF](https://arxiv.org/pdf/2610.41164)
@@ -90,12 +97,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 631 | ok |
-| crossref | 96 | ok |
+| arxiv | 651 | ok |
+| crossref | 101 | ok |
 | openalex | 106 | ok |
 | rss | 46 | ok |
 | github | 0 | ok |
 
-> 原始 879 → 去重 789 → 剔除标题噪声 48 → 低相关度 695 → 入库 46。
+> 原始 904 → 去重 810 → 剔除标题噪声 48 → 低相关度 715 → 入库 47。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
