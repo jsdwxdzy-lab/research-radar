@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-04（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-02 18:08 → 现在 · 候选 894 → 本轮入库 53 → 今日累计 **19**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:08 · 抓取窗口 11-02 20:08 → 现在 · 候选 767 → 本轮入库 48 → 今日累计 **20**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Concerted mass transport governs anomalous diffusion in dynamically-stabilized bcc metals（10.1）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（32 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（33 篇）
 - **升温主题**：分子晶体结构预测（CSP）与能量图景、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 9 · 分子晶体结构预测（CSP）与能量图景 5 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 2
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 10 · 分子晶体结构预测（CSP）与能量图景 5 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 2
 
 ## 今日最值得看
 
@@ -22,25 +22,25 @@
    <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、fine-tuning、mace</sub>
    > The mechanical response of graphene oxide (GO) is controlled by oxidation level and functional group composition, yet a clear atomic level picture remains ambiguous due to limitations of classical reactive force fields.
 
-3. **[Spin controlled transport switching with negative differential resistance in a chiral molecular device](https://doi.org/10.60893/figshare.jcp.c.8768934)**
+3. **[Machine-Learning Molecular Dynamics Reveals Grotthuss Transport in Concentrated Electrolytes](https://arxiv.org/abs/2611.04558)**
+   `MLIP` · *arXiv* · 2026-11-03 · [PDF](https://arxiv.org/pdf/2611.04558)
+   <sub>命中：machine learning interatomic potential、interatomic potential、mlip</sub>
+   > Proton transfer is responsible for the anomalous high conductivity in acidic or basic aqueous solutions. Yet, the contribution of the proton transfer mechanism to the conductivity of concentrated aqueous solutions is unknown.
+
+4. **[Spin controlled transport switching with negative differential resistance in a chiral molecular device](https://doi.org/10.60893/figshare.jcp.c.8768934)**
    `手性晶体` · *AIP Publishing* · 2026-11-02
    <sub>命中：chiral molecular、chiral</sub>
    > Manipulating electron transport through spin control is fundamental to molecular spintronics. We show that adjusting the crystal field and oxidation state of a magnetic center embedded in a chiral framework allows accurate regulation of transport across spin states ranging from S = 0 to 2.
 
-4. **[Site-orbit masked twin-branch Transformer for symmetry-constrained crystal generation](https://arxiv.org/abs/2611.02906)**
+5. **[Site-orbit masked twin-branch Transformer for symmetry-constrained crystal generation](https://arxiv.org/abs/2611.02906)**
    `CSP` `生成设计` · *arXiv* · 2026-11-02 · [PDF](https://arxiv.org/pdf/2611.02906)
    <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、crystal generation、generative models 等 6 个</sub>
    > Generative models for crystal structure prediction (CSP) have expanded the search space for novel materials and improved screening efficiency. However, simultaneously generating stable and novel structures remains challenging because of the complex structural and physical constraints governing crystals.
 
-5. **[Machine-Learned Interatomic Potential for the Mo-S-Al-O System](https://arxiv.org/abs/2611.02403)**
+6. **[Machine-Learned Interatomic Potential for the Mo-S-Al-O System](https://arxiv.org/abs/2611.02403)**
    `MLIP` · *arXiv* · 2026-11-02 · [PDF](https://arxiv.org/pdf/2611.02403)
    <sub>命中：machine-learned interatomic potential、density functional theory、interatomic potential</sub>
    > We develop a machine-learned neuroevolution potential (NEP) for the Mo-S-Al-O system, targeting MoS$_2$ heteroepitaxy on c-plane sapphire, $α$-Al$_2$O$_3$(0001). The potential is trained on 63,611 PBE+D3 structures distilled from about 1.1 million curated density-functional-theory (DFT) configurations, using an energy-…
-
-6. **[A systematic framework for constructing reactive machine learning interatomic potentials](https://doi.org/10.1063/5.0344922)**
-   `MLIP` · *APL Machine Learning* · 2026-11-02
-   <sub>命中：potential energy surface、active learning、mlip</sub>
-   > Machine learning interatomic potentials (MLIPs) have emerged as an essential tool for extending the reach of atomistic simulations, offering near quantum level accuracy at a fraction of the computational cost.
 
 ## 按主题展开
 
@@ -83,7 +83,12 @@
   <sub>命中：diffusion model</sub>
   > Low-temperature ice–liquid phase coexistence and nuclear magnetization exchange dynamics of water confined in the ordered mesoporous silica material KIT-5 were investigated by nuclear magnetic resonan…
 
-### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑2.7×
+### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑2.8×
+
+- **[A systematic framework for constructing reactive machine learning interatomic potentials](https://doi.org/10.1063/5.0344922)**
+  `MLIP` · *APL Machine Learning* · 2026-11-02
+  <sub>命中：potential energy surface、active learning、mlip</sub>
+  > Machine learning interatomic potentials (MLIPs) have emerged as an essential tool for extending the reach of atomistic simulations, offering near quantum level accuracy at a fraction of the computatio…
 
 - **[A scalable strategy for β-Sn orientation control in advanced electronic packaging via sputter-deposited α-CoSn₃ seed layers](https://doi.org/10.1016/j.apsadv.2026.101092)**
   `MLIP` · *Applied Surface Science Advances* · 2026-11-02
@@ -134,12 +139,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 692 | ok |
-| crossref | 157 | ok |
+| arxiv | 539 | ok |
+| crossref | 161 | ok |
 | openalex | 100 | ok |
 | rss | 62 | ok |
 | github | 1 | ok |
 
-> 原始 1012 → 去重 894 → 剔除标题噪声 38 → 低相关度 803 → 入库 53。
+> 原始 863 → 去重 767 → 剔除标题噪声 41 → 低相关度 678 → 入库 48。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
