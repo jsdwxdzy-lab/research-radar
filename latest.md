@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-04（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-02 17:08 → 现在 · 候选 834 → 本轮入库 49 → 今日累计 **17**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-02 18:08 → 现在 · 候选 894 → 本轮入库 53 → 今日累计 **19**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Concerted mass transport governs anomalous diffusion in dynamically-stabilized bcc metals（10.1）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（31 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（32 篇）
 - **升温主题**：分子晶体结构预测（CSP）与能量图景、机器学习势与通用势函数（MLIP / UMA）、AI for Science 方法与自动化
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 5 · 手性分子与分子晶体 2 · 化学相关生成模型（分子、材料与反应） 2
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 9 · 分子晶体结构预测（CSP）与能量图景 5 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 2
 
 ## 今日最值得看
 
@@ -66,7 +66,12 @@
   <sub>命中：molecular crystal</sub>
   > Truncated Coulomb (TC) potentials reduce finite-size errors and accelerate thermodynamic-limit convergence in periodic Hartree–Fock (HF) calculations, but their use with Gaussian basis sets is complic…
 
-### 化学相关生成模型（分子、材料与反应） · 持平
+### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.6×
+
+- **[Steerable Single-step Retrosynthesis with Electron-pushing Discrete Flow Matching and Feynman-Kac Steering](https://arxiv.org/abs/2611.03696)**
+  `生成模型` · *arXiv* · 2026-10-28 · [PDF](https://arxiv.org/pdf/2611.03696)
+  <sub>命中：generative model、flow matching、de novo</sub>
+  > Expert chemists perform retrosynthetic analysis in a strategic manner, where each reaction in a route is employed with a specific purpose, combined with mechanistic reasoning represented as electron-p…
 
 - **[FlowBatt: Flow Matching for Probabilistic Battery Degradation Prediction](https://arxiv.org/abs/2611.03150)**
   `生成模型` · *arXiv* · 2026-11-02 · [PDF](https://arxiv.org/pdf/2611.03150)
@@ -78,7 +83,7 @@
   <sub>命中：diffusion model</sub>
   > Low-temperature ice–liquid phase coexistence and nuclear magnetization exchange dynamics of water confined in the ordered mesoporous silica material KIT-5 were investigated by nuclear magnetic resonan…
 
-### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑2.6×
+### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑2.7×
 
 - **[A scalable strategy for β-Sn orientation control in advanced electronic packaging via sputter-deposited α-CoSn₃ seed layers](https://doi.org/10.1016/j.apsadv.2026.101092)**
   `MLIP` · *Applied Surface Science Advances* · 2026-11-02
@@ -99,6 +104,11 @@
   `MLIP` · *arXiv* · 2026-11-02 · [PDF](https://arxiv.org/pdf/2611.03154)
   <sub>命中：density functional theory、interatomic potential</sub>
   > Machine learning supports materials design, atomistic simulation and experimental characterization, yet models and workflows remain fragmented.
+
+- **[Isothermal-Isobaric Molecular Dynamics with a Foundation Interatomic Potential in LAMMPS across NVIDIA and Intel GPUs](https://arxiv.org/abs/2611.03892)**
+  `MLIP` · *arXiv* · 2026-11-02 · [PDF](https://arxiv.org/pdf/2611.03892)
+  <sub>命中：interatomic potential</sub>
+  > Foundation machine-learning interatomic potentials (MLIPs) offer one model for many chemistries, but their deep, globally coupled architectures do not fit the spatial decomposition that scales classic…
 
 ### 手性分子与分子晶体 · 持平
 
@@ -124,12 +134,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 611 | ok |
-| crossref | 159 | ok |
+| arxiv | 692 | ok |
+| crossref | 157 | ok |
 | openalex | 100 | ok |
 | rss | 62 | ok |
 | github | 1 | ok |
 
-> 原始 933 → 去重 834 → 剔除标题噪声 37 → 低相关度 748 → 入库 49。
+> 原始 1012 → 去重 894 → 剔除标题噪声 38 → 低相关度 803 → 入库 53。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
