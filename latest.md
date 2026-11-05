@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-05（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:08 · 抓取窗口 11-03 19:08 → 现在 · 候选 921 → 本轮入库 37 → 今日累计 **12**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:28 · 抓取窗口 11-03 20:28 → 现在 · 候选 483 → 本轮入库 23 → 今日累计 **14**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：The CPOSS Database of Computed Crystal Structures（10.7）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（24 篇）
-- **升温主题**：机器学习势与通用势函数（MLIP / UMA）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 手性分子与分子晶体 2 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（25 篇）
+- **升温主题**：分子晶体结构预测（CSP）与能量图景、机器学习势与通用势函数（MLIP / UMA）
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 2 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -44,7 +44,12 @@
 
 ## 按主题展开
 
-### 分子晶体结构预测（CSP）与能量图景 · 持平
+### 分子晶体结构预测（CSP）与能量图景 · 升温 ↑1.6×
+
+- **[Correlation between Crystal-Structure Evolution and Valence-Band Characteristics among Multiple 1T-TaS2 Phases](https://doi.org/10.1021/acs.jpclett.6c03000)**
+  `CSP` · *The Journal of Physical Chemistry Letters* · 2026-11-05
+  <sub>命中：crystal structure</sub>
+  > 1T-TaS2 is a two-dimensional strongly correlated electron material featuring broadband saturable absorption. Although the band structures of 1T-TaS2 in distinct phases have been reported, the correlat…
 
 - **[Strain-Glass Dynamics in the Superionic Conductor Na$_3$PS$_4$](https://arxiv.org/abs/2611.04547)**
   `CSP` · *arXiv* · 2026-11-03 · [PDF](https://arxiv.org/pdf/2611.04547)
@@ -63,12 +68,17 @@
   <sub>命中：generative model、inverse design</sub>
   > Generative artificial intelligence offers a route to accelerated scientific simulation, yet unconstrained generation can violate conservation laws, governing differential equations, boundary condition…
 
-### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑1.5×
+### 机器学习势与通用势函数（MLIP / UMA） · 升温 ↑1.6×
 
 - **[Excited-state intramolecular proton transfer dynamics with neural network potentials and nuclear quantum effects](https://doi.org/10.1063/5.0352345)**
   `MLIP` · *The Journal of Chemical Physics* · 2026-11-04
   <sub>命中：neural network potential</sub>
   > Excited-state intramolecular proton transfer is a prototypical ultrafast process that forms the foundation for many chemical and biological phenomena and is highly sensitive to changes in the underlyi…
+
+- **[Ab Initio Accuracy Beyond the Cutoff: Distributed Message-Passing Equivariant Attention at Tens-of-Millions-of-Atom Scale](https://arxiv.org/abs/2611.06122)**
+  `MLIP` · *arXiv* · 2026-11-04 · [PDF](https://arxiv.org/pdf/2611.06122)
+  <sub>命中：density functional theory、equivariant</sub>
+  > Molecular dynamics predicts molecular motion from atomic forces and trajectory integration. Density functional theory (DFT) provides first-principles forces, but its $O(N^3)$ cost limits simulations t…
 
 ### AI for Science 方法与自动化 · 持平
 
@@ -101,12 +111,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 700 | ok |
-| crossref | 164 | ok |
-| openalex | 56 | ok |
+| arxiv | 200 | ok |
+| crossref | 165 | ok |
+| openalex | 71 | ok |
 | rss | 103 | ok |
 | github | 1 | ok |
 
-> 原始 1024 → 去重 921 → 剔除标题噪声 32 → 低相关度 852 → 入库 37。
+> 原始 540 → 去重 483 → 剔除标题噪声 28 → 低相关度 432 → 入库 23。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
