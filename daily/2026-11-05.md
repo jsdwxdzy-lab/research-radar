@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-05（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-03 17:08 → 现在 · 候选 935 → 本轮入库 44 → 今日累计 **9**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-03 18:08 → 现在 · 候选 938 → 本轮入库 44 → 今日累计 **10**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：The CPOSS Database of Computed Crystal Structures（10.7）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（22 篇）
-- **构成**：化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 手性分子与分子晶体 2 · AI for Science 方法与自动化 1 · 机器学习势与通用势函数（MLIP / UMA） 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（23 篇）
+- **构成**：化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 手性分子与分子晶体 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -26,20 +26,20 @@
    <sub>命中：chirality、chiral</sub>
    > The design and construction of photonic materials with multiple and anisotropic nonlinear optical (NLO) behaviors for all-photonic device applications is an attractive but challenging task.
 
-4. **[Ablating Design Choices for Protein Ensemble Generators Across Structural Regimes](https://arxiv.org/abs/2611.05055)**
+4. **[Temperature-Dependent Ion Dynamics in Argyrodite Superionic Conductor Li$_{6}$PS$_{5}$Cl with Fine-Tuned MACE Foundation Model](https://arxiv.org/abs/2611.05946)**
+   `MLIP` · *arXiv* · 2026-11-04 · [PDF](https://arxiv.org/pdf/2611.05946)
+   <sub>命中：mlip、mace</sub>
+   > The rapid growth of machine-learning interatomic potentials (MLIP), particularly the foundational models for materials chemistry, such as MACE, has significantly strengthened our capabilities in studying the complex dynamics of materials through statistical sampling.
+
+5. **[Ablating Design Choices for Protein Ensemble Generators Across Structural Regimes](https://arxiv.org/abs/2611.05055)**
    `生成模型` · *arXiv* · 2026-11-03 · [PDF](https://arxiv.org/pdf/2611.05055)
    <sub>命中：generative models、flow matching</sub>
    > Generative models of protein conformational ensembles inherit much of their design from structure prediction for folded proteins. Ordered and disordered proteins, however, occupy distinct structural regimes, and we investigate how design choices hold up across them.
 
-5. **[Highly Efficient Molecular-to-Lattice Chirality Transfer in Benzene-Based Dion–Jacobson Perovskites for Circularly Polarized Light Detection](https://doi.org/10.1021/acsnano.6c14930)**
+6. **[Highly Efficient Molecular-to-Lattice Chirality Transfer in Benzene-Based Dion–Jacobson Perovskites for Circularly Polarized Light Detection](https://doi.org/10.1021/acsnano.6c14930)**
    `手性晶体` · *ACS Nano* · 2026-11-03
    <sub>命中：chirality、chiral</sub>
    > Chiral organic–inorganic hybrid perovskites are emerging as promising materials for direct detection of circularly polarized light (CPL), yet their performance has remained limited by inefficient chirality transfer and weak interlayer coupling inherent in conventional Ruddlesden–Popper (RP) architectures.
-
-6. **[Mathematically Constrained Generative AI for Multiscale Scientific Simulation](https://doi.org/10.62311/nesx/rp4oct-30102026)**
-   `生成模型` · *International Journal of Academic and Industri…* · 2026-10-30
-   <sub>命中：generative model、inverse design</sub>
-   > Generative artificial intelligence offers a route to accelerated scientific simulation, yet unconstrained generation can violate conservation laws, governing differential equations, boundary conditions, and cross-resolution consistency.
 
 ## 按主题展开
 
@@ -49,6 +49,13 @@
   `CSP` · *arXiv* · 2026-11-03 · [PDF](https://arxiv.org/pdf/2611.04547)
   <sub>命中：polymorph</sub>
   > Ionic conduction in solid-state electrolytes is conventionally described by mobile cations migrating through a static host lattice.
+
+### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.6×
+
+- **[Mathematically Constrained Generative AI for Multiscale Scientific Simulation](https://doi.org/10.62311/nesx/rp4oct-30102026)**
+  `生成模型` · *International Journal of Academic and Industri…* · 2026-10-30
+  <sub>命中：generative model、inverse design</sub>
+  > Generative artificial intelligence offers a route to accelerated scientific simulation, yet unconstrained generation can violate conservation laws, governing differential equations, boundary condition…
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
@@ -81,12 +88,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 686 | ok |
-| crossref | 161 | ok |
-| openalex | 108 | ok |
+| arxiv | 691 | ok |
+| crossref | 163 | ok |
+| openalex | 94 | ok |
 | rss | 103 | ok |
 | github | 1 | ok |
 
-> 原始 1059 → 去重 935 → 剔除标题噪声 41 → 低相关度 850 → 入库 44。
+> 原始 1052 → 去重 938 → 剔除标题噪声 37 → 低相关度 857 → 入库 44。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
