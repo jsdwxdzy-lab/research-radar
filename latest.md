@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-06（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-04 18:08 → 现在 · 候选 903 → 本轮入库 38 → 今日累计 **9**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:08 · 抓取窗口 11-04 19:08 → 现在 · 候选 920 → 本轮入库 40 → 今日累计 **12**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Achieving Accurate Prediction of Water Adsorption in Mildly Hydrophobic MOFs（9.4）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
-- **升温主题**：手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 手性分子与分子晶体 1
+- **升温主题**：AI for Science 方法与自动化、手性分子与分子晶体
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 视觉生成（低优先级） 1 · 手性分子与分子晶体 1 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -51,12 +51,33 @@
   <sub>命中：inverse design、interatomic potential</sub>
   > Porous carbons store energy, capture gases and purify water, and their performance depends strongly on the geometry of their pores.
 
+### 视觉生成（低优先级） · 回落 ↓0.1×
+
+- **[A Proxy-Based Method for Measuring Racial Disparities in~Text-to-Image~Generators](https://arxiv.org/abs/2611.07132)**
+  `视觉生成` · *arXiv* · 2026-11-04 · 👤Jack D. Evans · [PDF](https://arxiv.org/pdf/2611.07132)
+  <sub>命中：text-to-image</sub>
+  > We present an automated method for auditing text-to-image generators for representational bias against ground-truth demographic benchmarks. Our approach adapts the racial proxy variables used in U.S.
+
+### 生成模型相关数学 · 回落 ↓0.4×
+
+- **[Perceptual Distortion for Overfitted Video Coding: Sliced Matching in Space, Error Alignment in Time](https://arxiv.org/abs/2611.07148)**
+  `生成数学` · *arXiv* · 2026-11-04 · [PDF](https://arxiv.org/pdf/2611.07148)
+  <sub>命中：optimal transport、wasserstein</sub>
+  > Recent works in neural video coding have increasingly been trading off perceptual quality against reconstruction fidelity at a fixed bitrate.
+
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
 - **[Gentle push: Fine-tuning foundation models for complex oxide surface reconstructions](https://doi.org/10.1103/vh5b-6ks5)**
   `MLIP` · *Physical Review Research* · 2026-11-04
   <sub>命中：active learning、fine-tuning</sub>
   > Structure-prediction methods routinely sample highly distorted, far-from-equilibrium configurations. Conventional workflows based on machine learning interatomic potentials (MLIPs) therefore require t…
+
+### AI for Science 方法与自动化 · 升温 ↑1.7×
+
+- **[Towards Multiscale Molecular Representation Learning through Geometry-Based Fragmentation for Polymer Property Prediction](https://arxiv.org/abs/2611.07998)**
+  `AI4S` · *arXiv* · 2026-11-05 · [PDF](https://arxiv.org/pdf/2611.07998)
+  <sub>命中：representation learning、multimodal、benchmark、dataset</sub>
+  > It is well established that molecular substructures can contribute unequally to chemical and physical properties, with specific motifs or side chains often playing dominant roles.
 
 ### 手性分子与分子晶体 · 升温 ↑1.7×
 
@@ -73,6 +94,10 @@ _（窗口内没有关注工具的版本发布）_
 
 _（窗口内没有命中关注主题的新闻）_
 
+## 关注课题组的新作
+
+- [A Proxy-Based Method for Measuring Racial Disparities in~Text-to-Image~Generators](https://arxiv.org/abs/2611.07132) — *arXiv* · 2026-11-04（Jack D. Evans）
+
 ## 会议与活动（未来 120 天，日期以官网为准）
 
 - **12-01**（25 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
@@ -82,12 +107,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 675 | ok |
-| crossref | 145 | ok |
+| arxiv | 687 | ok |
+| crossref | 146 | ok |
 | openalex | 101 | ok |
 | rss | 110 | ok |
 | github | 2 | ok |
 
-> 原始 1033 → 去重 903 → 剔除标题噪声 48 → 低相关度 817 → 入库 38。
+> 原始 1046 → 去重 920 → 剔除标题噪声 45 → 低相关度 835 → 入库 40。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
