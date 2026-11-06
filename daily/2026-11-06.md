@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-06（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:08 · 抓取窗口 11-04 19:08 → 现在 · 候选 920 → 本轮入库 40 → 今日累计 **12**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:28 · 抓取窗口 11-04 20:28 → 现在 · 候选 959 → 本轮入库 41 → 今日累计 **13**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Achieving Accurate Prediction of Water Adsorption in Mildly Hydrophobic MOFs（9.4）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
 - **升温主题**：AI for Science 方法与自动化、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 视觉生成（低优先级） 1 · 手性分子与分子晶体 1 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 生成模型相关数学 2 · 视觉生成（低优先级） 1 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -58,12 +58,17 @@
   <sub>命中：text-to-image</sub>
   > We present an automated method for auditing text-to-image generators for representational bias against ground-truth demographic benchmarks. Our approach adapts the racial proxy variables used in U.S.
 
-### 生成模型相关数学 · 回落 ↓0.4×
+### 生成模型相关数学 · 回落 ↓0.6×
 
 - **[Perceptual Distortion for Overfitted Video Coding: Sliced Matching in Space, Error Alignment in Time](https://arxiv.org/abs/2611.07148)**
   `生成数学` · *arXiv* · 2026-11-04 · [PDF](https://arxiv.org/pdf/2611.07148)
   <sub>命中：optimal transport、wasserstein</sub>
   > Recent works in neural video coding have increasingly been trading off perceptual quality against reconstruction fidelity at a fixed bitrate.
+
+- **[Estimating Spectrum-Free Information Bounds for Generative Surrogates Beyond Conditional Collapse](https://arxiv.org/abs/2611.07826)**
+  `生成数学` · *arXiv* · 2026-11-05 · [PDF](https://arxiv.org/pdf/2611.07826)
+  <sub>命中：flow matching、wasserstein</sub>
+  > Conditional generative surrogates in high-energy physics, such as models that predict reconstructed jets from partons, are often evaluated on $1\text{D}$ marginal divergences among other metrics.
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
@@ -107,12 +112,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 687 | ok |
+| arxiv | 697 | ok |
 | crossref | 146 | ok |
 | openalex | 101 | ok |
 | rss | 110 | ok |
 | github | 2 | ok |
 
-> 原始 1046 → 去重 920 → 剔除标题噪声 45 → 低相关度 835 → 入库 40。
+> 原始 1056 → 去重 959 → 剔除标题噪声 41 → 低相关度 877 → 入库 41。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
