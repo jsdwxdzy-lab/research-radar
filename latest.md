@@ -1,95 +1,78 @@
-# 科研雷达 · 2026-11-06（周五）
+# 科研雷达 · 2026-11-07（周六）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:28 · 抓取窗口 11-04 20:28 → 现在 · 候选 959 → 本轮入库 41 → 今日累计 **13**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 08:08 · 抓取窗口 11-05 16:08 → 现在 · 候选 869 → 本轮入库 43 → 今日累计 **11**（本次 +11） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Achieving Accurate Prediction of Water Adsorption in Mildly Hydrophobic MOFs（9.4）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
+- **最高相关度**：A Scoping Review of Diffusion-Based De Novo Molecular Generation: Architectures, Evaluatio…（11.7）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（24 篇）
 - **升温主题**：AI for Science 方法与自动化、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 2 · 生成模型相关数学 2 · 视觉生成（低优先级） 1 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 手性分子与分子晶体 2 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
-1. **[Achieving Accurate Prediction of Water Adsorption in Mildly Hydrophobic MOFs](https://doi.org/10.26434/chemrxiv.15011663/v1)**
-   `MLIP` · *ChemRxiv* · 2026-11-04
+1. **[A Scoping Review of Diffusion-Based De Novo Molecular Generation: Architectures, Evaluation, and Open Challenges for Computational Drug Discovery](https://doi.org/10.26434/chemrxiv.15011727/v1)**
+   `生成模型` · *ChemRxiv* · 2026-11-05
+   <sub>命中：molecular generation、diffusion models、molecular design、de novo</sub>
+   > Diffusion models form the bulk of generative frameworks used in de novo molecular design, yet the literature remains fragmented across model formulations, molecular representations, and generative tasks, and inadequate systematic accounts exist of how these models are steered towards molecules with desired properties,…
+
+2. **[Rigid Molecule Packing Similarity Index Based on Dual Quaternions](https://doi.org/10.1021/acs.jctc.6c01293)**
+   `CSP` · *Journal of Chemical Theory and Computation* · 2026-11-06
+   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、crystal packing</sub>
+   > Mapping comparisons between periodic 3D rigid-molecule (or fixed molecular conformer) arrangements to a scalar value, typically referred to as a similarity index, is essential in fields such as crystal structure prediction (CSP) and molecular engineering.
+
+3. **[The Thiolate Shell as a Dynamic Gold Reservoir: Size-Dependent Thermal Restructuring of Gold Nanoclusters from MACE-Based Machine-Learning Molecular Dynamics](https://doi.org/10.26434/chemrxiv.15011712/v1)**
+   `MLIP` · *ChemRxiv* · 2026-11-05
+   <sub>命中：machine-learned interatomic potential、density functional theory、interatomic potential、equivariant、mace</sub>
+   > Atomically precise thiolate-protected gold nanoclusters are used in catalysis, sensing and nanomedicine, where thermal activation, reaction conditions or local heating can change their atomic structure.
+
+4. **[Self-Derived Metal/Oxide Interface Engineering via Active Nitrogen Mediation](https://doi.org/10.26434/chemrxiv.15011718/v1)**
+   `MLIP` · *ChemRxiv* · 2026-11-05
    <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、mlip</sub>
-   > Accurately predicting the steep, S-shaped water adsorption isotherms of mildly hydrophobic MOFs and other hydrophobic porous materials remains challenging. This difficulty stems from the delicate balance between framework–water and water–water interactions that governs cooperative pore filling.
+   > Self-derived phase engineering of metal oxides offers a powerful route to create interfaces without introducing foreign metallic elements, yet achieving systematic control over phase transition remains challenging.
 
-2. **[Solvent-Engineered Conformational Ordering of Phosphonic Acid SAMs on ZnO for Thermally Robust Biomimetic Interfaces](https://doi.org/10.3390/biomimetics11110788)**
-   `MLIP` · *Biomimetics* · 2026-11-01
-   <sub>命中：machine learning interatomic potential、interatomic potential、mlip</sub>
-   > Self-assembled monolayers (SAMs) have emerged as versatile platforms for tailoring nanomaterial surfaces while emulating the ordered architectures and interfacial properties of biological systems.
+5. **[Visible‐Light‐Driven Full‐Spectrum Tuning in Cholesteric Liquid Crystals Enabled by Thioarylazopyrazole‐Based Axially Chiral Molecular Switches](https://doi.org/10.1002/adom.72020)**
+   `手性晶体` · *Advanced Optical Materials* · 2026-11-05
+   <sub>命中：chiral molecular、chiral</sub>
+   > Cholesteric liquid crystals (CLCs) with structural color reflection are promising for photonic applications, where chiral photoswitches are widely used to dynamically tune supramolecular helices.
 
-3. **[Superior directional thermal conductivity and stiffness in rectangular γ-graphyne revealed by neuroevolution machine-learning potentials](https://doi.org/10.1016/j.ijheatmasstransfer.2026.129810)**
-   `MLIP` · *International Journal of Heat and Mass Transfe…* · 2026-11-04
-   <sub>命中：machine learning interatomic potential、interatomic potential、active learning</sub>
-   > Graphynes have emerged as promising carbon allotropes for next-generation nanoelectronics and thermoelectric devices due to their unique combination of porous frameworks, tunable bandgaps, and unconventional thermal transport.
-
-4. **[Decoding Polymorphism in Zwitterionic MOFs for Carbon Capture: Insights from SCXRD and PXRD Structure Solutions](https://doi.org/10.1021/acs.cgd.5c01741)**
-   `CSP` · *Crystal Growth & Design* · 2026-11-05
-   <sub>命中：polymorphism、polymorph</sub>
-   > Microporous metal−organic frameworks (MOFs) featuring zwitterionic linkers are attractive for gas separation because their charged pore surfaces can promote interactions with polarizable guest molecules. Herein, we report a cadmium-based zwitterionic MOF, M1, that crystallizes as two distinct polymorphs.
-
-5. **[A Comprehensive Survey on Graph-Structured Small-Molecule Drug Discovery and Development with Deep Learning](https://doi.org/10.53941/tgina.2026.100008)**
-   `生成模型` · *Transactions on Graph Intelligence and Network…* · 2026-11-04
-   <sub>命中：molecular generation、diffusion models</sub>
-   > Small-molecule drug discovery remains a cornerstone of modern therapeutics, yet traditional development pipelines are often limited by high costs, long timelines, and low success rates.
-
-6. **[Selective Random Structure Search (SRSS): Diversity-Oriented Exploration of Polymorphs in Crystals](https://doi.org/10.1021/acs.cgd.6c00574)**
-   `CSP` · *Crystal Growth & Design* · 2026-11-05
-   <sub>命中：crystal structure prediction、crystal structure</sub>
-   > Crystal structure prediction has traditionally relied on prototype-based seeding, approaches that often bias sampling toward known low-energy basins and overlook metastable polymorphs with unconventional symmetries.
+6. **[A unified machine-learning interatomic potential for thermal properties of As-doped and B-doped silicon systems](https://doi.org/10.1016/j.commatsci.2026.115227)**
+   `MLIP` · *Computational Materials Science* · 2026-11-05
+   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
 
 ## 按主题展开
 
-### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.4×
+### 分子晶体结构预测（CSP）与能量图景 · 持平
 
-- **[Explicit pore pre-conditioning and inverse design of amorphous nanoporous carbon](https://arxiv.org/abs/2611.06614)**
-  `生成模型` `MLIP` · *arXiv* · 2026-11-04 · [PDF](https://arxiv.org/pdf/2611.06614)
-  <sub>命中：inverse design、interatomic potential</sub>
-  > Porous carbons store energy, capture gases and purify water, and their performance depends strongly on the geometry of their pores.
+- **[Crystal Structure and Enhanced Physicochemical Properties of a Famotidine−Saccharin Salt](https://doi.org/10.1021/acs.cgd.6c00430)**
+  `CSP` · *Crystal Growth & Design* · 2026-11-06
+  <sub>命中：crystal structure、space group</sub>
+  > A hydrated salt crystal comprising famotidine (FMT) and saccharin (SAC) was synthesized via liquid-assisted grinding and solvent evaporation.
 
-### 视觉生成（低优先级） · 回落 ↓0.1×
-
-- **[A Proxy-Based Method for Measuring Racial Disparities in~Text-to-Image~Generators](https://arxiv.org/abs/2611.07132)**
-  `视觉生成` · *arXiv* · 2026-11-04 · 👤Jack D. Evans · [PDF](https://arxiv.org/pdf/2611.07132)
-  <sub>命中：text-to-image</sub>
-  > We present an automated method for auditing text-to-image generators for representational bias against ground-truth demographic benchmarks. Our approach adapts the racial proxy variables used in U.S.
-
-### 生成模型相关数学 · 回落 ↓0.6×
-
-- **[Perceptual Distortion for Overfitted Video Coding: Sliced Matching in Space, Error Alignment in Time](https://arxiv.org/abs/2611.07148)**
-  `生成数学` · *arXiv* · 2026-11-04 · [PDF](https://arxiv.org/pdf/2611.07148)
-  <sub>命中：optimal transport、wasserstein</sub>
-  > Recent works in neural video coding have increasingly been trading off perceptual quality against reconstruction fidelity at a fixed bitrate.
-
-- **[Estimating Spectrum-Free Information Bounds for Generative Surrogates Beyond Conditional Collapse](https://arxiv.org/abs/2611.07826)**
-  `生成数学` · *arXiv* · 2026-11-05 · [PDF](https://arxiv.org/pdf/2611.07826)
-  <sub>命中：flow matching、wasserstein</sub>
-  > Conditional generative surrogates in high-energy physics, such as models that predict reconstructed jets from partons, are often evaluated on $1\text{D}$ marginal divergences among other metrics.
+- **[Solvent-Reconfigured Polymorphic Transition of Lamotrigine-Salicylic Acid Salts](https://doi.org/10.1021/acs.cgd.6c01347)**
+  `CSP` · *Crystal Growth & Design* · 2026-11-06
+  <sub>命中：polymorphism</sub>
+  > Solvent-reconfigured hydrogen bonding governs the polymorphic landscape of lamotrigine-salicylic acid salts. Two anhydrous polymorphs (forms I/II) and three solvates (ethanol, acetonitrile, ethyl acet…
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
-- **[Gentle push: Fine-tuning foundation models for complex oxide surface reconstructions](https://doi.org/10.1103/vh5b-6ks5)**
-  `MLIP` · *Physical Review Research* · 2026-11-04
-  <sub>命中：active learning、fine-tuning</sub>
-  > Structure-prediction methods routinely sample highly distorted, far-from-equilibrium configurations. Conventional workflows based on machine learning interatomic potentials (MLIPs) therefore require t…
+- **[From Accurate Quantum Chemistry to Converged Thermodynamics for Ion Pairing in Solution](https://doi.org/10.1021/jacs.6c20276)**
+  `MLIP` · *Journal of the American Chemical Society* · 2026-11-06 · 👤Angelos Michaelides
+  <sub>命中：density functional theory</sub>
+  > Quantitative prediction of thermodynamic properties in solution is essential for translating atomistic simulations into reliable chemical insight.
 
-### AI for Science 方法与自动化 · 升温 ↑1.7×
+- **[Intra- and Intermolecular Interactions in Cellobiose: Benchmarking Accelerated Computational Methods for Cellulose](https://doi.org/10.1021/acs.jctc.6c01354)**
+  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-06
+  <sub>命中：fine-tuning、mace</sub>
+  > Access to accelerated computational methods at the electronic and atomistic scales is important in materials modeling, as it will allow more realistic system descriptions.
 
-- **[Towards Multiscale Molecular Representation Learning through Geometry-Based Fragmentation for Polymer Property Prediction](https://arxiv.org/abs/2611.07998)**
-  `AI4S` · *arXiv* · 2026-11-05 · [PDF](https://arxiv.org/pdf/2611.07998)
-  <sub>命中：representation learning、multimodal、benchmark、dataset</sub>
-  > It is well established that molecular substructures can contribute unequally to chemical and physical properties, with specific motifs or side chains often playing dominant roles.
+### 手性分子与分子晶体 · 升温 ↑1.8×
 
-### 手性分子与分子晶体 · 升温 ↑1.7×
-
-- **[Dual Space Divergence in Small Molecule Quasiracemates: Benzoyl Valine and Norvaline Assemblies](https://doi.org/10.1021/acs.cgd.6c01406)**
-  `手性晶体` · *Crystal Growth & Design* · 2026-11-05
-  <sub>命中：racemic</sub>
-  > The structural boundary governing small molecule quasiracemate formation is determined by both the molecular framework and the nature of the structural modifications introduced into the quasienantiome…
+- **[Piezoelectric Amino Acid Salts with Halogen‐Based Coformers Produce Exceptional Force‐Generated Voltage Output](https://doi.org/10.1002/advs.78588)**
+  `手性晶体` · *Advanced Science* · 2026-11-05
+  <sub>命中：crystal packing、chiral</sub>
+  > Hierarchical self‐assemblies of bio‐inspired materials combine structural tunability with biocompatibility and environmental sustainability for multifunctional applications.
 
 ## 工具与模型发布
 
@@ -101,23 +84,23 @@ _（窗口内没有命中关注主题的新闻）_
 
 ## 关注课题组的新作
 
-- [A Proxy-Based Method for Measuring Racial Disparities in~Text-to-Image~Generators](https://arxiv.org/abs/2611.07132) — *arXiv* · 2026-11-04（Jack D. Evans）
+- [From Accurate Quantum Chemistry to Converged Thermodynamics for Ion Pairing in Solution](https://doi.org/10.1021/jacs.6c20276) — *Journal of the American Chemical Soc…* · 2026-11-06（Angelos Michaelides）
 
 ## 会议与活动（未来 120 天，日期以官网为准）
 
-- **12-01**（25 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
-- **12-08**（32 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
+- **12-01**（24 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
+- **12-08**（31 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
 
 ## 运行健康
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 697 | ok |
-| crossref | 146 | ok |
-| openalex | 101 | ok |
-| rss | 110 | ok |
-| github | 2 | ok |
+| arxiv | 656 | ok |
+| crossref | 129 | ok |
+| openalex | 105 | ok |
+| rss | 113 | ok |
+| github | 1 | ok |
 
-> 原始 1056 → 去重 959 → 剔除标题噪声 41 → 低相关度 877 → 入库 41。
+> 原始 1004 → 去重 869 → 剔除标题噪声 29 → 低相关度 797 → 入库 43。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
