@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-07（周六）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-05 18:08 → 现在 · 候选 870 → 本轮入库 43 → 今日累计 **11**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:48 · 抓取窗口 11-05 19:48 → 现在 · 候选 873 → 本轮入库 44 → 今日累计 **12**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：A Scoping Review of Diffusion-Based De Novo Molecular Generation: Architectures, Evaluatio…（11.7）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（24 篇）
 - **升温主题**：AI for Science 方法与自动化、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 手性分子与分子晶体 2 · 化学相关生成模型（分子、材料与反应） 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 2 · 手性分子与分子晶体 2
 
 ## 今日最值得看
 
@@ -55,6 +55,13 @@
   <sub>命中：polymorphism</sub>
   > Solvent-reconfigured hydrogen bonding governs the polymorphic landscape of lamotrigine-salicylic acid salts. Two anhydrous polymorphs (forms I/II) and three solvates (ethanol, acetonitrile, ethyl acet…
 
+### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.4×
+
+- **[De Novo Design of Catalytically Active Salen-Binding Proteins](https://doi.org/10.1021/jacs.6c08768)**
+  `生成模型` `生成设计` · *Journal of the American Chemical Society* · 2026-11-07
+  <sub>命中：de novo</sub>
+  > De novo design of catalytic metalloproteins has the potential to generate enzymes that combine the efficiency of natural proteins with the reactivity of synthetic organometallic catalysts.
+
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
 - **[From Accurate Quantum Chemistry to Converged Thermodynamics for Ion Pairing in Solution](https://doi.org/10.1021/jacs.6c20276)**
@@ -96,11 +103,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 656 | ok |
-| crossref | 130 | ok |
+| crossref | 133 | ok |
 | openalex | 105 | ok |
 | rss | 113 | ok |
 | github | 1 | ok |
 
-> 原始 1005 → 去重 870 → 剔除标题噪声 29 → 低相关度 798 → 入库 43。
+> 原始 1008 → 去重 873 → 剔除标题噪声 29 → 低相关度 800 → 入库 44。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
