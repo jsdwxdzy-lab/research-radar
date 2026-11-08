@@ -1,85 +1,50 @@
-# 科研雷达 · 2026-11-07（周六）
+# 科研雷达 · 2026-11-08（周日）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:48 · 抓取窗口 11-05 20:48 → 现在 · 候选 413 → 本轮入库 40 → 今日累计 **12**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 08:08 · 抓取窗口 11-06 16:08 → 现在 · 候选 796 → 本轮入库 40 → 今日累计 **6**（本次 +6） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：A Scoping Review of Diffusion-Based De Novo Molecular Generation: Architectures, Evaluatio…（11.7）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（24 篇）
+- **最高相关度**：Generative Models for Novel Enzymatic Reactions: How Far Do They Go?（5.3）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（25 篇）
 - **升温主题**：AI for Science 方法与自动化、手性分子与分子晶体
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 2 · 手性分子与分子晶体 2
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 2 · 分子晶体结构预测（CSP）与能量图景 1
 
 ## 今日最值得看
 
-1. **[A Scoping Review of Diffusion-Based De Novo Molecular Generation: Architectures, Evaluation, and Open Challenges for Computational Drug Discovery](https://doi.org/10.26434/chemrxiv.15011727/v1)**
-   `生成模型` · *ChemRxiv* · 2026-11-05
-   <sub>命中：molecular generation、diffusion models、molecular design、de novo</sub>
-   > Diffusion models form the bulk of generative frameworks used in de novo molecular design, yet the literature remains fragmented across model formulations, molecular representations, and generative tasks, and inadequate systematic accounts exist of how these models are steered towards molecules with desired properties,…
+1. **[Generative Models for Novel Enzymatic Reactions: How Far Do They Go?](https://doi.org/10.64898/2026.11.05.759793)**
+   `生成模型` · *bioRxiv (Cold Spring Harbor Laboratory)* · 2026-11-06
+   <sub>命中：generative models、generative model</sub>
+   > Enzyme function prediction is a long-standing problem in biology, and deep learning methods have recently become popular to improve performance on this task. While most of these models focus on classifying enzymes or mapping them to known reactions, predicting unknown biochemical reactions remains underexplored.
 
-2. **[Rigid Molecule Packing Similarity Index Based on Dual Quaternions](https://doi.org/10.1021/acs.jctc.6c01293)**
-   `CSP` · *Journal of Chemical Theory and Computation* · 2026-11-06
-   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、crystal packing</sub>
-   > Mapping comparisons between periodic 3D rigid-molecule (or fixed molecular conformer) arrangements to a scalar value, typically referred to as a similarity index, is essential in fields such as crystal structure prediction (CSP) and molecular engineering.
+2. **[Native Mass Spectrometry of Membrane Protein Lipid and Ligand Complexes Using de novo Designed WRAP Domains](https://doi.org/10.1021/jacs.6c15293)**
+   `生成模型` · *Journal of the American Chemical Society* · 2026-11-07
+   <sub>命中：de novo</sub>
+   > Membrane proteins engage in dynamic transient interactions with surrounding lipids along with their substrates. Capturing these concomitant contacts often remains a challenging problem.
 
-3. **[The Thiolate Shell as a Dynamic Gold Reservoir: Size-Dependent Thermal Restructuring of Gold Nanoclusters from MACE-Based Machine-Learning Molecular Dynamics](https://doi.org/10.26434/chemrxiv.15011712/v1)**
-   `MLIP` · *ChemRxiv* · 2026-11-05
-   <sub>命中：machine-learned interatomic potential、density functional theory、interatomic potential、equivariant、mace</sub>
-   > Atomically precise thiolate-protected gold nanoclusters are used in catalysis, sensing and nanomedicine, where thermal activation, reaction conditions or local heating can change their atomic structure.
+3. **[Training of Neural Network Machine Learning Potentials for Activation Barrier Calculations in Predicting Growth Modes of Deposited Metals](https://doi.org/10.26434/chemrxiv.15011790/v1)**
+   `MLIP` · *ChemRxiv* · 2026-11-06
+   <sub>命中：density functional theory、mlip</sub>
+   > Machine-learning interatomic potentials (MLIPs) are opening many new opportunities to extend the capabilities of computational materials science. MLIPs deliver increased throughput and simulations at time and length scales beyond first principles density functional theory (DFT), while maintaining near-DFT accuracy, thu…
 
-4. **[Self-Derived Metal/Oxide Interface Engineering via Active Nitrogen Mediation](https://doi.org/10.26434/chemrxiv.15011718/v1)**
-   `MLIP` · *ChemRxiv* · 2026-11-05
-   <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、mlip</sub>
-   > Self-derived phase engineering of metal oxides offers a powerful route to create interfaces without introducing foreign metallic elements, yet achieving systematic control over phase transition remains challenging.
+4. **[Simulating ionic liquid fragmentation in electrospray thrusters with foundation models](https://doi.org/10.1016/j.actaastro.2026.10.064)**
+   `MLIP` · *Acta Astronautica* · 2026-11-01
+   <sub>命中：density functional theory、fine-tuning、mace</sub>
+   > Predicting the products of ionic-liquid impacts on extractor surfaces is important for electrospray-thruster lifetime analysis, yet available atomistic methods require a compromise between chemical fidelity and computational cost.
 
-5. **[Visible‐Light‐Driven Full‐Spectrum Tuning in Cholesteric Liquid Crystals Enabled by Thioarylazopyrazole‐Based Axially Chiral Molecular Switches](https://doi.org/10.1002/adom.72020)**
-   `手性晶体` · *Advanced Optical Materials* · 2026-11-05
-   <sub>命中：chiral molecular、chiral</sub>
-   > Cholesteric liquid crystals (CLCs) with structural color reflection are promising for photonic applications, where chiral photoswitches are widely used to dynamically tune supramolecular helices.
+5. **[Crystal Structure-Guided Design of a Single-Site Blue Phosphor BaHf(BO3)2:Eu2+ with High Color Purity for WLEDs](https://doi.org/10.1021/acs.cgd.6c01225)**
+   `CSP` · *Crystal Growth & Design* · 2026-11-07
+   <sub>命中：crystal structure</sub>
+   > Near-ultraviolet (n-UV) chip-excited white light-emitting diodes (WLEDs) offer a promising strategy to overcome the blue-light hazard and poor color quality inherent in conventional white-light sources. However, the lack of high-performance blue-emitting phosphors remains a critical bottleneck.
 
-6. **[A unified machine-learning interatomic potential for thermal properties of As-doped and B-doped silicon systems](https://doi.org/10.1016/j.commatsci.2026.115227)**
-   `MLIP` · *Computational Materials Science* · 2026-11-05
-   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
+6. **[Exploring Chemical Concepts and Reactivity from Conceptual Density Functional Theory in Excited States via the ΔSCF Approach](https://doi.org/10.1021/acs.jctc.6c01493)**
+   `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-07
+   <sub>命中：density functional theory</sub>
+   > Along with the recent development of the ΔSCF approach for excited state electronic structure description using density functional theory (DFT), we extend and develop conceptual density functional theory (CDFT) for evaluating chemical concepts and reactivity descriptors for both ground and excited states.
 
 ## 按主题展开
 
-### 分子晶体结构预测（CSP）与能量图景 · 持平
-
-- **[Crystal Structure and Enhanced Physicochemical Properties of a Famotidine−Saccharin Salt](https://doi.org/10.1021/acs.cgd.6c00430)**
-  `CSP` · *Crystal Growth & Design* · 2026-11-06
-  <sub>命中：crystal structure、space group</sub>
-  > A hydrated salt crystal comprising famotidine (FMT) and saccharin (SAC) was synthesized via liquid-assisted grinding and solvent evaporation.
-
-- **[Solvent-Reconfigured Polymorphic Transition of Lamotrigine-Salicylic Acid Salts](https://doi.org/10.1021/acs.cgd.6c01347)**
-  `CSP` · *Crystal Growth & Design* · 2026-11-06
-  <sub>命中：polymorphism</sub>
-  > Solvent-reconfigured hydrogen bonding governs the polymorphic landscape of lamotrigine-salicylic acid salts. Two anhydrous polymorphs (forms I/II) and three solvates (ethanol, acetonitrile, ethyl acet…
-
-### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.4×
-
-- **[De Novo Design of Catalytically Active Salen-Binding Proteins](https://doi.org/10.1021/jacs.6c08768)**
-  `生成模型` `生成设计` · *Journal of the American Chemical Society* · 2026-11-07
-  <sub>命中：de novo</sub>
-  > De novo design of catalytic metalloproteins has the potential to generate enzymes that combine the efficiency of natural proteins with the reactivity of synthetic organometallic catalysts.
-
-### 机器学习势与通用势函数（MLIP / UMA） · 持平
-
-- **[From Accurate Quantum Chemistry to Converged Thermodynamics for Ion Pairing in Solution](https://doi.org/10.1021/jacs.6c20276)**
-  `MLIP` · *Journal of the American Chemical Society* · 2026-11-06 · 👤Angelos Michaelides
-  <sub>命中：density functional theory</sub>
-  > Quantitative prediction of thermodynamic properties in solution is essential for translating atomistic simulations into reliable chemical insight.
-
-- **[Intra- and Intermolecular Interactions in Cellobiose: Benchmarking Accelerated Computational Methods for Cellulose](https://doi.org/10.1021/acs.jctc.6c01354)**
-  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-06
-  <sub>命中：fine-tuning、mace</sub>
-  > Access to accelerated computational methods at the electronic and atomistic scales is important in materials modeling, as it will allow more realistic system descriptions.
-
-### 手性分子与分子晶体 · 升温 ↑1.8×
-
-- **[Piezoelectric Amino Acid Salts with Halogen‐Based Coformers Produce Exceptional Force‐Generated Voltage Output](https://doi.org/10.1002/advs.78588)**
-  `手性晶体` · *Advanced Science* · 2026-11-05
-  <sub>命中：crystal packing、chiral</sub>
-  > Hierarchical self‐assemblies of bio‐inspired materials combine structural tunability with biocompatibility and environmental sustainability for multifunctional applications.
+_（今日无）_
 
 ## 工具与模型发布
 
@@ -89,25 +54,21 @@ _（窗口内没有关注工具的版本发布）_
 
 _（窗口内没有命中关注主题的新闻）_
 
-## 关注课题组的新作
-
-- [From Accurate Quantum Chemistry to Converged Thermodynamics for Ion Pairing in Solution](https://doi.org/10.1021/jacs.6c20276) — *Journal of the American Chemical Soc…* · 2026-11-06（Angelos Michaelides）
-
 ## 会议与活动（未来 120 天，日期以官网为准）
 
-- **12-01**（24 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
-- **12-08**（31 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
+- **12-01**（23 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
+- **12-08**（30 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
 
 ## 运行健康
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 100 | ok |
-| crossref | 133 | ok |
-| openalex | 105 | ok |
-| rss | 113 | ok |
-| github | 1 | ok |
+| arxiv | 632 | ok |
+| crossref | 94 | ok |
+| openalex | 84 | ok |
+| rss | 109 | ok |
+| github | 0 | ok |
 
-> 原始 452 → 去重 413 → 剔除标题噪声 20 → 低相关度 353 → 入库 40。
+> 原始 919 → 去重 796 → 剔除标题噪声 19 → 低相关度 737 → 入库 40。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
