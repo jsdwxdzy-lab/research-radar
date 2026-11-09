@@ -27,7 +27,10 @@ from . import theory
 
 
 def _kw_regex(kw: str):
-    return re.compile(r"(?<![A-Za-z0-9])" + re.escape(kw) + r"(?![A-Za-z0-9])", re.I)
+    # Spaces and hyphens are interchangeable ("Born-effective-charge"), and a plural s/es is allowed.
+    # The radar reader and theory node pages use the same rule in JavaScript.
+    body = r"[-\s]+".join(re.escape(p) for p in re.split(r"[\s-]+", kw.strip()) if p)
+    return re.compile(r"(?<![A-Za-z0-9])" + body + r"(?:e?s)?(?![A-Za-z0-9])", re.I)
 
 
 def _load_items(root: Path) -> list:
