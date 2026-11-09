@@ -190,7 +190,25 @@
   }
 
   // ---- node page -----------------------------------------------------------
+  // Papers from the radar that mention this entry's keywords (same rule as `radar junctions`).
+  function setupRadarPapers() {
+    const box = $('#radarPapers'); if (!box) return;
+    let kws = []; try { kws = JSON.parse(box.dataset.keywords || '[]'); } catch (e) { return; }
+    const rx = kws.map(k => new RegExp('(?<![A-Za-z0-9])' + String(k).trim().split(/[\s-]+/).filter(Boolean).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('[-\\s]+') + '(?:e?s)?(?![A-Za-z0-9])', 'i'));
+    if (!rx.length) return;
+    fetch(prefix + '../data.json', { credentials: 'omit' }).then(r => r.ok ? r.json() : null).then(d => {
+      const items = (d && Array.isArray(d.items)) ? d.items : [];
+      const hits = items.filter(i => { const t = (i.t || '') + ' ' + (i.a || ''); return rx.some(r => r.test(t)); })
+        .sort((a, b) => String(b.d || '').localeCompare(String(a.d || ''))).slice(0, 5);
+      if (!hits.length) return;
+      box.querySelector('ul').innerHTML = hits.map(i =>
+        `<li><a href="${esc(prefix + '../index.html#paper=' + encodeURIComponent(i.k))}">${esc(i.tz || i.t)}</a> <span class="small">${esc(i.d || '')}</span></li>`).join('');
+      box.classList.remove('hidden');
+    }).catch(() => {});
+  }
+
   function setupNode() {
+    setupRadarPapers();
     const id = body.dataset.node; if (!id) return;
     const rec = nodeRec(id);
     store.recent = [{ id, title: body.dataset.nodeTitle || id, at: new Date().toISOString() }]

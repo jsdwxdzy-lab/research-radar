@@ -343,6 +343,16 @@ class BuildTests(unittest.TestCase):
         self.assertIn('href="../tree.html#t-d1"', b)
         self.assertIn('href="../nodes/a.html"', b)  # parent in breadcrumbs and trail
 
+    def test_node_page_links_back_to_radar_only_with_keywords(self):
+        self.f.node(base_meta("kw", keywords=["Born effective charge", 'a"b']))
+        theory.build(self.f.root)
+        kw = (self.f.root / "theory" / "nodes" / "kw.html").read_text(encoding="utf-8")
+        self.assertIn('id="radarPapers"', kw)
+        self.assertIn("Born effective charge", kw)
+        self.assertNotIn('a"b"', kw)  # keyword JSON is attribute-escaped
+        a = (self.f.root / "theory" / "nodes" / "a.html").read_text(encoding="utf-8")
+        self.assertNotIn('id="radarPapers"', a)
+
     def test_home_lists_unverified_separately(self):
         theory.build(self.f.root)
         html = (self.f.root / "theory" / "index.html").read_text(encoding="utf-8")
@@ -385,6 +395,15 @@ class BuildTests(unittest.TestCase):
 
 
 class JunctionTests(unittest.TestCase):
+    def test_keyword_rule_allows_hyphens_and_plurals_but_not_substrings(self):
+        from radar.junctions import _kw_regex
+        r = _kw_regex("Born effective charge")
+        self.assertTrue(r.search("a machine-learned Born-effective-charge model"))
+        self.assertTrue(r.search("Born effective charges of glycine"))
+        self.assertFalse(r.search("Born effective chargex"))
+        self.assertTrue(_kw_regex("electric field").search("under strong electric fields"))
+        self.assertFalse(_kw_regex("PBE").search("PBE0 hybrid"))
+
     def setUp(self):
         from radar import junctions
         self.j = junctions

@@ -770,6 +770,12 @@ def render_node(kb: KB, nid: str) -> str:
                     if related else "")
     refs_html = (f'<section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2>{_source_items(kb, sids)}</section>'
                  if sids else "")
+    kws = n.get("keywords") or []
+    papers_html = (f'<section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle"'
+                   f' data-keywords="{esc(json.dumps(kws, ensure_ascii=False))}">'
+                   f'<h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul>'
+                   f'<p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>'
+                   if kws else "")
     line_names = [kb.line_map[r]["title"] for r in n.get("research") or [] if r in kb.line_map]
     footer = (f'<p class="cat-foot"><span>分类</span>{esc(domain["title"])} · {esc(NODE_TYPES[n["type"]][0])}'
               + (" · 研究线：" + "、".join(esc(x) for x in line_names) if line_names else "")
@@ -804,6 +810,7 @@ def render_node(kb: KB, nid: str) -> str:
   {children_html}
   {related_html}
   {refs_html}
+  {papers_html}
   {footer}
   {''.join(pager)}
   {_personal_panel(nid)}
