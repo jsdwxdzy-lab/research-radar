@@ -7,6 +7,8 @@ import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
 
+from .util import canonical_key, norm_arxiv, norm_doi, norm_title
+
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "state" / "radar.sqlite3"
 ANNOTATION_VERSION = 2
@@ -97,12 +99,72 @@ def _merge_sources(old: str, new: str) -> str:
     return ",".join(parts)
 
 
+def _extra(item: dict) -> dict:
+    value = item.get("extra") or {}
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except ValueError:
+            return {}
+    return dict(value) if isinstance(value, dict) else {}
+
+
+def resolve_item_keys(conn: sqlite3.Connection, items: list[dict]) -> None:
+    """Reuse stored identities across runs without deleting or renaming history.
+
+    A DOI can arrive after a title-only record, or a publisher may assign a
+    separate DOI to its supplementary material. Exact long titles with a shared
+    author are a fallback; short titles and GitHub releases stay independent.
+    """
+    identities: dict[str, dict] = {}
+    titles: dict[str, list[dict]] = {}
+
+    def index(item: dict) -> None:
+        identities.setdefault(item["key"], item)
+        identities.setdefault(canonical_key(item), item)
+        ax = norm_arxiv(item.get("arxiv_id") or "")
+        if ax:
+            identities.setdefault("arxiv:" + ax, item)
+        for alias in _extra(item).get("identity_keys", []):
+            identities.setdefault(alias, item)
+        title = norm_title(item.get("title") or "")
+        if len(title) > 25 and item.get("kind") in ("paper", "preprint"):
+            titles.setdefault(title, []).append(item)
+
+    def authors(item: dict) -> set[str]:
+        return {norm_title(a) for a in (item.get("authors") or "").split(";") if norm_title(a)}
+
+    for row in conn.execute("SELECT * FROM items ORDER BY first_seen, key"):
+        index(dict(row))
+    for item in items:
+        original = item["key"]
+        found = identities.get(original) or identities.get(canonical_key(item))
+        if found is None and item.get("arxiv_id"):
+            found = identities.get("arxiv:" + norm_arxiv(item["arxiv_id"]))
+        if found is None and item.get("kind") in ("paper", "preprint"):
+            for candidate in titles.get(norm_title(item.get("title") or ""), []):
+                if authors(item) & authors(candidate):
+                    found = candidate
+                    break
+        if found is not None:
+            item["key"] = found["key"]
+            extra = _extra(item)
+            extra["identity_keys"] = sorted(set(extra.get("identity_keys", [])
+                                                + [original, canonical_key(item)]))
+            item["extra"] = extra
+        index(item)
+        identities[original] = item
+
+
 def upsert_items(conn: sqlite3.Connection, items: list[dict], seen_at: str) -> tuple[int, int]:
     """Insert new items; refresh last_seen / score for known ones."""
+    resolve_item_keys(conn, items)
     inserted = updated = 0
     for it in items:
-        row = conn.execute("SELECT key, sources, score FROM items WHERE key=?", (it["key"],)).fetchone()
+        row = conn.execute("SELECT * FROM items WHERE key=?", (it["key"],)).fetchone()
         seen = it.get("_seen") or seen_at
+        extra = _extra(it)
+        sources = _merge_sources(it.get("source", ""), ",".join(extra.get("sources_seen", [])))
         if row is None:
             conn.execute(
                 """INSERT INTO items (key, kind, source, sources, source_id, doi, arxiv_id, title,
@@ -110,27 +172,37 @@ def upsert_items(conn: sqlite3.Connection, items: list[dict], seen_at: str) -> t
                        topics, matched, extra)
                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (
-                    it["key"], it.get("kind", ""), it.get("source", ""), it.get("source", ""),
+                    it["key"], it.get("kind", ""), it.get("source", ""), sources,
                     it.get("source_id", ""), it.get("doi", ""), it.get("arxiv_id", ""),
                     it.get("title", ""), it.get("abstract", ""), it.get("authors", ""),
                     it.get("venue", ""), it.get("url", ""), it.get("published", ""),
                     seen, seen, float(it.get("score", 0)),
                     json.dumps(it.get("topics", []), ensure_ascii=False),
                     json.dumps(it.get("matched", []), ensure_ascii=False),
-                    json.dumps(it.get("extra", {}), ensure_ascii=False),
+                    json.dumps(extra, ensure_ascii=False),
                 ),
             )
             inserted += 1
         else:
+            old_extra = _extra(dict(row))
+            extra["identity_keys"] = sorted(set(old_extra.get("identity_keys", [])
+                                                + extra.get("identity_keys", [])))
+            extra = {**old_extra, **extra}
+            sources = _merge_sources(row["sources"], sources)
+            extra["sources_seen"] = sources.split(",") if sources else []
             conn.execute(
                 """UPDATE items SET last_seen=?, score=MAX(score,?), sources=?,
+                       doi=CASE WHEN COALESCE(doi,'')='' THEN ? ELSE doi END,
+                       arxiv_id=CASE WHEN COALESCE(arxiv_id,'')='' THEN ? ELSE arxiv_id END,
+                       extra=?,
                        url=CASE WHEN url='' THEN ? ELSE url END,
                        venue=CASE WHEN venue='' THEN ? ELSE venue END,
                        abstract=CASE WHEN length(abstract) < length(?) THEN ? ELSE abstract END
                    WHERE key=?""",
                 (
                     seen_at, float(it.get("score", 0)),
-                    _merge_sources(row["sources"], it.get("source", "")),
+                    sources, norm_doi(it.get("doi", "")), norm_arxiv(it.get("arxiv_id", "")),
+                    json.dumps(extra, ensure_ascii=False),
                     it.get("url", ""), it.get("venue", ""),
                     it.get("abstract", ""), it.get("abstract", ""),
                     it["key"],
@@ -280,10 +352,18 @@ def load_annotation_map(conn: sqlite3.Connection) -> dict:
             "FROM annotations a LEFT JOIN annotation_inputs m ON m.key=a.key")}
         items = {r['key']: dict(r) for r in conn.execute("SELECT * FROM items")}
     except sqlite3.OperationalError:
-        return result
+        return {}
+    # Keep old cache rows for recovery/retry, but never present them as a
+    # translation or review of a different version of the source text.
+    for key, ann in result.items():
+        item = items.get(key)
+        cached = legacy.get(key) or {}
+        if (item is None or cached.get('version') != ANNOTATION_VERSION
+                or cached.get('source_hash') != annotation_source_hash(item)):
+            ann.update(title_zh='', abstract_zh='', review='')
     for row in offline:
         item = items.get(row['key'])
-        if item is None:
+        if item is None or row['source_hash'] != annotation_source_hash(item):
             continue
         old = legacy.get(row['key']) or {}
         fresh_legacy = (old.get('version') == ANNOTATION_VERSION

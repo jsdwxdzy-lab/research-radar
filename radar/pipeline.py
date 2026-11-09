@@ -27,7 +27,12 @@ def load_config(path: Path | None = None) -> dict:
 
 def _absorb(cur: dict, it: dict) -> None:
     """Fold a duplicate record `it` into `cur`, keeping the richest fields."""
-    cur["sources_seen"] = sorted(set(cur.get("sources_seen", []) + [it.get("source", "")]))
+    cur["sources_seen"] = sorted(set(cur.get("sources_seen", []) + it.get("sources_seen", [])
+                                     + [it.get("source", "")]) - {""})
+    extra = cur.setdefault("extra", {})
+    extra["identity_keys"] = sorted(set(extra.get("identity_keys", [])
+                                       + (it.get("extra") or {}).get("identity_keys", [])
+                                       + [cur["key"], it["key"]]))
     if len(it.get("abstract") or "") > len(cur.get("abstract") or ""):
         cur["abstract"] = it["abstract"]
     if (cur.get("venue", "").startswith("arXiv")) and not it.get("venue", "").startswith("arXiv"):
@@ -41,6 +46,8 @@ def _absorb(cur: dict, it: dict) -> None:
         cur["published"] = it_pub
     if not cur.get("doi") and it.get("doi"):
         cur["doi"] = it["doi"]
+    if not cur.get("arxiv_id") and it.get("arxiv_id"):
+        cur["arxiv_id"] = it["arxiv_id"]
 
 
 def _merge(items: list[dict]) -> list[dict]:
@@ -175,7 +182,6 @@ def run(
     kept.sort(key=lambda i: -i["score"])
     kept = kept[: int(cfg["run"].get("max_items_total", 45)) * 3]
 
-    new_items = [it for it in kept if it["key"] not in known]
     seen_at = run_dt.isoformat(timespec="seconds")
     if backfill:
         # one-off historical pull: pretend each item was seen on its publication day
@@ -184,9 +190,12 @@ def run(
             if pub and pub < run_date:
                 it["_seen"] = f"{pub.isoformat()}T12:00:00"
     if dry_run:
+        store.resolve_item_keys(conn, kept)
         inserted, updated = 0, 0
     else:
         inserted, updated = store.upsert_items(conn, kept, seen_at)
+    # Persistence resolves cross-run identities before deciding what is new.
+    new_items = list({it["key"]: it for it in kept if it["key"] not in known}.values())
 
     # ---- render ------------------------------------------------------------
     # a day can be rebuilt several times (manual re-runs, wake-from-sleep), so the
