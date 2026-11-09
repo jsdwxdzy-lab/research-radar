@@ -8,7 +8,7 @@
 
 ```text
 knowledge/
-  trunks.json        六条宏观主干（导航框架，可调整）
+  domains.json       根、学科领域和研究线
   nodes/<id>.md      节点：JSON 元信息 + Markdown 正文
   relations.json     有解释、有条件的节点关系
   paths/<id>.json    围绕一个问题的阅读路径
@@ -22,7 +22,7 @@ knowledge/
 
 节点、关系、路径、来源都用稳定 ID：小写字母、数字和连字符，例如 `energy-structure-response`。ID 决定页面地址 `theory/nodes/<id>.html`，也是个人笔记的关联键。
 
-- 改标题、换主干、调整目录时不改 ID。
+- 改标题、换父节点、调整目录时不改 ID。
 - 拆分或合并节点时，旧节点改为 `superseded`，填写 `replaced_by` 和 `migration`，旧链接继续可用。
 
 ## 节点文件
@@ -35,8 +35,9 @@ knowledge/
   "id": "energy-structure-response",
   "title": "从能量到结构与响应",
   "type": "concept",
-  "trunk": "state-evolution",
-  "also_trunks": ["observation-validation"],
+  "parent": "response",
+  "research": ["piezo", "csp"],
+  "keywords": ["strain", "stress", "piezoelectric"],
   "purpose": "一句话：本节点解决什么问题，为什么在当前路径上。",
   "prereq": {"intuitive": ["……"], "full": ["……"]},
   "status": "draft",
@@ -52,7 +53,9 @@ knowledge/
 | 字段 | 含义 |
 | --- | --- |
 | `type` | `problem` 问题 · `concept` 概念 · `method` 方法 · `contrast` 对照 · `example` 实例 · `synthesis` 综合 |
-| `trunk` | 主要归属，必须是 `trunks.json` 里的 ID；`also_trunks` 是其他入口，只引用不复制正文 |
+| `parent` | 在知识树里的父条目：`domains.json` 里的领域 ID，或另一个节点 ID。每个节点只有一个父条目 |
+| `research` | 可选。正文内容碰到的研究线 ID（见下文），没有就不写 |
+| `keywords` | 可选。英文关键词列表，用于把论文雷达里的新论文对到条目上 |
 | `prereq` | `intuitive` 是直观阅读所需基础，`full` 是完整推导所需基础；只做提示，不锁内容 |
 | `status` | 见下方“内容状态” |
 | `replaced_by` / `migration` | 仅 `superseded` 节点使用 |
@@ -110,7 +113,31 @@ knowledge/
 | `contrasts` | 形成对照 | 双向 |
 | `analogy` | 仅为启发性类比 | 双向，不代表任何数学等价 |
 
-分类（`trunk`）、先修（`prerequisite`）、理论关系和学习路径分开记录。主干上的父子位置不等于先修；横向关系不等于等价。先修关系不得成环。
+分类（`parent`）、先修（`prerequisite`）、理论关系和学习路径分开记录。树上的父子位置不等于先修；横向关系不等于等价。先修关系不得成环。
+
+## 知识树与研究线
+
+`domains.json`：
+
+```json
+{
+  "root": {"title": "理论地图", "intro": "首页开头的一段话"},
+  "domains": [{"id": "math", "title": "数学工具", "summary": "这个领域管哪些内容"}],
+  "research_lines": [{"id": "piezo", "title": "压电与响应计算", "radar_topics": ["ferro-calc"]}]
+}
+```
+
+- 树按学科组织：根 → 领域 → 节点 → 子节点。研究方向不是组织原则，节点放在它学科上属于的位置。
+- 研究线是交汇标记。节点正文确实用到、能解释或会影响某条研究线时，才在 `research` 里写上它；页面用 ★ 标出，知识树可以按研究线高亮，并显示别的条目离它几步（沿父子边和关系走）。
+- `radar_topics` 把研究线对到论文雷达的主题，供定时任务找新论文和已有条目的交汇。
+- 构建会检查：父条目存在、父链不成环且最终到达某个领域、领域 ID 不与节点 ID 重复、`research` 里的研究线存在。
+- 候选节点可以只有元信息、没有正文，用来先占住树上的位置。
+
+### 页面结构（参考 VASP Wiki）
+
+- 首页是“领域 | 子主题”表，加研究线和学习路线入口。
+- `theory/tree.html` 是整棵树：桌面默认树形图，手机默认大纲；可只看已写条目、按研究线高亮。
+- 节点页：开头一句 `purpose` 说明这页讲什么，正文分节；公式之后用“其中……”逐个说明符号；页末依次是子条目、相关条目、参考资料和分类栏（领域 · 类型 · 研究线 · 状态）。
 
 ## 路径
 
@@ -141,7 +168,7 @@ knowledge/
 | `needs-revision` | 待修订 | 发现错误、来源失效、版本变化或条件需要更正 |
 | `superseded` | 已替代 | 保留历史，引导到 `replaced_by` |
 
-理论地图首页默认只列“已核验”节点，草稿和候选单独列出并带标签。
+首页目录只列已写的节点：已核验在前，草稿单独折叠并带标签。候选只出现在领域表和知识树里。
 
 ## 核验记录
 
@@ -163,16 +190,18 @@ knowledge/
 
 ## 生长约束（摘自规划稿 4.3 节）
 
-- 新节点必须写明“为什么需要它”（`purpose`）和它与已有节点的连接；孤立节点构建时会给出警告。
+- 新节点必须写明“为什么需要它”（`purpose`），并挂在学科上合适的父条目下。
 - 新术语没有独立学习价值时，先在已有节点内解释。
 - 不为凑连接数建立跨领域类比；类比只能用 `analogy` 类型。
 - 同一主题可以逐步加深，不要求每次学习都新增节点。
+- 自动任务只能新增 `candidate` 节点或补草稿，不能把任何内容标为 `verified`；科研点子不进入本目录。
 
 ## 构建与检查
 
 ```bash
 python3 -B -m radar theory          # 校验并生成 theory/
 python3 -B -m radar theory --check  # 只校验，并确认 theory/ 与内容源一致
+python3 -B -m radar junctions       # 只读：论文、研究线与条目的交汇，不写任何文件
 ```
 
 `.github/workflows/theory-check.yml` 在 `knowledge/`、生成器或 `theory/` 改动时运行 `--check`，与每日论文更新分开，内容问题不会阻塞日报。

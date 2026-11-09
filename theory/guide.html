@@ -22,6 +22,7 @@
     <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
   </div>
   <nav class="top-nav" aria-label="站点">
+    <a href="tree.html">知识树</a>
     <a href="guide.html" aria-current="page">内容规则</a>
     <a href="../index.html">论文雷达</a>
     <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
@@ -31,7 +32,12 @@
   <h1>内容规则</h1>
   <p class="lede">这张地图优先保证少量节点的质量、推导和连接理由，再扩大覆盖面。下面是读页面时需要知道的约定。</p>
   <section class="block"><h2>内容状态</h2><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">状态</th><th scope="col">含义</th></tr></thead><tbody><tr><td><span class="status status-candidate">候选</span></td><td>只有题目、学习动机和拟连接的节点，还没有正文。</td></tr><tr><td><span class="status status-draft">草稿</span></td><td>已有正文，但来源和推导还没有核查完，不能当作定论。</td></tr><tr><td><span class="status status-verified">已核验</span></td><td>已完成核验记录里写明的项目；只在写明的范围内成立，不表示绝对无误。</td></tr><tr><td><span class="status status-needs-revision">待修订</span></td><td>发现了错误、来源失效、版本变化或条件需要更正，修订前请谨慎使用。</td></tr><tr><td><span class="status status-superseded">已替代</span></td><td>这个节点已被拆分或合并，请转到新节点。</td></tr></tbody></table></div>
-    <p>首页默认只列已核验节点。草稿和候选单独列出，并在页面顶部提示。</p></section>
+    <p>首页目录只列已写的条目：已核验的在前，草稿单独折叠并在页面顶部提示。候选条目只出现在领域表和知识树里。</p></section>
+  <section class="block"><h2>知识树与研究线</h2>
+    <ul><li>条目按学科组织成一棵树：根下是领域（数学工具、量子力学、电子结构……），每个条目只有一个父条目。父子关系只表示“属于哪一块”，不表示必须先读。</li>
+    <li>研究线（晶体结构生成、压电与响应计算等）不是分类。条目的内容碰到某条研究线时才打上标记（★），所以研究方向是树铺开时自然出现的交汇点。</li>
+    <li>跨领域的联系用“关联”表达，写明联系是什么、在什么条件下成立；它们不改变树的形状。</li>
+    <li>候选条目只有题目和范围，用来先占住位置，正文写好并检查后才变成草稿。</li></ul></section>
   <section class="block"><h2>什么才算核验</h2>
     <ul><li>关键论述有直接支持的来源，并且来源确实被查阅过（页面会写明查阅日期和核对的位置）。</li>
     <li>主要公式的符号、假设、单位和关键步骤写明；关键推导经过独立重建，可计算的例子做过解析或数值交叉检查。</li>

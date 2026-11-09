@@ -3,18 +3,47 @@
   "id": "method-layers",
   "title": "计算方法由哪些层次组成",
   "type": "concept",
-  "trunk": "solving",
-  "also_trunks": ["representation"],
+  "parent": "methodology",
+  "research": [
+    "piezo",
+    "mlip"
+  ],
+  "keywords": [
+    "level of theory",
+    "exchange-correlation functional",
+    "projector augmented wave",
+    "dispersion correction"
+  ],
   "purpose": "把“用 VASP 的 PAW-PBE + D3(BJ) 算”拆成物理模型、理论近似、表示和数值求解四层，弄清每个名词各自决定什么、各自的误差能不能靠加大计算量消除。",
   "prereq": {
-    "intuitive": ["知道 Kohn–Sham DFT 要自洽求解一组单电子方程", "做过结构优化，见过截断能和 k 点设置"],
-    "full": ["变分原理与基组展开", "交换相关能的定义（相互作用能中扣除 Hartree 项后剩下的部分）"]
+    "intuitive": [
+      "知道 Kohn–Sham DFT 要自洽求解一组单电子方程",
+      "做过结构优化，见过截断能和 k 点设置"
+    ],
+    "full": [
+      "变分原理与基组展开",
+      "交换相关能的定义（相互作用能中扣除 Hartree 项后剩下的部分）"
+    ]
   },
   "status": "draft",
   "version": "0.1",
   "updated": "2026-11-09",
-  "sources": ["martin-2020-electronic", "bloechl-1994-paw", "kresse-1999-paw", "pbe-1996", "grimme-2010-d3", "grimme-2011-bj", "vasp-wiki-ivdw"],
-  "changelog": [{"version": "0.1", "date": "2026-11-09", "note": "初稿：只搭结构和论述清单，来源尚未查阅"}]
+  "sources": [
+    "martin-2020-electronic",
+    "bloechl-1994-paw",
+    "kresse-1999-paw",
+    "pbe-1996",
+    "grimme-2010-d3",
+    "grimme-2011-bj",
+    "vasp-wiki-ivdw"
+  ],
+  "changelog": [
+    {
+      "version": "0.1",
+      "date": "2026-11-09",
+      "note": "初稿：只搭结构和论述清单，来源尚未查阅"
+    }
+  ]
 }
 ```
 ## 为什么要分层 {intuition}

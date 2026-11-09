@@ -3,18 +3,39 @@
   "id": "error-sources",
   "title": "预测的误差来自哪里",
   "type": "contrast",
-  "trunk": "observation-validation",
-  "also_trunks": ["solving"],
+  "parent": "methodology",
+  "research": [
+    "piezo"
+  ],
+  "keywords": [
+    "systematic error"
+  ],
   "purpose": "把“计算与实验不符”拆成数值收敛、模型准确性、实验对应三类问题，说清每类检查能证明什么、不能证明什么，为之后权衡速度与精度提供判断框架。",
   "prereq": {
-    "intuitive": ["[[method-layers]] 的四层划分", "[[energy-structure-response]] 中“结构与响应依赖能量曲面的不同信息”"],
-    "full": ["误差传播的一阶近似", "压电系数 d 与 e 的区别"]
+    "intuitive": [
+      "[[method-layers]] 的四层划分",
+      "[[energy-structure-response]] 中“结构与响应依赖能量曲面的不同信息”"
+    ],
+    "full": [
+      "误差传播的一阶近似",
+      "压电系数 d 与 e 的区别"
+    ]
   },
   "status": "draft",
   "version": "0.1",
   "updated": "2026-11-09",
-  "sources": ["vasp-wiki-pulay", "ieee-176-piezo", "baroni-2001-dfpt"],
-  "changelog": [{"version": "0.1", "date": "2026-11-09", "note": "初稿：三类误差的划分与检查方法；经验结论尚未找到可引用的依据"}]
+  "sources": [
+    "vasp-wiki-pulay",
+    "ieee-176-piezo",
+    "baroni-2001-dfpt"
+  ],
+  "changelog": [
+    {
+      "version": "0.1",
+      "date": "2026-11-09",
+      "note": "初稿：三类误差的划分与检查方法；经验结论尚未找到可引用的依据"
+    }
+  ]
 }
 ```
 ## 三类问题，三种检查 {intuition}

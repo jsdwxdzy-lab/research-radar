@@ -3,18 +3,45 @@
   "id": "energy-structure-response",
   "title": "从能量到结构与响应",
   "type": "concept",
-  "trunk": "state-evolution",
-  "also_trunks": ["observation-validation"],
+  "parent": "response",
+  "research": [
+    "piezo",
+    "csp"
+  ],
+  "keywords": [
+    "linear response",
+    "force constants",
+    "elastic constants",
+    "piezoelectric tensor"
+  ],
   "purpose": "说明平衡结构、力常数、弹性和压电响应分别对应能量曲面的哪一阶导数，从而理解为什么结构算得接近，响应仍可能差得明显。",
   "prereq": {
-    "intuitive": ["函数的极小点、一阶导数和二阶导数", "应变和极化的物理含义"],
-    "full": ["多元函数的 Hessian 矩阵、特征分解与矩阵求逆", "[[method-layers]] 中“理论近似决定能量曲面”这一点"]
+    "intuitive": [
+      "函数的极小点、一阶导数和二阶导数",
+      "应变和极化的物理含义"
+    ],
+    "full": [
+      "多元函数的 Hessian 矩阵、特征分解与矩阵求逆",
+      "[[method-layers]] 中“理论近似决定能量曲面”这一点"
+    ]
   },
   "status": "draft",
   "version": "0.1",
   "updated": "2026-11-09",
-  "sources": ["baroni-2001-dfpt", "wu-2005-strain", "king-smith-1993-polarization", "vanderbilt-2018-berry", "ieee-176-piezo"],
-  "changelog": [{"version": "0.1", "date": "2026-11-09", "note": "初稿：一维例子与多维推广已写；压电公式的指标和符号约定尚未核对原文"}]
+  "sources": [
+    "baroni-2001-dfpt",
+    "wu-2005-strain",
+    "king-smith-1993-polarization",
+    "vanderbilt-2018-berry",
+    "ieee-176-piezo"
+  ],
+  "changelog": [
+    {
+      "version": "0.1",
+      "date": "2026-11-09",
+      "note": "初稿：一维例子与多维推广已写；压电公式的指标和符号约定尚未核对原文"
+    }
+  ]
 }
 ```
 ## 一个自由度的最小例子 {intuition}

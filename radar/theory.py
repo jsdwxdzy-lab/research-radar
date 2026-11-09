@@ -83,7 +83,9 @@ class Issue:
 @dataclass
 class KB:
     root: Path
-    trunks: list = field(default_factory=list)
+    meta: dict = field(default_factory=dict)        # domains.json "root": title, intro
+    domains: list = field(default_factory=list)
+    research_lines: list = field(default_factory=list)
     nodes: dict = field(default_factory=dict)       # id -> meta (with "body", "file")
     relations: list = field(default_factory=list)
     paths: dict = field(default_factory=dict)
@@ -103,8 +105,68 @@ class KB:
         return [i for i in self.issues if i.level == "error"]
 
     @property
-    def trunk_map(self) -> dict:
-        return {t["id"]: t for t in self.trunks}
+    def domain_map(self) -> dict:
+        return {d["id"]: d for d in self.domains}
+
+    @property
+    def line_map(self) -> dict:
+        return {r["id"]: r for r in self.research_lines}
+
+    # ---- tree helpers (valid only after validate() reported no tree errors) ----
+    def children(self, pid: str) -> list:
+        kids = [nid for nid, n in self.nodes.items() if n.get("parent") == pid]
+        return sorted(kids, key=lambda x: (x not in self._with_children(), self.nodes[x]["title"]))
+
+    def _with_children(self) -> set:
+        return {n.get("parent") for n in self.nodes.values()}
+
+    def ancestors(self, nid: str) -> list:
+        """Parent chain from the domain down to (not including) nid: [domain_id, node, ...]."""
+        chain, cur, seen = [], self.nodes.get(nid, {}).get("parent"), set()
+        while cur and cur not in seen:
+            seen.add(cur)
+            chain.append(cur)
+            cur = self.nodes[cur].get("parent") if cur in self.nodes else None
+        return list(reversed(chain))
+
+    def domain_of(self, nid: str) -> str:
+        chain = self.ancestors(nid)
+        return chain[0] if chain else ""
+
+    def subtree(self, pid: str) -> list:
+        out, stack = [], list(self.children(pid))
+        while stack:
+            x = stack.pop()
+            out.append(x)
+            stack.extend(self.children(x))
+        return out
+
+    def research_distance(self, line: str | None = None) -> dict:
+        """Steps from each node to the nearest node tagged with a research line
+        (any line, or only `line`), walking tree edges and relations both ways."""
+        adj: dict = {nid: set() for nid in self.nodes}
+        for nid, n in self.nodes.items():
+            p = n.get("parent")
+            if p in self.nodes:
+                adj[nid].add(p)
+                adj[p].add(nid)
+        for r in self.relations:
+            a, b = r.get("from"), r.get("to")
+            if a in adj and b in adj:
+                adj[a].add(b)
+                adj[b].add(a)
+        dist = {nid: 0 for nid, n in self.nodes.items()
+                if (line in (n.get("research") or []) if line else n.get("research"))}
+        frontier = list(dist)
+        while frontier:
+            nxt = []
+            for u in frontier:
+                for v in adj[u]:
+                    if v not in dist:
+                        dist[v] = dist[u] + 1
+                        nxt.append(v)
+            frontier = nxt
+        return dist
 
 
 # ---------------------------------------------------------------------------
@@ -135,7 +197,10 @@ def load(root: Path | None = None) -> KB:
     root = Path(root or ROOT)
     base = root / "knowledge"
     kb = KB(root=root)
-    kb.trunks = _read_json(kb, base / "trunks.json", {}).get("trunks", [])
+    dom = _read_json(kb, base / "domains.json", {})
+    kb.meta = dom.get("root") or {}
+    kb.domains = dom.get("domains") or []
+    kb.research_lines = dom.get("research_lines") or []
     kb.relations = _read_json(kb, base / "relations.json", {}).get("relations", [])
     for s in _read_json(kb, base / "sources.json", {}).get("sources", []):
         sid = s.get("id", "")
@@ -183,15 +248,23 @@ def _nonempty(v) -> bool:
 
 
 def validate(kb: KB) -> KB:
-    trunks = kb.trunk_map
-    if not trunks:
-        kb.err("knowledge/trunks.json", "没有定义主干")
-    for t in kb.trunks:
-        if not ID_RE.match(t.get("id", "")):
-            kb.err("knowledge/trunks.json", f"主干 ID 不合法：{t.get('id')!r}")
-        for k in ("title", "question"):
-            if not _nonempty(t.get(k)):
-                kb.err("knowledge/trunks.json", f"主干 {t.get('id')} 缺少 {k}")
+    domains, lines = kb.domain_map, kb.line_map
+    if not domains:
+        kb.err("knowledge/domains.json", "没有定义领域")
+    for group, label, required in ((kb.domains, "领域", ("title", "summary")),
+                                   (kb.research_lines, "研究线", ("title",))):
+        ids = [x.get("id", "") for x in group]
+        for x in group:
+            if not ID_RE.match(x.get("id", "")):
+                kb.err("knowledge/domains.json", f"{label} ID 不合法：{x.get('id')!r}")
+            for k in required:
+                if not _nonempty(x.get(k)):
+                    kb.err("knowledge/domains.json", f"{label} {x.get('id')} 缺少 {k}")
+        for d in {i for i in ids if ids.count(i) > 1}:
+            kb.err("knowledge/domains.json", f"{label} ID 重复：{d}")
+    for d in domains:
+        if d in kb.nodes:
+            kb.err("knowledge/domains.json", f"领域 ID 与节点 ID 冲突：{d}")
 
     for sid, s in kb.sources.items():
         where = f"来源 {sid}"
@@ -226,11 +299,14 @@ def validate(kb: KB) -> KB:
             kb.err(where, f"type 必须是 {'/'.join(NODE_TYPES)}")
         if n.get("status") not in STATUS:
             kb.err(where, f"status 必须是 {'/'.join(STATUS)}")
-        if n.get("trunk") not in trunks:
-            kb.err(where, f"主要主干不存在：{n.get('trunk')!r}")
-        for t in n.get("also_trunks") or []:
-            if t not in trunks:
-                kb.err(where, f"其他入口主干不存在：{t!r}")
+        parent = n.get("parent")
+        if parent not in domains and parent not in kb.nodes:
+            kb.err(where, f"父节点不存在（应为领域或另一个节点）：{parent!r}")
+        for r in n.get("research") or []:
+            if r not in lines:
+                kb.err(where, f"研究线不存在：{r!r}")
+        if not isinstance(n.get("keywords", []), list):
+            kb.err(where, "keywords 必须是列表")
         for sid in n.get("sources") or []:
             if sid not in kb.sources:
                 kb.err(where, f"来源不存在：{sid}")
@@ -290,6 +366,7 @@ def validate(kb: KB) -> KB:
                     kb.err(where, f"来源 {sid} 尚无实际查阅记录，关系不能标为已核验")
 
     _check_prereq_cycles(kb)
+    _check_tree(kb)
 
     for pid, p in kb.paths.items():
         where = p["file"]
@@ -314,21 +391,23 @@ def validate(kb: KB) -> KB:
     for nid in kb.reviews:
         if nid not in kb.nodes:
             kb.err(f"knowledge/reviews/{nid}.json", "对应的节点不存在")
-
-    linked = set()
-    for r in kb.relations:
-        linked.update([r.get("from"), r.get("to")])
-    for p in kb.paths.values():
-        linked.update(s.get("node") for s in p.get("steps") or [])
-        linked.update(b.get("node") for b in p.get("branches") or [] if b.get("node"))
-    for nid, res in kb.rendered.items():
-        if res.links:
-            linked.add(nid)
-            linked.update(res.links)
-    for nid, n in kb.nodes.items():
-        if nid not in linked and n.get("status") != "superseded":
-            kb.warn(n["file"], "孤立节点：没有关系、路径或正文链接与它相连")
     return kb
+
+
+def _check_tree(kb: KB) -> None:
+    """Every node hangs off exactly one parent; following parents must reach a domain."""
+    domains = kb.domain_map
+    for nid, n in kb.nodes.items():
+        seen, cur = [nid], n.get("parent")
+        while cur in kb.nodes:
+            if cur in seen:
+                kb.err(n["file"], "父节点成环：" + " → ".join(seen + [cur]))
+                break
+            seen.append(cur)
+            cur = kb.nodes[cur].get("parent")
+        else:
+            if cur not in domains and n.get("parent") in kb.nodes:
+                kb.err(n["file"], f"沿父节点向上没有到达任何领域（停在 {cur!r}）")
 
 
 def _check_verified(kb: KB, nid: str, n: dict, res) -> None:
@@ -387,6 +466,21 @@ def _node_href(prefix: str, nid: str) -> str:
     return f"{prefix}nodes/{quote(nid)}.html"
 
 
+def _node_link(kb: KB, nid: str, prefix: str) -> str:
+    n = kb.nodes[nid]
+    cls = "node-link" + (" is-candidate" if n.get("status") == "candidate" else "")
+    hint = "（候选，还没有正文）" if n.get("status") == "candidate" else ""
+    return (f'<a class="{cls}" href="{_node_href(prefix, nid)}">{esc(n["title"])}</a>'
+            + (f'<span class="visually-hidden">{hint}</span>' if hint else ""))
+
+
+def _research_tags(kb: KB, n: dict, prefix: str) -> str:
+    lines = kb.line_map
+    tags = [f'<a class="rline" href="{prefix}tree.html?line={quote(r)}">{esc(lines[r]["title"])}</a>'
+            for r in n.get("research") or [] if r in lines]
+    return f'<span class="rlines">研究线：{"".join(tags)}</span>' if tags else ""
+
+
 def _source_href(s: dict) -> str:
     if s.get("doi"):
         return "https://doi.org/" + quote(s["doi"], safe="/:.()-_;")
@@ -437,6 +531,7 @@ def _page(kb: KB, *, title: str, prefix: str, body: str, page: str, extra_attrs:
     <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
   </div>
   <nav class="top-nav" aria-label="站点">
+    <a href="{prefix}tree.html"{' aria-current="page"' if page == 'tree' else ''}>知识树</a>
     <a href="{prefix}guide.html"{' aria-current="page"' if page == 'guide' else ''}>内容规则</a>
     <a href="{prefix}../index.html">论文雷达</a>
     <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
@@ -579,8 +674,9 @@ def render_node(kb: KB, nid: str) -> str:
         n["body"], node_url=lambda x: _node_href(prefix, x) if x in kb.nodes else None,
         node_title=lambda x: kb.nodes.get(x, {}).get("title"),
         cite_label=lambda x: (kb.sources[x].get("short") or x) if x in kb.sources else None)
-    trunks = kb.trunk_map
-    trunk = trunks.get(n.get("trunk"), {"title": n.get("trunk", ""), "id": ""})
+    domains = kb.domain_map
+    chain = kb.ancestors(nid)
+    domain = domains.get(chain[0], {"id": "", "title": ""}) if chain else {"id": "", "title": ""}
     status = n.get("status", "draft")
     s_label, s_text = STATUS[status]
     banner = ""
@@ -593,11 +689,9 @@ def render_node(kb: KB, nid: str) -> str:
     else:
         banner = f'<div class="banner banner-verified" role="note"><strong>{esc(s_label)}</strong>{esc(s_text)}核验范围见右侧“核验与修订”。</div>'
 
-    also = "".join(f'<a href="../index.html#trunk-{esc(t)}">{esc(trunks[t]["title"])}</a>'
-                   for t in n.get("also_trunks") or [] if t in trunks)
     meta = (f'<p class="node-meta"><span class="type">{esc(NODE_TYPES[n["type"]][0])}节点</span>'
-            f'<span>主干：<a href="../index.html#trunk-{esc(trunk["id"])}">{esc(trunk["title"])}</a></span>'
-            + (f'<span class="also">也从这里进入：{also}</span>' if also else "")
+            f'<span>领域：<a href="../tree.html#t-{esc(domain["id"])}">{esc(domain["title"])}</a></span>'
+            + _research_tags(kb, n, prefix)
             + f'<span>v{esc(n.get("version", ""))} · {esc(n.get("updated", ""))}</span></p>')
 
     pre = n.get("prereq") or {}
@@ -649,24 +743,55 @@ def render_node(kb: KB, nid: str) -> str:
                      if next_ else f'<a class="pager-next" href="../paths/{quote(p["id"])}.html#branches"><span>读完了</span>选下一个方向</a>')
         pager.append(f'<nav class="pager" aria-label="路径内导航：{esc(p["title"])}">{"".join(cells)}</nav>')
 
-    sids = list(dict.fromkeys((n.get("sources") or []) + [c for c in res.cites if c in kb.sources]))
+    sids = list(dict.fromkeys((n.get("sources") or []) + [c for c in res.cites if c in kb.sources]
+                              + [s for r in kb.relations if nid in (r.get("from"), r.get("to"))
+                                 for s in r.get("sources") or [] if s in kb.sources]))
 
-    left = (f'<details class="rail rail-left" data-rail open><summary>路径与目录</summary>'
+    # where this node sits in the tree
+    trail = [f'<li><a href="../tree.html#t-{esc(domain["id"])}">{esc(domain["title"])}</a></li>']
+    trail += [f'<li>{_node_link(kb, x, prefix)}</li>' for x in chain[1:]]
+    trail.append(f'<li aria-current="page">{esc(n["title"])}</li>')
+    kids = kb.children(nid)
+    tree_block = (f'<div class="rail-block"><p class="rail-label">在知识树中的位置</p>'
+                  f'<ol class="tree-trail">{"".join(trail)}</ol>'
+                  f'<a class="small" href="../tree.html#t-{esc(nid)}">在整棵树里看</a></div>')
+
+    children_html = ""
+    if kids:
+        children_html = ('<section class="node-children" aria-labelledby="kidsTitle"><h2 id="kidsTitle">子条目</h2><ul>'
+                         + "".join(f'<li>{_node_link(kb, k, prefix)}<span class="kid-purpose">{esc(kb.nodes[k]["purpose"])}</span></li>'
+                                   for k in kids) + "</ul></section>")
+    related = []
+    for x in ([chain[-1]] if len(chain) > 1 else []) + [
+            r["to"] if r["from"] == nid else r["from"] for r in kb.relations if nid in (r.get("from"), r.get("to"))]:
+        if x in kb.nodes and x != nid and x not in related and x not in kids:
+            related.append(x)
+    related_html = ('<p class="related"><span>相关条目</span>' + "、".join(_node_link(kb, x, prefix) for x in related) + "</p>"
+                    if related else "")
+    refs_html = (f'<section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2>{_source_items(kb, sids)}</section>'
+                 if sids else "")
+    line_names = [kb.line_map[r]["title"] for r in n.get("research") or [] if r in kb.line_map]
+    footer = (f'<p class="cat-foot"><span>分类</span>{esc(domain["title"])} · {esc(NODE_TYPES[n["type"]][0])}'
+              + (" · 研究线：" + "、".join(esc(x) for x in line_names) if line_names else "")
+              + f' · 状态：{esc(s_label)}</p>')
+
+    left = (f'<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary>'
+            + tree_block
             + "".join(path_blocks)
             + (f'<div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc">{toc}</ol></div>' if toc else "")
             + '<p class="resume hidden" id="resume"></p></details>')
-    right = (f'<details class="rail rail-right" data-rail open><summary>关联、来源与核验</summary>'
+    right = (f'<details class="rail rail-right" data-rail open><summary>关联与核验</summary>'
              f'<div class="rail-block"><h2 class="rail-label">关联</h2>{_relation_items(kb, nid, prefix)}</div>'
-             f'<div class="rail-block"><h2 class="rail-label">来源</h2>{_source_items(kb, sids)}</div>'
              f'<div class="rail-block"><h2 class="rail-label">核验与修订</h2>{_review_items(kb, nid, n)}</div>'
              f'<div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p>'
              f'<a class="btn" href="{esc(_issue_link(n))}" rel="noopener" target="_blank">提交纠错</a></div></details>')
 
-    body_html = res.html or '<p class="empty">这是候选节点，还没有正文。下面记录了它为什么值得写、准备连接到哪里。</p>'
+    body_html = res.html or '<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>'
+    crumbs = "".join(f'<span aria-hidden="true">/</span>{_node_link(kb, x, prefix)}' for x in chain[1:])
     main = f"""<div class="reader-shell" id="main">
 {left}
 <article class="node" aria-labelledby="nodeTitle">
-  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../index.html#trunk-{esc(trunk['id'])}">{esc(trunk['title'])}</a></nav>
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-{esc(domain['id'])}">{esc(domain['title'])}</a>{crumbs}</nav>
   <h1 id="nodeTitle">{esc(n['title'])}</h1>
   {meta}
   {banner}
@@ -676,6 +801,10 @@ def render_node(kb: KB, nid: str) -> str:
   <div class="prose" id="prose">
 {body_html}
   </div>
+  {children_html}
+  {related_html}
+  {refs_html}
+  {footer}
   {''.join(pager)}
   {_personal_panel(nid)}
 </article>
@@ -742,85 +871,188 @@ def _node_card(kb: KB, nid: str, prefix: str) -> str:
             f'<p>{esc(n["purpose"])}</p></li>')
 
 
+def _counts(kb: KB, ids) -> dict:
+    c = {"total": 0, "verified": 0, "draft": 0, "candidate": 0, "needs-revision": 0}
+    for x in ids:
+        c["total"] += 1
+        st = kb.nodes[x].get("status", "")
+        if st in c:
+            c[st] += 1
+    return c
+
+
+def _count_text(c: dict) -> str:
+    written = c["verified"] + c["draft"] + c["needs-revision"]
+    return f'{c["total"]} 条' + (f"，已写 {written}" if written else "")
+
+
 def render_index(kb: KB) -> str:
     prefix = ""
-    path_nodes = set()
-    for p in kb.paths.values():
-        path_nodes.update(s["node"] for s in p.get("steps") or [])
-    current = next(iter(kb.paths.values()), None)
+    root = kb.meta or {}
+    allc = _counts(kb, kb.nodes)
+    junctions = sum(1 for n in kb.nodes.values() if n.get("research"))
 
-    trunk_cols = []
-    for t in kb.trunks:
-        primary = sorted((nid for nid, n in kb.nodes.items() if n.get("trunk") == t["id"]),
-                         key=lambda x: kb.nodes[x]["title"])
-        also = sorted((nid for nid, n in kb.nodes.items() if t["id"] in (n.get("also_trunks") or [])),
-                      key=lambda x: kb.nodes[x]["title"])
-        active = any(x in path_nodes for x in primary + also)
-        items = "".join(
-            f'<li class="st-{esc(kb.nodes[x].get("status", ""))}"><a href="{_node_href(prefix, x)}">{esc(kb.nodes[x]["title"])}</a>'
-            f'{_pill(kb.nodes[x].get("status", ""))}</li>' for x in primary)
-        items += "".join(
-            f'<li class="ref st-{esc(kb.nodes[x].get("status", ""))}"><a href="{_node_href(prefix, x)}">{esc(kb.nodes[x]["title"])}</a>'
-            f'<span class="ref-tag">引用</span></li>' for x in also)
-        count = f"{len(primary)} 个节点" + (f"，另引用 {len(also)} 个" if also else "")
-        trunk_cols.append(
-            f'<section class="trunk{" active" if active else ""}" id="trunk-{esc(t["id"])}" aria-labelledby="th-{esc(t["id"])}">'
-            f'<h3 id="th-{esc(t["id"])}">{esc(t["title"])}</h3><p class="trunk-q">{esc(t["question"])}</p>'
-            f'<p class="trunk-scope">{esc("、".join(t.get("scope") or []))}</p>'
-            + (f'<details class="trunk-nodes"{" open" if active else ""}><summary>{count}'
-               f'{"，当前路径经过这里" if active else ""}</summary><ul>{items}</ul></details>'
-               if items else '<p class="trunk-empty">还没有节点，等问题把学习带到这里。</p>')
-            + "</section>")
+    rows = []
+    for d in kb.domains:
+        kids = kb.children(d["id"])
+        sub = []
+        for k in kids:
+            grand = kb.subtree(k)
+            extra = f'<span class="sub-n">（{len(grand)}）</span>' if grand else ""
+            star = '<span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span>' if kb.nodes[k].get("research") else ""
+            sub.append(f"{_node_link(kb, k, prefix)}{star}{extra}")
+        c = _counts(kb, kb.subtree(d["id"]))
+        rows.append(
+            f'<tr id="d-{esc(d["id"])}"><th scope="row"><a href="tree.html#t-{esc(d["id"])}">{esc(d["title"])}</a>'
+            f'<span class="dom-sum">{esc(d["summary"])}</span><span class="dom-n">{esc(_count_text(c))}</span></th>'
+            f'<td>{" · ".join(sub) if sub else "<span class=small>还没有条目</span>"}</td></tr>')
+    domain_table = ('<div class="table-wrap domain-table" tabindex="0"><table><thead><tr>'
+                    '<th scope="col">领域</th><th scope="col">子主题</th></tr></thead>'
+                    f'<tbody>{"".join(rows)}</tbody></table></div>')
 
-    verified = sorted((x for x, n in kb.nodes.items() if n.get("status") == "verified"), key=lambda x: kb.nodes[x]["title"])
-    pending = sorted((x for x, n in kb.nodes.items() if n.get("status") in ("draft", "candidate", "needs-revision")),
-                     key=lambda x: (kb.nodes[x]["status"], kb.nodes[x]["title"]))
+    line_items = []
+    for r in kb.research_lines:
+        hits = [x for x, n in kb.nodes.items() if r["id"] in (n.get("research") or [])]
+        doms = list(dict.fromkeys(kb.domain_map[kb.domain_of(x)]["title"] for x in sorted(hits, key=lambda x: kb.nodes[x]["title"])))
+        where = ("，落在" + "、".join(esc(x) for x in doms)) if doms else ""
+        line_items.append(f'<li><a class="rline" href="tree.html?line={quote(r["id"])}">{esc(r["title"])}</a>'
+                          f'<span class="small">{len(hits)} 个交汇点{where}</span></li>')
+
+    path_items = "".join(
+        f'<li><a href="paths/{quote(p["id"])}.html">{esc(p["title"])}</a>{_pill(p.get("status", "draft"))}'
+        f'<span class="small">{esc(p.get("general_question", ""))}</span></li>'
+        for p in kb.paths.values())
+
+    written = sorted((x for x, n in kb.nodes.items() if n.get("status") in ("verified", "draft", "needs-revision")),
+                     key=lambda x: (kb.nodes[x]["status"] != "verified", kb.nodes[x]["title"]))
+    verified = [x for x in written if kb.nodes[x]["status"] == "verified"]
+    unverified = [x for x in written if kb.nodes[x]["status"] != "verified"]
     verified_html = ("<ul class='cards'>" + "".join(_node_card(kb, x, prefix) for x in verified) + "</ul>" if verified
                      else '<p class="empty">还没有已核验的节点。下面的草稿完成来源和推导核查后，会移到这里。</p>')
-    pending_html = ("<ul class='cards'>" + "".join(_node_card(kb, x, prefix) for x in pending) + "</ul>") if pending else ""
+    draft_html = ""
+    if unverified:
+        draft_html = (f'<details class="pending"><summary>草稿（{len(unverified)} 个，未核验，单独列出）</summary>'
+                      "<ul class='cards'>" + "".join(_node_card(kb, x, prefix) for x in unverified) + "</ul></details>")
 
-    path_html = ""
-    if current:
-        path_html = f"""<section class="current-path" aria-labelledby="cpTitle">
-    <div class="cp-head"><h2 id="cpTitle"><a href="paths/{quote(current['id'])}.html">{esc(current['title'])}</a></h2>{_pill(current.get('status', 'draft'))}</div>
-    <p class="cp-general">{esc(current['general_question'])}</p>
-    {_step_list(kb, current, prefix, False)}
-    <details class="cp-branches"><summary>读完后可以往哪走</summary>{_branches(kb, current, prefix)}</details>
-  </section>"""
+    stats = (f'<ul class="stats" aria-label="收录情况">'
+             f'<li><b>{allc["total"]}</b>条目</li><li><b>{allc["verified"]}</b>已核验</li>'
+             f'<li><b>{allc["draft"] + allc["needs-revision"]}</b>草稿</li><li><b>{allc["candidate"]}</b>候选</li>'
+             f'<li><b>{junctions}</b>研究交汇点</li></ul>')
 
-    default_q = current["question"] if current else ""
     body = f"""<main class="home" id="main">
-  <section class="thinking" aria-labelledby="thinkingLabel">
-    <p class="thinking-label" id="thinkingLabel">我现在在想的问题</p>
-    <blockquote class="thinking-q" id="thinkingText" data-default="{esc(default_q)}">{esc(default_q)}</blockquote>
-    <div class="thinking-edit hidden" id="thinkingEdit">
-      <label class="visually-hidden" for="thinkingInput">我现在在想的问题</label>
-      <textarea id="thinkingInput" rows="3"></textarea>
-      <div class="row"><button type="button" class="btn primary" data-action="save-thinking">保存</button><button type="button" class="btn" data-action="cancel-thinking">取消</button></div>
-    </div>
-    <div class="row"><button type="button" class="link-btn" data-action="edit-thinking">改写这个问题</button><span class="small">只保存在这台设备</span></div>
+  <section class="home-intro" aria-labelledby="homeTitle">
+    <h1 id="homeTitle">{esc(root.get("title") or "理论地图")}</h1>
+    <p class="lede">{esc(root.get("intro") or "")}</p>
+    {stats}
+    <p class="small">候选条目只有题目和范围，还没有正文；<a href="tree.html">知识树</a>里能一眼看到哪些已经写了。★ 是和研究线交汇的条目。</p>
+  </section>
+
+  <section class="domains" aria-labelledby="domTitle">
+    <h2 id="domTitle">按领域浏览</h2>
+    {domain_table}
   </section>
 
   <div class="home-grid">
-    {path_html}
+    <section class="lines" aria-labelledby="linesTitle">
+      <h2 id="linesTitle">研究线</h2>
+      <p class="small">研究方向不是分类，而是知识长到那里时碰到的地方。点开会在整棵树上标出交汇点和离它几步远的条目。</p>
+      <ul class="line-list">{"".join(line_items)}</ul>
+      {'<h2>学习路线</h2><ul class="line-list">' + path_items + '</ul>' if path_items else ''}
+    </section>
     <aside class="continue" aria-label="继续学习">
       <section><h2>最近读过</h2><ul class="mini" id="recentList"><li class="empty">还没有阅读记录。</li></ul></section>
       <section><h2>还没想通的</h2><ul class="mini" id="openQuestions"><li class="empty">在节点页“我的理解”里写下的疑问会出现在这里。</li></ul></section>
     </aside>
   </div>
 
-  <section class="map" aria-labelledby="mapTitle">
-    <div class="sec-head"><h2 id="mapTitle">六条主干</h2><p>按反复出现的科学问题组织，是导航框架，不是唯一分类。高亮的是当前路径经过的区域。</p></div>
-    <div class="trunks">{''.join(trunk_cols)}</div>
-  </section>
-
   <section class="directory" aria-labelledby="dirTitle">
     <div class="sec-head"><h2 id="dirTitle">已核验节点</h2><p>正式学习内容。每个节点注明核验范围。</p></div>
     {verified_html}
-    {'<details class="pending"><summary>草稿与候选（' + str(len(pending)) + ' 个，未核验，单独列出）</summary>' + pending_html + '</details>' if pending else ''}
+    {draft_html}
   </section>
 </main>"""
     return _page(kb, title="首页", prefix=prefix, body=body, page="home")
+
+
+def _tree_outline(kb: KB, pid: str, prefix: str) -> str:
+    kids = kb.children(pid)
+    if not kids:
+        return ""
+    lis = []
+    for k in kids:
+        n = kb.nodes[k]
+        star = '<span class="rmark" aria-label="研究交汇点">★</span>' if n.get("research") else ""
+        lis.append(f'<li id="o-{esc(k)}" data-id="{esc(k)}" class="st-{esc(n.get("status", ""))}">'
+                   f'{_node_link(kb, k, prefix)}{star}{_pill(n.get("status", ""))}{_tree_outline(kb, k, prefix)}</li>')
+    return "<ul>" + "".join(lis) + "</ul>"
+
+
+def tree_payload(kb: KB) -> dict:
+    per_line = {r["id"]: kb.research_distance(r["id"]) for r in kb.research_lines}
+    nodes = []
+    for nid in sorted(kb.nodes):
+        n = kb.nodes[nid]
+        nodes.append({"id": nid, "title": n["title"], "parent": n["parent"], "status": n.get("status", ""),
+                      "research": n.get("research") or [], "type": NODE_TYPES[n["type"]][0],
+                      "purpose": n.get("purpose", ""),
+                      "dist": {lid: d[nid] for lid, d in per_line.items() if nid in d}})
+    order = {nid: i for i, nid in enumerate(x for d in kb.domains for x in [d["id"]] + _preorder(kb, d["id"]))}
+    nodes.sort(key=lambda x: order.get(x["id"], 1 << 30))
+    return {"root": (kb.meta or {}).get("title") or "理论地图",
+            "domains": [{"id": d["id"], "title": d["title"], "summary": d["summary"]} for d in kb.domains],
+            "lines": [{"id": r["id"], "title": r["title"]} for r in kb.research_lines],
+            "nodes": nodes}
+
+
+def _preorder(kb: KB, pid: str) -> list:
+    out = []
+    for k in kb.children(pid):
+        out.append(k)
+        out.extend(_preorder(kb, k))
+    return out
+
+
+def render_tree(kb: KB) -> str:
+    prefix = ""
+    allc = _counts(kb, kb.nodes)
+    sections = []
+    for d in kb.domains:
+        c = _counts(kb, kb.subtree(d["id"]))
+        sections.append(f'<details class="o-domain" id="t-{esc(d["id"])}" data-id="{esc(d["id"])}" open>'
+                        f'<summary><span class="o-dtitle">{esc(d["title"])}</span><span class="small">{esc(_count_text(c))}</span></summary>'
+                        f'<p class="small">{esc(d["summary"])}</p>{_tree_outline(kb, d["id"], prefix) or "<p class=small>还没有条目</p>"}</details>')
+    options = "".join(f'<option value="{esc(r["id"])}">{esc(r["title"])}</option>' for r in kb.research_lines)
+    payload = json.dumps(tree_payload(kb), ensure_ascii=False, sort_keys=True,
+                         separators=(",", ":")).replace("</", "<\\/")
+    written = allc["verified"] + allc["draft"] + allc["needs-revision"]
+    body = f"""<main class="page tree-page" id="main">
+  <nav class="crumbs" aria-label="当前位置"><a href="index.html">理论地图</a><span aria-hidden="true">/</span><span>知识树</span></nav>
+  <h1>知识树</h1>
+  <p class="lede">全部 {allc["total"]} 个条目按学科从根部铺开，已写 {written} 个、候选 {allc["candidate"]} 个。父子关系是分类，不是先修。选一条研究线，可以看到它落在树的哪些位置，以及别的条目离它有几步。</p>
+  <div class="tree-tools" role="group" aria-label="知识树视图" hidden>
+    <div class="seg" role="group" aria-label="显示方式">
+      <button type="button" data-tree-view="graph" aria-pressed="true">树形图</button>
+      <button type="button" data-tree-view="outline" aria-pressed="false">大纲</button>
+    </div>
+    <label class="tool"><input type="checkbox" id="treeWritten"> 只看已写</label>
+    <label class="tool">研究线 <select id="treeLine"><option value="">不标出</option>{options}</select></label>
+    <button type="button" class="link-btn" data-tree-fold="open">全部展开</button>
+    <button type="button" class="link-btn" data-tree-fold="close">全部收起</button>
+  </div>
+  <ul class="legend" aria-label="图例">
+    <li><span class="lg lg-verified" aria-hidden="true"></span>已核验</li>
+    <li><span class="lg lg-draft" aria-hidden="true"></span>草稿</li>
+    <li><span class="lg lg-candidate" aria-hidden="true"></span>候选（只有题目）</li>
+    <li><span class="rmark" aria-hidden="true">★</span>研究交汇点</li>
+    <li class="lg-line"><span class="lg lg-near" aria-hidden="true"></span>选中研究线时：离交汇点 1–2 步</li>
+  </ul>
+  <p class="small" id="treeSummary" aria-live="polite"></p>
+  <div class="tree-graph" id="treeGraph" hidden></div>
+  <div class="tree-outline" id="treeOutline">{"".join(sections)}</div>
+  <script type="application/json" id="treeData">{payload}</script>
+</main>"""
+    return _page(kb, title="知识树", prefix=prefix, body=body, page="tree",
+                 description="理论地图的全部条目，按学科组织成一棵树，并标出与研究线的交汇点。")
 
 
 def render_guide(kb: KB) -> str:
@@ -841,7 +1073,12 @@ def render_guide(kb: KB) -> str:
   <h1>内容规则</h1>
   <p class="lede">这张地图优先保证少量节点的质量、推导和连接理由，再扩大覆盖面。下面是读页面时需要知道的约定。</p>
   <section class="block"><h2>内容状态</h2>{table(["状态", "含义"], status_rows)}
-    <p>首页默认只列已核验节点。草稿和候选单独列出，并在页面顶部提示。</p></section>
+    <p>首页目录只列已写的条目：已核验的在前，草稿单独折叠并在页面顶部提示。候选条目只出现在领域表和知识树里。</p></section>
+  <section class="block"><h2>知识树与研究线</h2>
+    <ul><li>条目按学科组织成一棵树：根下是领域（数学工具、量子力学、电子结构……），每个条目只有一个父条目。父子关系只表示“属于哪一块”，不表示必须先读。</li>
+    <li>研究线（晶体结构生成、压电与响应计算等）不是分类。条目的内容碰到某条研究线时才打上标记（★），所以研究方向是树铺开时自然出现的交汇点。</li>
+    <li>跨领域的联系用“关联”表达，写明联系是什么、在什么条件下成立；它们不改变树的形状。</li>
+    <li>候选条目只有题目和范围，用来先占住位置，正文写好并检查后才变成草稿。</li></ul></section>
   <section class="block"><h2>什么才算核验</h2>
     <ul><li>关键论述有直接支持的来源，并且来源确实被查阅过（页面会写明查阅日期和核对的位置）。</li>
     <li>主要公式的符号、假设、单位和关键步骤写明；关键推导经过独立重建，可计算的例子做过解析或数值交叉检查。</li>
@@ -858,7 +1095,8 @@ def render_guide(kb: KB) -> str:
 
 
 def search_index(kb: KB) -> str:
-    trunks = kb.trunk_map
+    domains = kb.domain_map
+    lines = kb.line_map
     nodes = []
     for nid in sorted(kb.nodes):
         n = kb.nodes[nid]
@@ -866,7 +1104,9 @@ def search_index(kb: KB) -> str:
         text = (res.text if res else "")[:1200]
         nodes.append({
             "id": nid, "title": n["title"], "type": NODE_TYPES.get(n.get("type"), ("", ""))[0],
-            "trunk": trunks.get(n.get("trunk"), {}).get("title", ""), "status": n.get("status"),
+            "domain": domains.get(kb.domain_of(nid), {}).get("title", ""), "status": n.get("status"),
+            "lines": [lines[r]["title"] for r in n.get("research") or [] if r in lines],
+            "keywords": n.get("keywords") or [],
             "statusLabel": STATUS.get(n.get("status"), ("", ""))[0], "purpose": n.get("purpose", ""),
             "text": text, "url": f"nodes/{nid}.html",
         })
@@ -880,7 +1120,7 @@ def search_index(kb: KB) -> str:
 
 
 def render_site(kb: KB) -> dict:
-    out = {"index.html": render_index(kb), "guide.html": render_guide(kb),
+    out = {"index.html": render_index(kb), "tree.html": render_tree(kb), "guide.html": render_guide(kb),
            "assets/search-index.js": search_index(kb)}
     for nid in sorted(kb.nodes):
         out[f"nodes/{nid}.html"] = render_node(kb, nid)

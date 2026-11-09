@@ -14,7 +14,7 @@ def node_file(meta: dict, body: str = "") -> str:
 
 def base_meta(nid: str, **kw) -> dict:
     meta = {
-        "id": nid, "title": f"标题 {nid}", "type": "concept", "trunk": "t1",
+        "id": nid, "title": f"标题 {nid}", "type": "concept", "parent": "d1",
         "purpose": f"{nid} 的学习目的", "status": "draft", "version": "0.1",
         "updated": "2026-11-09", "sources": [],
     }
@@ -31,15 +31,18 @@ class Fixture:
         self.k = self.root / "knowledge"
         for d in ("nodes", "paths", "reviews"):
             (self.k / d).mkdir(parents=True)
-        self.trunks([{"id": "t1", "title": "主干一", "question": "问题一？"}])
+        self.domains([{"id": "d1", "title": "领域一", "summary": "领域一的范围"},
+                      {"id": "d2", "title": "领域二", "summary": "领域二的范围"}],
+                     [{"id": "line1", "title": "研究线一", "radar_topics": ["csp"]}])
         self.sources([])
         self.relations([])
 
     def close(self):
         self.tmp.cleanup()
 
-    def trunks(self, items):
-        (self.k / "trunks.json").write_text(json.dumps({"trunks": items}, ensure_ascii=False), encoding="utf-8")
+    def domains(self, items, lines=()):
+        data = {"root": {"title": "测试地图", "intro": "从基础铺开。"}, "domains": items, "research_lines": list(lines)}
+        (self.k / "domains.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
 
     def sources(self, items):
         (self.k / "sources.json").write_text(json.dumps({"sources": items}, ensure_ascii=False), encoding="utf-8")
@@ -154,11 +157,57 @@ class ValidationTests(unittest.TestCase):
         self.f.relations([rel("a", "b"), rel("b", "a", typ="contrasts")])
         self.assertEqual(messages(self.f.kb()), [])
 
-    def test_isolated_node_is_a_warning_not_an_error(self):
+    def test_node_without_relations_is_fine(self):
         self.f.node(base_meta("lonely"))
         kb = self.f.kb()
         self.assertEqual(messages(kb), [])
-        self.assertTrue(any("孤立" in m for m in messages(kb, "warning")))
+        self.assertEqual(messages(kb, "warning"), [])
+
+    def test_parent_must_exist(self):
+        self.f.node(base_meta("a", parent="nowhere"))
+        self.assertTrue(any("父节点不存在" in m and "nowhere" in m for m in messages(self.f.kb())))
+
+    def test_parent_cycle_is_rejected(self):
+        self.f.node(base_meta("a", parent="b"))
+        self.f.node(base_meta("b", parent="a"))
+        self.f.node(base_meta("c", parent="a"))
+        errs = messages(self.f.kb())
+        self.assertTrue(any("父节点成环" in m for m in errs))
+
+    def test_nested_parents_reach_a_domain(self):
+        self.f.node(base_meta("a"))
+        self.f.node(base_meta("b", parent="a"))
+        self.f.node(base_meta("c", parent="b"))
+        kb = self.f.kb()
+        self.assertEqual(messages(kb), [])
+        self.assertEqual(kb.ancestors("c"), ["d1", "a", "b"])
+        self.assertEqual(kb.domain_of("c"), "d1")
+        self.assertEqual(sorted(kb.subtree("d1")), ["a", "b", "c"])
+
+    def test_domain_id_cannot_clash_with_node(self):
+        self.f.node(base_meta("d2"))
+        self.assertTrue(any("领域 ID 与节点 ID 冲突" in m for m in messages(self.f.kb())))
+
+    def test_unknown_research_line_and_bad_keywords(self):
+        self.f.node(base_meta("a", research=["line1", "ghost-line"], keywords="不是列表"))
+        errs = " ".join(messages(self.f.kb()))
+        self.assertIn("研究线不存在", errs)
+        self.assertIn("ghost-line", errs)
+        self.assertIn("keywords 必须是列表", errs)
+
+    def test_research_distance_walks_tree_and_relations(self):
+        self.f.node(base_meta("hub", research=["line1"]))
+        self.f.node(base_meta("kid", parent="hub"))
+        self.f.node(base_meta("far", parent="d2"))
+        self.f.node(base_meta("linked", parent="d2"))
+        self.f.relations([rel("linked", "kid")])
+        kb = self.f.kb()
+        self.assertEqual(messages(kb), [])
+        dist = kb.research_distance("line1")
+        self.assertEqual(dist["hub"], 0)
+        self.assertEqual(dist["kid"], 1)
+        self.assertEqual(dist["linked"], 2)
+        self.assertNotIn("far", dist)
 
     def _verified_setup(self, consulted, reviews):
         self.f.sources([{"id": "s", "short": "S 2020", "kind": "paper", "citation": "S, 2020", "doi": "10.1/x",
@@ -228,9 +277,9 @@ class BuildTests(unittest.TestCase):
         self.f = Fixture()
         self.f.sources([{"id": "s", "short": "S 2020", "kind": "paper", "citation": "S, 2020", "doi": "10.1/x",
                          "consulted": []}])
-        self.f.node(base_meta("a", title="标题 <b>A</b>", sources=["s"]),
+        self.f.node(base_meta("a", title="标题 <b>A</b>", sources=["s"], research=["line1"]),
                     "## 直觉 {intuition}\n\n$E = mc^2$，见 [[b]] [@s]。\n\n## 推导 {math}\n\n$$x^2$$")
-        self.f.node(base_meta("b", status="candidate"), "")
+        self.f.node(base_meta("b", status="candidate", parent="a"), "")
         self.f.relations([rel("a", "b")])
         self.f.review("a", [{"date": "2026-11-09", "reviewer": "生成模型", "independent": False,
                              "scope": ["一维例子"], "method": "复算", "evidence": ["无"]}])
@@ -244,7 +293,7 @@ class BuildTests(unittest.TestCase):
         kb, written = theory.build(self.f.root)
         self.assertEqual(kb.errors, [])
         out = self.f.root / "theory"
-        for rel_path in ("index.html", "guide.html", "nodes/a.html", "nodes/b.html", "paths/p.html",
+        for rel_path in ("index.html", "tree.html", "guide.html", "nodes/a.html", "nodes/b.html", "paths/p.html",
                          "assets/theory.css", "assets/theory.js", "assets/search-index.js"):
             self.assertTrue((out / rel_path).exists(), rel_path)
         _, drift = theory.check(self.f.root)
@@ -281,11 +330,42 @@ class BuildTests(unittest.TestCase):
         self.assertNotIn("katex.min.js", cand)
         self.assertIn("候选节点，还没有正文", cand)
 
+    def test_node_page_shows_tree_position(self):
+        theory.build(self.f.root)
+        a = (self.f.root / "theory" / "nodes" / "a.html").read_text(encoding="utf-8")
+        self.assertIn('href="../tree.html?line=line1"', a)
+        self.assertIn("子条目", a)
+        self.assertIn('class="node-link is-candidate" href="../nodes/b.html"', a)
+        self.assertIn('class="cat-foot"', a)
+        self.assertIn("参考资料", a)
+        b = (self.f.root / "theory" / "nodes" / "b.html").read_text(encoding="utf-8")
+        self.assertIn('class="tree-trail"', b)
+        self.assertIn('href="../tree.html#t-d1"', b)
+        self.assertIn('href="../nodes/a.html"', b)  # parent in breadcrumbs and trail
+
     def test_home_lists_unverified_separately(self):
         theory.build(self.f.root)
         html = (self.f.root / "theory" / "index.html").read_text(encoding="utf-8")
         self.assertIn("还没有已核验的节点", html)
-        self.assertIn("草稿与候选（2 个", html)
+        self.assertIn("草稿（1 个", html)
+        self.assertIn('href="tree.html#t-d1"', html)
+        self.assertIn('href="tree.html?line=line1"', html)
+        self.assertIn("1 个交汇点", html)
+
+    def test_tree_page_covers_every_node(self):
+        theory.build(self.f.root)
+        html = (self.f.root / "theory" / "tree.html").read_text(encoding="utf-8")
+        for x in ('id="t-d1"', 'id="t-d2"', 'id="o-a"', 'id="o-b"', 'id="treeData"', 'data-page="tree"'):
+            self.assertIn(x, html)
+        raw = html.split('<script type="application/json" id="treeData">', 1)[1].split("</script>", 1)[0]
+        data = json.loads(raw)
+        self.assertEqual([d["id"] for d in data["domains"]], ["d1", "d2"])
+        by = {n["id"]: n for n in data["nodes"]}
+        self.assertEqual(by["b"]["parent"], "a")
+        self.assertEqual(by["a"]["dist"], {"line1": 0})
+        self.assertEqual(by["b"]["dist"], {"line1": 1})
+        # outline nests b under a
+        self.assertLess(html.index('id="o-a"'), html.index('id="o-b"'))
 
     def test_search_index_is_valid_json(self):
         theory.build(self.f.root)
@@ -302,6 +382,52 @@ class BuildTests(unittest.TestCase):
             text = p.read_text(encoding="utf-8")
             self.assertNotIn('"question":', text)
             self.assertNotIn('"note":', text)
+
+
+class JunctionTests(unittest.TestCase):
+    def setUp(self):
+        from radar import junctions
+        self.j = junctions
+        self.f = Fixture()
+        self.f.node(base_meta("hub", research=["line1"], keywords=["crystal structure prediction"]))
+        self.f.node(base_meta("deep", parent="hub", status="candidate", research=["line1"], keywords=["PBE"]))
+        self.f.node(base_meta("far", parent="d2", status="candidate", research=["line1"], keywords=["MACE"]))
+        self.f.node(base_meta("other", parent="d2", status="candidate", keywords=["phonon"]))
+        items = [
+            {"k": "p1", "t": "MACE ranks crystal structure prediction candidates", "a": "", "tp": ["csp"], "d": "2026-11-08"},
+            {"k": "p2", "t": "PBEsol lattice constants", "a": "nothing else", "tp": ["csp"], "d": "2026-11-08"},
+            {"k": "p3", "t": "Unrelated topic with phonon", "a": "", "tp": ["mlip"], "d": "2026-11-08"},
+            {"k": "p4", "t": "Old CSP paper", "a": "crystal structure prediction", "tp": ["csp"], "d": "2026-10-01"},
+        ]
+        (self.f.root / "data.json").write_text(json.dumps({"items": items}), encoding="utf-8")
+
+    def tearDown(self):
+        self.f.close()
+
+    def test_hits_pairs_and_uncovered(self):
+        res = self.j.find(self.f.root, since="2026-11-01", min_gap=3)
+        self.assertEqual(res["papers_considered"], 3)
+        keys = {h["key"]: h["nodes"] for h in res["hits"]}
+        self.assertEqual(sorted(keys["p1"]), ["far", "hub"])
+        self.assertNotIn("p2", keys)          # PBE must not match inside PBEsol
+        self.assertNotIn("p3", keys)          # mlip topic is not mapped to any research line
+        self.assertEqual([r["key"] for r in res["uncovered"]["line1"]], ["p2"])
+        pair = {(p["a"], p["b"]) for p in res["pairs"]}
+        self.assertIn(("far", "hub"), pair)
+        self.assertNotIn(("deep", "hub"), pair)  # parent/child is not a junction
+        top = res["pairs"][0]
+        self.assertEqual((top["a"], top["b"], top["shared_papers"]), ("far", "hub", ["p1"]))
+
+    def test_existing_relation_removes_pair(self):
+        self.f.relations([rel("hub", "far", typ="contrasts")])
+        res = self.j.find(self.f.root, min_gap=3)
+        self.assertNotIn(("far", "hub"), {(p["a"], p["b"]) for p in res["pairs"]})
+
+    def test_finder_writes_nothing(self):
+        before = sorted(p.relative_to(self.f.root).as_posix() for p in self.f.root.rglob("*"))
+        self.j.find(self.f.root)
+        after = sorted(p.relative_to(self.f.root).as_posix() for p in self.f.root.rglob("*"))
+        self.assertEqual(before, after)
 
 
 class DashboardLinkTests(unittest.TestCase):

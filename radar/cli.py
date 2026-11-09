@@ -190,6 +190,20 @@ def cmd_theory(args) -> int:
     return 0
 
 
+def cmd_junctions(args) -> int:
+    """Read-only: print where papers and research lines meet the theory tree."""
+    from . import junctions, theory
+
+    res = junctions.find(since=args.since or "", min_gap=args.min_gap, limit=args.limit)
+    if args.json:
+        print(json.dumps(res, ensure_ascii=False, indent=2))
+    else:
+        kb = theory.load()
+        print(junctions.format_text(res, {k: v["title"] for k, v in kb.nodes.items()},
+                                    {r["id"]: r["title"] for r in kb.research_lines}))
+    return 1 if res.get("errors") else 0
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="radar", description="科研热点自动追踪雷达")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -240,6 +254,13 @@ def main(argv=None) -> int:
     p_theory = sub.add_parser("theory", help="校验 knowledge/ 并生成理论地图 theory/")
     p_theory.add_argument("--check", action="store_true", help="只校验，并确认 theory/ 与内容源一致")
     p_theory.set_defaults(func=cmd_theory)
+
+    p_junc = sub.add_parser("junctions", help="只读：列出论文、研究线与理论地图条目的交汇（不写任何文件）")
+    p_junc.add_argument("--since", help="只看这一天（YYYY-MM-DD）之后收录的论文")
+    p_junc.add_argument("--min-gap", type=int, default=4, help="同线对在树上至少相隔几步（默认 4）")
+    p_junc.add_argument("--limit", type=int, default=12, help="每类最多列几条（默认 12）")
+    p_junc.add_argument("--json", action="store_true", help="输出 JSON，供定时任务读取")
+    p_junc.set_defaults(func=cmd_junctions)
 
     args = parser.parse_args(argv)
     return args.func(args)
