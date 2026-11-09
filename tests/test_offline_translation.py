@@ -203,7 +203,9 @@ class OfflineTranslationTests(unittest.TestCase):
         with patch.object(offline, 'Translator', autospec=True) as engine:
             engine.return_value.translate.side_effect = ['新标题', ValueError('cutoff')]
             self.assertEqual(offline.run({}, conn, log=lambda *a: None), 0)
-        self.assertEqual(store.load_annotation_map(conn)[item['key']]['abstract_zh'], '已有完整摘要')
+        self.assertEqual(conn.execute('SELECT abstract_zh FROM annotations WHERE key=?',
+                                     (item['key'],)).fetchone()[0], '已有完整摘要')
+        self.assertEqual(store.load_annotation_map(conn)[item['key']]['abstract_zh'], '')
         self.assertEqual(conn.execute('SELECT count(*) FROM translations').fetchone()[0], 0)
         self.assertEqual(len(store.pending_translations(conn, 5)), 1)
 
