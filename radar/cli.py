@@ -165,6 +165,31 @@ def cmd_interests(args) -> int:
     return 0
 
 
+def cmd_theory(args) -> int:
+    from . import theory
+
+    if args.check:
+        kb, drift = theory.check()
+    else:
+        kb, written = theory.build()
+        drift = []
+    for issue in kb.issues:
+        print(issue)
+    for line in drift:
+        print(f"[不一致] {line}")
+    if kb.errors:
+        print(f"理论地图有 {len(kb.errors)} 处错误，未生成页面。")
+        return 1
+    if args.check:
+        if drift:
+            print("theory/ 与 knowledge/ 不一致：请运行 python3 -B -m radar theory 后提交。")
+            return 1
+        print(f"理论地图校验通过：{len(kb.nodes)} 个节点、{len(kb.relations)} 条关系、{len(kb.paths)} 条路径。")
+        return 0
+    print(f"理论地图已生成：{len(kb.nodes)} 个节点，更新 {len(written)} 个文件 → theory/")
+    return 0
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="radar", description="科研热点自动追踪雷达")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -211,6 +236,10 @@ def main(argv=None) -> int:
     p_int.add_argument("--days", type=int, default=45)
     p_int.add_argument("--limit", type=int, default=30)
     p_int.set_defaults(func=cmd_interests)
+
+    p_theory = sub.add_parser("theory", help="校验 knowledge/ 并生成理论地图 theory/")
+    p_theory.add_argument("--check", action="store_true", help="只校验，并确认 theory/ 与内容源一致")
+    p_theory.set_defaults(func=cmd_theory)
 
     args = parser.parse_args(argv)
     return args.func(args)

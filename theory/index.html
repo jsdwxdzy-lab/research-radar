@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>首页 · 理论地图 · 科研雷达</title>
+<meta name="description" content="科研雷达理论地图：围绕真实问题，按需生长的知识结构。">
+<link rel="stylesheet" href="assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+<script defer src="assets/search-index.js"></script>
+<script defer src="assets/theory.js"></script>
+</head>
+<body data-page="home" data-prefix="">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="guide.html">内容规则</a>
+    <a href="../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<main class="home" id="main">
+  <section class="thinking" aria-labelledby="thinkingLabel">
+    <p class="thinking-label" id="thinkingLabel">我现在在想的问题</p>
+    <blockquote class="thinking-q" id="thinkingText" data-default="为什么使用 VASP 的 PAW-PBE 与 D3(BJ) 计算有机酸碱盐压电响应时，计算与实验可能有较大差异？怎样理解这些方法，并权衡速度与精度？">为什么使用 VASP 的 PAW-PBE 与 D3(BJ) 计算有机酸碱盐压电响应时，计算与实验可能有较大差异？怎样理解这些方法，并权衡速度与精度？</blockquote>
+    <div class="thinking-edit hidden" id="thinkingEdit">
+      <label class="visually-hidden" for="thinkingInput">我现在在想的问题</label>
+      <textarea id="thinkingInput" rows="3"></textarea>
+      <div class="row"><button type="button" class="btn primary" data-action="save-thinking">保存</button><button type="button" class="btn" data-action="cancel-thinking">取消</button></div>
+    </div>
+    <div class="row"><button type="button" class="link-btn" data-action="edit-thinking">改写这个问题</button><span class="small">只保存在这台设备</span></div>
+  </section>
+
+  <div class="home-grid">
+    <section class="current-path" aria-labelledby="cpTitle">
+    <div class="cp-head"><h2 id="cpTitle"><a href="paths/piezo-dft-gap.html">有机酸碱盐压电：计算与实验为什么会差得远</a></h2><span class="status status-draft">草稿</span></div>
+    <p class="cp-general">计算方法的各个层次分别决定预测的哪一部分？对于依赖能量曲面曲率的响应量，怎样区分数值收敛、模型准确性与实验对应造成的差异？</p>
+    <ol class="steps"><li data-node="method-layers"><a href="nodes/method-layers.html">计算方法由哪些层次组成</a><span class="status status-draft">草稿</span></li><li data-node="energy-structure-response"><a href="nodes/energy-structure-response.html">从能量到结构与响应</a><span class="status status-draft">草稿</span></li><li data-node="error-sources"><a href="nodes/error-sources.html">预测的误差来自哪里</a><span class="status status-draft">草稿</span></li></ol>
+    <details class="cp-branches"><summary>读完后可以往哪走</summary><div class="branches"><div class="branch-group dir-down"><p class="dir-label">向下追溯</p><p class="dir-hint">看不懂某一步为什么成立时，补定义、数学工具或物理假设</p><ul><li><p class="branch-title">物理量：应力、应变、极化与压电系数</p><p class="branch-why">如果 <span class="math" data-tex="d">d</span> 与 <span class="math" data-tex="e">e</span>、夹持与自由边界的区别还不清楚，先补这里。</p></li></ul></div><div class="branch-group dir-in"><p class="dir-label">向内深入</p><p class="dir-hint">理解直觉但无法重建方法时，展开推导和算法步骤</p><ul><li><p class="branch-title"><a href="nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a><span class="status status-candidate">候选</span></p><p class="branch-why">想自己重建压电系数是怎么算出来的，就展开这两种求二阶导数的方法。</p></li><li><p class="branch-title">交换相关近似与色散校正的构造</p><p class="branch-why">想知道 PBE 和 D3(BJ) 为什么是现在这种形式，以及它们各自漏掉了什么。</p></li></ul></div><div class="branch-group dir-across"><p class="dir-label">横向连接</p><p class="dir-hint">想理解两个方法的关系时，建立对照并写明条件</p><ul><li><p class="branch-title">静态晶格与有限温度平均</p><p class="branch-why">计算是 0 K 静态晶格，实验在室温；两者的联系需要统计平均和非谐效应。</p></li><li><p class="branch-title">有机酸碱盐中的静电、氢键与质子自由度</p><p class="branch-why">从材料机制看哪些自由度可能对应软模，以及它们对极化的贡献。</p></li></ul></div><div class="branch-group dir-up"><p class="dir-label">向上抽象</p><p class="dir-hint">想看更大的理论图景时，提炼共同问题和一般原理</p><ul><li><p class="branch-title">科学计算怎样从近似模型得到可以与观测比较的预测</p><p class="branch-why">积累足够基础后，把这条路径推广到其他材料计算、分子模拟和机器学习势。</p></li></ul></div><div class="branch-group dir-out"><p class="dir-label">向外迁移</p><p class="dir-hint">想知道能用于什么新问题时，连接其他应用和论文</p><ul><li><p class="branch-title">为不同目标量设计收敛检查并分配计算资源</p><p class="branch-why">把三类误差的框架用到实际计算决策：在速度与精度之间怎样取舍。</p></li><li><p class="branch-title">读一篇氨基酸晶体压电的计算与测量对比</p><p class="branch-why">用真实数据检验这条路径的框架；候选论文见来源列表中的 Guerin 2018。</p></li></ul></div></div></details>
+  </section>
+    <aside class="continue" aria-label="继续学习">
+      <section><h2>最近读过</h2><ul class="mini" id="recentList"><li class="empty">还没有阅读记录。</li></ul></section>
+      <section><h2>还没想通的</h2><ul class="mini" id="openQuestions"><li class="empty">在节点页“我的理解”里写下的疑问会出现在这里。</li></ul></section>
+    </aside>
+  </div>
+
+  <section class="map" aria-labelledby="mapTitle">
+    <div class="sec-head"><h2 id="mapTitle">六条主干</h2><p>按反复出现的科学问题组织，是导航框架，不是唯一分类。高亮的是当前路径经过的区域。</p></div>
+    <div class="trunks"><section class="trunk active" id="trunk-representation" aria-labelledby="th-representation"><h3 id="th-representation">对象与表示</h3><p class="trunk-q">我们选择哪些自由度和变量描述问题？</p><p class="trunk-scope">坐标、分子与晶体表示、场、概率分布、粗粒化</p><details class="trunk-nodes" open><summary>0 个节点，另引用 1 个，当前路径经过这里</summary><ul><li class="ref st-draft"><a href="nodes/method-layers.html">计算方法由哪些层次组成</a><span class="ref-tag">引用</span></li></ul></details></section><section class="trunk" id="trunk-principles" aria-labelledby="th-principles"><h3 id="th-principles">原理与约束</h3><p class="trunk-q">哪些结构限制了可能的答案？</p><p class="trunk-scope">对称性、守恒、边界条件、物理先验</p><p class="trunk-empty">还没有节点，等问题把学习带到这里。</p></section><section class="trunk active" id="trunk-state-evolution" aria-labelledby="th-state-evolution"><h3 id="th-state-evolution">状态与演化</h3><p class="trunk-q">如何描述平衡、变化和涨落？</p><p class="trunk-scope">能量、统计平均、自由能、动力学、随机过程</p><details class="trunk-nodes" open><summary>1 个节点，当前路径经过这里</summary><ul><li class="st-draft"><a href="nodes/energy-structure-response.html">从能量到结构与响应</a><span class="status status-draft">草稿</span></li></ul></details></section><section class="trunk" id="trunk-inference" aria-labelledby="th-inference"><h3 id="th-inference">学习与推断</h3><p class="trunk-q">如何从有限信息推断未知量？</p><p class="trunk-scope">统计推断、学习目标、正则化、可辨识性、不确定性</p><p class="trunk-empty">还没有节点，等问题把学习带到这里。</p></section><section class="trunk active" id="trunk-solving" aria-labelledby="th-solving"><h3 id="th-solving">求解与近似</h3><p class="trunk-q">如何把理论问题转成可计算的问题？</p><p class="trunk-scope">变分、优化、离散化、采样、微扰、数值误差</p><details class="trunk-nodes" open><summary>2 个节点，另引用 1 个，当前路径经过这里</summary><ul><li class="st-candidate"><a href="nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a><span class="status status-candidate">候选</span></li><li class="st-draft"><a href="nodes/method-layers.html">计算方法由哪些层次组成</a><span class="status status-draft">草稿</span></li><li class="ref st-draft"><a href="nodes/error-sources.html">预测的误差来自哪里</a><span class="ref-tag">引用</span></li></ul></details></section><section class="trunk active" id="trunk-observation-validation" aria-labelledby="th-observation-validation"><h3 id="th-observation-validation">观测与验证</h3><p class="trunk-q">理论量怎样对应实验，结论如何检验？</p><p class="trunk-scope">响应、测量条件、尺度、模型验证、误差传播</p><details class="trunk-nodes" open><summary>1 个节点，另引用 1 个，当前路径经过这里</summary><ul><li class="st-draft"><a href="nodes/error-sources.html">预测的误差来自哪里</a><span class="status status-draft">草稿</span></li><li class="ref st-draft"><a href="nodes/energy-structure-response.html">从能量到结构与响应</a><span class="ref-tag">引用</span></li></ul></details></section></div>
+  </section>
+
+  <section class="directory" aria-labelledby="dirTitle">
+    <div class="sec-head"><h2 id="dirTitle">已核验节点</h2><p>正式学习内容。每个节点注明核验范围。</p></div>
+    <p class="empty">还没有已核验的节点。下面的草稿完成来源和推导核查后，会移到这里。</p>
+    <details class="pending"><summary>草稿与候选（4 个，未核验，单独列出）</summary><ul class='cards'><li class="node-card st-candidate"><a href="nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a><span class="nc-meta">对照<span class="status status-candidate">候选</span></span><p>候选：两种算能量二阶导数的方法在什么条件下应给出相同结果，各自的数值误差从哪里来。等需要重建压电系数的计算过程时再展开。</p></li><li class="node-card st-draft"><a href="nodes/energy-structure-response.html">从能量到结构与响应</a><span class="nc-meta">概念<span class="status status-draft">草稿</span></span><p>说明平衡结构、力常数、弹性和压电响应分别对应能量曲面的哪一阶导数，从而理解为什么结构算得接近，响应仍可能差得明显。</p></li><li class="node-card st-draft"><a href="nodes/method-layers.html">计算方法由哪些层次组成</a><span class="nc-meta">概念<span class="status status-draft">草稿</span></span><p>把“用 VASP 的 PAW-PBE + D3(BJ) 算”拆成物理模型、理论近似、表示和数值求解四层，弄清每个名词各自决定什么、各自的误差能不能靠加大计算量消除。</p></li><li class="node-card st-draft"><a href="nodes/error-sources.html">预测的误差来自哪里</a><span class="nc-meta">对照<span class="status status-draft">草稿</span></span><p>把“计算与实验不符”拆成数值收敛、模型准确性、实验对应三类问题，说清每类检查能证明什么、不能证明什么，为之后权衡速度与精度提供判断框架。</p></li></ul></details>
+  </section>
+</main>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

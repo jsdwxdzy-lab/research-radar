@@ -1,0 +1,37 @@
+name: theory-check
+
+# 理论地图的内容校验，与每日论文更新分开：内容问题不会阻塞日报。
+on:
+  pull_request:
+    paths:
+      - "knowledge/**"
+      - "theory/**"
+      - "radar/theory.py"
+      - "radar/theory_md.py"
+      - "radar/web/theory/**"
+      - "tests/test_theory.py"
+      - ".github/workflows/theory-check.yml"
+  push:
+    branches: [main]
+    paths:
+      - "knowledge/**"
+      - "theory/**"
+      - "radar/theory.py"
+      - "radar/theory_md.py"
+      - "radar/web/theory/**"
+      - "tests/test_theory.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Theory map unit tests
+        run: python3 -B -m unittest tests.test_theory -v
+      - name: Validate knowledge/ and confirm theory/ is up to date
+        run: python3 -B -m radar theory --check
