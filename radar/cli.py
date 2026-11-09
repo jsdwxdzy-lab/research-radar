@@ -165,6 +165,45 @@ def cmd_interests(args) -> int:
     return 0
 
 
+def cmd_theory(args) -> int:
+    from . import theory
+
+    if args.check:
+        kb, drift = theory.check()
+    else:
+        kb, written = theory.build()
+        drift = []
+    for issue in kb.issues:
+        print(issue)
+    for line in drift:
+        print(f"[不一致] {line}")
+    if kb.errors:
+        print(f"理论地图有 {len(kb.errors)} 处错误，未生成页面。")
+        return 1
+    if args.check:
+        if drift:
+            print("theory/ 与 knowledge/ 不一致：请运行 python3 -B -m radar theory 后提交。")
+            return 1
+        print(f"理论地图校验通过：{len(kb.nodes)} 个节点、{len(kb.relations)} 条关系、{len(kb.paths)} 条路径。")
+        return 0
+    print(f"理论地图已生成：{len(kb.nodes)} 个节点，更新 {len(written)} 个文件 → theory/")
+    return 0
+
+
+def cmd_junctions(args) -> int:
+    """Read-only: print where papers and research lines meet the theory tree."""
+    from . import junctions, theory
+
+    res = junctions.find(since=args.since or "", min_gap=args.min_gap, limit=args.limit)
+    if args.json:
+        print(json.dumps(res, ensure_ascii=False, indent=2))
+    else:
+        kb = theory.load()
+        print(junctions.format_text(res, {k: v["title"] for k, v in kb.nodes.items()},
+                                    {r["id"]: r["title"] for r in kb.research_lines}))
+    return 1 if res.get("errors") else 0
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="radar", description="科研热点自动追踪雷达")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -211,6 +250,17 @@ def main(argv=None) -> int:
     p_int.add_argument("--days", type=int, default=45)
     p_int.add_argument("--limit", type=int, default=30)
     p_int.set_defaults(func=cmd_interests)
+
+    p_theory = sub.add_parser("theory", help="校验 knowledge/ 并生成理论地图 theory/")
+    p_theory.add_argument("--check", action="store_true", help="只校验，并确认 theory/ 与内容源一致")
+    p_theory.set_defaults(func=cmd_theory)
+
+    p_junc = sub.add_parser("junctions", help="只读：列出论文、研究线与理论地图条目的交汇（不写任何文件）")
+    p_junc.add_argument("--since", help="只看这一天（YYYY-MM-DD）之后收录的论文")
+    p_junc.add_argument("--min-gap", type=int, default=4, help="同线对在树上至少相隔几步（默认 4）")
+    p_junc.add_argument("--limit", type=int, default=12, help="每类最多列几条（默认 12）")
+    p_junc.add_argument("--json", action="store_true", help="输出 JSON，供定时任务读取")
+    p_junc.set_defaults(func=cmd_junctions)
 
     args = parser.parse_args(argv)
     return args.func(args)

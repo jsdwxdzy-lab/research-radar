@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>内容规则 · 理论地图 · 科研雷达</title>
+<meta name="description" content="科研雷达理论地图：围绕真实问题，按需生长的知识结构。">
+<link rel="stylesheet" href="assets/theory.css">
+<script defer src="assets/search-index.js"></script>
+<script defer src="assets/theory.js"></script>
+</head>
+<body data-page="guide" data-prefix="">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="tree.html">知识树</a>
+    <a href="guide.html" aria-current="page">内容规则</a>
+    <a href="../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<main class="page" id="main">
+  <h1>内容规则</h1>
+  <p class="lede">这张地图优先保证少量节点的质量、推导和连接理由，再扩大覆盖面。下面是读页面时需要知道的约定。</p>
+  <section class="block"><h2>内容状态</h2><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">状态</th><th scope="col">含义</th></tr></thead><tbody><tr><td><span class="status status-candidate">候选</span></td><td>只有题目、学习动机和拟连接的节点，还没有正文。</td></tr><tr><td><span class="status status-draft">草稿</span></td><td>已有正文，但来源和推导还没有核查完，不能当作定论。</td></tr><tr><td><span class="status status-verified">已核验</span></td><td>已完成核验记录里写明的项目；只在写明的范围内成立，不表示绝对无误。</td></tr><tr><td><span class="status status-needs-revision">待修订</span></td><td>发现了错误、来源失效、版本变化或条件需要更正，修订前请谨慎使用。</td></tr><tr><td><span class="status status-superseded">已替代</span></td><td>这个节点已被拆分或合并，请转到新节点。</td></tr></tbody></table></div>
+    <p>首页目录只列已写的条目：已核验的在前，草稿单独折叠并在页面顶部提示。候选条目只出现在领域表和知识树里。</p></section>
+  <section class="block"><h2>知识树与研究线</h2>
+    <ul><li>条目按学科组织成一棵树：根下是领域（数学工具、量子力学、电子结构……），每个条目只有一个父条目。父子关系只表示“属于哪一块”，不表示必须先读。</li>
+    <li>研究线（晶体结构生成、压电与响应计算等）不是分类。条目的内容碰到某条研究线时才打上标记（★），所以研究方向是树铺开时自然出现的交汇点。</li>
+    <li>跨领域的联系用“关联”表达，写明联系是什么、在什么条件下成立；它们不改变树的形状。</li>
+    <li>候选条目只有题目和范围，用来先占住位置，正文写好并检查后才变成草稿。</li></ul></section>
+  <section class="block"><h2>什么才算核验</h2>
+    <ul><li>关键论述有直接支持的来源，并且来源确实被查阅过（页面会写明查阅日期和核对的位置）。</li>
+    <li>主要公式的符号、假设、单位和关键步骤写明；关键推导经过独立重建，可计算的例子做过解析或数值交叉检查。</li>
+    <li>类比没有越界，特例没有写成一般结论。</li>
+    <li>仅由生成模型复查自己写的文字，不算独立核验，页面会标为“生成模型自查，不计为核验”。</li></ul></section>
+  <section class="block"><h2>论述类型</h2><p>正文用带文字标签的块区分不同性质的说法：</p><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">标签</th></tr></thead><tbody><tr><td><span class="claim-kind inline claim-definition">定义</span></td></tr><tr><td><span class="claim-kind inline claim-theorem">定理</span></td></tr><tr><td><span class="claim-kind inline claim-approximation">近似</span></td></tr><tr><td><span class="claim-kind inline claim-empirical">经验结论</span></td></tr><tr><td><span class="claim-kind inline claim-analogy">类比</span></td></tr><tr><td><span class="claim-kind inline claim-assumption">假设</span></td></tr><tr><td><span class="claim-kind inline claim-unverified">待核验</span></td></tr><tr><td><span class="claim-kind inline claim-question">检验问题</span></td></tr></tbody></table></div></section>
+  <section class="block"><h2>阅读层次</h2><p>默认连续阅读。也可以只看某一层：</p><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">层次</th></tr></thead><tbody><tr><td><span class="layer-dot layer-intuition"></span>直观解释</td></tr><tr><td><span class="layer-dot layer-math"></span>数学与推导</td></tr><tr><td><span class="layer-dot layer-mapping"></span>对应与边界</td></tr></tbody></table></div></section>
+  <section class="block"><h2>节点类型</h2><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">类型</th><th scope="col">用途</th></tr></thead><tbody><tr><td>问题</td><td>组织一段学习过程</td></tr><tr><td>概念</td><td>澄清对象、定义和含义</td></tr><tr><td>方法</td><td>解释设计动机与求解过程</td></tr><tr><td>对照</td><td>明确对应关系和区别</td></tr><tr><td>实例</td><td>用最小问题检验理解</td></tr><tr><td>综合</td><td>提炼跨方法的一般结构</td></tr></tbody></table></div></section>
+  <section class="block"><h2>关系类型</h2><p>每条关系都写明联系是什么、在什么条件下成立。分类上的父节点不等于先修；横向相连不等于等价。</p><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">标签</th><th scope="col">读法</th></tr></thead><tbody><tr><td>需要先理解</td><td>A 是 B 的先修</td></tr><tr><td>推导基础</td><td>A 是 B 某一层推导的基础</td></tr><tr><td>特例</td><td>A 是 B 的特例</td></tr><tr><td>条件下等价</td><td>A 在下述条件下等价于 B</td></tr><tr><td>近似</td><td>A 近似于 B</td></tr><tr><td>推广</td><td>A 推广了 B</td></tr><tr><td>共享工具</td><td>A 与 B 共享同一数学工具</td></tr><tr><td>用于计算</td><td>A 用于计算 B</td></tr><tr><td>用于解释</td><td>A 用于解释 B</td></tr><tr><td>对照</td><td>A 与 B 形成对照</td></tr><tr><td>仅为类比</td><td>A 与 B 仅构成启发性类比，不代表数学等价</td></tr></tbody></table></div></section>
+  <section class="block"><h2>扩展方向</h2><div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">方向</th><th scope="col">适用情形</th></tr></thead><tbody><tr><td>向下追溯</td><td>看不懂某一步为什么成立时，补定义、数学工具或物理假设</td></tr><tr><td>向内深入</td><td>理解直觉但无法重建方法时，展开推导和算法步骤</td></tr><tr><td>横向连接</td><td>想理解两个方法的关系时，建立对照并写明条件</td></tr><tr><td>向上抽象</td><td>想看更大的理论图景时，提炼共同问题和一般原理</td></tr><tr><td>向外迁移</td><td>想知道能用于什么新问题时，连接其他应用和论文</td></tr></tbody></table></div><p>先修只做提示，不锁内容；可以随时换方向，也可以先把疑问留着。</p></section>
+  <section class="block"><h2>你的记录</h2><p>疑问、笔记、自评和阅读位置保存在这台设备浏览器的本地存储里，不会上传，也不会出现在公开仓库。换浏览器或清除网站数据会丢失，请定期用页面底部的“导出备份”保存一份 JSON。</p></section>
+</main>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

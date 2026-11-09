@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>首页 · 理论地图 · 科研雷达</title>
+<meta name="description" content="科研雷达理论地图：围绕真实问题，按需生长的知识结构。">
+<link rel="stylesheet" href="assets/theory.css">
+<script defer src="assets/search-index.js"></script>
+<script defer src="assets/theory.js"></script>
+</head>
+<body data-page="home" data-prefix="">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="tree.html">知识树</a>
+    <a href="guide.html">内容规则</a>
+    <a href="../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<main class="home" id="main">
+  <section class="home-intro" aria-labelledby="homeTitle">
+    <h1 id="homeTitle">理论地图</h1>
+    <p class="lede">从数学和物理基础按学科铺开。研究方向不是组织原则，而是知识长到那里时自然碰到的交汇点。</p>
+    <ul class="stats" aria-label="收录情况"><li><b>47</b>条目</li><li><b>0</b>已核验</li><li><b>3</b>草稿</li><li><b>44</b>候选</li><li><b>28</b>研究交汇点</li></ul>
+    <p class="small">候选条目只有题目和范围，还没有正文；<a href="tree.html">知识树</a>里能一眼看到哪些已经写了。★ 是和研究线交汇的条目。</p>
+  </section>
+
+  <section class="domains" aria-labelledby="domTitle">
+    <h2 id="domTitle">按领域浏览</h2>
+    <div class="table-wrap domain-table" tabindex="0"><table><thead><tr><th scope="col">领域</th><th scope="col">子主题</th></tr></thead><tbody><tr id="d-math"><th scope="row"><a href="tree.html#t-math">数学工具</a><span class="dom-sum">本征问题、张量、变分、傅里叶分析与数值优化：后面各领域反复用到的语言。</span><span class="dom-n">5 条</span></th><td><a class="node-link is-candidate" href="nodes/fourier-analysis.html">傅里叶分析</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/variational-calculus.html">变分法</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/tensors.html">张量与坐标变换</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/numerical-optimization.html">数值优化</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/eigenproblems.html">线性代数与本征问题</a><span class="visually-hidden">（候选，还没有正文）</span></td></tr><tr id="d-quantum"><th scope="row"><a href="tree.html#t-quantum">量子力学</a><span class="dom-sum">变分原理、微扰理论、Hellmann–Feynman 定理与多电子问题。</span><span class="dom-n">4 条</span></th><td><a class="node-link is-candidate" href="nodes/hellmann-feynman.html">Hellmann–Feynman 定理</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/variational-principle.html">变分原理</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/born-oppenheimer.html">多电子问题与 Born–Oppenheimer 近似</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/perturbation-theory.html">微扰理论</a><span class="visually-hidden">（候选，还没有正文）</span></td></tr><tr id="d-electronic-structure"><th scope="row"><a href="tree.html#t-electronic-structure">电子结构理论</a><span class="dom-sum">从 Hartree–Fock 到 Kohn–Sham DFT：泛函、色散校正、赝势与平面波。</span><span class="dom-n">8 条</span></th><td><a class="node-link is-candidate" href="nodes/kohn-sham-dft.html">Kohn–Sham 密度泛函理论</a><span class="visually-hidden">（候选，还没有正文）</span><span class="sub-n">（4）</span> · <a class="node-link is-candidate" href="nodes/hartree-fock.html">Hartree–Fock 方法</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/plane-waves.html">平面波基组与截断能</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/paw.html">赝势与 PAW 方法</a><span class="visually-hidden">（候选，还没有正文）</span></td></tr><tr id="d-solids"><th scope="row"><a href="tree.html#t-solids">晶体与固体</a><span class="dom-sum">对称性、倒空间、声子与分子晶体中的分子间作用。</span><span class="dom-n">5 条</span></th><td><a class="node-link is-candidate" href="nodes/molecular-crystals.html">分子晶体与分子间作用</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（1）</span> · <a class="node-link is-candidate" href="nodes/reciprocal-space.html">倒空间与 k 点采样</a><span class="visually-hidden">（候选，还没有正文）</span> · <a class="node-link is-candidate" href="nodes/crystal-symmetry.html">晶体对称性与空间群</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span> · <a class="node-link is-candidate" href="nodes/phonons.html">晶格振动与声子</a><span class="visually-hidden">（候选，还没有正文）</span></td></tr><tr id="d-response"><th scope="row"><a href="tree.html#t-response">响应与张量性质</a><span class="dom-sum">把性质写成能量导数：弹性、介电、极化与压电，以及怎样算它们。</span><span class="dom-n">6 条，已写 1</span></th><td><a class="node-link" href="nodes/energy-structure-response.html">从能量到结构与响应</a><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（4）</span> · <a class="node-link is-candidate" href="nodes/berry-phase-polarization.html">极化与 Berry 相</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span></td></tr><tr id="d-statmech"><th scope="row"><a href="tree.html#t-statmech">统计力学与采样</a><span class="dom-sum">系综、自由能、分子动力学与能量景观。</span><span class="dom-n">7 条</span></th><td><a class="node-link is-candidate" href="nodes/energy-landscape.html">能量景观与多晶型</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（2）</span> · <a class="node-link is-candidate" href="nodes/free-energy.html">自由能与熵</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（1）</span> · <a class="node-link is-candidate" href="nodes/molecular-dynamics.html">分子动力学</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span> · <a class="node-link is-candidate" href="nodes/ensembles.html">系综与配分函数</a><span class="visually-hidden">（候选，还没有正文）</span></td></tr><tr id="d-methodology"><th scope="row"><a href="tree.html#t-methodology">计算方法论</a><span class="dom-sum">方法由哪些层次组成、误差来自哪里、怎样收敛与验证。</span><span class="dom-n">4 条，已写 2</span></th><td><a class="node-link" href="nodes/error-sources.html">预测的误差来自哪里</a><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（1）</span> · <a class="node-link is-candidate" href="nodes/benchmarking.html">基准与验证</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span> · <a class="node-link" href="nodes/method-layers.html">计算方法由哪些层次组成</a><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span></td></tr><tr id="d-ml"><th scope="row"><a href="tree.html#t-ml">机器学习</a><span class="dom-sum">概率建模、对称性与等变性、机器学习势与生成模型。</span><span class="dom-n">8 条</span></th><td><a class="node-link is-candidate" href="nodes/mlip-basics.html">机器学习势</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（3）</span> · <a class="node-link is-candidate" href="nodes/generative-models.html">生成模型</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span><span class="sub-n">（1）</span> · <a class="node-link is-candidate" href="nodes/equivariance.html">对称性与等变性</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span> · <a class="node-link is-candidate" href="nodes/probabilistic-modeling.html">概率建模与最大似然</a><span class="visually-hidden">（候选，还没有正文）</span><span class="rmark" title="研究交汇点" aria-label="研究交汇点">★</span></td></tr></tbody></table></div>
+  </section>
+
+  <div class="home-grid">
+    <section class="lines" aria-labelledby="linesTitle">
+      <h2 id="linesTitle">研究线</h2>
+      <p class="small">研究方向不是分类，而是知识长到那里时碰到的地方。点开会在整棵树上标出交汇点和离它几步远的条目。</p>
+      <ul class="line-list"><li><a class="rline" href="tree.html?line=crystal-gen">晶体结构生成</a><span class="small">6 个交汇点，落在机器学习、晶体与固体、统计力学与采样</span></li><li><a class="rline" href="tree.html?line=piezo">压电与响应计算</a><span class="small">13 个交汇点，落在响应与张量性质、计算方法论、晶体与固体、机器学习、电子结构理论</span></li><li><a class="rline" href="tree.html?line=csp">结构预测与能量景观</a><span class="small">11 个交汇点，落在机器学习、响应与张量性质、统计力学与采样、晶体与固体、电子结构理论</span></li><li><a class="rline" href="tree.html?line=mlip">机器学习势</a><span class="small">8 个交汇点，落在机器学习、统计力学与采样、计算方法论</span></li></ul>
+      <h2>学习路线</h2><ul class="line-list"><li><a href="paths/piezo-dft-gap.html">有机酸碱盐压电：计算与实验为什么会差得远</a><span class="status status-draft">草稿</span><span class="small">计算方法的各个层次分别决定预测的哪一部分？对于依赖能量曲面曲率的响应量，怎样区分数值收敛、模型准确性与实验对应造成的差异？</span></li></ul>
+    </section>
+    <aside class="continue" aria-label="继续学习">
+      <section><h2>最近读过</h2><ul class="mini" id="recentList"><li class="empty">还没有阅读记录。</li></ul></section>
+      <section><h2>还没想通的</h2><ul class="mini" id="openQuestions"><li class="empty">在节点页“我的理解”里写下的疑问会出现在这里。</li></ul></section>
+    </aside>
+  </div>
+
+  <section class="directory" aria-labelledby="dirTitle">
+    <div class="sec-head"><h2 id="dirTitle">已核验节点</h2><p>正式学习内容。每个节点注明核验范围。</p></div>
+    <p class="empty">还没有已核验的节点。下面的草稿完成来源和推导核查后，会移到这里。</p>
+    <details class="pending"><summary>草稿（3 个，未核验，单独列出）</summary><ul class='cards'><li class="node-card st-draft"><a href="nodes/energy-structure-response.html">从能量到结构与响应</a><span class="nc-meta">概念<span class="status status-draft">草稿</span></span><p>说明平衡结构、力常数、弹性和压电响应分别对应能量曲面的哪一阶导数，从而理解为什么结构算得接近，响应仍可能差得明显。</p></li><li class="node-card st-draft"><a href="nodes/method-layers.html">计算方法由哪些层次组成</a><span class="nc-meta">概念<span class="status status-draft">草稿</span></span><p>把“用 VASP 的 PAW-PBE + D3(BJ) 算”拆成物理模型、理论近似、表示和数值求解四层，弄清每个名词各自决定什么、各自的误差能不能靠加大计算量消除。</p></li><li class="node-card st-draft"><a href="nodes/error-sources.html">预测的误差来自哪里</a><span class="nc-meta">对照<span class="status status-draft">草稿</span></span><p>把“计算与实验不符”拆成数值收敛、模型准确性、实验对应三类问题，说清每类检查能证明什么、不能证明什么，为之后权衡速度与精度提供判断框架。</p></li></ul></details>
+  </section>
+</main>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

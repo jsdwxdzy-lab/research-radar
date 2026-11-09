@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>有机酸碱盐压电：计算与实验为什么会差得远 · 理论地图 · 科研雷达</title>
+<meta name="description" content="计算方法的各个层次分别决定预测的哪一部分？对于依赖能量曲面曲率的响应量，怎样区分数值收敛、模型准确性与实验对应造成的差异？">
+<link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="path" data-prefix="../" data-path="piezo-dft-gap">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<main class="page" id="main">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><span>学习路径</span></nav>
+  <h1>有机酸碱盐压电：计算与实验为什么会差得远</h1>
+  <span class="status status-draft">草稿</span>
+  <figure class="question"><blockquote><p>为什么使用 VASP 的 PAW-PBE 与 D3(BJ) 计算有机酸碱盐压电响应时，计算与实验可能有较大差异？怎样理解这些方法，并权衡速度与精度？</p></blockquote><figcaption>原始提问</figcaption></figure>
+  <p class="general"><span>提炼出的通用问题</span>计算方法的各个层次分别决定预测的哪一部分？对于依赖能量曲面曲率的响应量，怎样区分数值收敛、模型准确性与实验对应造成的差异？</p>
+  <section class="block"><h2>适用基础</h2><ul><li>对 DFT、结构优化和压电效应已有初步理解</li><li>不需要提供材料配方、INCAR 或实验数值；这条路径不做个别算例诊断</li></ul></section>
+  <section class="block"><h2>建议阅读顺序</h2><ol class="steps"><li data-node="method-layers"><a href="../nodes/method-layers.html">计算方法由哪些层次组成</a><span class="status status-draft">草稿</span><p class="step-why">先把 PAW、PBE、D3(BJ) 放到各自的层次里，分清哪些误差能靠加大计算量消除。</p><p class="step-purpose">把“用 VASP 的 PAW-PBE + D3(BJ) 算”拆成物理模型、理论近似、表示和数值求解四层，弄清每个名词各自决定什么、各自的误差能不能靠加大计算量消除。</p></li><li data-node="energy-structure-response"><a href="../nodes/energy-structure-response.html">从能量到结构与响应</a><span class="status status-draft">草稿</span><p class="step-why">压电响应是能量曲面的混合二阶导数，这一步解释它为什么比结构更敏感。</p><p class="step-purpose">说明平衡结构、力常数、弹性和压电响应分别对应能量曲面的哪一阶导数，从而理解为什么结构算得接近，响应仍可能差得明显。</p></li><li data-node="error-sources"><a href="../nodes/error-sources.html">预测的误差来自哪里</a><span class="status status-draft">草稿</span><p class="step-why">用前两步的框架，把“与实验不符”拆成三类可以分别检查的问题。</p><p class="step-purpose">把“计算与实验不符”拆成数值收敛、模型准确性、实验对应三类问题，说清每类检查能证明什么、不能证明什么，为之后权衡速度与精度提供判断框架。</p></li></ol><p class="small">顺序只是建议，可以随时跳到任何节点。</p></section>
+  <section class="block"><h2>读完后应能做到</h2><ul><li>说出 PAW、PBE、D3(BJ) 各属于哪一层，以及各自的误差能否靠加大计算量消除</li><li>解释为什么结构与实验接近，并不保证压电响应也接近</li><li>写出单自由度的响应公式，并说明软模为什么放大误差</li><li>面对一个“计算与实验不符”的情况，列出三类需要分别检查的问题</li></ul></section>
+  <section class="block" id="branches"><h2>下一步可以往哪走</h2><div class="branches"><div class="branch-group dir-down"><p class="dir-label">向下追溯</p><p class="dir-hint">看不懂某一步为什么成立时，补定义、数学工具或物理假设</p><ul><li><p class="branch-title">物理量：应力、应变、极化与压电系数</p><p class="branch-why">如果 <span class="math" data-tex="d">d</span> 与 <span class="math" data-tex="e">e</span>、夹持与自由边界的区别还不清楚，先补这里。</p></li></ul></div><div class="branch-group dir-in"><p class="dir-label">向内深入</p><p class="dir-hint">理解直觉但无法重建方法时，展开推导和算法步骤</p><ul><li><p class="branch-title"><a href="../nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a><span class="status status-candidate">候选</span></p><p class="branch-why">想自己重建压电系数是怎么算出来的，就展开这两种求二阶导数的方法。</p></li><li><p class="branch-title">交换相关近似与色散校正的构造</p><p class="branch-why">想知道 PBE 和 D3(BJ) 为什么是现在这种形式，以及它们各自漏掉了什么。</p></li></ul></div><div class="branch-group dir-across"><p class="dir-label">横向连接</p><p class="dir-hint">想理解两个方法的关系时，建立对照并写明条件</p><ul><li><p class="branch-title">静态晶格与有限温度平均</p><p class="branch-why">计算是 0 K 静态晶格，实验在室温；两者的联系需要统计平均和非谐效应。</p></li><li><p class="branch-title">有机酸碱盐中的静电、氢键与质子自由度</p><p class="branch-why">从材料机制看哪些自由度可能对应软模，以及它们对极化的贡献。</p></li></ul></div><div class="branch-group dir-up"><p class="dir-label">向上抽象</p><p class="dir-hint">想看更大的理论图景时，提炼共同问题和一般原理</p><ul><li><p class="branch-title">科学计算怎样从近似模型得到可以与观测比较的预测</p><p class="branch-why">积累足够基础后，把这条路径推广到其他材料计算、分子模拟和机器学习势。</p></li></ul></div><div class="branch-group dir-out"><p class="dir-label">向外迁移</p><p class="dir-hint">想知道能用于什么新问题时，连接其他应用和论文</p><ul><li><p class="branch-title">为不同目标量设计收敛检查并分配计算资源</p><p class="branch-why">把三类误差的框架用到实际计算决策：在速度与精度之间怎样取舍。</p></li><li><p class="branch-title">读一篇氨基酸晶体压电的计算与测量对比</p><p class="branch-why">用真实数据检验这条路径的框架；候选论文见来源列表中的 Guerin 2018。</p></li></ul></div></div></section>
+</main>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

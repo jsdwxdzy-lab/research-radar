@@ -1,0 +1,144 @@
+{
+  "note": "consulted 记录实际查阅了哪一处内容。为空表示只是拟查阅书目：2026-11-09 仅用 Crossref 和链接可达性核对了书目信息，正文内容尚未查阅，不能支撑已核验论述。",
+  "sources": [
+    {
+      "id": "bloechl-1994-paw",
+      "short": "Blöchl 1994",
+      "kind": "paper",
+      "citation": "P. E. Blöchl, Projector augmented-wave method, Phys. Rev. B 50, 17953 (1994)",
+      "doi": "10.1103/PhysRevB.50.17953",
+      "locator": "第 II 节：PAW 变换的构造",
+      "note": "PAW 方法的原始论文。",
+      "consulted": []
+    },
+    {
+      "id": "kresse-1999-paw",
+      "short": "Kresse & Joubert 1999",
+      "kind": "paper",
+      "citation": "G. Kresse, D. Joubert, From ultrasoft pseudopotentials to the projector augmented-wave method, Phys. Rev. B 59, 1758 (1999)",
+      "doi": "10.1103/PhysRevB.59.1758",
+      "locator": "PAW 与超软赝势的形式对应；冻芯近似的讨论",
+      "note": "VASP 中 PAW 实现的依据。",
+      "consulted": []
+    },
+    {
+      "id": "pbe-1996",
+      "short": "PBE 1996",
+      "kind": "paper",
+      "citation": "J. P. Perdew, K. Burke, M. Ernzerhof, Generalized Gradient Approximation Made Simple, Phys. Rev. Lett. 77, 3865 (1996)",
+      "doi": "10.1103/PhysRevLett.77.3865",
+      "locator": "交换相关能的函数形式与所满足的约束",
+      "consulted": []
+    },
+    {
+      "id": "grimme-2010-d3",
+      "short": "Grimme 2010",
+      "kind": "paper",
+      "citation": "S. Grimme, J. Antony, S. Ehrlich, H. Krieg, A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu, J. Chem. Phys. 132, 154104 (2010)",
+      "doi": "10.1063/1.3382344",
+      "locator": "D3 的两体项、三体项与系数来源",
+      "consulted": []
+    },
+    {
+      "id": "grimme-2011-bj",
+      "short": "Grimme 2011",
+      "kind": "paper",
+      "citation": "S. Grimme, S. Ehrlich, L. Goerigk, Effect of the damping function in dispersion corrected density functional theory, J. Comput. Chem. 32, 1456 (2011)",
+      "doi": "10.1002/jcc.21759",
+      "locator": "Becke–Johnson 阻尼函数的形式与参数",
+      "consulted": []
+    },
+    {
+      "id": "baroni-2001-dfpt",
+      "short": "Baroni 2001",
+      "kind": "paper",
+      "citation": "S. Baroni, S. de Gironcoli, A. Dal Corso, P. Giannozzi, Phonons and related crystal properties from density-functional perturbation theory, Rev. Mod. Phys. 73, 515 (2001)",
+      "doi": "10.1103/RevModPhys.73.515",
+      "locator": "能量对原子位移、应变和电场的二阶导数；与有限差分的关系",
+      "consulted": []
+    },
+    {
+      "id": "wu-2005-strain",
+      "short": "Wu, Vanderbilt & Hamann 2005",
+      "kind": "paper",
+      "citation": "X. Wu, D. Vanderbilt, D. R. Hamann, Systematic treatment of displacements, strains, and electric fields in density-functional perturbation theory, Phys. Rev. B 72, 035105 (2005)",
+      "doi": "10.1103/PhysRevB.72.035105",
+      "locator": "压电张量的夹持离子项与离子弛豫项；与弹性、介电张量的关系",
+      "consulted": []
+    },
+    {
+      "id": "king-smith-1993-polarization",
+      "short": "King-Smith & Vanderbilt 1993",
+      "kind": "paper",
+      "citation": "R. D. King-Smith, D. Vanderbilt, Theory of polarization of crystalline solids, Phys. Rev. B 47, 1651 (1993)",
+      "doi": "10.1103/PhysRevB.47.1651",
+      "locator": "周期体系中极化的 Berry 相位表述",
+      "consulted": []
+    },
+    {
+      "id": "vanderbilt-2018-berry",
+      "short": "Vanderbilt 2018",
+      "kind": "textbook",
+      "citation": "D. Vanderbilt, Berry Phases in Electronic Structure Theory, Cambridge University Press (2018)",
+      "doi": "10.1017/9781316662205",
+      "locator": "极化与压电响应相关章节（具体章节待查阅后补）",
+      "consulted": []
+    },
+    {
+      "id": "martin-2020-electronic",
+      "short": "Martin 2020",
+      "kind": "textbook",
+      "citation": "R. M. Martin, Electronic Structure: Basic Theory and Practical Methods, 2nd ed., Cambridge University Press (2020)",
+      "doi": "10.1017/9781108555586",
+      "version": "第 2 版",
+      "locator": "Kohn–Sham 理论、交换相关近似、平面波与 PAW 相关章节（具体章节待查阅后补）",
+      "consulted": []
+    },
+    {
+      "id": "ieee-176-piezo",
+      "short": "IEEE Std 176",
+      "kind": "docs",
+      "citation": "IEEE Standard on Piezoelectricity, ANSI/IEEE Std 176-1987",
+      "doi": "10.1109/IEEESTD.1988.79638",
+      "locator": "压电系数 d、e、g、h 的定义与边界条件",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-ivdw",
+      "short": "VASP Wiki: IVDW",
+      "kind": "docs",
+      "citation": "VASP Wiki, IVDW（色散校正方法的选择）",
+      "url": "https://vasp.at/wiki/index.php/IVDW",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-lepsilon",
+      "short": "VASP Wiki: LEPSILON",
+      "kind": "docs",
+      "citation": "VASP Wiki, LEPSILON（线性响应计算介电与压电张量）",
+      "url": "https://vasp.at/wiki/index.php/LEPSILON",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-pulay",
+      "short": "VASP Wiki: Pulay stress",
+      "kind": "docs",
+      "citation": "VASP Wiki, Pulay stress（基组不完备导致的应力误差）",
+      "url": "https://vasp.at/wiki/index.php/Pulay_stress",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "guerin-2018-amino-acid",
+      "short": "Guerin 2018",
+      "kind": "paper",
+      "citation": "S. Guerin et al., Control of piezoelectricity in amino acids by supramolecular packing, Nat. Mater. 17, 180 (2018)",
+      "doi": "10.1038/nmat5045",
+      "locator": "计算与测量的压电系数对比（具体内容待查阅）",
+      "note": "作为“向外迁移”方向的应用实例候选，尚未阅读，不在正文中引用其结论。",
+      "consulted": []
+    }
+  ]
+}

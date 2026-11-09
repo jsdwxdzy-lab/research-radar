@@ -1,0 +1,44 @@
+{
+  "relations": [
+    {
+      "id": "layers-before-errors",
+      "from": "method-layers",
+      "to": "error-sources",
+      "type": "prerequisite",
+      "explanation": "误差分类建立在“每一层各自决定什么”之上：先知道哪些设置属于数值求解、哪些属于理论近似，才能区分收敛问题和模型问题。",
+      "condition": "无额外条件",
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "response-underlies-errors",
+      "from": "energy-structure-response",
+      "to": "error-sources",
+      "type": "foundation",
+      "explanation": "“结构与响应依赖能量曲面的不同信息”是判断同一套设置对不同目标量可靠程度不同的推导基础，也解释了为什么要对目标量本身做收敛测试。",
+      "condition": "限于可写成能量导数的静态线性响应量（力常数、弹性、压电、介电）",
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "layers-fix-surface",
+      "from": "method-layers",
+      "to": "energy-structure-response",
+      "type": "foundation",
+      "explanation": "理论近似层（PBE、D3(BJ)）决定能量曲面本身；结构和响应都是这个曲面的导数信息，所以换近似会同时改变极小点和曲率。",
+      "condition": "只在推导层面需要；直观阅读 energy-structure-response 不必先读 method-layers",
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "fd-dfpt-compute-response",
+      "from": "finite-difference-vs-dfpt",
+      "to": "energy-structure-response",
+      "type": "computes",
+      "explanation": "两种方法都是计算力常数、玻恩有效电荷、内应变等二阶导数的数值途径。",
+      "condition": "线性响应范围内，且两者各自的数值参数（有限差分步长、微扰自洽阈值）已收敛",
+      "sources": ["baroni-2001-dfpt"],
+      "status": "candidate"
+    }
+  ]
+}

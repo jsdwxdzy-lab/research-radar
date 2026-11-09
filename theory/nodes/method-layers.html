@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>计算方法由哪些层次组成 · 理论地图 · 科研雷达</title>
+<meta name="description" content="把“用 VASP 的 PAW-PBE + D3(BJ) 算”拆成物理模型、理论近似、表示和数值求解四层，弄清每个名词各自决定什么、各自的误差能不能靠加大计算量消除。">
+<link rel="stylesheet" href="../assets/theory.css">
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="node" data-prefix="../" data-node="method-layers" data-node-title="计算方法由哪些层次组成" data-status="draft">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<div class="reader-shell" id="main">
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-methodology">计算方法论</a></li><li aria-current="page">计算方法由哪些层次组成</li></ol><a class="small" href="../tree.html#t-method-layers">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">所在路径</p><a class="path-link" href="../paths/piezo-dft-gap.html">有机酸碱盐压电：计算与实验为什么会差得远</a><ol class="path-steps"><li><a href="../nodes/method-layers.html" aria-current="page">计算方法由哪些层次组成</a></li><li><a href="../nodes/energy-structure-response.html">从能量到结构与响应</a></li><li><a href="../nodes/error-sources.html">预测的误差来自哪里</a></li></ol></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">为什么要分层</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">四个层次</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-3">PBE、D3(BJ)、PAW 各在哪一层</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">分层对判断误差的用处</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
+<article class="node" aria-labelledby="nodeTitle">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-methodology">计算方法论</a></nav>
+  <h1 id="nodeTitle">计算方法由哪些层次组成</h1>
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-methodology">计算方法论</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=piezo">压电与响应计算</a><a class="rline" href="../tree.html?line=mlip">机器学习势</a></span><span>v0.1 · 2026-11-09</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">把“用 VASP 的 PAW-PBE + D3(BJ) 算”拆成物理模型、理论近似、表示和数值求解四层，弄清每个名词各自决定什么、各自的误差能不能靠加大计算量消除。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>知道 Kohn–Sham DFT 要自洽求解一组单电子方程</li><li>做过结构优化，见过截断能和 k 点设置</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li>变分原理与基组展开</li><li>交换相关能的定义（相互作用能中扣除 Hartree 项后剩下的部分）</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
+  <div class="prose" id="prose">
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">为什么要分层</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>“计算和实验差得远”这句话里混着性质不同的选择。有些选择改变了<strong>我们在解哪一个方程</strong>，有些只改变<strong>这个方程解得有多准</strong>。不先分开，很容易把“换泛函”和“加截断能”当成同一类调整，也很难说清一次改动究竟排除了什么。</p>
+<p>一个实用的判别方法：设想把某个设置推到极限（基组无限大、k 点无限密、收敛判据无限严），答案会不会趋于同一个数？会的话，这个设置属于表示或数值求解层；不会的话，它属于理论近似或物理模型层。</p>
+<aside class="claim claim-approximation" aria-label="近似"><p class="claim-head"><span class="claim-kind">近似</span><span class="claim-title">判别方法本身也是近似的</span></p><p>这个判别对大多数设置成立，但有边界情况。例如 PAW 的冻芯处理：增加平面波截断能并不会让冻芯近似消失，它更像理论近似，却又是“表示”方案的一部分。分层是思考工具，不是严格的术语分类。</p></aside>
+</section>
+<section class="node-section" id="sec-2" data-layer="intuition">
+<h2><a class="anchor" href="#sec-2">四个层次</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">层次</th><th scope="col">回答的问题</th><th scope="col">本例中的选择</th></tr></thead><tbody><tr><td>物理模型</td><td>哪些自由度和条件进入问题？</td><td>周期性完整晶体，原子核视为经典静止点（玻恩–奥本海默近似），温度为 0 K，不含零点振动</td></tr><tr><td>理论近似</td><td>用什么理论描述这些自由度？</td><td>Kohn–Sham DFT，交换相关用 PBE，再加 D3(BJ) 色散校正</td></tr><tr><td>表示</td><td>用什么基和数据表示波函数、密度？</td><td>平面波基组 + PAW 数据集（决定哪些电子作为价电子）</td></tr><tr><td>数值求解</td><td>怎样把方程离散并求解到足够精度？</td><td>截断能、k 点网格、自洽与力的收敛阈值、结构弛豫、有限差分步长或微扰求解</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">PBE、D3(BJ)、PAW 各在哪一层</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">PBE</span></p><p>一种广义梯度近似（GGA）：把交换相关能写成电子密度及其梯度的函数 <a class="cite" href="#src-pbe-1996">[PBE 1996]</a>。它规定了“解的是哪一个 Kohn–Sham 问题”。无论基组和 k 点多充分，得到的都是 PBE 的答案，而不是精确泛函的答案。</p></aside>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">D3(BJ)</span></p><p>在 DFT 总能上另加的色散能修正：由原子对（以及可选的三体）项组成，系数和阻尼参数事先确定 <a class="cite" href="#src-grimme-2010-d3">[Grimme 2010]</a>。BJ 指 Becke–Johnson 形式的短程阻尼函数 <a class="cite" href="#src-grimme-2011-bj">[Grimme 2011]</a>。它同样属于理论近似层，不随基组收敛。</p></aside>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">PAW</span></p><p>投影缀加波方法：把全电子波函数写成平滑的赝波函数加上原子球内的局域修正，使平面波基组可以用较低的截断能描述价电子 <a class="cite" href="#src-bloechl-1994-paw">[Blöchl 1994]</a>。VASP 中的实现与超软赝势有形式上的对应 <a class="cite" href="#src-kresse-1999-paw">[Kresse &amp; Joubert 1999]</a>。它主要属于表示层。</p></aside>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>PAW 数据集的选择（芯区划分、是否用 <code>_h</code> 或 <code>_GW</code> 版本）在多大程度上算“表示”、多大程度上算“近似”，需对照 <a class="cite" href="#src-kresse-1999-paw">[Kresse &amp; Joubert 1999]</a> 关于冻芯近似的讨论写准。</li><li>VASP 中 <code>IVDW</code> 取值与 D3、D3(BJ) 的对应关系，需按当前版本的 <a class="cite" href="#src-vasp-wiki-ivdw">[VASP Wiki: IVDW]</a> 核对后再写进正文。</li><li>D3(BJ) 对有机晶体晶格参数和弹性性质的影响有多大，应引用基准研究，不能凭印象写。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">分层对判断误差的用处</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<p>分层后，“计算与实验不符”可以拆成三个能分别回答的问题：</p>
+<ol><li>在当前表示下，数值是否收敛？这可以通过加大计算量自行检查。</li><li>当前理论近似对<strong>这个目标量</strong>是否足够？这只能靠换方法比较，或对照更高精度的基准。</li><li>物理模型与实验条件是否一致？例如静态 0 K 晶格对比室温样品。</li></ol>
+<p>第三点和误差分类的细节放在 <a class="node-link" href="../nodes/error-sources.html">预测的误差来自哪里</a>。这里要记住的是：同一套设置对不同目标量的可靠程度可能不同。结构参数主要取决于能量曲面的极小点位置，压电响应还取决于曲面的曲率和耦合项，见 <a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a>。</p>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">用分层归类</span></p><p>下面每一项改动分别属于哪一层？哪些能靠加大计算量消除其影响？</p>
+<ul><li>把截断能从 500 eV 提高到 800 eV</li><li>把 PBE 换成另一种泛函</li><li>关掉 D3(BJ)</li><li>把 k 点网格加密</li><li>从静态晶格改为考虑有限温度下的平均</li></ul></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">说出区别</span></p><p>“截断能和 k 点已经收敛”与“PBE + D3(BJ) 对这个体系是准确的”分别说明了什么？为什么前者不能推出后者？</p></aside>
+</section>
+  </div>
+  
+  <p class="related"><span>相关条目</span><a class="node-link" href="../nodes/error-sources.html">预测的误差来自哪里</a>、<a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a></p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-martin-2020-electronic"><p class="src-kind">教材<span class="src-short">Martin 2020</span></p><p class="src-cit"><a href="https://doi.org/10.1017/9781108555586" rel="noopener" target="_blank">R. M. Martin, Electronic Structure: Basic Theory and Practical Methods, 2nd ed., Cambridge University Press (2020)</a></p><p class="src-meta">版本：第 2 版；位置：Kohn–Sham 理论、交换相关近似、平面波与 PAW 相关章节（具体章节待查阅后补）</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-bloechl-1994-paw"><p class="src-kind">论文<span class="src-short">Blöchl 1994</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevB.50.17953" rel="noopener" target="_blank">P. E. Blöchl, Projector augmented-wave method, Phys. Rev. B 50, 17953 (1994)</a></p><p class="src-meta">位置：第 II 节：PAW 变换的构造</p><p class="src-note">PAW 方法的原始论文。</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-kresse-1999-paw"><p class="src-kind">论文<span class="src-short">Kresse &amp; Joubert 1999</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevB.59.1758" rel="noopener" target="_blank">G. Kresse, D. Joubert, From ultrasoft pseudopotentials to the projector augmented-wave method, Phys. Rev. B 59, 1758 (1999)</a></p><p class="src-meta">位置：PAW 与超软赝势的形式对应；冻芯近似的讨论</p><p class="src-note">VASP 中 PAW 实现的依据。</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-pbe-1996"><p class="src-kind">论文<span class="src-short">PBE 1996</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevLett.77.3865" rel="noopener" target="_blank">J. P. Perdew, K. Burke, M. Ernzerhof, Generalized Gradient Approximation Made Simple, Phys. Rev. Lett. 77, 3865 (1996)</a></p><p class="src-meta">位置：交换相关能的函数形式与所满足的约束</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-grimme-2010-d3"><p class="src-kind">论文<span class="src-short">Grimme 2010</span></p><p class="src-cit"><a href="https://doi.org/10.1063/1.3382344" rel="noopener" target="_blank">S. Grimme, J. Antony, S. Ehrlich, H. Krieg, A consistent and accurate ab initio parametrization of density functional dispersion correction (DFT-D) for the 94 elements H-Pu, J. Chem. Phys. 132, 154104 (2010)</a></p><p class="src-meta">位置：D3 的两体项、三体项与系数来源</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-grimme-2011-bj"><p class="src-kind">论文<span class="src-short">Grimme 2011</span></p><p class="src-cit"><a href="https://doi.org/10.1002/jcc.21759" rel="noopener" target="_blank">S. Grimme, S. Ehrlich, L. Goerigk, Effect of the damping function in dispersion corrected density functional theory, J. Comput. Chem. 32, 1456 (2011)</a></p><p class="src-meta">位置：Becke–Johnson 阻尼函数的形式与参数</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-vasp-wiki-ivdw"><p class="src-kind">官方文档<span class="src-short">VASP Wiki: IVDW</span></p><p class="src-cit"><a href="https://vasp.at/wiki/index.php/IVDW" rel="noopener" target="_blank">VASP Wiki, IVDW（色散校正方法的选择）</a></p><p class="src-meta">版本：在线文档，查阅时记录日期</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <p class="cat-foot"><span>分类</span>计算方法论 · 概念 · 研究线：压电与响应计算、机器学习势 · 状态：草稿</p>
+  <nav class="pager" aria-label="路径内导航：有机酸碱盐压电：计算与实验为什么会差得远"><a class="pager-prev" href="../paths/piezo-dft-gap.html"><span>回到路径</span>有机酸碱盐压电：计算与实验为什么会差得远</a><a class="pager-next" href="../nodes/energy-structure-response.html"><span>下一步</span>从能量到结构与响应</a></nav>
+  <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="method-layers">
+  <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
+  <label class="field-label" for="myQuestion">我还没想通的地方</label>
+  <textarea id="myQuestion" rows="3" placeholder="写下读到这里的疑问，首页会列出未解决的疑问…"></textarea>
+  <label class="field-label" for="myNote">我的笔记</label>
+  <textarea id="myNote" rows="4" placeholder="用自己的话复述，或记下推导中卡住的一步…"></textarea>
+  <fieldset class="dims"><legend>自评（读过不等于掌握，按需填写）</legend><div class="dim"><label for="dim-explain">能解释核心概念</label><select id="dim-explain" data-dim="explain"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="explain" aria-label="能解释核心概念：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-derive">能重建关键推导</label><select id="dim-derive" data-dim="derive"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="derive" aria-label="能重建关键推导：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-limits">理解成立条件和局限</label><select id="dim-limits" data-dim="limits"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="limits" aria-label="理解成立条件和局限：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-connect">能与其他节点正确联系</label><select id="dim-connect" data-dim="connect"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="connect" aria-label="能与其他节点正确联系：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-apply">能应用于新问题</label><select id="dim-apply" data-dim="apply"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="apply" aria-label="能应用于新问题：我的说明" placeholder="说明（可选）…"></div></fieldset>
+  <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
+</section>
+</article>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><ul class="rel-list"><li class="rel rel-prerequisite"><p class="rel-head"><span class="rel-tag">需要先理解</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><strong class="self">本节点</strong> 是 <a class="node-link" href="../nodes/error-sources.html">预测的误差来自哪里</a> 的先修</p><p class="rel-expl">误差分类建立在“每一层各自决定什么”之上：先知道哪些设置属于数值求解、哪些属于理论近似，才能区分收敛问题和模型问题。</p><p class="rel-cond"><span>成立条件</span>无额外条件</p></li><li class="rel rel-foundation"><p class="rel-head"><span class="rel-tag">推导基础</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><strong class="self">本节点</strong> 是 <a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a> 某一层推导的基础</p><p class="rel-expl">理论近似层（PBE、D3(BJ)）决定能量曲面本身；结构和响应都是这个曲面的导数信息，所以换近似会同时改变极小点和曲率。</p><p class="rel-cond"><span>成立条件</span>只在推导层面需要；直观阅读 energy-structure-response 不必先读 method-layers</p></li></ul></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-09</span>初稿：只搭结构和论述清单，来源尚未查阅</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%E7%94%B1%E5%93%AA%E4%BA%9B%E5%B1%82%E6%AC%A1%E7%BB%84%E6%88%90%EF%BC%88method-layers%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Amethod-layers%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
+</div>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

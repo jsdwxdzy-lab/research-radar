@@ -1,0 +1,22 @@
+{
+  "root": {
+    "title": "理论地图",
+    "intro": "从数学和物理基础按学科铺开。研究方向不是组织原则，而是知识长到那里时自然碰到的交汇点。"
+  },
+  "domains": [
+    {"id": "math", "title": "数学工具", "summary": "本征问题、张量、变分、傅里叶分析与数值优化：后面各领域反复用到的语言。"},
+    {"id": "quantum", "title": "量子力学", "summary": "变分原理、微扰理论、Hellmann–Feynman 定理与多电子问题。"},
+    {"id": "electronic-structure", "title": "电子结构理论", "summary": "从 Hartree–Fock 到 Kohn–Sham DFT：泛函、色散校正、赝势与平面波。"},
+    {"id": "solids", "title": "晶体与固体", "summary": "对称性、倒空间、声子与分子晶体中的分子间作用。"},
+    {"id": "response", "title": "响应与张量性质", "summary": "把性质写成能量导数：弹性、介电、极化与压电，以及怎样算它们。"},
+    {"id": "statmech", "title": "统计力学与采样", "summary": "系综、自由能、分子动力学与能量景观。"},
+    {"id": "methodology", "title": "计算方法论", "summary": "方法由哪些层次组成、误差来自哪里、怎样收敛与验证。"},
+    {"id": "ml", "title": "机器学习", "summary": "概率建模、对称性与等变性、机器学习势与生成模型。"}
+  ],
+  "research_lines": [
+    {"id": "crystal-gen", "title": "晶体结构生成", "radar_topics": ["crystal-gen", "gen-model", "gen-math"]},
+    {"id": "piezo", "title": "压电与响应计算", "radar_topics": ["ferro-calc"]},
+    {"id": "csp", "title": "结构预测与能量景观", "radar_topics": ["csp", "chiral-crystal"]},
+    {"id": "mlip", "title": "机器学习势", "radar_topics": ["mlip"]}
+  ]
+}
