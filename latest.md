@@ -1,15 +1,21 @@
 # 科研雷达 · 2026-11-09（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-07 17:08 → 现在 · 候选 587 → 本轮入库 35 → 今日累计 **0**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-07 18:08 → 现在 · 候选 756 → 本轮入库 39 → 今日累计 **1**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- 窗口内没有达到相关度阈值的新条目。可以考虑提高 `lookback_hours`，或补充主题关键词。
+- **最高相关度**：Fortuitous Cancellation of Competing Effects in the Free Energy of Water Autoionization: L…（3.0）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（19 篇）
+- **升温主题**：AI for Science 方法与自动化
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 1
 
 ## 今日最值得看
 
-_（今日无）_
+1. **[Fortuitous Cancellation of Competing Effects in the Free Energy of Water Autoionization: Long-Range Electrostatics, System Size, and Nuclear Quantum Effects](https://arxiv.org/abs/2611.08874)**
+   `MLIP` · *arXiv* · 2026-11-06 · [PDF](https://arxiv.org/pdf/2611.08874)
+   <sub>命中：mlip</sub>
+   > Few molecular processes are more fundamental to chemistry than the autoionization of water, whose equilibrium constant, $K_w \approx 10^{-14}$, underlies acid-base equilibria and the chemistry of life. Yet the molecular origins of the free energy cost of forming and separating ions remain incompletely understood.
 
 ## 按主题展开
 
@@ -32,12 +38,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 435 | ok |
+| arxiv | 623 | ok |
 | crossref | 46 | ok |
 | openalex | 97 | ok |
-| rss | 108 | ok |
+| rss | 109 | ok |
 | github | 0 | ok |
 
-> 原始 686 → 去重 587 → 剔除标题噪声 22 → 低相关度 530 → 入库 35。
+> 原始 875 → 去重 756 → 剔除标题噪声 22 → 低相关度 695 → 入库 39。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
