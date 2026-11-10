@@ -14,6 +14,7 @@ knowledge/
   paths/<id>.json    围绕一个问题的阅读路径
   sources.json       参考来源与实际查阅记录
   reviews/<id>.json  某个节点的核验与修订记录
+  figs/<name>.svg    正文配图（和生成它们的脚本）
 ```
 
 个人疑问、笔记和自评只存在读者浏览器的 `localStorage`（键 `research-radar.theory.v1`），可导出为 JSON。它们不进入本目录，也不随公开页面发布。
@@ -85,6 +86,8 @@ knowledge/
 - 公式：行内 `$...$`，独立 `$$...$$`，页面用 KaTeX 排版；长公式在自身容器内横向滚动。
 - 节点链接：`[[node-id]]` 或 `[[node-id|显示文字]]`，构建时检查目标存在。
 - 引用来源：`[@source-id]` 或 `[@source-id, 第 3 节]`，构建时检查来源存在。
+- 配图：单独一行 `![图注](figs/name.svg)`。图片放在 `knowledge/figs/`，构建时复制到 `theory/figs/`；图片不存在时报错。只接受 SVG，SVG 里不能有脚本、事件属性或 `foreignObject`。图注可以含公式和链接。生成图的脚本也放在 `knowledge/figs/`（例如 `make_figs_piezo.py`），不发布。
+- 涉及几何关系、张量方向或抽象对象时配图，图下面跟一张符号表（符号 · 是什么 · 图里对应哪部分）。示意图在图注里写明“示意”，不要画成像真实数据。
 
 ## 关系
 

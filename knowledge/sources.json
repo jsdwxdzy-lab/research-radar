@@ -139,6 +139,115 @@
       "locator": "计算与测量的压电系数对比（具体内容待查阅）",
       "note": "作为“向外迁移”方向的应用实例候选，尚未阅读，不在正文中引用其结论。",
       "consulted": []
+    },
+    {
+      "id": "mouhat-2014-elastic-stability",
+      "short": "Mouhat & Coudert 2014",
+      "kind": "paper",
+      "citation": "F. Mouhat, F.-X. Coudert, Necessary and sufficient elastic stability conditions in various crystal systems, Phys. Rev. B 90, 224104 (2014)",
+      "doi": "10.1103/PhysRevB.90.224104",
+      "locator": "各晶系的 Born 稳定性判据；单斜晶系的条件",
+      "consulted": []
+    },
+    {
+      "id": "gonze-1997-dfpt",
+      "short": "Gonze & Lee 1997",
+      "kind": "paper",
+      "citation": "X. Gonze, C. Lee, Dynamical matrices, Born effective charges, dielectric permittivity tensors, and interatomic force constants from density-functional perturbation theory, Phys. Rev. B 55, 10355 (1997)",
+      "doi": "10.1103/PhysRevB.55.10355",
+      "locator": "玻恩有效电荷、ε∞ 与 ε0 的定义；声学求和规则；模式分解",
+      "consulted": []
+    },
+    {
+      "id": "resta-1994-polarization",
+      "short": "Resta 1994",
+      "kind": "paper",
+      "citation": "R. Resta, Macroscopic polarization in crystalline dielectrics: the geometric phase approach, Rev. Mod. Phys. 66, 899 (1994)",
+      "doi": "10.1103/RevModPhys.66.899",
+      "locator": "为什么晶胞偶极不能定义极化；极化变化作为可测量量",
+      "consulted": []
+    },
+    {
+      "id": "grimme-2006-d2",
+      "short": "Grimme 2006",
+      "kind": "paper",
+      "citation": "S. Grimme, Semiempirical GGA-type density functional constructed with a long-range dispersion correction, J. Comput. Chem. 27, 1787 (2006)",
+      "doi": "10.1002/jcc.20495",
+      "locator": "DFT-D2 的成对能量形式与阻尼函数",
+      "consulted": []
+    },
+    {
+      "id": "tkatchenko-2009-ts",
+      "short": "Tkatchenko & Scheffler 2009",
+      "kind": "paper",
+      "citation": "A. Tkatchenko, M. Scheffler, Accurate molecular van der Waals interactions from ground-state electron density and free-atom reference data, Phys. Rev. Lett. 102, 073005 (2009)",
+      "doi": "10.1103/PhysRevLett.102.073005",
+      "locator": "由电子密度（Hirshfeld 划分）得到依赖环境的 C6",
+      "consulted": []
+    },
+    {
+      "id": "tkatchenko-2012-mbd",
+      "short": "Tkatchenko et al. 2012",
+      "kind": "paper",
+      "citation": "A. Tkatchenko, R. A. DiStasio Jr., R. Car, M. Scheffler, Accurate and efficient method for many-body van der Waals interactions, Phys. Rev. Lett. 108, 236402 (2012)",
+      "doi": "10.1103/PhysRevLett.108.236402",
+      "locator": "多体色散（MBD）：耦合偶极振子模型",
+      "consulted": []
+    },
+    {
+      "id": "itc-vol-a",
+      "short": "International Tables A",
+      "kind": "textbook",
+      "citation": "International Tables for Crystallography, Volume A: Space-group symmetry, International Union of Crystallography",
+      "doi": "10.1107/97809553602060000114",
+      "version": "2016 年在线版（第 6 版）；DOI 指向 2016 年版条目，卷次对应待查阅时确认",
+      "locator": "空间群、点群与 Wyckoff 位置的表",
+      "consulted": []
+    },
+    {
+      "id": "cruz-cabeza-2012-pka",
+      "short": "Cruz-Cabeza 2012",
+      "kind": "paper",
+      "citation": "A. J. Cruz-Cabeza, Acid–base crystalline complexes and the pKa rule, CrystEngComm 14, 6362 (2012)",
+      "doi": "10.1039/c2ce26055g",
+      "locator": "基于 CSD 统计的 ΔpKa 与成盐比例的关系",
+      "consulted": []
+    },
+    {
+      "id": "childs-2007-continuum",
+      "short": "Childs et al. 2007",
+      "kind": "paper",
+      "citation": "S. L. Childs et al., The salt–cocrystal continuum: the influence of crystal structure on ionization state, Mol. Pharmaceutics 4, 323 (2007)",
+      "doi": "10.1021/mp0601345",
+      "locator": "质子位置受晶体环境影响；盐与共晶之间的连续过渡",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-encut",
+      "short": "VASP Wiki: ENCUT",
+      "kind": "docs",
+      "citation": "VASP Wiki, ENCUT（平面波截断能）",
+      "url": "https://vasp.at/wiki/index.php/ENCUT",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-ibrion",
+      "short": "VASP Wiki: IBRION",
+      "kind": "docs",
+      "citation": "VASP Wiki, IBRION（结构优化、有限差分与 DFPT 的选择）",
+      "url": "https://vasp.at/wiki/index.php/IBRION",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-lcalcpol",
+      "short": "VASP Wiki: LCALCPOL",
+      "kind": "docs",
+      "citation": "VASP Wiki, LCALCPOL（Berry 相方法计算宏观极化）",
+      "url": "https://vasp.at/wiki/index.php/LCALCPOL",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
     }
   ]
 }

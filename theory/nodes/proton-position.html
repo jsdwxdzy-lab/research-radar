@@ -8,10 +8,12 @@
 <title>质子归属：盐与共晶 · 理论地图 · 科研雷达</title>
 <meta name="description" content="酸碱分子晶体里质子停在哪一侧（盐还是共晶），怎样判断，以及它对结构和性质的影响。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="proton-position" data-node-title="质子归属：盐与共晶" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="proton-position" data-node-title="质子归属：盐与共晶" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,59 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-solids">晶体与固体</a></li><li><a class="node-link is-candidate" href="../nodes/molecular-crystals.html">分子晶体与分子间作用</a><span class="visually-hidden">（候选，还没有正文）</span></li><li aria-current="page">质子归属：盐与共晶</li></ol><a class="small" href="../tree.html#t-proton-position">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-solids">晶体与固体</a></li><li><a class="node-link is-candidate" href="../nodes/molecular-crystals.html">分子晶体与分子间作用</a><span class="visually-hidden">（候选，还没有正文）</span></li><li aria-current="page">质子归属：盐与共晶</li></ol><a class="small" href="../tree.html#t-proton-position">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">经验规则与连续过渡</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">怎样判断质子在哪里</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-6">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-solids">晶体与固体</a><span aria-hidden="true">/</span><a class="node-link is-candidate" href="../nodes/molecular-crystals.html">分子晶体与分子间作用</a><span class="visually-hidden">（候选，还没有正文）</span></nav>
   <h1 id="nodeTitle">质子归属：盐与共晶</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-solids">晶体与固体</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=piezo">压电与响应计算</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-solids">晶体与固体</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=piezo">压电与响应计算</a></span><span>v0.2 · 2026-11-10</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
   <p class="purpose">酸碱分子晶体里质子停在哪一侧（盐还是共晶），怎样判断，以及它对结构和性质的影响。</p>
-  
-  
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>酸碱与 pKa</li><li>氢键</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/molecular-crystals.html">分子晶体与分子间作用</a></li><li><a class="node-link" href="../nodes/energy-landscape.html">能量景观与多晶型</a> 中的双势阱</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>酸 A–H 和碱 B 在晶体里通过氢键 A–H···B 相连。质子有两种去处：</p>
+<ul><li>留在酸上：A–H···B，两个中性分子，称为<strong>共晶</strong> (cocrystal)；</li><li>转移到碱上：A⁻···H–B⁺，一对离子，称为<strong>盐</strong> (salt)。</li></ul>
+<p>同一个分子内部也可以发生这件事。氨基酸在晶体中通常以<strong>两性离子</strong> (zwitterion) 形式存在：羧基的质子转移到氨基上，成为 <span class="math" data-tex="\mathrm{NH_3^{+}}">\mathrm{NH_3^{+}}</span> 和 <span class="math" data-tex="\mathrm{COO^{-}}">\mathrm{COO^{-}}</span>。甘氨酸晶体就是这样（领域共识）。</p>
+<p>质子位置决定了电荷分布，所以它直接影响偶极、氢键强度、玻恩有效电荷，进而影响介电与压电响应。质子放错，后面所有的计算都建立在错误的结构上。</p>
+<figure class="fig"><img src="../figs/proton-double-well.svg" alt="质子沿氢键方向的势能（示意）：共晶时势阱极小点靠近酸一侧，盐时靠近碱一侧。" loading="lazy"><figcaption>质子沿氢键方向的势能（示意）：共晶时势阱极小点靠近酸一侧，盐时靠近碱一侧。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td>横轴</td><td>质子在供体和受体之间的位置</td><td>左端靠酸 O，右端靠碱 N</td></tr><tr><td>纵轴</td><td>质子的势能（其他原子固定）</td><td>两条曲线</td></tr><tr><td>绿线</td><td>共晶情形：较深的阱在酸一侧</td><td>左侧极小点更低</td></tr><tr><td>橙线</td><td>盐情形：较深的阱在碱一侧</td><td>右侧极小点更低</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">经验规则与连续过渡</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">ΔpKa</span></p><div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\Delta \mathrm{p}K_a = \mathrm{p}K_a(\mathrm{BH^{+}}) - \mathrm{p}K_a(\mathrm{AH})">\Delta \mathrm{p}K_a = \mathrm{p}K_a(\mathrm{BH^{+}}) - \mathrm{p}K_a(\mathrm{AH})</span></div>
+<p>其中 <span class="math" data-tex="\mathrm{p}K_a(\mathrm{BH^{+}})">\mathrm{p}K_a(\mathrm{BH^{+}})</span> 是碱的共轭酸的 pKa，<span class="math" data-tex="\mathrm{p}K_a(\mathrm{AH})">\mathrm{p}K_a(\mathrm{AH})</span> 是酸的 pKa，二者通常取水溶液中的值。<span class="math" data-tex="\Delta\mathrm{p}K_a">\Delta\mathrm{p}K_a</span> 越大，质子越倾向于转移到碱上。</p></aside>
+<aside class="claim claim-empirical" aria-label="经验结论"><p class="claim-head"><span class="claim-kind">经验结论</span><span class="claim-title">ΔpKa 规则</span></p><p>基于剑桥结构数据库（CSD）中大量酸碱复合物的统计，Cruz-Cabeza 报告：<span class="math" data-tex="\Delta\mathrm{p}K_a">\Delta\mathrm{p}K_a</span> 小于约 <span class="math" data-tex="-1">-1</span> 时几乎都是共晶，大于约 <span class="math" data-tex="4">4</span> 时几乎都是盐，两者之间成盐比例随 <span class="math" data-tex="\Delta\mathrm{p}K_a">\Delta\mathrm{p}K_a</span> 大致线性增加 <a class="cite" href="#src-cruz-cabeza-2012-pka">[Cruz-Cabeza 2012]</a>。</p></aside>
+<figure class="fig"><img src="../figs/pka-salt-cocrystal.svg" alt="成盐的可能性随 ΔpKa 的变化（示意）。分界值约 −1 与 4 取自 Cruz-Cabeza 2012 的报告，待查阅原文核对。" loading="lazy"><figcaption>成盐的可能性随 ΔpKa 的变化（示意）。分界值约 −1 与 4 取自 Cruz-Cabeza 2012 的报告，待查阅原文核对。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="\Delta\mathrm{p}K_a">\Delta\mathrm{p}K_a</span></td><td>碱的共轭酸与酸的 pKa 之差</td><td>横轴</td></tr><tr><td>成盐的可能性</td><td>统计上成盐的比例</td><td>纵轴</td></tr><tr><td>绿色区</td><td>多为共晶</td><td>左侧</td></tr><tr><td>橙色区</td><td>多为盐</td><td>右侧</td></tr><tr><td>中间区</td><td>两者都可能</td><td>中段的过渡</td></tr></tbody></table></div>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>分界值（约 <span class="math" data-tex="-1">-1</span> 和约 <span class="math" data-tex="4">4</span>）以及中间区的线性关系，查阅 <a class="cite" href="#src-cruz-cabeza-2012-pka">[Cruz-Cabeza 2012]</a> 原文后确认，并补上页码。</li></ul></aside>
+<p>这条规则用的是<strong>溶液</strong>中的 pKa，而晶体环境（周围的氢键、静电场、堆积方式）会改变质子转移的能量。所以在中间区，同一对酸碱可能形成盐、共晶，或者质子位置处于两者之间。Childs 等人把这种情况称为<strong>盐–共晶连续过渡</strong> (salt–cocrystal continuum)，并指出质子位置受晶体结构影响 <a class="cite" href="#src-childs-2007-continuum">[Childs et al. 2007]</a>。</p>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">怎样判断质子在哪里</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>实验</strong>：X 射线衍射对氢原子不敏感，质子位置常有较大不确定性。中子衍射直接定位氢核；固体 NMR 和红外光谱也能区分。间接判据是羧基的两个 C–O 键长：中性 <span class="math" data-tex="\mathrm{COOH}">\mathrm{COOH}</span> 中一长一短，<span class="math" data-tex="\mathrm{COO^{-}}">\mathrm{COO^{-}}</span> 中接近相等。</li><li><strong>计算</strong>：分别从两种质子位置出发做结构优化，比较能量；或沿氢键扫描质子位置。注意半局域泛函（如 PBE）的离域误差可能偏向质子在氢键中部的结构，结果最好用更高级别方法或实验核对（这是常见的担忧，具体偏差大小因体系而异，属于需要在本体系中检查的推断）。</li><li><strong>核量子效应</strong>：轻的质子有显著的零点运动，在双势阱势垒较低时，经典的“停在哪一侧”可能不再是好的描述。</li></ul>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>β-甘氨酸</strong>：分子是两性离子，质子在氨基上。从 CIF 建模时，要确认氢原子都在，并且是 <span class="math" data-tex="\mathrm{NH_3^{+}}">\mathrm{NH_3^{+}}</span>/<span class="math" data-tex="\mathrm{COO^{-}}">\mathrm{COO^{-}}</span> 形式。如果 CIF 缺氢或氢位置是推算的，先优化氢原子位置。</li><li><strong>对压电的影响</strong>：两性离子的电荷分离让分子偶极很大，氢键网络中的 <span class="math" data-tex="\mathrm{N\!-\!H\cdots O}">\mathrm{N\!-\!H\cdots O}</span> 也是软而带电的模式。它们共同影响玻恩电荷和内应变项（见 <a class="node-link" href="../nodes/dielectric-born.html">介电张量与玻恩有效电荷</a>、<a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a>）。</li><li><strong>向外迁移</strong>：若把研究扩展到氨基酸与其他酸碱的共晶或盐，质子归属是首先要确定的结构问题。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>信任 CIF 中的氢位置</strong>：X 射线结构中的氢常是按几何规则放置的，不一定是实测。</li><li><strong>只算一种质子形式</strong>：在 ΔpKa 中间区，两种形式都要算。</li><li><strong>溶液 pKa 直接外推</strong>：规则是统计的，不是对单个体系的预测。</li></ul>
+</section>
+<section class="node-section" id="sec-6" data-layer="mapping">
+<h2><a class="anchor" href="#sec-6">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么 ΔpKa 规则只能给出“可能性”，而不能确定某个晶体是盐还是共晶？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你拿到一个氨基酸共晶的 CIF，羧基两个 C–O 键长几乎相等。这说明了什么？你还要检查什么？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>如果计算中质子位置放错（中性形式而不是两性离子），你预期玻恩有效电荷和压电系数会怎样变化？说出你的推理链。</p></aside>
+</section>
   </div>
   
   <p class="related"><span>相关条目</span><a class="node-link is-candidate" href="../nodes/molecular-crystals.html">分子晶体与分子间作用</a><span class="visually-hidden">（候选，还没有正文）</span></p>
-  
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-cruz-cabeza-2012-pka"><p class="src-kind">论文<span class="src-short">Cruz-Cabeza 2012</span></p><p class="src-cit"><a href="https://doi.org/10.1039/c2ce26055g" rel="noopener" target="_blank">A. J. Cruz-Cabeza, Acid–base crystalline complexes and the pKa rule, CrystEngComm 14, 6362 (2012)</a></p><p class="src-meta">位置：基于 CSD 统计的 ΔpKa 与成盐比例的关系</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-childs-2007-continuum"><p class="src-kind">论文<span class="src-short">Childs et al. 2007</span></p><p class="src-cit"><a href="https://doi.org/10.1021/mp0601345" rel="noopener" target="_blank">S. L. Childs et al., The salt–cocrystal continuum: the influence of crystal structure on ionization state, Mol. Pharmaceutics 4, 323 (2007)</a></p><p class="src-meta">位置：质子位置受晶体环境影响；盐与共晶之间的连续过渡</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
   <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;proton transfer&quot;, &quot;cocrystal&quot;, &quot;zwitterion&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>晶体与固体 · 概念 · 研究线：压电与响应计算 · 状态：候选</p>
+  <p class="cat-foot"><span>分类</span>晶体与固体 · 概念 · 研究线：压电与响应计算 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="proton-position">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +95,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E8%B4%A8%E5%AD%90%E5%BD%92%E5%B1%9E%EF%BC%9A%E7%9B%90%E4%B8%8E%E5%85%B1%E6%99%B6%EF%BC%88proton-position%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aproton-position%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.2</span><span>2026-11-10</span>初稿正文：盐与共晶的区别、ΔpKa 经验规则、连续过渡、计算与实验判断方法、对压电的影响；配图 2 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E8%B4%A8%E5%AD%90%E5%BD%92%E5%B1%9E%EF%BC%9A%E7%9B%90%E4%B8%8E%E5%85%B1%E6%99%B6%EF%BC%88proton-position%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aproton-position%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">

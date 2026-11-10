@@ -32,6 +32,7 @@ _LAYER_TAG = re.compile(r"\s*\{(\w+)\}\s*$")
 _CLAIM_OPEN = re.compile(r"^:::\s*([a-z]+)\s*(.*?)\s*$")
 _LIST = re.compile(r"^(\s*)([-*]|\d+[.)])\s+(.*)$")
 _TABLE_SEP = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$")
+_FIGURE = re.compile(r"^!\[([^\]]*)\]\(figs/([A-Za-z0-9][A-Za-z0-9_-]*\.svg)\)$")
 
 
 @dataclass
@@ -41,6 +42,7 @@ class RenderResult:
     links: list = field(default_factory=list)        # node ids referenced by [[...]]
     cites: list = field(default_factory=list)        # source ids referenced by [@...]
     claims: list = field(default_factory=list)       # claim kinds used
+    figs: list = field(default_factory=list)         # figure file names used (knowledge/figs/)
     errors: list = field(default_factory=list)
     text: str = ""                                    # plain text for the search index
 
@@ -56,10 +58,11 @@ def safe_url(url: str) -> str:
 
 class _Renderer:
     def __init__(self, node_url: Callable[[str], Optional[str]], node_title: Callable[[str], Optional[str]],
-                 cite_label: Callable[[str], Optional[str]]):
+                 cite_label: Callable[[str], Optional[str]], fig_url: Optional[Callable[[str], Optional[str]]] = None):
         self.node_url = node_url
         self.node_title = node_title
         self.cite_label = cite_label
+        self.fig_url = fig_url or (lambda _n: None)
         self.res = RenderResult(html="")
         self.slots: list[str] = []
         self.plain: list[str] = []
@@ -200,7 +203,7 @@ class _Renderer:
                 label = CLAIMS.get(kind, kind)
                 if kind not in self.res.claims:
                     self.res.claims.append(kind)
-                inner = _Renderer(self.node_url, self.node_title, self.cite_label)
+                inner = _Renderer(self.node_url, self.node_title, self.cite_label, self.fig_url)
                 sub = inner.render("\n".join(buf))
                 self._absorb(sub)
                 head = f'<span class="claim-kind">{esc(label)}</span>'
@@ -209,6 +212,22 @@ class _Renderer:
                 out.append(f'<aside class="claim claim-{esc(kind)}" aria-label="{esc(label)}">'
                            f'<p class="claim-head">{head}</p>{sub.html}</aside>')
                 i = j + 1
+                continue
+
+            # figure: a line that is only ![caption](figs/name.svg)
+            fm = _FIGURE.match(stripped)
+            if fm:
+                cap, name = fm.group(1).strip(), fm.group(2)
+                url = self.fig_url(name)
+                self.plain.append(cap)
+                if not url:
+                    self.res.errors.append(f"图片不存在：figs/{name}")
+                else:
+                    if name not in self.res.figs:
+                        self.res.figs.append(name)
+                    out.append(f'<figure class="fig"><img src="{esc(url)}" alt="{esc(cap)}" loading="lazy">'
+                               f"<figcaption>{self.inline(cap)}</figcaption></figure>")
+                i += 1
                 continue
 
             # heading
@@ -293,7 +312,8 @@ class _Renderer:
             j = i + 1
             while j < len(lines):
                 nxt = lines[j].strip()
-                if (not nxt or nxt.startswith(("#", "```", "$$", ":::", ">", "|")) or _LIST.match(lines[j])):
+                if (not nxt or nxt.startswith(("#", "```", "$$", ":::", ">", "|")) or _LIST.match(lines[j])
+                        or _FIGURE.match(nxt)):
                     break
                 buf.append(nxt)
                 j += 1
@@ -317,7 +337,7 @@ class _Renderer:
         return [c.strip() for c in row.split("|")]
 
     def _absorb(self, sub: RenderResult) -> None:
-        for key in ("links", "cites", "claims"):
+        for key in ("links", "cites", "claims", "figs"):
             for v in getattr(sub, key):
                 if v not in getattr(self.res, key):
                     getattr(self.res, key).append(v)
@@ -325,6 +345,6 @@ class _Renderer:
         self.plain.append(sub.text)
 
 
-def render(src: str, node_url=None, node_title=None, cite_label=None) -> RenderResult:
+def render(src: str, node_url=None, node_title=None, cite_label=None, fig_url=None) -> RenderResult:
     return _Renderer(node_url or (lambda _id: None), node_title or (lambda _id: None),
-                     cite_label or (lambda _id: None)).render(src)
+                     cite_label or (lambda _id: None), fig_url).render(src)
