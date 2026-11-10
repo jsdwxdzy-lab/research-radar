@@ -5,13 +5,15 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
-<title>微扰理论 · 理论地图 · 科研雷达</title>
-<meta name="description" content="小扰动下的能量和波函数展开到各阶：线性响应与 DFPT 的出发点。">
+<title>微扰理论与线性响应 · 理论地图 · 科研雷达</title>
+<meta name="description" content="一阶、二阶微扰能量和波函数修正怎样来，怎样推广到 DFT 的线性响应（DFPT）和 Sternheimer 方程。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="perturbation-theory" data-node-title="微扰理论" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="perturbation-theory" data-node-title="微扰理论与线性响应" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,61 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-quantum">量子力学</a></li><li aria-current="page">微扰理论</li></ol><a class="small" href="../tree.html#t-perturbation-theory">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-quantum">量子力学</a></li><li aria-current="page">微扰理论与线性响应</li></ol><a class="small" href="../tree.html#t-perturbation-theory">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-quantum">量子力学</a></nav>
-  <h1 id="nodeTitle">微扰理论</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-quantum">量子力学</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
-  <p class="purpose">小扰动下的能量和波函数展开到各阶：线性响应与 DFPT 的出发点。</p>
-  
-  
+  <h1 id="nodeTitle">微扰理论与线性响应</h1>
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-quantum">量子力学</a></span><span>v0.2 · 2026-11-10</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">一阶、二阶微扰能量和波函数修正怎样来，怎样推广到 DFT 的线性响应（DFPT）和 Sternheimer 方程。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li><a class="node-link" href="../nodes/eigenproblems.html">线性代数与本征问题</a>：本征值与本征矢</li><li>两能级体系</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/kohn-sham-dft.html">Kohn–Sham 密度泛函理论</a></li><li><a class="node-link" href="../nodes/hellmann-feynman.html">Hellmann–Feynman 定理：力与应力</a></li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>哈密顿量受到一个小扰动 <span class="math" data-tex="\lambda V">\lambda V</span>（电场、原子位移、应变），能级和波函数会怎样变？如果扰动小，就可以按 <span class="math" data-tex="\lambda">\lambda</span> 的幂次展开，逐阶求解。</p>
+<p>几个关键结论：</p>
+<ul><li><strong>一阶能量</strong>是扰动在原态上的期望值，这其实就是 <a class="node-link" href="../nodes/hellmann-feynman.html">Hellmann–Feynman 定理：力与应力</a>。</li><li><strong>二阶能量</strong>来自扰动把原态和其他态混合起来，分母是能级差。能级差越小，混合越强，响应越大。</li><li><strong>响应量</strong>（极化率、介电常数、力常数、压电系数）都是能量对扰动的二阶导数，所以都需要一阶波函数。</li></ul>
+<p>固体中对所有空态求和太贵。Sternheimer 方程把“对空态求和”换成解一个线性方程，这是密度泛函微扰理论 (DFPT) 的核心 <a class="cite" href="#src-baroni-2001-dfpt">[Baroni 2001]</a>。</p>
+<figure class="fig"><img src="../figs/two-level-perturbation.svg" alt="两能级体系（Δ=1，耦合强度 V=0.9 的示意参数）：实线是精确能级，虚线是二阶微扰近似。λ 小时两者重合，λ 大时偏离；扰动把两个能级推开。" loading="lazy"><figcaption>两能级体系（Δ=1，耦合强度 V=0.9 的示意参数）：实线是精确能级，虚线是二阶微扰近似。λ 小时两者重合，λ 大时偏离；扰动把两个能级推开。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="\lambda">\lambda</span></td><td>扰动强度</td><td>横轴</td></tr><tr><td><span class="math" data-tex="\Delta">\Delta</span></td><td>未扰动的能级差</td><td>左侧双向箭头</td></tr><tr><td><span class="math" data-tex="V">V</span></td><td>两态之间的耦合矩阵元</td><td>决定曲线弯曲程度的参数</td></tr><tr><td><span class="math" data-tex="E_\pm">E_\pm</span></td><td>精确本征值</td><td>实线</td></tr><tr><td>二阶近似</td><td><span class="math" data-tex="\pm\bigl(\Delta/2 + (V\lambda)^{2}/\Delta\bigr)">\pm\bigl(\Delta/2 + (V\lambda)^{2}/\Delta\bigr)</span></td><td>虚线</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">Rayleigh–Schrödinger 微扰</span></p><p>设 <span class="math" data-tex="H = H^{(0)} + \lambda V">H = H^{(0)} + \lambda V</span>，<span class="math" data-tex="H^{(0)}|n\rangle = E_n|n\rangle">H^{(0)}|n\rangle = E_n|n\rangle</span>，能级不简并。则</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="E_n(\lambda) = E_n + \lambda\,V_{nn} + \lambda^{2}\sum_{m\neq n}\frac{|V_{mn}|^{2}}{E_n - E_m} + O(\lambda^{3})">E_n(\lambda) = E_n + \lambda\,V_{nn} + \lambda^{2}\sum_{m\neq n}\frac{|V_{mn}|^{2}}{E_n - E_m} + O(\lambda^{3})</span></div>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="|n^{(1)}\rangle = \sum_{m\neq n}|m\rangle\,\frac{V_{mn}}{E_n - E_m}">|n^{(1)}\rangle = \sum_{m\neq n}|m\rangle\,\frac{V_{mn}}{E_n - E_m}</span></div>
+<p>其中 <span class="math" data-tex="V_{mn} = \langle m|V|n\rangle">V_{mn} = \langle m|V|n\rangle</span>；<span class="math" data-tex="|n^{(1)}\rangle">|n^{(1)}\rangle</span> 是一阶波函数修正（乘以 <span class="math" data-tex="\lambda">\lambda</span> 后加到 <span class="math" data-tex="|n\rangle">|n\rangle</span> 上）<a class="cite" href="#src-martin-2020-electronic">[Martin 2020]</a>。</p></aside>
+<p>对基态，所有 <span class="math" data-tex="E_n - E_m &lt; 0">E_n - E_m &lt; 0</span>，所以二阶能量总是负的：扰动总能降低基态能量。</p>
+<h3>2n+1 定理</h3>
+<p>知道 <span class="math" data-tex="n">n</span> 阶波函数，就能算到 <span class="math" data-tex="2n+1">2n+1</span> 阶能量。特别地，一阶波函数足以给出二阶和三阶能量。这一结论在 DFT 中同样成立，因为 DFT 能量也是变分的 <a class="cite" href="#src-gonze-1997-dfpt">[Gonze &amp; Lee 1997]</a>。</p>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">Sternheimer 方程</span></p><div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\bigl(H^{(0)} - \varepsilon_n\bigr)\,P_c\,|\psi_n^{(1)}\rangle = -P_c\,\Delta V\,|\psi_n\rangle">\bigl(H^{(0)} - \varepsilon_n\bigr)\,P_c\,|\psi_n^{(1)}\rangle = -P_c\,\Delta V\,|\psi_n\rangle</span></div>
+<p>其中 <span class="math" data-tex="\psi_n">\psi_n</span> 是占据的 KS 轨道，<span class="math" data-tex="\varepsilon_n">\varepsilon_n</span> 是其本征值；<span class="math" data-tex="P_c">P_c</span> 是投影到空态子空间的算符（<span class="math" data-tex="P_c = 1 - \sum_{v}|\psi_v\rangle\langle\psi_v|">P_c = 1 - \sum_{v}|\psi_v\rangle\langle\psi_v|</span>，<span class="math" data-tex="v">v</span> 遍历占据态）；<span class="math" data-tex="\Delta V">\Delta V</span> 是一阶有效势变化。它是一个线性方程组，不需要显式求出空态 <a class="cite" href="#src-baroni-2001-dfpt">[Baroni 2001]</a>。</p></aside>
+<p>在 DFPT 中，<span class="math" data-tex="\Delta V">\Delta V</span> 本身依赖一阶密度变化（Hartree 和交换关联势随密度变化），所以 Sternheimer 方程也要自洽求解，类似 <a class="node-link" href="../nodes/scf-cycle.html">自洽场循环与密度混合</a>。</p>
+<aside class="claim claim-assumption" aria-label="假设"><p class="claim-head"><span class="claim-kind">假设</span><span class="claim-title">不简并与绝缘</span></p><p>上述公式要求能级不简并；简并时先在简并子空间内对角化扰动。DFPT 的标准形式针对有能隙的绝缘体，金属需要额外处理费米面附近的占据变化 <a class="cite" href="#src-baroni-2001-dfpt">[Baroni 2001]</a>。</p></aside>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">扰动</th><th scope="col">二阶导数</th><th scope="col">对应的量</th></tr></thead><tbody><tr><td>电场 × 电场</td><td><span class="math" data-tex="\partial^{2}E/\partial\mathcal{E}^{2}">\partial^{2}E/\partial\mathcal{E}^{2}</span></td><td>电子介电张量 <span class="math" data-tex="\varepsilon^{\infty}">\varepsilon^{\infty}</span></td></tr><tr><td>原子位移 × 电场</td><td><span class="math" data-tex="\partial^{2}E/\partial u\,\partial\mathcal{E}">\partial^{2}E/\partial u\,\partial\mathcal{E}</span></td><td>Born 有效电荷 <span class="math" data-tex="Z^{*}">Z^{*}</span></td></tr><tr><td>原子位移 × 原子位移</td><td><span class="math" data-tex="\partial^{2}E/\partial u^{2}">\partial^{2}E/\partial u^{2}</span></td><td>力常数、声子</td></tr><tr><td>应变 × 电场</td><td><span class="math" data-tex="\partial^{2}E/\partial\eta\,\partial\mathcal{E}">\partial^{2}E/\partial\eta\,\partial\mathcal{E}</span></td><td>钳位离子压电张量</td></tr></tbody></table></div>
+<ul><li><strong>VASP <code>LEPSILON = .TRUE.</code></strong>：用 DFPT 算 <span class="math" data-tex="\varepsilon^{\infty}">\varepsilon^{\infty}</span>、<span class="math" data-tex="Z^{*}">Z^{*}</span> 和钳位离子压电张量（见 <a class="node-link" href="../nodes/dielectric-born.html">介电张量与玻恩有效电荷</a> 与 <a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a>）。</li><li><strong>离子弛豫部分</strong>：压电张量的离子贡献需要力常数和内应变，通常用 <code>IBRION = 7/8</code>（DFPT）或 <code>IBRION = 5/6</code>（有限差分）（见 <a class="node-link" href="../nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a>）。</li><li><strong>能隙与响应</strong>：二阶能量的分母是能级差，所以 PBE 低估能隙会让电子介电常数偏大（见 <a class="node-link" href="../nodes/pbe.html">PBE 泛函与广义梯度近似</a>）。</li></ul>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>应变扰动在 DFPT 中的处理（Hamann 等的应变 DFPT）及其在 VASP 中是否用 DFPT 还是有限差分，按 VASP 文档与原文核对。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>把“微扰”理解为“近似”</strong>：DFPT 算的是精确的解析二阶导数，和足够小步长的有限差分在收敛极限下应一致。</li><li><strong>忽略局域场与自洽</strong>：独立粒子近似（不自洽 <span class="math" data-tex="\Delta V">\Delta V</span>）会明显高估介电常数。</li><li><strong>简并能级直接套公式</strong>：分母为零，必须先处理简并子空间。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么基态的二阶能量修正总是负的？这和“扰动把能级推开”有什么关系？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>对两能级体系 <span class="math" data-tex="H = \begin{pmatrix}-\Delta/2 &amp; \lambda V\\ \lambda V &amp; \Delta/2\end{pmatrix}">H = \begin{pmatrix}-\Delta/2 &amp; \lambda V\\ \lambda V &amp; \Delta/2\end{pmatrix}</span>，求精确本征值，展开到 <span class="math" data-tex="\lambda^{2}">\lambda^{2}</span>，与二阶微扰公式比较。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>DFPT 和有限差分算出的 β-甘氨酸 Born 电荷差了 5%。你会依次检查哪些设置？</p></aside>
+</section>
   </div>
   
   
-  
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-baroni-2001-dfpt"><p class="src-kind">论文<span class="src-short">Baroni 2001</span></p><p class="src-cit"><a href="https://doi.org/10.1103/RevModPhys.73.515" rel="noopener" target="_blank">S. Baroni, S. de Gironcoli, A. Dal Corso, P. Giannozzi, Phonons and related crystal properties from density-functional perturbation theory, Rev. Mod. Phys. 73, 515 (2001)</a></p><p class="src-meta">位置：能量对原子位移、应变和电场的二阶导数；与有限差分的关系</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-gonze-1997-dfpt"><p class="src-kind">论文<span class="src-short">Gonze &amp; Lee 1997</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevB.55.10355" rel="noopener" target="_blank">X. Gonze, C. Lee, Dynamical matrices, Born effective charges, dielectric permittivity tensors, and interatomic force constants from density-functional perturbation theory, Phys. Rev. B 55, 10355 (1997)</a></p><p class="src-meta">位置：玻恩有效电荷、ε∞ 与 ε0 的定义；声学求和规则；模式分解</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-martin-2020-electronic"><p class="src-kind">教材<span class="src-short">Martin 2020</span></p><p class="src-cit"><a href="https://doi.org/10.1017/9781108555586" rel="noopener" target="_blank">R. M. Martin, Electronic Structure: Basic Theory and Practical Methods, 2nd ed., Cambridge University Press (2020)</a></p><p class="src-meta">版本：第 2 版；位置：Kohn–Sham 理论、交换相关近似、平面波与 PAW 相关章节（具体章节待查阅后补）</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
   <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;perturbation theory&quot;, &quot;linear response&quot;, &quot;Sternheimer equation&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>量子力学 · 概念 · 状态：候选</p>
+  <p class="cat-foot"><span>分类</span>量子力学 · 概念 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="perturbation-theory">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +97,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%BE%AE%E6%89%B0%E7%90%86%E8%AE%BA%EF%BC%88perturbation-theory%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aperturbation-theory%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.2</span><span>2026-11-10</span>初稿正文：Rayleigh–Schrödinger 微扰、两能级例子、二阶能量与响应、2n+1 定理、Sternheimer 方程与 DFPT、常见坑；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%BE%AE%E6%89%B0%E7%90%86%E8%AE%BA%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%93%8D%E5%BA%94%EF%BC%88perturbation-theory%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aperturbation-theory%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">

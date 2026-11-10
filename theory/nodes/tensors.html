@@ -8,10 +8,12 @@
 <title>张量与坐标变换 · 理论地图 · 科研雷达</title>
 <meta name="description" content="张量在坐标变换下怎样变，Voigt 记号怎样压缩下标，以及晶体对称性怎样让一部分分量为零。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="tensors" data-node-title="张量与坐标变换" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="tensors" data-node-title="张量与坐标变换" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,63 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-math">数学工具</a></li><li aria-current="page">张量与坐标变换</li></ol><a class="small" href="../tree.html#t-tensors">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-math">数学工具</a></li><li aria-current="page">张量与坐标变换</li></ol><a class="small" href="../tree.html#t-tensors">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-math">数学工具</a></nav>
   <h1 id="nodeTitle">张量与坐标变换</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-math">数学工具</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-math">数学工具</a></span><span>v0.2 · 2026-11-10</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
   <p class="purpose">张量在坐标变换下怎样变，Voigt 记号怎样压缩下标，以及晶体对称性怎样让一部分分量为零。</p>
-  
-  
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>矢量的分量与基矢</li><li>矩阵乘法</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li>正交矩阵</li><li><a class="node-link" href="../nodes/eigenproblems.html">线性代数与本征问题</a></li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>物理量本身不依赖坐标系，它的<strong>分量</strong>依赖坐标系。一根箭头（矢量）在旋转后的坐标系里，分量会变，箭头没变。张量就是“分量按某种固定规则随坐标系变化”的量：</p>
+<ul><li>0 阶：标量（能量、温度），分量不变；</li><li>1 阶：矢量（极化 <span class="math" data-tex="P">P</span>、电场 <span class="math" data-tex="\mathcal{E}">\mathcal{E}</span>、力），3 个分量；</li><li>2 阶：介电张量 <span class="math" data-tex="\varepsilon">\varepsilon</span>、应变 <span class="math" data-tex="\eta">\eta</span>、应力 <span class="math" data-tex="\sigma">\sigma</span>，<span class="math" data-tex="3\times 3">3\times 3</span> 个分量；</li><li>3 阶：压电张量 <span class="math" data-tex="d">d</span>、<span class="math" data-tex="e">e</span>，<span class="math" data-tex="3\times3\times3">3\times3\times3</span> 个分量；</li><li>4 阶：弹性张量 <span class="math" data-tex="C">C</span>，<span class="math" data-tex="3^{4}">3^{4}</span> 个分量。</li></ul>
+<p>材料性质张量把一个张量“映射”到另一个：介电张量把电场映射到极化，压电张量把应力映射到极化。它们的阶数就是输入和输出阶数之和。</p>
+<figure class="fig"><img src="../figs/tensor-rotation-voigt.svg" alt="左：同一个矢量在两套直角坐标下分量不同。右：对称二阶张量的 9 个分量中只有 6 个独立，Voigt 记号用 1–6 编号。" loading="lazy"><figcaption>左：同一个矢量在两套直角坐标下分量不同。右：对称二阶张量的 9 个分量中只有 6 个独立，Voigt 记号用 1–6 编号。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="x_1, x_2">x_1, x_2</span></td><td>原坐标轴</td><td>左图灰色轴</td></tr><tr><td><span class="math" data-tex="x&#x27;_1, x&#x27;_2">x&#x27;_1, x&#x27;_2</span></td><td>旋转 <span class="math" data-tex="\theta">\theta</span> 后的坐标轴</td><td>左图蓝色轴</td></tr><tr><td><span class="math" data-tex="\theta">\theta</span></td><td>坐标旋转角</td><td>左图蓝色弧</td></tr><tr><td><span class="math" data-tex="\mathbf{v}">\mathbf{v}</span>、<span class="math" data-tex="v_1">v_1</span></td><td>一个矢量及其在原坐标下的第 1 个分量</td><td>左图橙色箭头和虚线</td></tr><tr><td><span class="math" data-tex="\varepsilon_{ij}">\varepsilon_{ij}</span></td><td>对称二阶张量（如应变）的分量</td><td>右图 <span class="math" data-tex="3\times3">3\times3</span> 方格</td></tr><tr><td>1–6</td><td>Voigt 编号</td><td>右图方格下方的小数字与右侧色条</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">坐标变换规则</span></p><p>设新坐标轴由正交矩阵 <span class="math" data-tex="R">R</span> 给出：<span class="math" data-tex="x&#x27;_i = \sum_j R_{ij}\,x_j">x&#x27;_i = \sum_j R_{ij}\,x_j</span>，<span class="math" data-tex="R^{\mathsf T}R = I">R^{\mathsf T}R = I</span>。则</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="v&#x27;_i = \sum_{j} R_{ij}\,v_j, \qquad T&#x27;_{ij} = \sum_{k,l} R_{ik}R_{jl}\,T_{kl}, \qquad d&#x27;_{ijk} = \sum_{l,m,n} R_{il}R_{jm}R_{kn}\,d_{lmn}">v&#x27;_i = \sum_{j} R_{ij}\,v_j, \qquad T&#x27;_{ij} = \sum_{k,l} R_{ik}R_{jl}\,T_{kl}, \qquad d&#x27;_{ijk} = \sum_{l,m,n} R_{il}R_{jm}R_{kn}\,d_{lmn}</span></div>
+<p>其中 <span class="math" data-tex="v">v</span> 是矢量，<span class="math" data-tex="T">T</span> 是二阶张量，<span class="math" data-tex="d">d</span> 是三阶张量；每个下标各配一个 <span class="math" data-tex="R">R</span>，求和遍历 1、2、3。二阶张量也可以写成矩阵形式 <span class="math" data-tex="T&#x27; = R\,T\,R^{\mathsf T}">T&#x27; = R\,T\,R^{\mathsf T}</span>。</p></aside>
+<p>例如二维中绕 <span class="math" data-tex="x_3">x_3</span> 轴旋转 <span class="math" data-tex="\theta">\theta</span>：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="R = \begin{pmatrix} \cos\theta &amp; \sin\theta \\ -\sin\theta &amp; \cos\theta \end{pmatrix}">R = \begin{pmatrix} \cos\theta &amp; \sin\theta \\ -\sin\theta &amp; \cos\theta \end{pmatrix}</span></div>
+<p>其中第一行是新轴 <span class="math" data-tex="x&#x27;_1">x&#x27;_1</span> 在旧坐标中的方向余弦，第二行是 <span class="math" data-tex="x&#x27;_2">x&#x27;_2</span> 的方向余弦。</p>
+<h3>Voigt 记号</h3>
+<p>应变和应力是对称张量（<span class="math" data-tex="\eta_{ij} = \eta_{ji}">\eta_{ij} = \eta_{ji}</span>），只有 6 个独立分量。Voigt 记号把一对下标压成一个：</p>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">张量下标</th><th scope="col">11</th><th scope="col">22</th><th scope="col">33</th><th scope="col">23, 32</th><th scope="col">13, 31</th><th scope="col">12, 21</th></tr></thead><tbody><tr><td>Voigt 下标</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr></tbody></table></div>
+<p>于是压电张量 <span class="math" data-tex="d_{ijk}">d_{ijk}</span> 写成 <span class="math" data-tex="3\times 6">3\times 6</span> 矩阵 <span class="math" data-tex="d_{iJ}">d_{iJ}</span>，弹性张量 <span class="math" data-tex="C_{ijkl}">C_{ijkl}</span> 写成 <span class="math" data-tex="6\times 6">6\times 6</span> 矩阵 <span class="math" data-tex="C_{IJ}">C_{IJ}</span>。</p>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">剪切分量的因子 2</span></p><p>为了让 <span class="math" data-tex="\sigma_I = \sum_J C_{IJ}\,\eta_J">\sigma_I = \sum_J C_{IJ}\,\eta_J</span> 和能量 <span class="math" data-tex="\tfrac12\sum_{IJ}C_{IJ}\eta_I\eta_J">\tfrac12\sum_{IJ}C_{IJ}\eta_I\eta_J</span> 在压缩后仍然成立，应变的剪切分量取工程应变：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\eta_4 = 2\eta_{23}, \qquad \eta_5 = 2\eta_{13}, \qquad \eta_6 = 2\eta_{12}">\eta_4 = 2\eta_{23}, \qquad \eta_5 = 2\eta_{13}, \qquad \eta_6 = 2\eta_{12}</span></div>
+<p>而应力不加因子：<span class="math" data-tex="\sigma_4 = \sigma_{23}">\sigma_4 = \sigma_{23}</span> 等。其中 <span class="math" data-tex="\eta_{ij}">\eta_{ij}</span> 是张量应变的分量。压电应变系数相应地有 <span class="math" data-tex="d_{iJ} = 2d_{ijk}">d_{iJ} = 2d_{ijk}</span>（当 <span class="math" data-tex="J = 4,5,6">J = 4,5,6</span> 时）<a class="cite" href="#src-ieee-176-piezo">[IEEE Std 176]</a>。</p></aside>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li><span class="math" data-tex="d">d</span>、<span class="math" data-tex="e">e</span> 两个压电张量在 Voigt 压缩时哪个带因子 2，按 <a class="cite" href="#src-ieee-176-piezo">[IEEE Std 176]</a> 逐项核对；这里写的是常见约定。</li></ul></aside>
+<h3>对称性怎样让分量为零</h3>
+<p>如果某个操作 <span class="math" data-tex="R">R</span> 把晶体变回自身，性质张量在这个变换下也必须不变：<span class="math" data-tex="T&#x27; = T">T&#x27; = T</span>。这就是 Neumann 原理，它把一部分分量逼成零，或让几个分量相等。具体例子见 <a class="node-link" href="../nodes/crystal-symmetry.html">晶体对称性与空间群</a>。</p>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>β-甘氨酸的 <span class="math" data-tex="d_{16}">d_{16}</span></strong>：第 1 个下标是极化方向 <span class="math" data-tex="x">x</span>，第 6 个 Voigt 下标是 <span class="math" data-tex="xy">xy</span> 剪切。只有把笛卡尔坐标和晶轴的对应说清楚，“<span class="math" data-tex="d_{16}">d_{16}</span>”才有确定含义（见 <a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a>）。</li><li><strong>从程序输出到论文</strong>：VASP 等程序输出张量时用自己的 Voigt 顺序和坐标约定。把结果和实验比较，或把单晶张量转到另一个坐标系（例如样品坐标），都要用上面的变换规则。</li><li><strong>多晶或薄膜的有效系数</strong>：对取向分布做平均，本质上是对 <span class="math" data-tex="R">R</span> 做加权平均。</li></ul>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>Voigt 顺序不统一</strong>：有的程序剪切顺序是 <span class="math" data-tex="xy, yz, zx">xy, yz, zx</span>，有的是 <span class="math" data-tex="yz, xz, xy">yz, xz, xy</span>。</li><li><strong>因子 2 用错</strong>：剪切分量差 2 倍或 4 倍，最常见于弹性常数 <span class="math" data-tex="C_{44}">C_{44}</span> 和压电剪切分量。</li><li><strong>把 Voigt 矩阵当普通矩阵旋转</strong>：<span class="math" data-tex="6\times6">6\times6</span> 的 <span class="math" data-tex="C_{IJ}">C_{IJ}</span> 不能直接用 <span class="math" data-tex="R">R</span> 旋转，要先展开成四阶张量，或用专门的 <span class="math" data-tex="6\times6">6\times6</span> 变换矩阵。</li><li><strong>左手坐标系</strong>：晶体学软件导出的笛卡尔坐标一般是右手系；手动建坐标时要检查，镜像会改变奇数阶张量的符号。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么介电张量是二阶，压电张量是三阶？用“输入 → 输出”的阶数说明。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>对二维旋转，验证 <span class="math" data-tex="T&#x27; = RTR^{\mathsf T}">T&#x27; = RTR^{\mathsf T}</span> 下 <span class="math" data-tex="T&#x27;_{11} + T&#x27;_{22} = T_{11} + T_{22}">T&#x27;_{11} + T&#x27;_{22} = T_{11} + T_{22}</span>（迹不变）。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>如果把 β-甘氨酸的坐标系绕 <span class="math" data-tex="z">z</span> 轴转 90°，<span class="math" data-tex="d_{16}">d_{16}</span> 会变成哪个分量（只看下标，不算数值）？</p></aside>
+</section>
   </div>
   
   
-  
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-ieee-176-piezo"><p class="src-kind">官方文档<span class="src-short">IEEE Std 176</span></p><p class="src-cit"><a href="https://doi.org/10.1109/IEEESTD.1988.79638" rel="noopener" target="_blank">IEEE Standard on Piezoelectricity, ANSI/IEEE Std 176-1987</a></p><p class="src-meta">位置：压电系数 d、e、g、h 的定义与边界条件</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
   <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;Voigt notation&quot;, &quot;coordinate transformation&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>数学工具 · 概念 · 状态：候选</p>
+  <p class="cat-foot"><span>分类</span>数学工具 · 概念 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="tensors">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +99,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%BC%A0%E9%87%8F%E4%B8%8E%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%EF%BC%88tensors%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Atensors%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.2</span><span>2026-11-10</span>初稿正文：坐标变换规则、阶数与物理量、Voigt 记号及其因子、对称性约束；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%BC%A0%E9%87%8F%E4%B8%8E%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2%EF%BC%88tensors%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Atensors%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">
