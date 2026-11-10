@@ -588,6 +588,197 @@
       "doi": "10.1063/1.328693",
       "locator": "晶胞形状可变的恒压 MD",
       "consulted": []
+    },
+    {
+      "id": "price-2014-csp",
+      "short": "Price 2014",
+      "kind": "paper",
+      "citation": "S. L. Price, Predicting crystal structures of organic compounds, Chem. Soc. Rev. 43, 2098 (2014)",
+      "doi": "10.1039/C3CS60279F",
+      "locator": "有机分子 CSP 的流程、能量模型与难点",
+      "consulted": []
+    },
+    {
+      "id": "reilly-2016-blind6",
+      "short": "Reilly et al. 2016",
+      "kind": "benchmark",
+      "citation": "A. M. Reilly et al., Report on the sixth blind test of organic crystal structure prediction methods, Acta Cryst. B 72, 439 (2016)",
+      "doi": "10.1107/S2052520616007447",
+      "locator": "第六次盲测：各组方法与排序结果",
+      "consulted": []
+    },
+    {
+      "id": "pickard-2011-airss",
+      "short": "Pickard & Needs 2011",
+      "kind": "paper",
+      "citation": "C. J. Pickard, R. J. Needs, Ab initio random structure searching, J. Phys.: Condens. Matter 23, 053201 (2011)",
+      "doi": "10.1088/0953-8984/23/5/053201",
+      "locator": "随机结构搜索（AIRSS）",
+      "consulted": []
+    },
+    {
+      "id": "oganov-2006-uspex",
+      "short": "Oganov & Glass 2006",
+      "kind": "paper",
+      "citation": "A. R. Oganov, C. W. Glass, Crystal structure prediction using ab initio evolutionary techniques: Principles and applications, J. Chem. Phys. 124, 244704 (2006)",
+      "doi": "10.1063/1.2210932",
+      "locator": "进化算法（USPEX）",
+      "consulted": []
+    },
+    {
+      "id": "wang-2010-calypso",
+      "short": "Wang et al. 2010",
+      "kind": "paper",
+      "citation": "Y. Wang, J. Lv, L. Zhu, Y. Ma, Crystal structure prediction via particle-swarm optimization, Phys. Rev. B 82, 094116 (2010)",
+      "doi": "10.1103/PhysRevB.82.094116",
+      "locator": "粒子群优化（CALYPSO）",
+      "consulted": []
+    },
+    {
+      "id": "chisholm-2005-compack",
+      "short": "Chisholm & Motherwell 2005",
+      "kind": "paper",
+      "citation": "J. A. Chisholm, S. Motherwell, COMPACK: a program for identifying crystal structure similarity using distances, J. Appl. Cryst. 38, 228 (2005)",
+      "doi": "10.1107/S0021889804027074",
+      "locator": "分子簇叠合比较（COMPACK）",
+      "consulted": []
+    },
+    {
+      "id": "oganov-2009-fingerprint",
+      "short": "Oganov & Valle 2009",
+      "kind": "paper",
+      "citation": "A. R. Oganov, M. Valle, How to quantify energy landscapes of solids, J. Chem. Phys. 130, 104504 (2009)",
+      "doi": "10.1063/1.3079326",
+      "locator": "基于原子间距分布的结构指纹与距离",
+      "consulted": []
+    },
+    {
+      "id": "vazquez-2026-dualquat",
+      "short": "Vázquez-Hernández et al. 2026",
+      "kind": "paper",
+      "citation": "H. Vázquez-Hernández et al., Rigid Molecule Packing Similarity Index Based on Dual Quaternions, J. Chem. Theory Comput. (2026)",
+      "doi": "10.1021/acs.jctc.6c01293",
+      "locator": "刚性分子堆积相似度（雷达触发文献）",
+      "consulted": []
+    },
+    {
+      "id": "liu-2026-crystalgen",
+      "short": "Liu et al. 2026",
+      "kind": "paper",
+      "citation": "J. Liu et al., Site-orbit masked twin-branch Transformer for symmetry-constrained crystal generation, arXiv:2611.02906 (2026)",
+      "url": "https://arxiv.org/abs/2611.02906",
+      "version": "arXiv 预印本，按引用的版本号核对",
+      "locator": "对称性约束的晶体生成（雷达触发文献）",
+      "consulted": []
+    },
+    {
+      "id": "hoja-2019-polymorphs",
+      "short": "Hoja et al. 2019",
+      "kind": "paper",
+      "citation": "J. Hoja et al., Reliable and practical computational description of molecular crystal polymorphs, Sci. Adv. 5, eaau3338 (2019)",
+      "doi": "10.1126/sciadv.aau3338",
+      "locator": "分层排序：DFT、多体色散与振动自由能",
+      "consulted": []
+    },
+    {
+      "id": "wales-2003-landscapes",
+      "short": "Wales 2003",
+      "kind": "textbook",
+      "citation": "D. J. Wales, Energy Landscapes, Cambridge University Press (2003)",
+      "doi": "10.1017/CBO9780511721724",
+      "locator": "极小、鞍点、反应路径与盆地",
+      "consulted": [],
+      "version": "出版年按纸本记为 2003，Crossref 记录为 2001，待核对"
+    },
+    {
+      "id": "nyman-2015-vib",
+      "short": "Nyman & Day 2015",
+      "kind": "paper",
+      "citation": "J. Nyman, G. M. Day, Static and lattice vibrational energy differences between polymorphs, CrystEngComm 17, 5154 (2015)",
+      "doi": "10.1039/C5CE00045A",
+      "locator": "多晶型间的静态能量差与振动自由能差的大小分布",
+      "consulted": []
+    },
+    {
+      "id": "cruz-cabeza-2015-polymorph",
+      "short": "Cruz-Cabeza et al. 2015",
+      "kind": "paper",
+      "citation": "A. J. Cruz-Cabeza, S. M. Reutzel-Edens, J. Bernstein, Facts and fictions about polymorphism, Chem. Soc. Rev. 44, 8619 (2015)",
+      "doi": "10.1039/C5CS00227C",
+      "locator": "多晶型的普遍程度、能量差与热力学关系",
+      "consulted": []
+    },
+    {
+      "id": "baroni-2010-qha",
+      "short": "Baroni et al. 2010",
+      "kind": "paper",
+      "citation": "S. Baroni, P. Giannozzi, E. Isaev, Density-Functional Perturbation Theory for Quasi-Harmonic Calculations, Rev. Mineral. Geochem. 71, 39 (2010)",
+      "doi": "10.2138/rmg.2010.71.3",
+      "locator": "准简谐近似的公式与实现",
+      "consulted": []
+    },
+    {
+      "id": "kirkwood-1935",
+      "short": "Kirkwood 1935",
+      "kind": "paper",
+      "citation": "J. G. Kirkwood, Statistical Mechanics of Fluid Mixtures, J. Chem. Phys. 3, 300 (1935)",
+      "doi": "10.1063/1.1749657",
+      "locator": "热力学积分",
+      "consulted": []
+    },
+    {
+      "id": "zwanzig-1954",
+      "short": "Zwanzig 1954",
+      "kind": "paper",
+      "citation": "R. W. Zwanzig, High-Temperature Equation of State by a Perturbation Method. I. Nonpolar Gases, J. Chem. Phys. 22, 1420 (1954)",
+      "doi": "10.1063/1.1740409",
+      "locator": "自由能微扰",
+      "consulted": []
+    },
+    {
+      "id": "etter-1990-graphset",
+      "short": "Etter et al. 1990",
+      "kind": "paper",
+      "citation": "M. C. Etter, J. C. MacDonald, J. Bernstein, Graph-set analysis of hydrogen-bond patterns in organic crystals, Acta Cryst. B 46, 256 (1990)",
+      "doi": "10.1107/S0108768189012929",
+      "locator": "氢键图集记号",
+      "consulted": []
+    },
+    {
+      "id": "reilly-2013-x23",
+      "short": "Reilly & Tkatchenko 2013",
+      "kind": "benchmark",
+      "citation": "A. M. Reilly, A. Tkatchenko, Understanding the role of vibrations, exact exchange, and many-body van der Waals interactions in the cohesive properties of molecular crystals, J. Chem. Phys. 139, 024705 (2013)",
+      "doi": "10.1063/1.4812819",
+      "locator": "分子晶体升华焓基准（X23）、振动与多体色散的作用",
+      "consulted": []
+    },
+    {
+      "id": "beran-2016-review",
+      "short": "Beran 2016",
+      "kind": "paper",
+      "citation": "G. J. O. Beran, Modeling Polymorphic Molecular Crystals with Electronic Structure Theory, Chem. Rev. 116, 5567 (2016)",
+      "doi": "10.1021/acs.chemrev.5b00648",
+      "locator": "分子晶体电子结构方法综述",
+      "consulted": []
+    },
+    {
+      "id": "frenkel-2002-sim",
+      "short": "Frenkel & Smit 2002",
+      "kind": "textbook",
+      "citation": "D. Frenkel, B. Smit, Understanding Molecular Simulation, 2nd ed., Academic Press (2002)",
+      "doi": "10.1016/B978-0-12-267351-1.X5000-7",
+      "locator": "系综、自由能计算方法",
+      "consulted": []
+    },
+    {
+      "id": "mounet-2005-qha",
+      "short": "Mounet & Marzari 2005",
+      "kind": "paper",
+      "citation": "N. Mounet, N. Marzari, First-principles determination of the structural, vibrational and thermodynamic properties of diamond, graphite, and derivatives, Phys. Rev. B 71, 205214 (2005)",
+      "doi": "10.1103/PhysRevB.71.205214",
+      "locator": "各向异性准简谐计算的实例",
+      "consulted": []
     }
   ]
 }
