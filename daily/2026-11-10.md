@@ -1,38 +1,43 @@
 # 科研雷达 · 2026-11-10（周二）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-08 17:08 → 现在 · 候选 736 → 本轮入库 38 → 今日累计 **5**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-08 18:08 → 现在 · 候选 759 → 本轮入库 39 → 今日累计 **6**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Reweighting Free Energy Profiles with Universal Machine Learning Interatomic Potentials fo…（7.6）
+- **最高相关度**：Quantitative Assessment of Crystal Structure Prediction（13.8）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
 - **升温主题**：AI for Science 方法与自动化
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 2 · 分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 1
+- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
-1. **[Reweighting Free Energy Profiles with Universal Machine Learning Interatomic Potentials for Fast Consensus Building](https://doi.org/10.1021/acs.jctc.6c02044)**
+1. **[Quantitative Assessment of Crystal Structure Prediction](https://arxiv.org/abs/2611.10380)**
+   `CSP` · *arXiv* · 2026-11-07 · [PDF](https://arxiv.org/pdf/2611.10380)
+   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、polymorphism、polymorph</sub>
+   > Crystal Structure Prediction (CSP) aims to predict a material's 3D structure from its chemical composition, with applications from energy storage to biomedical devices. Despite its importance, existing evaluation frameworks suffer from key limitations: they rely on threshold-sensitive or incomparable metrics, focus pre…
+
+2. **[Reweighting Free Energy Profiles with Universal Machine Learning Interatomic Potentials for Fast Consensus Building](https://doi.org/10.1021/acs.jctc.6c02044)**
    `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-09
    <sub>命中：density functional theory、mlip、mace</sub>
    > Universal machine learning interatomic potentials (MLIPs) have made density functional theory (DFT)-level molecular dynamics highly affordable. However, their rapid proliferation makes it prohibitively expensive to benchmark every new model against the potential of mean force (PMF), the bridge between microscopic atomi…
 
-2. **[High-Volume Wurtzite MnSe in MnSe/CdSe Superlattices: Structure, Magnetism and Optical Response](https://arxiv.org/abs/2611.09509)**
+3. **[High-Volume Wurtzite MnSe in MnSe/CdSe Superlattices: Structure, Magnetism and Optical Response](https://arxiv.org/abs/2611.09509)**
    `CSP` · *arXiv* · 2026-11-06 · [PDF](https://arxiv.org/pdf/2611.09509)
    <sub>命中：polymorphism、polymorph</sub>
    > Polymorphism in Mn-based chalcogenides offers access to magnetic semiconductors with distinct crystal symmetries, polar structures, and different magnetic orders. In particular, wurtzite MnSe exhibits an appealing interplay of electric polarization and several competing magnetic phases including altermagnetic order.
 
-3. **[Inverse design of superconductors and semiconductors with differentiable foundation models](https://arxiv.org/abs/2611.09572)**
+4. **[Inverse design of superconductors and semiconductors with differentiable foundation models](https://arxiv.org/abs/2611.09572)**
    `生成模型` `生成设计` · *arXiv* · 2026-11-06 · [PDF](https://arxiv.org/pdf/2611.09572)
    <sub>命中：foundation model、inverse design</sub>
    > Designing a crystal for a target property requires choosing its elements, stoichiometry, and atomic structure together, yet gradients exist only for the continuous structural variables.
 
-4. **[Conformation of microhydrated ethylimidazole isomers explored by microwave spectroscopy](https://doi.org/10.1063/5.0351003)**
+5. **[Conformation of microhydrated ethylimidazole isomers explored by microwave spectroscopy](https://doi.org/10.1063/5.0351003)**
    `MLIP` · *The Journal of Chemical Physics* · 2026-11-09
    <sub>命中：density functional theory、potential energy surface</sub>
    > Chirped-pulse Fourier transform microwave spectroscopy (2.0–18.5 GHz) has been employed to determine the molecular structures of isolated N-ethylimidazole and 2-ethylimidazole and to investigate the structure and intermolecular interactions within N-ethylimidazole⋯H2O, 2-ethylimidazole⋯H2O, and N-ethylimidazole⋯(H2O)2.…
 
-5. **[Influence of Crystal Structure and Shape Anisotropies on Valence-Band States of InP Colloidal Nanocrystals: Application of the xyz Algorithm](https://doi.org/10.1021/acs.jpclett.6c03306)**
+6. **[Influence of Crystal Structure and Shape Anisotropies on Valence-Band States of InP Colloidal Nanocrystals: Application of the xyz Algorithm](https://doi.org/10.1021/acs.jpclett.6c03306)**
    `CSP` · *The Journal of Physical Chemistry Letters* · 2026-11-09
    <sub>命中：crystal structure</sub>
    > We demonstrate that traditional classification of electronic states in semiconductor nanocrystals based on the quantum numbers of angular momenta becomes inappropriate and even misleading in nanocrystals with strong crystalline anisotropy, such as InP.
@@ -59,12 +64,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 600 | ok |
-| crossref | 100 | ok |
+| arxiv | 618 | ok |
+| crossref | 102 | ok |
 | openalex | 84 | ok |
-| rss | 56 | ok |
+| rss | 57 | ok |
 | github | 0 | ok |
 
-> 原始 840 → 去重 736 → 剔除标题噪声 25 → 低相关度 673 → 入库 38。
+> 原始 861 → 去重 759 → 剔除标题噪声 25 → 低相关度 695 → 入库 39。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
