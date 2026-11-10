@@ -5,13 +5,15 @@
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
-<title>晶格振动与声子 · 理论地图 · 科研雷达</title>
-<meta name="description" content="简谐近似下的动力学矩阵、声子色散与态密度，以及它们和力常数的关系。">
+<title>声子与晶格动力学 · 理论地图 · 科研雷达</title>
+<meta name="description" content="谐振近似下的力常数和动力学矩阵，声子色散、声学和光学支，虚频的含义，以及超胞有限位移法。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="phonons" data-node-title="晶格振动与声子" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="phonons" data-node-title="声子与晶格动力学" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,65 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-solids">晶体与固体</a></li><li aria-current="page">晶格振动与声子</li></ol><a class="small" href="../tree.html#t-phonons">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-solids">晶体与固体</a></li><li aria-current="page">声子与晶格动力学</li></ol><a class="small" href="../tree.html#t-phonons">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-solids">晶体与固体</a></nav>
-  <h1 id="nodeTitle">晶格振动与声子</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-solids">晶体与固体</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
-  <p class="purpose">简谐近似下的动力学矩阵、声子色散与态密度，以及它们和力常数的关系。</p>
-  
-  
+  <h1 id="nodeTitle">声子与晶格动力学</h1>
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-solids">晶体与固体</a></span><span>v0.2 · 2026-11-10</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">谐振近似下的力常数和动力学矩阵，声子色散、声学和光学支，虚频的含义，以及超胞有限位移法。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>弹簧振子与简正模</li><li><a class="node-link" href="../nodes/reciprocal-space.html">倒空间、布里渊区与 k 点采样</a>：波矢在布里渊区中取值</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/eigenproblems.html">线性代数与本征问题</a></li><li><a class="node-link" href="../nodes/hellmann-feynman.html">Hellmann–Feynman 定理：力与应力</a></li><li><a class="node-link" href="../nodes/perturbation-theory.html">微扰理论与线性响应</a></li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>原子在平衡位置附近振动。位移小时，能量近似是位移的二次函数，原子之间像是用弹簧连起来，这就是<strong>谐振近似</strong> (harmonic approximation)。</p>
+<p>晶体有平移对称性，所以振动的简正模可以用波矢 <span class="math" data-tex="\mathbf{q}">\mathbf{q}</span> 标记，每个模是一种“所有晶胞以相位 <span class="math" data-tex="\mathrm{e}^{i\mathbf{q}\cdot\mathbf{R}}">\mathrm{e}^{i\mathbf{q}\cdot\mathbf{R}}</span> 一起振动”的集体运动。量子化后的简正模就是<strong>声子</strong>。</p>
+<p>每个 <span class="math" data-tex="\mathbf{q}">\mathbf{q}</span> 有 <span class="math" data-tex="3N">3N</span> 个模（<span class="math" data-tex="N">N</span> 是每胞原子数）：</p>
+<ul><li>3 支<strong>声学支</strong>：<span class="math" data-tex="\mathbf{q}\to 0">\mathbf{q}\to 0</span> 时频率趋于 0，对应整体平移；长波极限下就是声波，斜率是声速，与弹性常数相关（见 <a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a>）。</li><li><span class="math" data-tex="3N-3">3N-3</span> 支<strong>光学支</strong>：<span class="math" data-tex="\mathbf{q}\to 0">\mathbf{q}\to 0</span> 时频率不为零，胞内原子相对振动。</li></ul>
+<p><strong>虚频</strong>（<span class="math" data-tex="\omega^{2} &lt; 0">\omega^{2} &lt; 0</span>）表示能量沿该模方向是下降的，结构不在极小点，而在鞍点上。</p>
+<figure class="fig"><img src="../figs/diatomic-chain-phonons.svg" alt="上：一维双原子链（质量 m1、m2，弹簧常数 K，晶格常数 a）。下：色散关系，声学支在 q=0 处为零，光学支在 q=0 处最高；两支之间有频隙。" loading="lazy"><figcaption>上：一维双原子链（质量 m1、m2，弹簧常数 K，晶格常数 a）。下：色散关系，声学支在 q=0 处为零，光学支在 q=0 处最高；两支之间有频隙。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="m_1, m_2">m_1, m_2</span></td><td>两种原子的质量（<span class="math" data-tex="m_1 &lt; m_2">m_1 &lt; m_2</span>）</td><td>蓝色小球、橙色大球</td></tr><tr><td><span class="math" data-tex="K">K</span></td><td>最近邻弹簧常数</td><td>小球之间的弹簧</td></tr><tr><td><span class="math" data-tex="a">a</span></td><td>晶格常数（一个晶胞含两个原子）</td><td>上图标注的长度</td></tr><tr><td><span class="math" data-tex="q">q</span></td><td>声子波矢，取值 <span class="math" data-tex="-\pi/a">-\pi/a</span> 到 <span class="math" data-tex="\pi/a">\pi/a</span></td><td>下图横轴</td></tr><tr><td><span class="math" data-tex="\omega">\omega</span></td><td>振动角频率</td><td>下图纵轴</td></tr><tr><td>频隙</td><td><span class="math" data-tex="\sqrt{2K/m_2}">\sqrt{2K/m_2}</span> 到 <span class="math" data-tex="\sqrt{2K/m_1}">\sqrt{2K/m_1}</span> 之间没有模</td><td>下图阴影带</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">力常数</span></p><div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="E = E_0 + \frac{1}{2}\sum_{\kappa\alpha l}\sum_{\kappa&#x27;\beta l&#x27;}\Phi_{\kappa\alpha,\kappa&#x27;\beta}(l,l&#x27;)\,u_{\kappa\alpha}(l)\,u_{\kappa&#x27;\beta}(l&#x27;) + O(u^{3}), \qquad \Phi_{\kappa\alpha,\kappa&#x27;\beta}(l,l&#x27;) = \frac{\partial^{2}E}{\partial u_{\kappa\alpha}(l)\,\partial u_{\kappa&#x27;\beta}(l&#x27;)}">E = E_0 + \frac{1}{2}\sum_{\kappa\alpha l}\sum_{\kappa&#x27;\beta l&#x27;}\Phi_{\kappa\alpha,\kappa&#x27;\beta}(l,l&#x27;)\,u_{\kappa\alpha}(l)\,u_{\kappa&#x27;\beta}(l&#x27;) + O(u^{3}), \qquad \Phi_{\kappa\alpha,\kappa&#x27;\beta}(l,l&#x27;) = \frac{\partial^{2}E}{\partial u_{\kappa\alpha}(l)\,\partial u_{\kappa&#x27;\beta}(l&#x27;)}</span></div>
+<p>其中 <span class="math" data-tex="l">l</span> 标记晶胞，<span class="math" data-tex="\kappa">\kappa</span> 标记胞内原子，<span class="math" data-tex="\alpha, \beta">\alpha, \beta</span> 是笛卡尔方向；<span class="math" data-tex="u_{\kappa\alpha}(l)">u_{\kappa\alpha}(l)</span> 是位移；一阶项在平衡构型下为零。也可以写成 <span class="math" data-tex="\Phi = -\partial F_{\kappa\alpha}(l)/\partial u_{\kappa&#x27;\beta}(l&#x27;)">\Phi = -\partial F_{\kappa\alpha}(l)/\partial u_{\kappa&#x27;\beta}(l&#x27;)</span>，即“挪一个原子、看其他原子受力”。</p></aside>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">动力学矩阵与色散</span></p><div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="D_{\kappa\alpha,\kappa&#x27;\beta}(\mathbf{q}) = \frac{1}{\sqrt{M_\kappa M_{\kappa&#x27;}}}\sum_{l&#x27;}\Phi_{\kappa\alpha,\kappa&#x27;\beta}(0,l&#x27;)\,\mathrm{e}^{\,i\mathbf{q}\cdot\mathbf{R}_{l&#x27;}}, \qquad D(\mathbf{q})\,\mathbf{e}_{\mathbf{q}j} = \omega_{\mathbf{q}j}^{2}\,\mathbf{e}_{\mathbf{q}j}">D_{\kappa\alpha,\kappa&#x27;\beta}(\mathbf{q}) = \frac{1}{\sqrt{M_\kappa M_{\kappa&#x27;}}}\sum_{l&#x27;}\Phi_{\kappa\alpha,\kappa&#x27;\beta}(0,l&#x27;)\,\mathrm{e}^{\,i\mathbf{q}\cdot\mathbf{R}_{l&#x27;}}, \qquad D(\mathbf{q})\,\mathbf{e}_{\mathbf{q}j} = \omega_{\mathbf{q}j}^{2}\,\mathbf{e}_{\mathbf{q}j}</span></div>
+<p>其中 <span class="math" data-tex="M_\kappa">M_\kappa</span> 是原子质量；<span class="math" data-tex="\mathbf{R}_{l&#x27;}">\mathbf{R}_{l&#x27;}</span> 是第 <span class="math" data-tex="l&#x27;">l&#x27;</span> 个晶胞的平移矢量；<span class="math" data-tex="D(\mathbf{q})">D(\mathbf{q})</span> 是 <span class="math" data-tex="3N\times 3N">3N\times 3N</span> 厄米矩阵；<span class="math" data-tex="j">j</span> 标记声子支；<span class="math" data-tex="\omega_{\mathbf{q}j}">\omega_{\mathbf{q}j}</span> 是频率，<span class="math" data-tex="\mathbf{e}_{\mathbf{q}j}">\mathbf{e}_{\mathbf{q}j}</span> 是极化矢量（本征矢）<a class="cite" href="#src-togo-2015-phonopy">[Togo &amp; Tanaka 2015]</a>。</p></aside>
+<aside class="claim claim-theorem" aria-label="定理"><p class="claim-head"><span class="claim-kind">定理</span><span class="claim-title">声学求和规则</span></p><p>整体平移不改变能量，所以</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\sum_{l&#x27;}\sum_{\kappa&#x27;}\Phi_{\kappa\alpha,\kappa&#x27;\beta}(0,l&#x27;) = 0">\sum_{l&#x27;}\sum_{\kappa&#x27;}\Phi_{\kappa\alpha,\kappa&#x27;\beta}(0,l&#x27;) = 0</span></div>
+<p>由此 <span class="math" data-tex="\mathbf{q}=0">\mathbf{q}=0</span> 处有 3 个零频模。数值计算会轻微破坏这一规则，后处理通常会强制施加。</p></aside>
+<h3>双原子链</h3>
+<p>对图中的模型，</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\omega_\pm^{2}(q) = K\left(\frac{1}{m_1}+\frac{1}{m_2}\right) \pm K\sqrt{\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{2} - \frac{4\sin^{2}(qa/2)}{m_1 m_2}}">\omega_\pm^{2}(q) = K\left(\frac{1}{m_1}+\frac{1}{m_2}\right) \pm K\sqrt{\left(\frac{1}{m_1}+\frac{1}{m_2}\right)^{2} - \frac{4\sin^{2}(qa/2)}{m_1 m_2}}</span></div>
+<p>其中“−”是声学支，“+”是光学支。在 <span class="math" data-tex="q=\pi/a">q=\pi/a</span> 处两支分别为 <span class="math" data-tex="\sqrt{2K/m_2}">\sqrt{2K/m_2}</span> 和 <span class="math" data-tex="\sqrt{2K/m_1}">\sqrt{2K/m_1}</span>，两者之间就是频隙。</p>
+<h3>LO–TO 劈裂</h3>
+<p>在离子晶体（极性晶体）中，长波纵光学模 (LO) 伴随宏观电场，频率高于横光学模 (TO)。这一非解析项由 Born 有效电荷和电子介电张量决定，所以算极性晶体的 Γ 点附近声子时需要 <span class="math" data-tex="Z^{*}">Z^{*}</span> 和 <span class="math" data-tex="\varepsilon^{\infty}">\varepsilon^{\infty}</span>（见 <a class="node-link" href="../nodes/dielectric-born.html">介电张量与玻恩有效电荷</a>）<a class="cite" href="#src-baroni-2001-dfpt">[Baroni 2001]</a>。</p>
+<h3>两种计算方法</h3>
+<ul><li><strong>超胞有限位移法</strong>：在超胞中把一个原子挪一点，用 <a class="node-link" href="../nodes/hellmann-feynman.html">Hellmann–Feynman 定理：力与应力</a> 力得到力常数；超胞越大，能准确得到的 q 点越多。phonopy 是常用实现 <a class="cite" href="#src-togo-2015-phonopy">[Togo &amp; Tanaka 2015]</a>。</li><li><strong>DFPT</strong>：直接对任意 <span class="math" data-tex="\mathbf{q}">\mathbf{q}</span> 求二阶导数，不需要超胞（见 <a class="node-link" href="../nodes/perturbation-theory.html">微扰理论与线性响应</a>）<a class="cite" href="#src-baroni-2001-dfpt">[Baroni 2001]</a>。</li></ul>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>压电的离子贡献</strong>：钳位离子压电张量加上离子弛豫贡献才是完整的 <span class="math" data-tex="e_{ij}">e_{ij}</span>。离子贡献要用 Γ 点力常数（也就是 Γ 点光学模）和 Born 电荷、内应变，软的光学模贡献大（见 <a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a>）。</li><li><strong>稳定性检查</strong>：优化后的 β-甘氨酸结构若在 Γ 点出现明显虚频，说明不在极小点，压电结果不可靠。常见原因是优化不够充分或力收敛太松。</li><li><strong>自由能与温度</strong>：声子态密度给出零点能和振动自由能，用于多晶型排序和准简谐近似（见 <a class="node-link" href="../nodes/free-energy.html">自由能与熵</a> 与 <a class="node-link" href="../nodes/quasi-harmonic.html">准简谐近似与热膨胀</a>）。</li><li><strong>MLIP 验证</strong>：用 MACE 算声子并与 DFT 比较，是检查势函数二阶导数是否可靠的常用方式（见 <a class="node-link" href="../nodes/mace.html">MACE 与等变消息传递</a>）。</li></ul>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>分子晶体中低频的分子间模（平动、转动）与高频的分子内模（如 N–H、O–H 伸缩）频率分离明显，这是领域常识，但具体频率范围要以 β-甘氨酸的文献或计算结果为准。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>小虚频就当成不稳定</strong>：Γ 点附近的极小虚频可能来自数值噪声（求和规则破坏、FFT 网格、超胞太小），先提高精度再下结论。</li><li><strong>位移步长不合适</strong>：太小会被 SCF 噪声淹没，太大会混入非谐效应；常用默认约 0.01 Å，按需检查。</li><li><strong>极性晶体不加非解析修正</strong>：Γ 点附近的 LO 支会错。</li><li><strong>超胞太小</strong>：长程力常数被截断，色散曲线在布里渊区内部失真。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么每个 <span class="math" data-tex="\mathbf{q}">\mathbf{q}</span> 有 <span class="math" data-tex="3N">3N</span> 个模，而 <span class="math" data-tex="\mathbf{q}=0">\mathbf{q}=0</span> 时恰好有 3 个零频模？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>在双原子链公式中取 <span class="math" data-tex="q \to 0">q \to 0</span>，求声学支的斜率（声速），说明它只依赖于 <span class="math" data-tex="K">K</span>、<span class="math" data-tex="a">a</span> 和总质量。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你算 β-甘氨酸 Γ 点声子时得到一个约 20i cm⁻¹ 的虚频。你会怎样判断它是数值噪声还是真实的结构不稳定？</p></aside>
+</section>
   </div>
   
   
-  
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-togo-2015-phonopy"><p class="src-kind">论文<span class="src-short">Togo &amp; Tanaka 2015</span></p><p class="src-cit"><a href="https://doi.org/10.1016/j.scriptamat.2015.07.021" rel="noopener" target="_blank">A. Togo, I. Tanaka, First principles phonon calculations in materials science, Scr. Mater. 108, 1 (2015)</a></p><p class="src-meta">位置：有限位移法、超胞、动力学矩阵与声子色散（phonopy）</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-baroni-2001-dfpt"><p class="src-kind">论文<span class="src-short">Baroni 2001</span></p><p class="src-cit"><a href="https://doi.org/10.1103/RevModPhys.73.515" rel="noopener" target="_blank">S. Baroni, S. de Gironcoli, A. Dal Corso, P. Giannozzi, Phonons and related crystal properties from density-functional perturbation theory, Rev. Mod. Phys. 73, 515 (2001)</a></p><p class="src-meta">位置：能量对原子位移、应变和电场的二阶导数；与有限差分的关系</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-martin-2020-electronic"><p class="src-kind">教材<span class="src-short">Martin 2020</span></p><p class="src-cit"><a href="https://doi.org/10.1017/9781108555586" rel="noopener" target="_blank">R. M. Martin, Electronic Structure: Basic Theory and Practical Methods, 2nd ed., Cambridge University Press (2020)</a></p><p class="src-meta">版本：第 2 版；位置：Kohn–Sham 理论、交换相关近似、平面波与 PAW 相关章节（具体章节待查阅后补）</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
   <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;phonon&quot;, &quot;lattice dynamics&quot;, &quot;dynamical matrix&quot;, &quot;harmonic approximation&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>晶体与固体 · 概念 · 状态：候选</p>
+  <p class="cat-foot"><span>分类</span>晶体与固体 · 概念 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="phonons">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +101,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E6%99%B6%E6%A0%BC%E6%8C%AF%E5%8A%A8%E4%B8%8E%E5%A3%B0%E5%AD%90%EF%BC%88phonons%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aphonons%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.2</span><span>2026-11-10</span>初稿正文：谐振近似、力常数、动力学矩阵、双原子链例子、声学求和规则、虚频、LO–TO 劈裂、超胞有限位移法、常见坑；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%A3%B0%E5%AD%90%E4%B8%8E%E6%99%B6%E6%A0%BC%E5%8A%A8%E5%8A%9B%E5%AD%A6%EF%BC%88phonons%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aphonons%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">

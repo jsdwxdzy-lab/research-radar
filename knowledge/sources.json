@@ -248,6 +248,132 @@
       "url": "https://vasp.at/wiki/index.php/LCALCPOL",
       "version": "在线文档，查阅时记录日期",
       "consulted": []
+    },
+    {
+      "id": "hohenberg-1964-hk",
+      "short": "Hohenberg & Kohn 1964",
+      "kind": "paper",
+      "citation": "P. Hohenberg, W. Kohn, Inhomogeneous electron gas, Phys. Rev. 136, B864 (1964)",
+      "doi": "10.1103/PhysRev.136.B864",
+      "locator": "基态密度唯一决定外势；能量的变分原理",
+      "consulted": []
+    },
+    {
+      "id": "kohn-1965-ks",
+      "short": "Kohn & Sham 1965",
+      "kind": "paper",
+      "citation": "W. Kohn, L. J. Sham, Self-consistent equations including exchange and correlation effects, Phys. Rev. 140, A1133 (1965)",
+      "doi": "10.1103/PhysRev.140.A1133",
+      "locator": "无相互作用参考体系与 Kohn–Sham 方程",
+      "consulted": []
+    },
+    {
+      "id": "burke-2012-perspective",
+      "short": "Burke 2012",
+      "kind": "paper",
+      "citation": "K. Burke, Perspective on density functional theory, J. Chem. Phys. 136, 150901 (2012)",
+      "doi": "10.1063/1.4704546",
+      "locator": "DFT 的概念框架、近似泛函的地位与常见误解",
+      "consulted": []
+    },
+    {
+      "id": "monkhorst-1976-kpoints",
+      "short": "Monkhorst & Pack 1976",
+      "kind": "paper",
+      "citation": "H. J. Monkhorst, J. D. Pack, Special points for Brillouin-zone integrations, Phys. Rev. B 13, 5188 (1976)",
+      "doi": "10.1103/PhysRevB.13.5188",
+      "locator": "均匀 k 点网格的构造公式",
+      "consulted": []
+    },
+    {
+      "id": "kresse-1996-vasp",
+      "short": "Kresse & Furthmüller 1996",
+      "kind": "paper",
+      "citation": "G. Kresse, J. Furthmüller, Efficient iterative schemes for ab initio total-energy calculations using a plane-wave basis set, Phys. Rev. B 54, 11169 (1996)",
+      "doi": "10.1103/PhysRevB.54.11169",
+      "locator": "VASP 中的迭代对角化与密度混合（Pulay/Broyden）",
+      "consulted": []
+    },
+    {
+      "id": "payne-1992-iterative",
+      "short": "Payne et al. 1992",
+      "kind": "paper",
+      "citation": "M. C. Payne et al., Iterative minimization techniques for ab initio total-energy calculations: molecular dynamics and conjugate gradients, Rev. Mod. Phys. 64, 1045 (1992)",
+      "doi": "10.1103/RevModPhys.64.1045",
+      "locator": "平面波基组、截断能、赝势与总能计算的整体框架",
+      "consulted": []
+    },
+    {
+      "id": "vanderbilt-1990-ultrasoft",
+      "short": "Vanderbilt 1990",
+      "kind": "paper",
+      "citation": "D. Vanderbilt, Soft self-consistent pseudopotentials in a generalized eigenvalue formalism, Phys. Rev. B 41, 7892 (1990)",
+      "doi": "10.1103/PhysRevB.41.7892",
+      "locator": "超软赝势：放宽模守恒、广义本征值问题",
+      "consulted": []
+    },
+    {
+      "id": "pulay-1980-diis",
+      "short": "Pulay 1980",
+      "kind": "paper",
+      "citation": "P. Pulay, Convergence acceleration of iterative sequences. The case of SCF iteration, Chem. Phys. Lett. 73, 393 (1980)",
+      "doi": "10.1016/0009-2614(80)80396-4",
+      "locator": "DIIS：用历史残差的线性组合外推",
+      "consulted": []
+    },
+    {
+      "id": "pbesol-2008",
+      "short": "PBEsol 2008",
+      "kind": "paper",
+      "citation": "J. P. Perdew et al., Restoring the density-gradient expansion for exchange in solids and surfaces, Phys. Rev. Lett. 100, 136406 (2008)",
+      "doi": "10.1103/PhysRevLett.100.136406",
+      "locator": "为固体恢复梯度展开系数 μ；与 PBE 的对比",
+      "consulted": []
+    },
+    {
+      "id": "feynman-1939-forces",
+      "short": "Feynman 1939",
+      "kind": "paper",
+      "citation": "R. P. Feynman, Forces in molecules, Phys. Rev. 56, 340 (1939)",
+      "doi": "10.1103/PhysRev.56.340",
+      "locator": "原子核受力等于电子密度产生的静电力",
+      "consulted": []
+    },
+    {
+      "id": "pulay-1969-forces",
+      "short": "Pulay 1969",
+      "kind": "paper",
+      "citation": "P. Pulay, Ab initio calculation of force constants and equilibrium geometries in polyatomic molecules, Mol. Phys. 17, 197 (1969)",
+      "doi": "10.1080/00268976900100941",
+      "locator": "原子居中基组下的解析力与基组导数项",
+      "consulted": []
+    },
+    {
+      "id": "nielsen-1985-stress",
+      "short": "Nielsen & Martin 1985",
+      "kind": "paper",
+      "citation": "O. H. Nielsen, R. M. Martin, Quantum-mechanical theory of stress and force, Phys. Rev. B 32, 3780 (1985)",
+      "doi": "10.1103/PhysRevB.32.3780",
+      "locator": "应力定理：能量对应变的导数",
+      "consulted": []
+    },
+    {
+      "id": "togo-2015-phonopy",
+      "short": "Togo & Tanaka 2015",
+      "kind": "paper",
+      "citation": "A. Togo, I. Tanaka, First principles phonon calculations in materials science, Scr. Mater. 108, 1 (2015)",
+      "doi": "10.1016/j.scriptamat.2015.07.021",
+      "locator": "有限位移法、超胞、动力学矩阵与声子色散（phonopy）",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-kpoints",
+      "short": "VASP Wiki: KPOINTS",
+      "kind": "docs",
+      "citation": "VASP Wiki, KPOINTS（k 点网格的设置）",
+      "url": "https://vasp.at/wiki/index.php/KPOINTS",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
     }
   ]
 }
