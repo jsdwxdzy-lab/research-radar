@@ -91,6 +91,7 @@ class KB:
     paths: dict = field(default_factory=dict)
     sources: dict = field(default_factory=dict)
     reviews: dict = field(default_factory=dict)     # node id -> list
+    figs: dict = field(default_factory=dict)        # knowledge/figs/<name>.svg -> SVG text
     issues: list = field(default_factory=list)
     rendered: dict = field(default_factory=dict)    # node id -> RenderResult
 
@@ -237,6 +238,13 @@ def load(root: Path | None = None) -> KB:
     for f in sorted((base / "reviews").glob("*.json")) if (base / "reviews").exists() else []:
         r = _read_json(kb, f, [])
         kb.reviews[f.stem] = r if isinstance(r, list) else []
+    for f in sorted((base / "figs").glob("*.svg")) if (base / "figs").exists() else []:
+        text = f.read_text(encoding="utf-8")
+        # SVGs are served as files; refuse anything that could run script in the page's origin.
+        if re.search(r"<script|\son\w+\s*=|javascript:|<foreignObject", text, re.I):
+            kb.err(f"knowledge/figs/{f.name}", "SVG 里不能有脚本、事件属性或 foreignObject")
+            continue
+        kb.figs[f.name] = text
     return kb
 
 
@@ -320,7 +328,8 @@ def validate(kb: KB) -> KB:
             kb.err(where, "除候选外，节点需要正文")
 
         res = theory_md.render(n["body"], node_url=lambda x: f"{x}.html" if x in kb.nodes else None,
-                               node_title=node_title, cite_label=cite_label)
+                               node_title=node_title, cite_label=cite_label,
+                               fig_url=lambda f: f"../figs/{f}" if f in kb.figs else None)
         kb.rendered[nid] = res
         for e in res.errors:
             kb.err(where, e)
@@ -673,7 +682,8 @@ def render_node(kb: KB, nid: str) -> str:
     res = theory_md.render(
         n["body"], node_url=lambda x: _node_href(prefix, x) if x in kb.nodes else None,
         node_title=lambda x: kb.nodes.get(x, {}).get("title"),
-        cite_label=lambda x: (kb.sources[x].get("short") or x) if x in kb.sources else None)
+        cite_label=lambda x: (kb.sources[x].get("short") or x) if x in kb.sources else None,
+        fig_url=lambda f: f"{prefix}figs/{f}" if f in kb.figs else None)
     domains = kb.domain_map
     chain = kb.ancestors(nid)
     domain = domains.get(chain[0], {"id": "", "title": ""}) if chain else {"id": "", "title": ""}
@@ -1136,6 +1146,8 @@ def render_site(kb: KB) -> dict:
     for f in sorted(ASSETS.iterdir()):
         if f.is_file():
             out[f"assets/{f.name}"] = f.read_text(encoding="utf-8")
+    for name, svg in sorted(kb.figs.items()):
+        out[f"figs/{name}"] = svg
     return out
 
 

@@ -200,6 +200,10 @@ html[data-theme=dark] .layer-tag{color:#121722}
 .math-block .math:not(.katex-done){font:14px var(--mono);white-space:pre-wrap;color:var(--muted)}
 .math:not(.katex-done){font-family:var(--mono);font-size:.92em}
 .table-wrap{overflow-x:auto;max-width:100%}
+/* figures: drawn on white so dark text stays readable in dark mode */
+.fig{margin:1.2em 0 1.4em;text-align:center}
+.fig img{max-width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px}
+.fig figcaption{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.7;text-align:left}
 table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.6}
 th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
 th{font-weight:700;background:var(--soft)}

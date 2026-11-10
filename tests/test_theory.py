@@ -122,6 +122,19 @@ class MarkdownTests(unittest.TestCase):
         self.assertIn("<ul><li>一</li><li>二</li></ul>", res.html)
         self.assertIn("<ol><li>甲</li><li>乙</li></ol>", res.html)
 
+    def test_figure_line_renders_and_missing_figure_is_error(self):
+        res = theory_md.render("前文\n![图注 $x$](figs/a-1.svg)\n后文",
+                               fig_url=lambda f: f"../figs/{f}" if f == "a-1.svg" else None)
+        self.assertIn('<figure class="fig"><img src="../figs/a-1.svg"', res.html)
+        self.assertIn('data-tex="x"', res.html)  # caption gets inline formatting
+        self.assertEqual(res.figs, ["a-1.svg"])
+        self.assertEqual(res.errors, [])
+        bad = theory_md.render("![图注](figs/none.svg)", fig_url=lambda f: None)
+        self.assertTrue(any("图片不存在" in e for e in bad.errors))
+        # only whole-line references to figs/*.svg are figures; anything else stays text
+        other = theory_md.render("![x](http://example.com/a.png)")
+        self.assertNotIn("<img", other.html)
+
 
 class ValidationTests(unittest.TestCase):
     def setUp(self):
@@ -313,6 +326,24 @@ class BuildTests(unittest.TestCase):
         self.assertTrue(kb.errors)
         self.assertEqual(written, [])
         self.assertFalse((self.f.root / "theory").exists())
+
+    def test_figures_are_published_and_unsafe_svg_rejected(self):
+        figs = self.f.k / "figs"
+        figs.mkdir()
+        (figs / "ok.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>', encoding="utf-8")
+        (figs / "make.py").write_text("# generator script, not published", encoding="utf-8")
+        self.f.node(base_meta("a", title="标题 <b>A</b>", sources=["s"], research=["line1"]),
+                    "## 直觉 {intuition}\n\n![示意](figs/ok.svg)\n\n见 [[b]] [@s]。")
+        kb, _ = theory.build(self.f.root)
+        self.assertEqual(kb.errors, [])
+        self.assertTrue((self.f.root / "theory" / "figs" / "ok.svg").exists())
+        self.assertFalse((self.f.root / "theory" / "figs" / "make.py").exists())
+        page = (self.f.root / "theory" / "nodes" / "a.html").read_text(encoding="utf-8")
+        self.assertIn('src="../figs/ok.svg"', page)
+        self.assertEqual(theory.check(self.f.root)[1], [])
+        (figs / "evil.svg").write_text('<svg onload="alert(1)"></svg>', encoding="utf-8")
+        kb = self.f.kb()
+        self.assertTrue(any("脚本" in m for m in messages(kb)))
 
     def test_node_page_content(self):
         theory.build(self.f.root)
