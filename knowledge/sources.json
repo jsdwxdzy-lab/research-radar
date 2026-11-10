@@ -374,6 +374,220 @@
       "url": "https://vasp.at/wiki/index.php/KPOINTS",
       "version": "在线文档，查阅时记录日期",
       "consulted": []
+    },
+    {
+      "id": "behler-2007-nn",
+      "short": "Behler & Parrinello 2007",
+      "kind": "paper",
+      "citation": "J. Behler, M. Parrinello, Generalized Neural-Network Representation of High-Dimensional Potential-Energy Surfaces, Phys. Rev. Lett. 98, 146401 (2007)",
+      "doi": "10.1103/PhysRevLett.98.146401",
+      "locator": "总能写成原子能之和、原子中心描述符",
+      "consulted": []
+    },
+    {
+      "id": "behler-2011-symmetry",
+      "short": "Behler 2011",
+      "kind": "paper",
+      "citation": "J. Behler, Atom-centered symmetry functions for constructing high-dimensional neural network potentials, J. Chem. Phys. 134, 074106 (2011)",
+      "doi": "10.1063/1.3553717",
+      "locator": "对称函数与截断函数",
+      "consulted": []
+    },
+    {
+      "id": "bartok-2010-gap",
+      "short": "Bartók et al. 2010",
+      "kind": "paper",
+      "citation": "A. P. Bartók, M. C. Payne, R. Kondor, G. Csányi, Gaussian Approximation Potentials: The Accuracy of Quantum Mechanics, without the Electrons, Phys. Rev. Lett. 104, 136403 (2010)",
+      "doi": "10.1103/PhysRevLett.104.136403",
+      "locator": "高斯过程回归拟合势能面",
+      "consulted": []
+    },
+    {
+      "id": "bartok-2013-soap",
+      "short": "Bartók et al. 2013",
+      "kind": "paper",
+      "citation": "A. P. Bartók, R. Kondor, G. Csányi, On representing chemical environments, Phys. Rev. B 87, 184115 (2013)",
+      "doi": "10.1103/PhysRevB.87.184115",
+      "locator": "SOAP 描述符，对称性与完备性",
+      "consulted": []
+    },
+    {
+      "id": "podryabinkin-2017-active",
+      "short": "Podryabinkin & Shapeev 2017",
+      "kind": "paper",
+      "citation": "E. V. Podryabinkin, A. V. Shapeev, Active learning of linearly parametrized interatomic potentials, Comput. Mater. Sci. 140, 171 (2017)",
+      "doi": "10.1016/j.commatsci.2017.08.031",
+      "locator": "主动学习：外推等级与选点",
+      "consulted": []
+    },
+    {
+      "id": "unke-2021-mlff",
+      "short": "Unke et al. 2021",
+      "kind": "paper",
+      "citation": "O. T. Unke et al., Machine Learning Force Fields, Chem. Rev. 121, 10142 (2021)",
+      "doi": "10.1021/acs.chemrev.0c01111",
+      "locator": "综述：描述符、模型、训练与验证",
+      "consulted": []
+    },
+    {
+      "id": "behler-2021-generations",
+      "short": "Behler 2021",
+      "kind": "paper",
+      "citation": "J. Behler, Four Generations of High-Dimensional Neural Network Potentials, Chem. Rev. 121, 10037 (2021)",
+      "doi": "10.1021/acs.chemrev.0c00868",
+      "locator": "局域势与长程静电（第三、四代）",
+      "consulted": []
+    },
+    {
+      "id": "ko-2021-4g",
+      "short": "Ko et al. 2021",
+      "kind": "paper",
+      "citation": "T. W. Ko, J. A. Finkler, S. Goedecker, J. Behler, A fourth-generation high-dimensional neural network potential with accurate electrostatics including non-local charge transfer, Nat. Commun. 12, 398 (2021)",
+      "doi": "10.1038/s41467-020-20427-2",
+      "locator": "电荷平衡与非局域电荷转移",
+      "consulted": []
+    },
+    {
+      "id": "batzner-2022-nequip",
+      "short": "Batzner et al. 2022",
+      "kind": "paper",
+      "citation": "S. Batzner et al., E(3)-equivariant graph neural networks for data-efficient and accurate interatomic potentials, Nat. Commun. 13, 2453 (2022)",
+      "doi": "10.1038/s41467-022-29939-5",
+      "locator": "NequIP：E(3) 等变图神经网络",
+      "consulted": []
+    },
+    {
+      "id": "batatia-2022-mace",
+      "short": "Batatia et al. 2022 (MACE)",
+      "kind": "paper",
+      "citation": "I. Batatia, D. P. Kovács, G. N. C. Simm, C. Ortner, G. Csányi, MACE: Higher Order Equivariant Message Passing Neural Networks for Fast and Accurate Force Fields, arXiv:2206.07697 (2022)；会议版本发表于 NeurIPS 2022",
+      "url": "https://arxiv.org/abs/2206.07697",
+      "locator": "高阶等变消息传递、多体基、层数与感受野",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "batatia-2022-design",
+      "short": "Batatia et al. 2022 (设计空间)",
+      "kind": "paper",
+      "citation": "I. Batatia et al., The Design Space of E(3)-Equivariant Atom-Centered Interatomic Potentials, arXiv:2205.06643 (2022)",
+      "url": "https://arxiv.org/abs/2205.06643",
+      "locator": "ACE、NequIP、MACE 的统一框架",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "batatia-2023-mp0",
+      "short": "Batatia et al. 2023 (MACE-MP-0)",
+      "kind": "paper",
+      "citation": "I. Batatia et al., A foundation model for atomistic materials chemistry, arXiv:2401.00096 (2023)",
+      "url": "https://arxiv.org/abs/2401.00096",
+      "locator": "MACE-MP-0 通用势：训练数据、适用范围、微调示例",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "kovacs-2023-maceoff",
+      "short": "Kovács et al. 2023 (MACE-OFF)",
+      "kind": "paper",
+      "citation": "D. P. Kovács et al., MACE-OFF: Transferable Short Range Machine Learning Force Fields for Organic Molecules, arXiv:2312.15211 (2023)",
+      "url": "https://arxiv.org/abs/2312.15211",
+      "locator": "有机分子与分子晶体的短程势",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "wanzenboeck-2026-finetune",
+      "short": "Wanzenböck et al. 2026",
+      "kind": "paper",
+      "citation": "R. Wanzenböck et al., Gentle push: Fine-tuning foundation models for complex oxide surface reconstructions, Phys. Rev. Research (2026)",
+      "doi": "10.1103/vh5b-6ks5",
+      "locator": "通用势微调用于表面重构（雷达触发文献）",
+      "consulted": []
+    },
+    {
+      "id": "yang-2026-argyrodite",
+      "short": "Yang et al. 2026",
+      "kind": "paper",
+      "citation": "J. Yang, L. Ao, S. Li, Temperature-Dependent Ion Dynamics in Argyrodite Superionic Conductor Li6PS5Cl with Fine-Tuned MACE Foundation Model, arXiv:2611.05946 (2026)",
+      "url": "https://arxiv.org/abs/2611.05946",
+      "locator": "微调 MACE 用于离子输运 MD（雷达触发文献）",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "doyu-2026-dipole",
+      "short": "Doyu et al. 2026",
+      "kind": "paper",
+      "citation": "H. Doyu, A. K. A. Lu, S. Watanabe, Collective dipole effects amplify field-driven ion transport in amorphous Li3PO4, arXiv:2611.02617 (2026)",
+      "url": "https://arxiv.org/abs/2611.02617",
+      "locator": "电场驱动的 MLIP 模拟（雷达触发文献）",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "husistein-2026-qmmm",
+      "short": "Husistein et al. 2026",
+      "kind": "paper",
+      "citation": "R. T. Husistein et al., A Hybrid Message-Passing and Electric-Field Representation for Electrostatic QM/MM Embedding with Machine Learning Interatomic Potentials, arXiv:2610.41523 (2026)",
+      "url": "https://arxiv.org/abs/2610.41523",
+      "locator": "把外电场写进 MLIP 表示（雷达触发文献）",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "verlet-1967",
+      "short": "Verlet 1967",
+      "kind": "paper",
+      "citation": "L. Verlet, Computer \"Experiments\" on Classical Fluids. I. Thermodynamical Properties of Lennard-Jones Molecules, Phys. Rev. 159, 98 (1967)",
+      "doi": "10.1103/PhysRev.159.98",
+      "locator": "Verlet 积分",
+      "consulted": []
+    },
+    {
+      "id": "swope-1982-vv",
+      "short": "Swope et al. 1982",
+      "kind": "paper",
+      "citation": "W. C. Swope, H. C. Andersen, P. H. Berens, K. R. Wilson, J. Chem. Phys. 76, 637 (1982)",
+      "doi": "10.1063/1.442716",
+      "locator": "速度 Verlet 形式",
+      "consulted": []
+    },
+    {
+      "id": "nose-1984",
+      "short": "Nosé 1984",
+      "kind": "paper",
+      "citation": "S. Nosé, A molecular dynamics method for simulations in the canonical ensemble, Mol. Phys. 52, 255 (1984)",
+      "doi": "10.1080/00268978400101201",
+      "locator": "扩展体系恒温器",
+      "consulted": []
+    },
+    {
+      "id": "hoover-1985",
+      "short": "Hoover 1985",
+      "kind": "paper",
+      "citation": "W. G. Hoover, Canonical dynamics: Equilibrium phase-space distributions, Phys. Rev. A 31, 1695 (1985)",
+      "doi": "10.1103/PhysRevA.31.1695",
+      "locator": "Nosé–Hoover 运动方程",
+      "consulted": []
+    },
+    {
+      "id": "bussi-2007-csvr",
+      "short": "Bussi et al. 2007",
+      "kind": "paper",
+      "citation": "G. Bussi, D. Donadio, M. Parrinello, Canonical sampling through velocity rescaling, J. Chem. Phys. 126, 014101 (2007)",
+      "doi": "10.1063/1.2408420",
+      "locator": "随机速度重标定恒温器",
+      "consulted": []
+    },
+    {
+      "id": "parrinello-1981-npt",
+      "short": "Parrinello & Rahman 1981",
+      "kind": "paper",
+      "citation": "M. Parrinello, A. Rahman, Polymorphic transitions in single crystals: A new molecular dynamics method, J. Appl. Phys. 52, 7182 (1981)",
+      "doi": "10.1063/1.328693",
+      "locator": "晶胞形状可变的恒压 MD",
+      "consulted": []
     }
   ]
 }
