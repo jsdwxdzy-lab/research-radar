@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-11（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:48 · 抓取窗口 11-09 19:48 → 现在 · 候选 874 → 本轮入库 53 → 今日累计 **18**（本次 +4） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:48 · 抓取窗口 11-09 20:48 → 现在 · 候选 281 → 本轮入库 40 → 今日累计 **19**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Orchestr.AI: A Unified Workflow for Training and Benchmarking of Machine-Learned Interatom…（11.3）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
 - **升温主题**：AI for Science 方法与自动化
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 5 · 生成模型相关数学 3 · 手性分子与分子晶体 2 · 化学相关生成模型（分子、材料与反应） 2 · AI for Science 方法与自动化 1
+- **构成**：分子晶体结构预测（CSP）与能量图景 6 · 机器学习势与通用势函数（MLIP / UMA） 5 · 生成模型相关数学 3 · 手性分子与分子晶体 2 · 化学相关生成模型（分子、材料与反应） 2 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -65,6 +65,11 @@
   `CSP` · *CrystEngComm* · 2026-11-10
   <sub>命中：polymorphism</sub>
   > The study of polymorphism in energetic materials aims to identify crystal forms with optimal performance, stable processing, and scalable preparation, while avoiding the risks associated with phase tr…
+
+- **[Modulating Excited-State Charge Transfer Character in 1,6,7,12-Tetrakis( p -X-phenoxy)perylene-(3,4:9,10)-bis(dicarboximide) Single Crystals](https://doi.org/10.1021/acs.jpcc.6c05503)**
+  `CSP` · *The Journal of Physical Chemistry C* · 2026-11-11
+  <sub>命中：crystal structure、crystal packing</sub>
+  > Enhancing the excited-state charge transfer character in homogeneous organic solids provides an avenue to promote electron−hole pair generation between identical chromophores, potentially enabling hig…
 
 - **[Synthesis and Crystal Structure of Bulk Methanetetrol C(OH)4](https://doi.org/10.1021/jacs.6c12079)**
   `CSP` · *Journal of the American Chemical Society* · 2026-11-10
@@ -132,12 +137,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 658 | ok |
-| crossref | 155 | ok |
+| arxiv | 0 | ok |
+| crossref | 156 | ok |
 | openalex | 86 | ok |
 | rss | 63 | ok |
 | github | 0 | ok |
 
-> 原始 962 → 去重 874 → 剔除标题噪声 29 → 低相关度 792 → 入库 53。
+> 原始 305 → 去重 281 → 剔除标题噪声 22 → 低相关度 219 → 入库 40。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
