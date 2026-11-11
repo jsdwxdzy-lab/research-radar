@@ -1,13 +1,14 @@
 # 科研雷达 · 2026-11-11（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-09 17:08 → 现在 · 候选 745 → 本轮入库 47 → 今日累计 **13**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-09 18:08 → 现在 · 候选 836 → 本轮入库 50 → 今日累计 **14**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Thermal Activation under Electrochemical Conditions: CO and N2 Bond Dissociation on Co(B5)（10.2）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（19 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 4 · 手性分子与分子晶体 2 · 生成模型相关数学 2 · 化学相关生成模型（分子、材料与反应） 1
+- **升温主题**：AI for Science 方法与自动化
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 分子晶体结构预测（CSP）与能量图景 4 · 手性分子与分子晶体 2 · 生成模型相关数学 2 · 化学相关生成模型（分子、材料与反应） 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -79,6 +80,13 @@
   <sub>命中：equivariant</sub>
   > Foundational machine-learned interatomic potentials have emerged as powerful tools for atomistic simulations, promising near first-principles accuracy across diverse chemical spaces at a fraction of t…
 
+### AI for Science 方法与自动化 · 升温 ↑1.9×
+
+- **[Autonomous Optimization of Numerical Algorithms by an AI Agent: Application to Atomistic Simulation](https://arxiv.org/abs/2611.13143)**
+  `AI4S` · *arXiv* · 2026-11-09 · [PDF](https://arxiv.org/pdf/2611.13143)
+  <sub>命中：autonomous、agent</sub>
+  > Coding agents built on large language models, run in automated improvement loops, can discover more efficient algorithms.
+
 ### 手性分子与分子晶体 · 持平
 
 - **[Topologically Rigidified Chiral Ionic Organic Crystals for High-Resolution Gas Chromatographic Separation](https://doi.org/10.1021/acs.analchem.6c06695)**
@@ -104,12 +112,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 540 | ok |
-| crossref | 151 | ok |
+| arxiv | 646 | ok |
+| crossref | 149 | ok |
 | openalex | 86 | ok |
 | rss | 61 | ok |
 | github | 0 | ok |
 
-> 原始 838 → 去重 745 → 剔除标题噪声 30 → 低相关度 668 → 入库 47。
+> 原始 942 → 去重 836 → 剔除标题噪声 30 → 低相关度 756 → 入库 50。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
