@@ -1,43 +1,43 @@
 # 科研雷达 · 2026-11-12（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-10 18:08 → 现在 · 候选 675 → 本轮入库 48 → 今日累计 **12**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:08 · 抓取窗口 11-10 19:08 → 现在 · 候选 866 → 本轮入库 53 → 今日累计 **13**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Diffusion Models for Small-Molecule Design（12.9）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（23 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 6 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 3
+- **最高相关度**：A Charge-Consistent Long-Range Machine-Learned Interatomic Potential Compatible with Quant…（13.8）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（24 篇）
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 3
 
 ## 今日最值得看
 
-1. **[Diffusion Models for Small-Molecule Design](https://doi.org/10.1021/acs.chemrev.6c00161)**
+1. **[A Charge-Consistent Long-Range Machine-Learned Interatomic Potential Compatible with Quantum Linear System Algorithms](https://doi.org/10.1021/acs.jctc.6c01621)**
+   `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-12
+   <sub>命中：machine-learned interatomic potential、density functional theory、interatomic potential、equivariant、mlip</sub>
+   > Charge equilibration in machine-learned interatomic potentials (MLIPs) requires repeatedly solving linear systems, providing a promising target for quantum linear-system algorithms (QLSAs).
+
+2. **[Diffusion Models for Small-Molecule Design](https://doi.org/10.1021/acs.chemrev.6c00161)**
    `生成模型` · *Chemical Reviews* · 2026-11-10
    <sub>命中：molecular generation、generative models、diffusion models、molecular design</sub>
    > Diffusion models (DMs) have emerged as a class of generative models for controllable small-molecule design in drug discovery capable of progressively transforming noisy or partially specified molecular states into candidate structures under structural, geometric, and property constraints.
 
-2. **[Modeling the inner electric double layer using short-range machine learning potentials: A critical assessment](https://doi.org/10.1063/5.0359674)**
+3. **[Modeling the inner electric double layer using short-range machine learning potentials: A critical assessment](https://doi.org/10.1063/5.0359674)**
    `MLIP` · *The Journal of Chemical Physics* · 2026-11-11
    <sub>命中：density functional theory、mlip、mace</sub>
    > Atomistic simulations of electrochemical interfaces typically require large system sizes and long simulation times to obtain reliable thermodynamic properties. In this context, machine learning interatomic potentials (MLIPs) allow for computationally efficient sampling compared to density functional theory-based molecu…
 
-3. **[PFM: perturbed flow matching for structure-based drug design](https://doi.org/10.1093/bioinformatics/btag811)**
+4. **[PFM: perturbed flow matching for structure-based drug design](https://doi.org/10.1093/bioinformatics/btag811)**
    `生成模型` · *Bioinformatics* · 2026-11-07
    <sub>命中：molecular generation、flow matching</sub>
    > MOTIVATION: Target-specific 3D molecular generation is a promising approach for structure-based drug design. However, existing diffusion-based methods are generally restricted to marginal distributions with closed-form solutions, limiting the flexibility of generative process design, especially for the forward noising…
 
-4. **[Author response for "Machine-Learning Interatomic Potential-based Enhanced Sampling Simulations Reveal Dynamic Conformations and Small Molecule Activation on Au9 Nanocluster Confined in UiO-66-NH2 MOF"](https://doi.org/10.1039/d6cp02396g/v4/response1)**
+5. **[Author response for "Machine-Learning Interatomic Potential-based Enhanced Sampling Simulations Reveal Dynamic Conformations and Small Molecule Activation on Au9 Nanocluster Confined in UiO-66-NH2 MOF"](https://doi.org/10.1039/d6cp02396g/v4/response1)**
    `MLIP` · *Publons reviews and discussion* · 2026-11-06
    <sub>命中：machine learning interatomic potential、interatomic potential</sub>
 
-5. **[Decision letter for "Machine-Learning Interatomic Potential-based Enhanced Sampling Simulations Reveal Dynamic Conformations and Small Molecule Activation on Au9 Nanocluster Confined in UiO-66-NH2 MOF"](https://doi.org/10.1039/d6cp02396g/v4/decision1)**
+6. **[Decision letter for "Machine-Learning Interatomic Potential-based Enhanced Sampling Simulations Reveal Dynamic Conformations and Small Molecule Activation on Au9 Nanocluster Confined in UiO-66-NH2 MOF"](https://doi.org/10.1039/d6cp02396g/v4/decision1)**
    `MLIP` · *Publons reviews and discussion* · 2026-11-06
    <sub>命中：machine learning interatomic potential、interatomic potential</sub>
-
-6. **[Differentiable Search of Compositionally Complex Alloys](https://doi.org/10.26434/chemrxiv.15011864/v1)**
-   `MLIP` · *ChemRxiv* · 2026-11-09
-   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
-   > Identifying solid-solution compositions in multicomponent alloys requires exploring a highdimensional design space while accounting for competing phases. We present a differentiable search framework that uses composition gradients of a thermodynamic objective to identify promising alloy regions without exhaustive grid…
 
 ## 按主题展开
 
@@ -67,6 +67,11 @@
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
+- **[Differentiable Search of Compositionally Complex Alloys](https://doi.org/10.26434/chemrxiv.15011864/v1)**
+  `MLIP` · *ChemRxiv* · 2026-11-09
+  <sub>命中：machine learning interatomic potential、interatomic potential</sub>
+  > Identifying solid-solution compositions in multicomponent alloys requires exploring a highdimensional design space while accounting for competing phases.
+
 - **[Orientation-Tunable Interfacial Thermal Conductance in Lateral MoSe₂/MoS₂ Heterostructures: A Deep Potential Molecular Dynamics Study](https://doi.org/10.1088/1361-648x/aec07d)**
   `MLIP` · *Journal of Physics Condensed Matter* · 2026-11-10
   <sub>命中：density functional theory、interatomic potential</sub>
@@ -95,12 +100,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 397 | ok |
-| crossref | 151 | ok |
+| arxiv | 637 | ok |
+| crossref | 153 | ok |
 | openalex | 87 | ok |
 | rss | 103 | ok |
 | github | 0 | ok |
 
-> 原始 738 → 去重 675 → 剔除标题噪声 32 → 低相关度 595 → 入库 48。
+> 原始 980 → 去重 866 → 剔除标题噪声 35 → 低相关度 778 → 入库 53。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
