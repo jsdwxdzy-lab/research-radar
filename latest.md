@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-13（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:29 · 抓取窗口 11-11 19:29 → 现在 · 候选 869 → 本轮入库 47 → 今日累计 **5**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:28 · 抓取窗口 11-11 20:28 → 现在 · 候选 614 → 本轮入库 43 → 今日累计 **7**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Generative inverse estimation of 3D atomic coordination from near-edge spectra via equivar…（7.2）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（18 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 1 · 分子晶体结构预测（CSP）与能量图景 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 2 · 生成模型相关数学 1 · 分子晶体结构预测（CSP）与能量图景 1
 
 ## 今日最值得看
 
@@ -26,19 +26,29 @@
    <sub>命中：machine-learned interatomic potential、interatomic potential</sub>
    > Lead-free halide perovskites based on Ge and Sn avoid the toxicity of Pb, but the two cations favor different structural distortions. The stereochemically active Ge $4s^2$ lone pair drives polar $B$-site off-centering, whereas the larger Sn$^{2+}$ cation favors octahedral tilting.
 
-4. **[Computational Insights into Nitro-BBTP: Crystal Packing, Electronic Structure, Molecular Reactivity, and Predicted C5aR1 Recognition](https://doi.org/10.3390/cryst16110714)**
+4. **[FréchetFlow: Flow Matching for Non-Euclidean Data](https://arxiv.org/abs/2611.15220)**
+   `生成数学` · *arXiv* · 2026-11-11 · [PDF](https://arxiv.org/pdf/2611.15220)
+   <sub>命中：flow matching、wasserstein</sub>
+   > Scientific observations such as probability distributions, trees and covariance matrices call for generative models that respect their non-Euclidean geometry. While flow matching has been extended to manifolds by utilizing geodesics and velocities, such manifold structures are not available in a general metric space.
+
+5. **[Computational Insights into Nitro-BBTP: Crystal Packing, Electronic Structure, Molecular Reactivity, and Predicted C5aR1 Recognition](https://doi.org/10.3390/cryst16110714)**
    `CSP` · *Crystals* · 2026-11-11
    <sub>命中：crystal structure、crystal packing</sub>
    > The experimentally determined crystal structure of 13-nitrobenzo[a][1,4]benzothiazino [3,2-c]phenoxazine (Nitro-BBTP) was investigated using Hirshfeld surface analysis, density functional theory (DFT), natural bond orbital (NBO) analysis, molecular electrostatic potential mapping, local reactivity descriptors, molecula…
 
-5. **[Neuroevolution potentials uncover concentration-dependent Li + transport mechanisms in PEO–LiTFSI electrolytes](https://doi.org/10.1039/d6sc07805b)**
-   `MLIP` · *Chemical Science* · 2026-11-12
-   <sub>命中：active learning</sub>
-   > Here, we combine uncertainty-guided active learning with neuroevolution potential (NEP) simulations to investigate poly(ethylene oxide) (PEO)–LiTFSI electrolytes over a broad range of salt concentrations.
+6. **[Expanding the Decision Space of Pretrained Models through Structured Re-Decoding](https://arxiv.org/abs/2611.15109)**
+   `生成模型` · *arXiv* · 2026-11-11 · [PDF](https://arxiv.org/pdf/2611.15109)
+   <sub>命中：molecular generation</sub>
+   > Native decoders limit how pretrained models combine local predictions under new structural constraints. We introduce Structured Re-Decoding (SRD), a training-free framework that constructs local candidates from model scores, samples, or external specifications, jointly optimizes their selection, and verifies reconstruc…
 
 ## 按主题展开
 
-_（今日无）_
+### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Neuroevolution potentials uncover concentration-dependent Li + transport mechanisms in PEO–LiTFSI electrolytes](https://doi.org/10.1039/d6sc07805b)**
+  `MLIP` · *Chemical Science* · 2026-11-12
+  <sub>命中：active learning</sub>
+  > Here, we combine uncertainty-guided active learning with neuroevolution potential (NEP) simulations to investigate poly(ethylene oxide) (PEO)–LiTFSI electrolytes over a broad range of salt concentrati…
 
 ## 工具与模型发布
 
@@ -58,12 +68,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 633 | ok |
-| crossref | 155 | ok |
+| arxiv | 300 | ok |
+| crossref | 156 | ok |
 | openalex | 90 | ok |
 | rss | 104 | ok |
 | github | 0 | ok |
 
-> 原始 982 → 去重 869 → 剔除标题噪声 39 → 低相关度 783 → 入库 47。
+> 原始 650 → 去重 614 → 剔除标题噪声 36 → 低相关度 535 → 入库 43。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
