@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-14（周六）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-12 18:08 → 现在 · 候选 876 → 本轮入库 42 → 今日累计 **5**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:08 · 抓取窗口 11-12 19:08 → 现在 · 候选 877 → 本轮入库 43 → 今日累计 **6**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：FlaN-a method for calculating morphologies of molecular crystals using a flat nucleus appr…（6.2）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 2 · 分子晶体结构预测（CSP）与能量图景 1 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 3 · 分子晶体结构预测（CSP）与能量图景 1 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
@@ -36,6 +36,11 @@
    <sub>命中：potential energy surface</sub>
    > The reaction of stabilized Criegee intermediate CH2OO with acetone cyanohydrin, (CH3)2C(OH)CN, provides competing O–H insertion and 1,3-dipolar cycloaddition pathways at the hydroxy and nitrile groups, respectively.
 
+6. **[Functional and Density-Driven Errors in Density Functional Theory: Quantum Monte Carlo Benchmarks for Solids](https://doi.org/10.1021/acs.jctc.6c00944)**
+   `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-14
+   <sub>命中：density functional theory</sub>
+   > We introduce a systematic analysis of density functional approximation errors in solids by separating functional-driven from density-driven contributions using quantum Monte Carlo densities of silicon, sodium chloride, and copper as reference.
+
 ## 按主题展开
 
 _（今日无）_
@@ -59,11 +64,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 657 | ok |
-| crossref | 128 | ok |
+| crossref | 129 | ok |
 | openalex | 86 | ok |
 | rss | 107 | ok |
 | github | 0 | ok |
 
-> 原始 978 → 去重 876 → 剔除标题噪声 31 → 低相关度 803 → 入库 42。
+> 原始 979 → 去重 877 → 剔除标题噪声 31 → 低相关度 803 → 入库 43。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
