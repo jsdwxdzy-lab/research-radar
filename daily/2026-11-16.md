@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-16（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:55 · 抓取窗口 11-14 18:55 → 现在 · 候选 751 → 本轮入库 34 → 今日累计 **6**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:48 · 抓取窗口 11-14 19:48 → 现在 · 候选 779 → 本轮入库 32 → 今日累计 **7**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Classifier-Guided Latent Diffusion for Small-Molecule Generation（13.2）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 2 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · 机器学习势与通用势函数（MLIP / UMA） 1 · AI for Science 方法与自动化 1
+- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · 机器学习势与通用势函数（MLIP / UMA） 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -21,29 +21,34 @@
    <sub>命中：crystal structure prediction (csp)、crystal structure prediction、molecular crystals、crystal structure、energy landscape</sub>
    > Crystal structure prediction (CSP) determines periodic atomic or molecular arrangements from chemical composition and physical conditions. Over three decades, CSP has evolved from chemical construction and global energy optimization to hybrid approaches combining symmetry, learned potentials, adaptive search, and deep…
 
-3. **[Diffusion Tree Sampling for Inference Time Adaptation of Crystal Generative Models](https://arxiv.org/abs/2611.17462)**
+3. **[CGTransformer: A Topology-Aware Autoregressive Framework for Crystal Generation and Inverse Design](https://arxiv.org/abs/2611.18303)**
+   `CSP` `生成设计` `生成模型` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.18303)
+   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、crystal generation、inverse design 等 6 个</sub>
+   > Autoregressive language models offer a unified route to crystal generation and inverse design, but their performance depends on how periodic structures are serialized. Symmetry equivalent and closely related crystals can receive different atomic orders under coordinate-based serialization, introducing variability unrel…
+
+4. **[Diffusion Tree Sampling for Inference Time Adaptation of Crystal Generative Models](https://arxiv.org/abs/2611.17462)**
    `生成设计` `生成模型` · *arXiv* · 2026-11-12 · [PDF](https://arxiv.org/pdf/2611.17462)
    <sub>命中：crystal generation、generative models、de novo</sub>
    > Diffusion-based generative models have become strong priors over plausible crystal structures, but turning that prior into promising candidates requires steering toward several conflicting properties at once.
 
-4. **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
+5. **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
    `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17679)
    <sub>命中：machine learning interatomic potential、interatomic potential</sub>
    > Ion transport in solids has conventionally been understood from equilibrium diffusion, yet ions in batteries are driven by electric fields. Does field-driven ion transport follow equilibrium behavior? We examined this question in bulk Li2O and at its grain boundaries (GBs) using electric-field molecular dynamics combin…
 
-5. **[Pressure-driven evolution of crystal and molecular structures reshapes excited-state competition in coronene](https://arxiv.org/abs/2611.17698)**
+6. **[Pressure-driven evolution of crystal and molecular structures reshapes excited-state competition in coronene](https://arxiv.org/abs/2611.17698)**
    `CSP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17698)
    <sub>命中：crystal packing、polymorphism</sub>
    > Molecular nanocarbons exhibit unique optoelectronic properties and considered as promising candidates for organic device applications, however, understanding how molecular geometry and crystal packing jointly govern physical properties remains a fundamental challenge in π-conjugated molecular materials.
 
-6. **[Verifiable pXRD: Hill-climbing pXRD structure determination with LLM agents](https://arxiv.org/abs/2611.17539)**
-   `AI4S` · *arXiv* · 2026-11-12 · [PDF](https://arxiv.org/pdf/2611.17539)
-   <sub>命中：autonomous、benchmark、agent、llm</sub>
-   > Autonomous crystal-structure determination from powder X-ray diffraction (pXRD) remains a key bottleneck for self-driving materials laboratories. We formulate the task of pXRD structure determination as a verifiable agentic search problem: candidate structures can be assessed during inference through forward-simulated…
-
 ## 按主题展开
 
-_（今日无）_
+### AI for Science 方法与自动化 · 回落 ↓0.5×
+
+- **[Verifiable pXRD: Hill-climbing pXRD structure determination with LLM agents](https://arxiv.org/abs/2611.17539)**
+  `AI4S` · *arXiv* · 2026-11-12 · [PDF](https://arxiv.org/pdf/2611.17539)
+  <sub>命中：autonomous、benchmark、agent、llm</sub>
+  > Autonomous crystal-structure determination from powder X-ray diffraction (pXRD) remains a key bottleneck for self-driving materials laboratories.
 
 ## 工具与模型发布
 
@@ -63,12 +68,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 644 | ok |
+| arxiv | 661 | ok |
 | crossref | 50 | ok |
 | openalex | 76 | ok |
 | rss | 95 | ok |
 | github | 0 | ok |
 
-> 原始 865 → 去重 751 → 剔除标题噪声 29 → 低相关度 688 → 入库 34。
+> 原始 882 → 去重 779 → 剔除标题噪声 28 → 低相关度 719 → 入库 32。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
