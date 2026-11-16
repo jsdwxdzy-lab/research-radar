@@ -6,12 +6,14 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
 <title>生成模型 · 理论地图 · 科研雷达</title>
-<meta name="description" content="扩散、流匹配与自回归模型分别怎样从数据分布中采样。">
+<meta name="description" content="扩散、流匹配与自回归模型分别怎样从数据分布中采样，三者共享哪一条数学骨架，以及在结构生成里各自要付什么代价。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="generative-models" data-node-title="生成模型" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="generative-models" data-node-title="生成模型" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,76 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-ml">机器学习</a></li><li aria-current="page">生成模型</li></ol><a class="small" href="../tree.html#t-generative-models">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-ml">机器学习</a></li><li aria-current="page">生成模型</li></ol><a class="small" href="../tree.html#t-generative-models">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-ml">机器学习</a></nav>
   <h1 id="nodeTitle">生成模型</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-ml">机器学习</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=crystal-gen">晶体结构生成</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
-  <p class="purpose">扩散、流匹配与自回归模型分别怎样从数据分布中采样。</p>
-  
-  
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-ml">机器学习</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=crystal-gen">晶体结构生成</a></span><span>v0.2 · 2026-11-16</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">扩散、流匹配与自回归模型分别怎样从数据分布中采样，三者共享哪一条数学骨架，以及在结构生成里各自要付什么代价。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>概率分布与采样的概念</li><li>神经网络只是参数化的函数</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/probabilistic-modeling.html">概率建模与最大似然</a>：什么叫从分布里采样</li><li><a class="node-link" href="../nodes/equivariance.html">对称性与等变性</a>：生成晶体时为什么要管对称性</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>生成模型要解决的问题是：给定一堆样本（分子、晶体结构、图像），学出一个分布 <span class="math" data-tex="\hat p(x)">\hat p(x)</span>，使得从它里面采出来的新样本“像”训练数据，但又不是训练数据的拷贝。</p>
+<p>两条完全不同的路线：</p>
+<ul><li><strong>一次性生成</strong>：从噪声出发，经过固定的若干步变换，一次得到整个样本。扩散模型、流匹配都属于这一类。样本的每个部分同时决定，没有先后顺序。</li><li><strong>逐段生成</strong>：按某种顺序一个接一个地决定样本的各个部分（一个原子一个原子、一个 token 一个 token）。自回归模型属于这一类。</li></ul>
+<p>两者的差别在<strong>结构</strong>上：一次性生成必须自己保证各部分之间的一致性；自回归天然保证一致性，但要选定一个顺序，而顺序本身会引入偏差（例如晶体里没有天然的“第一个原子”）。</p>
+<p>图里画了一次性生成的骨架：数据分布经过一条固定的“加噪”路径被抹成噪声，模型学的就是这条路径的<strong>逆过程</strong>；采样时从噪声出发沿逆路径走回去。</p>
+<figure class="fig"><img src="../figs/generative-model-skeleton.svg" alt="示意：左图是前向过程把数据分布逐步加噪成标准正态；右图是模型学到的逆过程，从纯噪声出发逐步去噪回到数据分布。曲线是二维玩具分布，只示意流程。" loading="lazy"><figcaption>示意：左图是前向过程把数据分布逐步加噪成标准正态；右图是模型学到的逆过程，从纯噪声出发逐步去噪回到数据分布。曲线是二维玩具分布，只示意流程。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应哪部分</th></tr></thead><tbody><tr><td><span class="math" data-tex="x_0">x_0</span></td><td>数据样本（真实分布里的一个点）</td><td>左图最左的分布</td></tr><tr><td><span class="math" data-tex="x_t">x_t</span></td><td>加噪到时刻 <span class="math" data-tex="t">t</span> 的样本</td><td>左图中间的分布</td></tr><tr><td><span class="math" data-tex="t">t</span></td><td>噪声水平（连续时间）或步数（离散）</td><td>从左到右递增</td></tr><tr><td><span class="math" data-tex="v_\theta">v_\theta</span></td><td>模型学到的“往回走”的方向场</td><td>右图箭头</td></tr><tr><td><span class="math" data-tex="x_1">x_1</span></td><td>纯噪声（标准正态）</td><td>最右端</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<h3>扩散模型：学加噪的逆过程</h3>
+<p>DDPM <a class="cite" href="#src-ho-2020-ddpm">[Ho et al. 2020 (DDPM)]</a> 定义一条固定的前向马尔可夫链，每一步加一点高斯噪声：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="q(x_t \mid x_{t-1}) = \mathcal{N}\!\left(x_t;\ \sqrt{1-\beta_t}\,x_{t-1},\ \beta_t \mathbf{I}\right)">q(x_t \mid x_{t-1}) = \mathcal{N}\!\left(x_t;\ \sqrt{1-\beta_t}\,x_{t-1},\ \beta_t \mathbf{I}\right)</span></div>
+<p>其中 <span class="math" data-tex="\beta_t">\beta_t</span> 是第 <span class="math" data-tex="t">t</span> 步的噪声方差（预先设定的调度表）；<span class="math" data-tex="\sqrt{1-\beta_t}">\sqrt{1-\beta_t}</span> 保证方差大致守恒；<span class="math" data-tex="\mathbf{I}">\mathbf{I}</span> 是单位矩阵。多步合并后有闭式：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="q(x_t \mid x_0) = \mathcal{N}\!\left(x_t;\ \sqrt{\bar\alpha_t}\,x_0,\ (1-\bar\alpha_t)\mathbf{I}\right), \qquad \bar\alpha_t = \prod_{s=1}^{t}(1-\beta_s)">q(x_t \mid x_0) = \mathcal{N}\!\left(x_t;\ \sqrt{\bar\alpha_t}\,x_0,\ (1-\bar\alpha_t)\mathbf{I}\right), \qquad \bar\alpha_t = \prod_{s=1}^{t}(1-\beta_s)</span></div>
+<p>其中 <span class="math" data-tex="\bar\alpha_t">\bar\alpha_t</span> 是累积保留系数。</p>
+<p>反向过程用网络 <span class="math" data-tex="\epsilon_\theta">\epsilon_\theta</span> 预测每一步加的噪声：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\mathcal{L} = \mathbb{E}_{t,\,x_0,\,\epsilon}\left[\left\|\epsilon - \epsilon_\theta\!\left(\sqrt{\bar\alpha_t}\,x_0 + \sqrt{1-\bar\alpha_t}\,\epsilon,\ t\right)\right\|^2\right]">\mathcal{L} = \mathbb{E}_{t,\,x_0,\,\epsilon}\left[\left\|\epsilon - \epsilon_\theta\!\left(\sqrt{\bar\alpha_t}\,x_0 + \sqrt{1-\bar\alpha_t}\,\epsilon,\ t\right)\right\|^2\right]</span></div>
+<p>其中 <span class="math" data-tex="\epsilon">\epsilon</span> 是实际加的噪声；<span class="math" data-tex="\epsilon_\theta(\cdot,t)">\epsilon_\theta(\cdot,t)</span> 是以噪声水平和当前样本为输入的预测网络。这个目标就是从变分下界化简出来的版本 <a class="cite" href="#src-ho-2020-ddpm">[Ho et al. 2020 (DDPM)]</a>。</p>
+<h3>得分 SDE：把扩散写成连续时间</h3>
+<p>得分 SDE 框架 <a class="cite" href="#src-song-2020-score-sde">[Song et al. 2020 (Score SDE)]</a> 把上面的离散链写成随机微分方程：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="dx = f(x,t)\,dt + g(t)\,dw">dx = f(x,t)\,dt + g(t)\,dw</span></div>
+<p>其中 <span class="math" data-tex="f">f</span> 是漂移项；<span class="math" data-tex="g">g</span> 是扩散系数；<span class="math" data-tex="dw">dw</span> 是维纳过程增量。对应的反向时间 SDE 是</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="dx = \left[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\right]dt + g(t)\,d\bar w">dx = \left[f(x,t) - g(t)^2 \nabla_x \log p_t(x)\right]dt + g(t)\,d\bar w</span></div>
+<p>其中 <span class="math" data-tex="\nabla_x \log p_t(x)">\nabla_x \log p_t(x)</span> 是<strong>得分函数</strong>（对数概率密度的梯度）；<span class="math" data-tex="d\bar w">d\bar w</span> 是反向时间的维纳过程。模型只需要学得分函数，而不需要知道 <span class="math" data-tex="p_t">p_t</span> 本身——这是这一类方法的核心技巧。</p>
+<aside class="claim claim-theorem" aria-label="定理"><p class="claim-head"><span class="claim-kind">定理</span><span class="claim-title">得分与去噪的等价</span></p><p>在高斯加噪下，最优去噪器与得分函数有精确关系：<span class="math" data-tex="\nabla_x \log p_t(x) = -\mathbb{E}[\epsilon \mid x_t = x]/\sqrt{1-\bar\alpha_t}">\nabla_x \log p_t(x) = -\mathbb{E}[\epsilon \mid x_t = x]/\sqrt{1-\bar\alpha_t}</span>。所以“预测噪声”和“估计得分”是同一件事的两种说法 <a class="cite" href="#src-song-2020-score-sde">[Song et al. 2020 (Score SDE)]</a>。</p></aside>
+<h3>流匹配：学一个速度场</h3>
+<p>流匹配 <a class="cite" href="#src-lipman-2022-flow">[Lipman et al. 2022 (Flow Matching)]</a> 不用加噪-去噪的语言，而是直接学一个把噪声搬到数据的<strong>速度场</strong>：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\mathcal{L} = \mathbb{E}_{t,\,x_0,\,x_1}\left[\left\|v_\theta(x_t, t) - (x_1 - x_0)\right\|^2\right], \qquad x_t = (1-t)\,x_0 + t\,x_1">\mathcal{L} = \mathbb{E}_{t,\,x_0,\,x_1}\left[\left\|v_\theta(x_t, t) - (x_1 - x_0)\right\|^2\right], \qquad x_t = (1-t)\,x_0 + t\,x_1</span></div>
+<p>其中 <span class="math" data-tex="x_0">x_0</span> 是噪声样本；<span class="math" data-tex="x_1">x_1</span> 是数据样本；<span class="math" data-tex="x_t">x_t</span> 是二者之间的直线插值；<span class="math" data-tex="v_\theta">v_\theta</span> 是待学的速度场。这个目标不需要模拟 SDE，训练更直接。</p>
+<aside class="claim claim-approximation" aria-label="近似"><p class="claim-head"><span class="claim-kind">近似</span><span class="claim-title">三者的关系</span></p><p>扩散、得分 SDE、流匹配在数学上是同一族方法的三种参数化：都是学一个从简单分布到数据分布的变换场，区别在于路径的形状（加噪路径 vs 直线插值）与训练目标的推导方式。采样时的步数、离散化误差、以及能否用更少的步数得到好样本，是三者在实践中真正的差别。</p></aside>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<h3>在结构生成里要额外处理什么</h3>
+<p>分子和晶体不是普通向量，生成时还要满足：</p>
+<ul><li><strong>原子种类与数目的离散性</strong>：类别变量不能直接加高斯噪声，需要用 one-hot 的连续松弛或在离散空间定义过程；</li><li><strong>几何对称性</strong>：整体平移、旋转、以及同类原子的置换不改变结构（见 <a class="node-link" href="../nodes/equivariance.html">对称性与等变性</a>）；好的模型把这些对称性内建进去，而不是靠数据去学；</li><li><strong>周期性</strong>：晶体要在晶胞、分数坐标上生成，边界条件与真空中的分子完全不同（见 <a class="node-link" href="../nodes/crystal-generative-models.html">晶体结构生成模型</a>）。</li></ul>
+<h3>评价指标：生成得像不像</h3>
+<p>不能只看单个样本“顺眼”，要有分布层面的指标。分子生成里常用：</p>
+<ul><li><strong>有效性/唯一性/新颖性</strong> (validity / uniqueness / novelty)：生成的分子能不能通过化学规则检查、彼此是否重复、是否在训练集里出现过 <a class="cite" href="#src-polykovskiy-2020-moses">[Polykovskiy et al. 2020 (MOSES)]</a>；</li><li><strong>Fréchet ChemNet Distance (FCD)</strong>：把生成集与参考集分别送进一个固定的化学信息网络，比较两组特征分布的 Fréchet 距离 <a class="cite" href="#src-preuer-2018-fcd">[Preuer et al. 2018 (FCD)]</a>。</li></ul>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>FCD 依赖固定的参考网络与参考集，跨数据集比较没有绝对尺度；把它当“越小越好”的相对指标，不要跨体系比较数值。</li><li>上述指标是为<strong>分子</strong>（图）设计的。晶体结构的对应指标（晶胞相似度、堆积相似度、能量排序一致性）还在演化，没有公认标准；参见 <a class="node-link" href="../nodes/structure-similarity.html">晶体结构相似度与去重</a>，但具体做法需要按文献核对。</li><li>触发本条目的 11 篇论文的具体方法与结果尚未精读，正文只给一般框架，不引用其报告的数字。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>把一次性生成当成“更先进”</strong>：一次性和自回归各有适用场景。晶体里原子等价、没有自然顺序，自回归要先定义一个顺序，这个选择会引入系统性偏差。</li><li><strong>只看单样本质量</strong>：几个漂亮样本不能说明分布学到了；必须用分布层面的指标，并且和参考集放在一起看。</li><li><strong>忽略对称性</strong>：不内建对称性的模型会把同一结构的不同旋转当成不同样本，训练效率低，还会生成重复结构。</li><li><strong>拿指标当物理正确性</strong>：FCD 低只说明“像训练数据”，不说明生成的结构能量合理。结构生成之后仍要做能量排序与弛豫（见 <a class="node-link" href="../nodes/csp-search-ranking.html">晶体结构预测：搜索与排序</a>）。</li><li><strong>训练集泄漏进评价</strong>：新颖性指标必须在训练集之外计算，否则数字没有意义。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么“预测噪声”和“估计得分函数”是同一件事？用高斯加噪下的关系式说明。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>对直线插值路径 <span class="math" data-tex="x_t=(1-t)x_0+t x_1">x_t=(1-t)x_0+t x_1</span>，验证 <span class="math" data-tex="dx_t/dt = x_1-x_0">dx_t/dt = x_1-x_0</span>，并说明流匹配目标为什么不需要模拟前向过程。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你要用生成模型为 β-甘氨酸生成候选晶体。列出至少三条“生成得像”之外还必须检查的性质，并说明每条对应哪个下游步骤。</p></aside>
+</section>
   </div>
   <section class="node-children" aria-labelledby="kidsTitle"><h2 id="kidsTitle">子条目</h2><ul><li><a class="node-link is-candidate" href="../nodes/crystal-generative-models.html">晶体结构生成模型</a><span class="visually-hidden">（候选，还没有正文）</span><span class="kid-purpose">生成晶体需要同时处理晶胞、分数坐标和周期性，分子晶体还要处理刚性分子和堆积。</span></li></ul></section>
   
-  
-  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;generative model&quot;, &quot;diffusion model&quot;, &quot;flow matching&quot;, &quot;autoregressive model&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>机器学习 · 概念 · 研究线：晶体结构生成 · 状态：候选</p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-ho-2020-ddpm"><p class="src-kind">论文<span class="src-short">Ho et al. 2020 (DDPM)</span></p><p class="src-cit"><a href="https://arxiv.org/abs/2006.11239" rel="noopener" target="_blank">J. Ho, A. Jain, P. Abbeel, Denoising Diffusion Probabilistic Models, arXiv:2006.11239 (2020)；会议版本发表于 NeurIPS 2020</a></p><p class="src-meta">版本：arXiv 预印本，按引用的版本号核对；位置：前向加噪与逆向去噪过程、简化训练目标</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-song-2020-score-sde"><p class="src-kind">论文<span class="src-short">Song et al. 2020 (Score SDE)</span></p><p class="src-cit"><a href="https://arxiv.org/abs/2011.13456" rel="noopener" target="_blank">Y. Song, J. Sohl-Dickstein, D. P. Kingma, A. Kumar, S. Ermon, B. Poole, Score-Based Generative Modeling through Stochastic Differential Equations, arXiv:2011.13456 (2020)；ICLR 2021</a></p><p class="src-meta">版本：arXiv 预印本，按引用的版本号核对；位置：用 SDE 统一扩散与去噪得分匹配</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-lipman-2022-flow"><p class="src-kind">论文<span class="src-short">Lipman et al. 2022 (Flow Matching)</span></p><p class="src-cit"><a href="https://arxiv.org/abs/2210.02747" rel="noopener" target="_blank">Y. Lipman, R. T. Q. Chen, H. Ben-Hamu, M. Nickel, M. Le, Flow Matching for Generative Modeling, arXiv:2210.02747 (2022)；ICLR 2023</a></p><p class="src-meta">版本：arXiv 预印本，按引用的版本号核对；位置：连续归一化流与条件流匹配目标</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-polykovskiy-2020-moses"><p class="src-kind">基准研究<span class="src-short">Polykovskiy et al. 2020 (MOSES)</span></p><p class="src-cit"><a href="https://doi.org/10.3389/fphar.2020.565644" rel="noopener" target="_blank">D. Polykovskiy et al., Molecular Sets (MOSES): A Benchmarking Platform for Molecular Generation Models, Front. Pharmacol. 11, 565644 (2020)</a></p><p class="src-meta">位置：分子生成的基准数据集与评价指标</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-preuer-2018-fcd"><p class="src-kind">论文<span class="src-short">Preuer et al. 2018 (FCD)</span></p><p class="src-cit"><a href="https://doi.org/10.1021/acs.jcim.8b00234" rel="noopener" target="_blank">K. Preuer, P. Renz, T. Unterthiner, S. Hochreiter, G. Klambauer, Fréchet ChemNet Distance: A Metric for Generative Models for Molecules in Drug Discovery, J. Chem. Inf. Model. 58, 1736-1741 (2018)</a></p><p class="src-meta">位置：FCD 指标定义</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;generative model&quot;, &quot;diffusion model&quot;, &quot;score-based model&quot;, &quot;flow matching&quot;, &quot;autoregressive model&quot;, &quot;Fréchet ChemNet Distance&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>机器学习 · 概念 · 研究线：晶体结构生成 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="generative-models">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +112,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%EF%BC%88generative-models%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Agenerative-models%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-09</span>候选：只有题目与范围</li><li><span>v0.2</span><span>2026-11-16</span>初稿正文：生成模型的共同骨架、扩散/得分 SDE/流匹配三种表述、自回归与一次性生成的差别、评价指标（含 FCD）、在结构生成里的映射；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%EF%BC%88generative-models%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Agenerative-models%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">
