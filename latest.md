@@ -1,15 +1,35 @@
 # 科研雷达 · 2026-11-16（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-14 17:08 → 现在 · 候选 666 → 本轮入库 26 → 今日累计 **0**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-14 18:08 → 现在 · 候选 557 → 本轮入库 30 → 今日累计 **4**（本次 +4） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- 窗口内没有达到相关度阈值的新条目。可以考虑提高 `lookback_hours`，或补充主题关键词。
+- **最高相关度**：Crystal Structure Prediction from Search to Learning: A 30-Year Expedition（13.1）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
+- **构成**：分子晶体结构预测（CSP）与能量图景 2 · 晶体生成模型与逆向设计 1 · 机器学习势与通用势函数（MLIP / UMA） 1
 
 ## 今日最值得看
 
-_（今日无）_
+1. **[Crystal Structure Prediction from Search to Learning: A 30-Year Expedition](https://arxiv.org/abs/2611.17670)**
+   `CSP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17670)
+   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、molecular crystals、crystal structure、energy landscape</sub>
+   > Crystal structure prediction (CSP) determines periodic atomic or molecular arrangements from chemical composition and physical conditions. Over three decades, CSP has evolved from chemical construction and global energy optimization to hybrid approaches combining symmetry, learned potentials, adaptive search, and deep…
+
+2. **[Diffusion Tree Sampling for Inference Time Adaptation of Crystal Generative Models](https://arxiv.org/abs/2611.17462)**
+   `生成设计` `生成模型` · *arXiv* · 2026-11-12 · [PDF](https://arxiv.org/pdf/2611.17462)
+   <sub>命中：crystal generation、generative models、de novo</sub>
+   > Diffusion-based generative models have become strong priors over plausible crystal structures, but turning that prior into promising candidates requires steering toward several conflicting properties at once.
+
+3. **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
+   `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17679)
+   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
+   > Ion transport in solids has conventionally been understood from equilibrium diffusion, yet ions in batteries are driven by electric fields. Does field-driven ion transport follow equilibrium behavior? We examined this question in bulk Li2O and at its grain boundaries (GBs) using electric-field molecular dynamics combin…
+
+4. **[Pressure-driven evolution of crystal and molecular structures reshapes excited-state competition in coronene](https://arxiv.org/abs/2611.17698)**
+   `CSP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17698)
+   <sub>命中：crystal packing、polymorphism</sub>
+   > Molecular nanocarbons exhibit unique optoelectronic properties and considered as promising candidates for organic device applications, however, understanding how molecular geometry and crystal packing jointly govern physical properties remains a fundamental challenge in π-conjugated molecular materials.
 
 ## 按主题展开
 
@@ -33,12 +53,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 533 | ok |
+| arxiv | 400 | ok |
 | crossref | 50 | ok |
 | openalex | 76 | ok |
 | rss | 95 | ok |
 | github | 0 | ok |
 
-> 原始 754 → 去重 666 → 剔除标题噪声 27 → 低相关度 613 → 入库 26。
+> 原始 621 → 去重 557 → 剔除标题噪声 27 → 低相关度 500 → 入库 30。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
