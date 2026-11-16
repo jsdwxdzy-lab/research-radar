@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-16（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:48 · 抓取窗口 11-14 19:48 → 现在 · 候选 779 → 本轮入库 32 → 今日累计 **7**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:48 · 抓取窗口 11-14 20:48 → 现在 · 候选 306 → 本轮入库 26 → 今日累计 **9**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Classifier-Guided Latent Diffusion for Small-Molecule Generation（13.2）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · 机器学习势与通用势函数（MLIP / UMA） 1 · AI for Science 方法与自动化 1
+- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 生成模型相关数学 2 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · 机器学习势与通用势函数（MLIP / UMA） 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -31,17 +31,31 @@
    <sub>命中：crystal generation、generative models、de novo</sub>
    > Diffusion-based generative models have become strong priors over plausible crystal structures, but turning that prior into promising candidates requires steering toward several conflicting properties at once.
 
-5. **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
+5. **[Score-based neural ordinary differential equations for reaction-diffusions](https://arxiv.org/abs/2611.18467)**
+   `生成数学` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.18467)
+   <sub>命中：probability flow、score-based、wasserstein</sub>
+   > A diffusion equation can be rewritten as a transport equation driven by the score function of the evolving density. Conventional probability-flow formulations, which move particles deterministically with this score-driven velocity, typically conserve total mass.
+
+6. **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
    `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17679)
    <sub>命中：machine learning interatomic potential、interatomic potential</sub>
    > Ion transport in solids has conventionally been understood from equilibrium diffusion, yet ions in batteries are driven by electric fields. Does field-driven ion transport follow equilibrium behavior? We examined this question in bulk Li2O and at its grain boundaries (GBs) using electric-field molecular dynamics combin…
 
-6. **[Pressure-driven evolution of crystal and molecular structures reshapes excited-state competition in coronene](https://arxiv.org/abs/2611.17698)**
-   `CSP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17698)
-   <sub>命中：crystal packing、polymorphism</sub>
-   > Molecular nanocarbons exhibit unique optoelectronic properties and considered as promising candidates for organic device applications, however, understanding how molecular geometry and crystal packing jointly govern physical properties remains a fundamental challenge in π-conjugated molecular materials.
-
 ## 按主题展开
+
+### 分子晶体结构预测（CSP）与能量图景 · 持平
+
+- **[Pressure-driven evolution of crystal and molecular structures reshapes excited-state competition in coronene](https://arxiv.org/abs/2611.17698)**
+  `CSP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17698)
+  <sub>命中：crystal packing、polymorphism</sub>
+  > Molecular nanocarbons exhibit unique optoelectronic properties and considered as promising candidates for organic device applications, however, understanding how molecular geometry and crystal packing…
+
+### 生成模型相关数学 · 回落 ↓0.4×
+
+- **[Elliptic Sampling: Optimal Interpolant Schedules for Gaussians and Beyond](https://arxiv.org/abs/2611.18542)**
+  `生成数学` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.18542)
+  <sub>命中：probability flow、wasserstein</sub>
+  > Generative modeling based on stochastic interpolants requires specifying two key choices: an interpolant schedule bridging the initial and target distributions, and an efficient discretization of the…
 
 ### AI for Science 方法与自动化 · 回落 ↓0.5×
 
@@ -68,12 +82,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 661 | ok |
+| arxiv | 100 | ok |
 | crossref | 50 | ok |
 | openalex | 76 | ok |
 | rss | 95 | ok |
 | github | 0 | ok |
 
-> 原始 882 → 去重 779 → 剔除标题噪声 28 → 低相关度 719 → 入库 32。
+> 原始 321 → 去重 306 → 剔除标题噪声 23 → 低相关度 257 → 入库 26。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
