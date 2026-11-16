@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>增强采样与重加权 · 理论地图 · 科研雷达</title>
+<meta name="description" content="体系的自由能面有高垒时，普通 MD 在有限时间里采不到垒两边，算出来的自由能是错的；这一条讲怎样用偏置把采样推过垒，再怎样把偏置的影响严格地除掉，恢复无偏的自由能。">
+<link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="node" data-prefix="../" data-node="enhanced-sampling" data-node-title="增强采样与重加权" data-status="draft">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<div class="reader-shell" id="main">
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-statmech">统计力学与采样</a></li><li aria-current="page">增强采样与重加权</li></ol><a class="small" href="../tree.html#t-enhanced-sampling">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
+<article class="node" aria-labelledby="nodeTitle">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-statmech">统计力学与采样</a></nav>
+  <h1 id="nodeTitle">增强采样与重加权</h1>
+  <p class="node-meta"><span class="type">方法节点</span><span>领域：<a href="../tree.html#t-statmech">统计力学与采样</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=mlip">机器学习势</a><a class="rline" href="../tree.html?line=csp">结构预测与能量景观</a></span><span>v0.1 · 2026-11-16</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">体系的自由能面有高垒时，普通 MD 在有限时间里采不到垒两边，算出来的自由能是错的；这一条讲怎样用偏置把采样推过垒，再怎样把偏置的影响严格地除掉，恢复无偏的自由能。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li><a class="node-link" href="../nodes/free-energy.html">自由能与熵</a>：自由能是概率的负对数</li><li><a class="node-link" href="../nodes/molecular-dynamics.html">分子动力学</a>：MD 采样什么</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/ensembles.html">系综与配分函数</a>：配分函数与系综平均</li><li><a class="node-link" href="../nodes/mlip-basics.html">机器学习势</a>：用机器学习势跑 MD</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
+  <div class="prose" id="prose">
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>自由能是概率的负对数（见 <a class="node-link" href="../nodes/free-energy.html">自由能与熵</a>）：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="F(\xi) = -k_B T \ln p(\xi) + \text{常数}">F(\xi) = -k_B T \ln p(\xi) + \text{常数}</span></div>
+<p>其中 <span class="math" data-tex="\xi">\xi</span> 是你关心的一两个慢变量（反应坐标、扭转角、配位数、晶胞参数），<span class="math" data-tex="p(\xi)">p(\xi)</span> 是平衡时体系处于 <span class="math" data-tex="\xi">\xi</span> 附近的概率。</p>
+<p>在有限长度的 MD 里，体系在垒的一侧停留的时间远多于跨越垒的时间，<span class="math" data-tex="p(\xi)">p(\xi)</span> 在高垒区根本采不到。而自由能垒恰好由垒顶那一小段概率决定，所以<strong>漏采样的区域不是“精度差一点”，而是数值完全不可信</strong>。</p>
+<p>增强采样的思路是：在 <span class="math" data-tex="\xi">\xi</span> 上加一个已知的偏置势，把采样从最低点“抬”出来，让体系愿意访问垒顶和别的盆地；采完之后，再用偏置的解析形式把它除掉。图里左边是加偏置，右边是除掉偏置。</p>
+<figure class="fig"><img src="../figs/enhanced-sampling-bias.svg" alt="示意：左图是加偏置，每个窗口一条抛物线 $w_i(\xi)=\frac{1}{2}\kappa(\xi-\xi_i)^2$，叠加后体系在整个 $\xi$ 区间都有采样；右图是把偏置除掉后的概率密度。曲线由一维玩具势计算得到，只用来示意流程，不对应任何真实体系。" loading="lazy"><figcaption>示意：左图是加偏置，每个窗口一条抛物线 <span class="math" data-tex="w_i(\xi)=\frac{1}{2}\kappa(\xi-\xi_i)^2">w_i(\xi)=\frac{1}{2}\kappa(\xi-\xi_i)^2</span>，叠加后体系在整个 <span class="math" data-tex="\xi">\xi</span> 区间都有采样；右图是把偏置除掉后的概率密度。曲线由一维玩具势计算得到，只用来示意流程，不对应任何真实体系。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应哪部分</th></tr></thead><tbody><tr><td><span class="math" data-tex="\xi">\xi</span></td><td>反应坐标（慢变量）</td><td>横轴</td></tr><tr><td><span class="math" data-tex="F(\xi)">F(\xi)</span></td><td>无偏自由能</td><td>左图黑色粗线</td></tr><tr><td><span class="math" data-tex="w_i(\xi)">w_i(\xi)</span></td><td>第 <span class="math" data-tex="i">i</span> 个窗口的偏置势</td><td>左图细蓝抛物线</td></tr><tr><td><span class="math" data-tex="\xi_i">\xi_i</span></td><td>窗口中心</td><td>左图坐标轴下方的蓝色短竖线</td></tr><tr><td><span class="math" data-tex="p_b(\xi)">p_b(\xi)</span></td><td>偏置下采到的（有偏）概率密度</td><td>右图灰色填充</td></tr><tr><td><span class="math" data-tex="p_0(\xi)">p_0(\xi)</span></td><td>无偏概率密度</td><td>右图橙色曲线</td></tr></tbody></table></div>
+<p>图中右面板的 <span class="math" data-tex="p_0">p_0</span> 与左面板的 <span class="math" data-tex="F">F</span> 互为负对数——这正是重加权要做的事：把“在有偏分布下采到的样本”换算回“无偏分布下的概率”。</p>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<h3>偏置采样与重加权恒等式</h3>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">重加权</span></p><p>在偏置势 <span class="math" data-tex="U_b(\xi)">U_b(\xi)</span> 下跑 MD，得到有偏分布 <span class="math" data-tex="p_b">p_b</span>。无偏分布 <span class="math" data-tex="p_0">p_0</span> 与它的关系是</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="p_0(\xi) = \frac{1}{Z}\, p_b(\xi)\, e^{\beta U_b(\xi)}, \qquad Z = \int p_b(\xi)\, e^{\beta U_b(\xi)}\, d\xi">p_0(\xi) = \frac{1}{Z}\, p_b(\xi)\, e^{\beta U_b(\xi)}, \qquad Z = \int p_b(\xi)\, e^{\beta U_b(\xi)}\, d\xi</span></div>
+<p>其中 <span class="math" data-tex="\beta = 1/(k_B T)">\beta = 1/(k_B T)</span>；<span class="math" data-tex="U_b">U_b</span> 是你<strong>自己加上的</strong>偏置，解析已知；<span class="math" data-tex="Z">Z</span> 是归一化常数，它把指数项重新归一化。这条恒等式本身是严格的，不需要近似——只要采样足够、<span class="math" data-tex="U_b">U_b</span> 已知，重加权就没有系统误差。</p></aside>
+<p><span class="math" data-tex="Z">Z</span> 一般很难直接算（它等价于两套势之间的自由能差，形式上是一个 Zwanzig 微扰 <a class="cite" href="#src-zwanzig-1954">[Zwanzig 1954]</a>）。伞形采样 (umbrella sampling) 的做法是把它拆成许多互相重叠的窗口 <a class="cite" href="#src-torrie-1977-umbrella">[Torrie &amp; Valleau 1977]</a>：每个窗口里偏置相对平缓，<span class="math" data-tex="Z">Z</span> 的估计在窗口内稳定，再用重叠区把相邻窗口拼接起来。</p>
+<h3>从直方图拼接到 MBAR</h3>
+<p>最早的拼接方法是 WHAM（weighted histogram analysis method）<a class="cite" href="#src-kumar-1992-wham">[Kumar et al. 1992]</a>：把各窗口的直方图用自洽方程联立，解出每个窗口的常数 <span class="math" data-tex="f_i">f_i</span>。</p>
+<p>MBAR（multistate Bennett acceptance ratio）<a class="cite" href="#src-shirts-2008-mbar">[Shirts &amp; Chodera 2008]</a> 不再先做直方图，而是直接对<strong>每个样本</strong>加权。设第 <span class="math" data-tex="i">i</span> 个窗口的样本来自偏置势 <span class="math" data-tex="U_i">U_i</span>，则</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\hat{f}_i = -\ln \sum_{n=1}^{N} \frac{e^{-\beta U_i(x_n)}}{\sum_{k=1}^{K} N_k\, e^{\hat{f}_k - \beta U_k(x_n)}}">\hat{f}_i = -\ln \sum_{n=1}^{N} \frac{e^{-\beta U_i(x_n)}}{\sum_{k=1}^{K} N_k\, e^{\hat{f}_k - \beta U_k(x_n)}}</span></div>
+<p>其中 <span class="math" data-tex="N">N</span> 是所有窗口样本总数；<span class="math" data-tex="N_k">N_k</span> 是第 <span class="math" data-tex="k">k</span> 个窗口的样本数；<span class="math" data-tex="\hat{f}_k">\hat{f}_k</span> 是待解的窗口自由能常数；<span class="math" data-tex="U_k(x_n)">U_k(x_n)</span> 是样本 <span class="math" data-tex="x_n">x_n</span> 在第 <span class="math" data-tex="k">k</span> 个偏置势下的能量。这是一个自洽方程组，迭代求解。</p>
+<aside class="claim claim-theorem" aria-label="定理"><p class="claim-head"><span class="claim-kind">定理</span><span class="claim-title">MBAR 的最优性</span></p><p>在只利用“样本来自已知偏置势”这一信息、不做其他假设的条件下，MBAR 给出的自由能估计方差最小；WHAM 是它在“把样本先归入直方图区间”时的特例 <a class="cite" href="#src-shirts-2008-mbar">[Shirts &amp; Chodera 2008]</a>。</p></aside>
+<p>这句话的实用含义：<strong>窗口重叠不好、样本量不均时，WHAM 的直方图分箱会丢掉信息，MBAR 更稳</strong>。代价是 MBAR 要保存全部样本的能量（或者能量矩阵），内存与计算量随样本数增长。</p>
+<h3>元动力学：偏置不是预设的</h3>
+<p>伞形采样的偏置是一组<strong>事先固定</strong>的抛物线，窗口中心要自己选、要保证重叠。元动力学 (metadynamics) <a class="cite" href="#src-laio-2002-metad">[Laio &amp; Parrinello 2002]</a> 换一种做法：一边跑一边往已经访问过的地方“填高斯”，让体系自己离开盆地：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="U_b(\xi, t) = \sum_{t&#x27; &lt; t} W \exp\!\left[-\frac{(\xi - \xi(t&#x27;))^2}{2\sigma^2}\right]">U_b(\xi, t) = \sum_{t&#x27; &lt; t} W \exp\!\left[-\frac{(\xi - \xi(t&#x27;))^2}{2\sigma^2}\right]</span></div>
+<p>其中 <span class="math" data-tex="W">W</span> 是每次填的高斯高度；<span class="math" data-tex="\sigma">\sigma</span> 是高斯宽度；<span class="math" data-tex="\xi(t&#x27;)">\xi(t&#x27;)</span> 是第 <span class="math" data-tex="t&#x27;">t&#x27;</span> 步时体系所在的 <span class="math" data-tex="\xi">\xi</span> 位置。填满了的地方偏置就高，体系自然去没填过的地方。</p>
+<aside class="claim claim-approximation" aria-label="近似"><p class="claim-head"><span class="claim-kind">近似</span><span class="claim-title">元动力学与自由能</span></p><p>在准静态极限（填得足够慢、高斯足够小）下，累积的偏置 <span class="math" data-tex="U_b(\xi)">U_b(\xi)</span> 趋近 <span class="math" data-tex="-F(\xi)">-F(\xi)</span> 加上一个常数。实际计算里这个等式只是近似，偏差随填的速率变化，需要跑多条独立轨迹或用其他方式再校正。</p></aside>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<h3>用机器学习势做增强采样</h3>
+<p>MLIP 使能跑几纳秒到微秒的 MD（见 <a class="node-link" href="../nodes/mlip-basics.html">机器学习势</a>、<a class="node-link" href="../nodes/molecular-dynamics.html">分子动力学</a>），垒的跨越变得可行，但<strong>对慢变量来说仍然不够</strong>。常见组合：</p>
+<ol><li>用 MLIP 跑偏置 MD，得到 <span class="math" data-tex="p_b(\xi)">p_b(\xi)</span>；</li><li>用同一偏置解析地重加权，得到 <span class="math" data-tex="F(\xi)">F(\xi)</span>；</li><li>在关键点上用 DFT 单点校正绝对能量，检查 MLIP 的系统偏差（见 <a class="node-link" href="../nodes/benchmarking.html">基准与验证</a>）。</li></ol>
+<p>这条路线的工作量主要在<strong>验证</strong>：MLIP 在垒顶、在高能构象上是否仍然准，决定了 <span class="math" data-tex="F(\xi)">F(\xi)</span> 的垒高是否可信，而不是采样够不够。微调过的势在远离平衡处失效的风险最大（见 <a class="node-link" href="../nodes/mlip-finetuning.html">通用机器学习势的微调</a>）。</p>
+<h3>与结构搜索的关系</h3>
+<p>多晶型之间的自由能差、构象异构体的能量差，都能用同样的重加权思路从 MD 里得到（见 <a class="node-link" href="../nodes/energy-landscape.html">能量景观与多晶型</a>、<a class="node-link" href="../nodes/csp-search-ranking.html">晶体结构预测：搜索与排序</a>）。相对静态 0 K 能量排序，这一步补上了振动与构象熵的贡献。</p>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>具体程序的默认设置（窗口数、高斯高度与宽度、填加速率、收敛判据）随版本变化，按所用程序文档核对，不在这里给数值。</li><li>两篇触发论文报告的具体加速倍数与误差，尚未精读，不在正文引用其数值。</li><li>偏置过程中所用的慢变量选择方法（如基于主成分或基于机器学习的坐标）本身是新研究方向，这里只提到“慢变量需要选”，不给具体算法。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>窗口重叠不足</strong>：相邻窗口的采样区间不重叠，拼接时 <span class="math" data-tex="Z">Z</span> 被外推，结果在缝隙处出现虚假的台阶。</li><li><strong>慢变量选错</strong>：<span class="math" data-tex="\xi">\xi</span> 不能区分两个真正不同的盆地（例如没包含关键的扭转角），体系在 <span class="math" data-tex="\xi">\xi</span> 固定时仍在别的方向上来回跳，重加权后的 <span class="math" data-tex="F(\xi)">F(\xi)</span> 是两套分布混在一起的平均，没有意义。</li><li><strong>认为“跑了偏置就等于采到了”</strong>：偏置只保证在 <span class="math" data-tex="\xi">\xi</span> 方向上有样本，垂直方向仍可能没松弛。</li><li><strong>元动力学的偏置被当成自由能直接引用</strong>：没有检查准静态性，垒高被低估。</li><li><strong>忘了报告采样收敛</strong>：同一个 <span class="math" data-tex="F(\xi)">F(\xi)</span> 用不同初速度、不同窗口数跑两遍，差别有多大，是判断结果能不能用的第一手证据（见 <a class="node-link" href="../nodes/convergence-testing.html">收敛测试</a> 的思路）。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么说“漏采样区域不是精度差一点，而是数值完全不可信”？用 <span class="math" data-tex="F = -k_BT\ln p">F = -k_BT\ln p</span> 说明。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>无偏分布 <span class="math" data-tex="p_0">p_0</span> 与偏置分布 <span class="math" data-tex="p_b">p_b</span> 之间满足 <span class="math" data-tex="p_0 \propto p_b e^{\beta U_b}">p_0 \propto p_b e^{\beta U_b}</span>。从配分函数 <span class="math" data-tex="Z_0 = \int e^{-\beta U_0} d\xi">Z_0 = \int e^{-\beta U_0} d\xi</span> 和 <span class="math" data-tex="Z_b = \int e^{-\beta (U_0 + U_b)} d\xi">Z_b = \int e^{-\beta (U_0 + U_b)} d\xi</span> 出发推出这条关系，并说明 <span class="math" data-tex="Z = Z_b/Z_0">Z = Z_b/Z_0</span>。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你想用 MACE 算 β-甘氨酸两个构象异构体之间的自由能差。设计一个伞形采样方案：慢变量取什么、窗口怎么放、怎样验证窗口重叠够了、最后怎样用 DFT 检查 MLIP 的垒高。</p></aside>
+</section>
+  </div>
+  
+  
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-torrie-1977-umbrella"><p class="src-kind">论文<span class="src-short">Torrie &amp; Valleau 1977</span></p><p class="src-cit"><a href="https://doi.org/10.1016/0021-9991(77)90121-8" rel="noopener" target="_blank">G. M. Torrie, J. P. Valleau, Nonphysical sampling distributions in Monte Carlo free-energy estimation: Umbrella sampling, J. Comput. Phys. 23, 187-199 (1977)</a></p><p class="src-meta">位置：伞形采样方法与窗口偏置的原始提出</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-kumar-1992-wham"><p class="src-kind">论文<span class="src-short">Kumar et al. 1992</span></p><p class="src-cit"><a href="https://doi.org/10.1002/jcc.540130812" rel="noopener" target="_blank">S. Kumar, J. M. Rosenberg, D. Bouzida, R. H. Swendsen, P. A. Kollman, The weighted histogram analysis method for free-energy calculations on biomolecules. I. The method, J. Comput. Chem. 13, 1011-1021 (1992)</a></p><p class="src-meta">位置：WHAM 自洽方程</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-shirts-2008-mbar"><p class="src-kind">论文<span class="src-short">Shirts &amp; Chodera 2008</span></p><p class="src-cit"><a href="https://doi.org/10.1063/1.2978177" rel="noopener" target="_blank">M. R. Shirts, J. D. Chodera, Statistically optimal analysis of samples from multiple equilibrium states, J. Chem. Phys. 129 (2008)</a></p><p class="src-meta">位置：MBAR 估计量与最优性</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-laio-2002-metad"><p class="src-kind">论文<span class="src-short">Laio &amp; Parrinello 2002</span></p><p class="src-cit"><a href="https://doi.org/10.1073/pnas.202427399" rel="noopener" target="_blank">A. Laio, M. Parrinello, Escaping free-energy minima, Proc. Natl. Acad. Sci. USA 99, 12562-12566 (2002)</a></p><p class="src-meta">位置：元动力学与高斯填充</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-frenkel-2002-sim"><p class="src-kind">教材<span class="src-short">Frenkel &amp; Smit 2002</span></p><p class="src-cit"><a href="https://doi.org/10.1016/B978-0-12-267351-1.X5000-7" rel="noopener" target="_blank">D. Frenkel, B. Smit, Understanding Molecular Simulation, 2nd ed., Academic Press (2002)</a></p><p class="src-meta">位置：系综、自由能计算方法</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-zwanzig-1954"><p class="src-kind">论文<span class="src-short">Zwanzig 1954</span></p><p class="src-cit"><a href="https://doi.org/10.1063/1.1740409" rel="noopener" target="_blank">R. W. Zwanzig, High-Temperature Equation of State by a Perturbation Method. I. Nonpolar Gases, J. Chem. Phys. 22, 1420 (1954)</a></p><p class="src-meta">位置：自由能微扰</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;umbrella sampling&quot;, &quot;WHAM&quot;, &quot;MBAR&quot;, &quot;metadynamics&quot;, &quot;reweighting&quot;, &quot;biased sampling&quot;, &quot;free energy profile&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>统计力学与采样 · 方法 · 研究线：机器学习势、结构预测与能量景观 · 状态：草稿</p>
+  
+  <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="enhanced-sampling">
+  <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
+  <label class="field-label" for="myQuestion">我还没想通的地方</label>
+  <textarea id="myQuestion" rows="3" placeholder="写下读到这里的疑问，首页会列出未解决的疑问…"></textarea>
+  <label class="field-label" for="myNote">我的笔记</label>
+  <textarea id="myNote" rows="4" placeholder="用自己的话复述，或记下推导中卡住的一步…"></textarea>
+  <fieldset class="dims"><legend>自评（读过不等于掌握，按需填写）</legend><div class="dim"><label for="dim-explain">能解释核心概念</label><select id="dim-explain" data-dim="explain"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="explain" aria-label="能解释核心概念：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-derive">能重建关键推导</label><select id="dim-derive" data-dim="derive"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="derive" aria-label="能重建关键推导：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-limits">理解成立条件和局限</label><select id="dim-limits" data-dim="limits"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="limits" aria-label="理解成立条件和局限：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-connect">能与其他节点正确联系</label><select id="dim-connect" data-dim="connect"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="connect" aria-label="能与其他节点正确联系：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-apply">能应用于新问题</label><select id="dim-apply" data-dim="apply"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="apply" aria-label="能应用于新问题：我的说明" placeholder="说明（可选）…"></div></fieldset>
+  <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
+</section>
+</article>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-16</span>初稿：偏置采样、WHAM/MBAR、伞形采样与元动力学的差别、与机器学习势结合时的重加权、常见坑；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%A2%9E%E5%BC%BA%E9%87%87%E6%A0%B7%E4%B8%8E%E9%87%8D%E5%8A%A0%E6%9D%83%EF%BC%88enhanced-sampling%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aenhanced-sampling%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
+</div>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
