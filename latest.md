@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-16（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 15:19 · 抓取窗口 11-14 23:19 → 现在 · 候选 783 → 本轮入库 34 → 今日累计 **10**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 17:33 · 抓取窗口 11-15 01:33 → 现在 · 候选 769 → 本轮入库 33 → 今日累计 **11**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Classifier-Guided Latent Diffusion for Small-Molecule Generation（13.2）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（22 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 生成模型相关数学 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · AI for Science 方法与自动化 1
+- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 生成模型相关数学 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -36,10 +36,10 @@
    <sub>命中：probability flow、score-based、wasserstein</sub>
    > A diffusion equation can be rewritten as a transport equation driven by the score function of the evolving density. Conventional probability-flow formulations, which move particles deterministically with this score-driven velocity, typically conserve total mass.
 
-6. **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
-   `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17679)
-   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
-   > Ion transport in solids has conventionally been understood from equilibrium diffusion, yet ions in batteries are driven by electric fields. Does field-driven ion transport follow equilibrium behavior? We examined this question in bulk Li2O and at its grain boundaries (GBs) using electric-field molecular dynamics combin…
+6. **[Highly Tunable Metal-Peptide Piezoelectrics for Tissue Regeneration](https://doi.org/10.1021/jacs.6c13664)**
+   `手性晶体` · *Journal of the American Chemical Society* · 2026-11-16
+   <sub>命中：enantiomeric、chirality</sub>
+   > Piezoelectricity, first discovered in 1880, has been dominated by inorganic materials, whose strong electromechanical responses typically arise from achiral, noncentrosymmetric crystal structures and highly polar bonds.
 
 ## 按主题展开
 
@@ -58,6 +58,11 @@
   > Generative modeling based on stochastic interpolants requires specifying two key choices: an interpolant schedule bridging the initial and target distributions, and an efficient discretization of the…
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Electric Fields Turn Vacancy-trapping Grain Boundaries into Li-Ion Pathways in Li2O](https://arxiv.org/abs/2611.17679)**
+  `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.17679)
+  <sub>命中：machine learning interatomic potential、interatomic potential</sub>
+  > Ion transport in solids has conventionally been understood from equilibrium diffusion, yet ions in batteries are driven by electric fields.
 
 - **[Fine-tuned atomistic foundation model for accurate sodium-carbon chemistry in Na-ion batteries](https://arxiv.org/abs/2611.18490)**
   `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.18490)
@@ -90,11 +95,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 666 | ok |
-| crossref | 50 | ok |
+| crossref | 34 | ok |
 | openalex | 76 | ok |
 | rss | 95 | ok |
 | github | 0 | ok |
 
-> 原始 887 → 去重 783 → 剔除标题噪声 27 → 低相关度 722 → 入库 34。
+> 原始 871 → 去重 769 → 剔除标题噪声 27 → 低相关度 709 → 入库 33。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
