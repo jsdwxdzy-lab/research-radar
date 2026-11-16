@@ -779,6 +779,99 @@
       "doi": "10.1103/PhysRevB.71.205214",
       "locator": "各向异性准简谐计算的实例",
       "consulted": []
+    },
+    {
+      "id": "ho-2020-ddpm",
+      "short": "Ho et al. 2020 (DDPM)",
+      "kind": "paper",
+      "citation": "J. Ho, A. Jain, P. Abbeel, Denoising Diffusion Probabilistic Models, arXiv:2006.11239 (2020)；会议版本发表于 NeurIPS 2020",
+      "url": "https://arxiv.org/abs/2006.11239",
+      "locator": "前向加噪与逆向去噪过程、简化训练目标",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "song-2020-score-sde",
+      "short": "Song et al. 2020 (Score SDE)",
+      "kind": "paper",
+      "citation": "Y. Song, J. Sohl-Dickstein, D. P. Kingma, A. Kumar, S. Ermon, B. Poole, Score-Based Generative Modeling through Stochastic Differential Equations, arXiv:2011.13456 (2020)；ICLR 2021",
+      "url": "https://arxiv.org/abs/2011.13456",
+      "locator": "用 SDE 统一扩散与去噪得分匹配",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "lipman-2022-flow",
+      "short": "Lipman et al. 2022 (Flow Matching)",
+      "kind": "paper",
+      "citation": "Y. Lipman, R. T. Q. Chen, H. Ben-Hamu, M. Nickel, M. Le, Flow Matching for Generative Modeling, arXiv:2210.02747 (2022)；ICLR 2023",
+      "url": "https://arxiv.org/abs/2210.02747",
+      "locator": "连续归一化流与条件流匹配目标",
+      "consulted": [],
+      "version": "arXiv 预印本，按引用的版本号核对"
+    },
+    {
+      "id": "polykovskiy-2020-moses",
+      "short": "Polykovskiy et al. 2020 (MOSES)",
+      "kind": "benchmark",
+      "citation": "D. Polykovskiy et al., Molecular Sets (MOSES): A Benchmarking Platform for Molecular Generation Models, Front. Pharmacol. 11, 565644 (2020)",
+      "doi": "10.3389/fphar.2020.565644",
+      "locator": "分子生成的基准数据集与评价指标",
+      "consulted": []
+    },
+    {
+      "id": "preuer-2018-fcd",
+      "short": "Preuer et al. 2018 (FCD)",
+      "kind": "paper",
+      "citation": "K. Preuer, P. Renz, T. Unterthiner, S. Hochreiter, G. Klambauer, Fréchet ChemNet Distance: A Metric for Generative Models for Molecules in Drug Discovery, J. Chem. Inf. Model. 58, 1736-1741 (2018)",
+      "doi": "10.1021/acs.jcim.8b00234",
+      "locator": "FCD 指标定义",
+      "consulted": []
+    },
+    {
+      "id": "perdew-1992-pw92",
+      "short": "Perdew & Wang 1992",
+      "kind": "paper",
+      "citation": "J. P. Perdew, Y. Wang, Accurate and simple analytic representation of the electron-gas correlation energy, Phys. Rev. B 45, 13244 (1992)",
+      "doi": "10.1103/PhysRevB.45.13244",
+      "locator": "LDA 相关能解析形式",
+      "consulted": []
+    },
+    {
+      "id": "tao-2003-tpss",
+      "short": "Tao et al. 2003 (TPSS)",
+      "kind": "paper",
+      "citation": "J. Tao, J. P. Perdew, V. N. Staroverov, G. E. Scuseria, Climbing the Density Functional Ladder: Nonempirical Meta-Generalized Gradient Approximation Designed for Molecules and Solids, Phys. Rev. Lett. 91, 146401 (2003)",
+      "doi": "10.1103/PhysRevLett.91.146401",
+      "locator": "meta-GGA 的构造与所满足的约束",
+      "consulted": []
+    },
+    {
+      "id": "sun-2015-scan",
+      "short": "Sun et al. 2015 (SCAN)",
+      "kind": "paper",
+      "citation": "J. Sun, A. Ruzsinszky, J. P. Perdew, Strongly Constrained and Appropriately Normed Semilocal Density Functional, Phys. Rev. Lett. 115, 036402 (2015)",
+      "doi": "10.1103/PhysRevLett.115.036402",
+      "locator": "SCAN 的约束条件与函数形式",
+      "consulted": []
+    },
+    {
+      "id": "heyd-2003-hse",
+      "short": "Heyd et al. 2003 (HSE)",
+      "kind": "paper",
+      "citation": "J. Heyd, G. E. Scuseria, M. Ernzerhof, Hybrid functionals based on a screened Coulomb potential, J. Chem. Phys. 118, 8207 (2003)",
+      "doi": "10.1063/1.1564060",
+      "locator": "屏蔽交换的杂化泛函",
+      "consulted": []
+    },
+    {
+      "id": "becke-1993-b3lyp",
+      "short": "Becke 1993 (B3LYP)",
+      "kind": "paper",
+      "citation": "A. D. Becke, Density-functional thermochemistry. III. The role of exact exchange, J. Chem. Phys. 98, 5648 (1993)",
+      "doi": "10.1063/1.464913",
+      "locator": "三参数杂化泛函中精确交换的比例",
+      "consulted": []
     }
   ]
 }

@@ -6,12 +6,14 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
 <title>基准与验证 · 理论地图 · 科研雷达</title>
-<meta name="description" content="用什么参考数据、在什么条件下比较，才能说一个方法在某类问题上可靠。">
+<meta name="description" content="用什么参考数据、在什么条件下比较，才能说一个方法在某类问题上可靠；以及为什么一个数字（平均误差）几乎从来回答不了这个问题。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="benchmarking" data-node-title="基准与验证" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="benchmarking" data-node-title="基准与验证" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,69 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-methodology">计算方法论</a></li><li aria-current="page">基准与验证</li></ol><a class="small" href="../tree.html#t-benchmarking">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-methodology">计算方法论</a></li><li aria-current="page">基准与验证</li></ol><a class="small" href="../tree.html#t-benchmarking">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-methodology">计算方法论</a></nav>
   <h1 id="nodeTitle">基准与验证</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-methodology">计算方法论</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=mlip">机器学习势</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
-  <p class="purpose">用什么参考数据、在什么条件下比较，才能说一个方法在某类问题上可靠。</p>
-  
-  
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-methodology">计算方法论</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=mlip">机器学习势</a><a class="rline" href="../tree.html?line=csp">结构预测与能量景观</a></span><span>v0.2 · 2026-11-16</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">用什么参考数据、在什么条件下比较，才能说一个方法在某类问题上可靠；以及为什么一个数字（平均误差）几乎从来回答不了这个问题。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>训练集、验证集、测试集的分工</li><li>&quot;误差&quot;是一组数，不是一个数</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/mlip-basics.html">机器学习势</a>：模型误差从哪来</li><li><a class="node-link" href="../nodes/error-sources.html">预测的误差来自哪里</a>：误差的分类</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>“这个模型准不准”不是一个有唯一答案的问题。基准 (benchmark) 必须先回答三件事：</p>
+<ol><li><strong>参考值是什么</strong>：DFT？实验？更高精度的方法？参考值本身有误差，而且常常不比被测方法小。</li><li><strong>在什么数据上比</strong>：同一分布内的测试集，还是包含了训练时没见过的新构型、新元素、新相？</li><li><strong>用什么指标比</strong>：平均绝对误差？分位点？某个下游决策的正确率？</li></ol>
+<p>三件事任何一件换了，结论就可能反转。所以看到“误差 5 meV/atom”这种数字，第一反应应该是问：在什么数据上、相对什么参考、分布尾部长什么样。</p>
+<p>图里是同一个模型在两份测试集上的误差分布：平均误差几乎一样，但一份的尾部很短，另一份有大量大误差样本——后者才说明模型在哪些构型上会失效。</p>
+<figure class="fig"><img src="../figs/benchmark-error-distribution.svg" alt="示意：同一个模型在两份测试集上的误差分布。两份的平均误差接近，但尾部的形状不同；只看平均值会错过这一点。分布由人为构造，只示意“平均值相同、尾部不同”的情形。" loading="lazy"><figcaption>示意：同一个模型在两份测试集上的误差分布。两份的平均误差接近，但尾部的形状不同；只看平均值会错过这一点。分布由人为构造，只示意“平均值相同、尾部不同”的情形。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应哪部分</th></tr></thead><tbody><tr><td>$</td><td>\Delta E</td><td>$</td><td>单次预测的能量误差</td><td>横轴</td></tr><tr><td>概率密度</td><td>该误差出现的频率</td><td>纵轴</td></tr><tr><td>实线分布</td><td>分布内测试集</td><td>蓝色曲线</td></tr><tr><td>虚线分布</td><td>分布外测试集</td><td>红色曲线</td></tr><tr><td>竖线</td><td>两份数据的平均误差</td><td>两条竖直虚线（位置几乎重合）</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<h3>误差不是一个数</h3>
+<p>对一个测试集 <span class="math" data-tex="\{(x_i, y_i)\}_{i=1}^{N}">\{(x_i, y_i)\}_{i=1}^{N}</span>，模型给出预测 <span class="math" data-tex="\hat y_i">\hat y_i</span>。常用的汇总量：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\mathrm{MAE} = \frac{1}{N}\sum_{i=1}^{N}\left|\hat y_i - y_i\right|, \qquad \mathrm{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\left(\hat y_i - y_i\right)^2}">\mathrm{MAE} = \frac{1}{N}\sum_{i=1}^{N}\left|\hat y_i - y_i\right|, \qquad \mathrm{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}\left(\hat y_i - y_i\right)^2}</span></div>
+<p>其中 <span class="math" data-tex="x_i">x_i</span> 是输入（结构）；<span class="math" data-tex="y_i">y_i</span> 是参考值；<span class="math" data-tex="\hat y_i">\hat y_i</span> 是模型预测。</p>
+<aside class="claim claim-approximation" aria-label="近似"><p class="claim-head"><span class="claim-kind">近似</span><span class="claim-title">平均值的局限</span></p><p>MAE 与 RMSE 都只描述分布的一个特征。两个模型可以有相同的 RMSE，但一个的误差集中在所有样本上，另一个在大多数样本上很小、在少数样本上极大。对下游任务来说，第二种往往更危险：少数大误差样本可能就是你想找的那几种结构。</p></aside>
+<p>更有信息量的做法是报告<strong>分位数</strong>或直接看分布：例如 90%、99% 分位误差，以及最大误差出现在哪类构型上（见 <a class="node-link" href="../nodes/error-sources.html">预测的误差来自哪里</a>）。</p>
+<h3>分布内与分布外</h3>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">分布外</span></p><p>测试样本来自与训练数据不同的分布（新的化学元素、新的晶体相、更高的温度、更大的应变），称为分布外 (out of distribution, OOD) 测试。</p></aside>
+<p>分布外性能无法由分布内性能推出。一个在训练分布内误差很低的模型，在分布外可能完全失效，而且失效方式往往不是“误差变大”，而是“给出自信但错误的答案”。</p>
+<p>对这类失效，<strong>主动学习</strong>的思路是把模型不确定度高的构型挑出来补进训练集 <a class="cite" href="#src-podryabinkin-2017-active">[Podryabinkin &amp; Shapeev 2017]</a>。</p>
+<h3>参考值本身有误差</h3>
+<p>如果参考值是 DFT（例如 PBE），那么“模型误差”里包含了两部分：模型与 PBE 的差，以及 PBE 与真实值的差。要分离这两部分，必须有独立的高精度基准，例如量子蒙特卡洛或实验 <a class="cite" href="#src-burke-2012-perspective">[Burke 2012]</a>。</p>
+<p>这是一个很容易被忽略的点：很多“机器学习势达到 DFT 精度”的说法，实际含义是“与 DFT 的差小于 DFT 与实验的差”，而不是“更接近实验”。</p>
+<h3>可复现的最低要求</h3>
+<p>一个基准结果要能被别人重做，至少要写清：</p>
+<ul><li>参考值的计算方法与全部关键设置（泛函、色散、截断能、k 点、赝势、版本号）；</li><li>训练/测试划分方式，尤其是<strong>如何避免同一轨迹、同一结构的相邻帧跨集泄漏</strong>；</li><li>指标的定义（是否按原子数归一化、是否加权、包含哪些元素）；</li><li>代码与数据的可获得性。</li></ul>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<h3>机器学习势的基准</h3>
+<ul><li><strong>训练分布</strong>：给定了哪些元素、哪些相、哪些温度与压强。MACE-MP-0 这类通用势的“通用性”是在什么意义上的通用，必须看它的训练集 <a class="cite" href="#src-batatia-2023-mp0">[Batatia et al. 2023 (MACE-MP-0)]</a>（来源见 <a class="node-link" href="../nodes/mace.html">MACE 与等变消息传递</a>）。</li><li><strong>多保真度训练</strong>：用便宜的泛函生成大量数据、用贵的泛函生成少量数据，两者如何混合是一个需要基准来回答的问题，而不是先验可推的 <a class="cite" href="#src-unke-2021-mlff">[Unke et al. 2021]</a>。</li><li><strong>规模律</strong>：模型变大、数据变多时误差怎样下降，以及这种下降关系是否对所有体系通用，是当前活跃的基准问题。具体结论要按最新文献核对，不要从旧论文外推。</li></ul>
+<h3>有机分子晶体结构预测的基准</h3>
+<p>盲测 (blind test) 是最严格的基准形式：所有参与者在对实验结构不知情的情况下提交预测 <a class="cite" href="#src-reilly-2016-blind6">[Reilly et al. 2016]</a>。这类基准的价值在于它测的不是“方法在已知答案附近能不能找到”，而是“在给定的搜索预算下能不能排对”。</p>
+<p>另一类基准是“同一批多晶型，用不同方法排序，看排序是否一致、是否与实验一致” <a class="cite" href="#src-hoja-2019-polymorphs">[Hoja et al. 2019]</a>。它更便宜，但只覆盖了少数体系。</p>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>各类基准报告的具体误差数值与排名，随版本和数据集更新而变化；本节不引用任何具体数字，需要时查原论文与基准网站的最新版本。</li><li>触发本条目的四篇论文（规模律、多保真度训练、Orchestr.AI、QMC 基准）的具体方法与结论尚未精读，正文只给框架。</li><li>“分布外”没有唯一定义，不同论文用它指不同的事情（新元素、新相、更大形变）；引用时应核对具体定义。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>只报一个平均数</strong>：掩盖尾部失效，而尾部往往正是下游任务关心的。</li><li><strong>测试集泄漏</strong>：同一条 MD 轨迹的相邻帧被分到训练与测试两边，误差被严重低估。</li><li><strong>参考值和方法同源</strong>：用 PBE 生成数据、再用 PBE 做参考值，测到的是“一致性”不是“正确性”。</li><li><strong>跨论文直接比数字</strong>：数据集、归一化方式、元素范围都不同，数字不可直接比较。</li><li><strong>把基准当排行榜</strong>：一个方法在某个基准上最好，不说明它在你的体系、你的下游任务上最好。</li><li><strong>不报告失败案例</strong>：只说“平均误差”，不说“在哪些构型上失败”，等于没有提供可用的信息。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>两个模型有相同的 RMSE，但一个误差均匀、一个有长尾。对结构搜索任务，哪一个更危险？为什么？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>假设参考值本身有误差 <span class="math" data-tex="\delta_i">\delta_i</span> 且与模型误差独立，写出观测到的误差 <span class="math" data-tex="\hat y_i - y_i">\hat y_i - y_i</span> 与“模型相对真实值的误差”之间的关系，并说明在什么条件下可以把参考误差当作可忽略。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你要用 MACE 做 β-甘氨酸的结构搜索预优化。设计一套基准：参考值用什么、训练/测试怎么划分、报告哪些指标、如何检查分布外失效。</p></aside>
+</section>
   </div>
   
   
-  
-  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;reference data&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>计算方法论 · 概念 · 研究线：机器学习势 · 状态：候选</p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-unke-2021-mlff"><p class="src-kind">论文<span class="src-short">Unke et al. 2021</span></p><p class="src-cit"><a href="https://doi.org/10.1021/acs.chemrev.0c01111" rel="noopener" target="_blank">O. T. Unke et al., Machine Learning Force Fields, Chem. Rev. 121, 10142 (2021)</a></p><p class="src-meta">位置：综述：描述符、模型、训练与验证</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-reilly-2016-blind6"><p class="src-kind">基准研究<span class="src-short">Reilly et al. 2016</span></p><p class="src-cit"><a href="https://doi.org/10.1107/S2052520616007447" rel="noopener" target="_blank">A. M. Reilly et al., Report on the sixth blind test of organic crystal structure prediction methods, Acta Cryst. B 72, 439 (2016)</a></p><p class="src-meta">位置：第六次盲测：各组方法与排序结果</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-hoja-2019-polymorphs"><p class="src-kind">论文<span class="src-short">Hoja et al. 2019</span></p><p class="src-cit"><a href="https://doi.org/10.1126/sciadv.aau3338" rel="noopener" target="_blank">J. Hoja et al., Reliable and practical computational description of molecular crystal polymorphs, Sci. Adv. 5, eaau3338 (2019)</a></p><p class="src-meta">位置：分层排序：DFT、多体色散与振动自由能</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-burke-2012-perspective"><p class="src-kind">论文<span class="src-short">Burke 2012</span></p><p class="src-cit"><a href="https://doi.org/10.1063/1.4704546" rel="noopener" target="_blank">K. Burke, Perspective on density functional theory, J. Chem. Phys. 136, 150901 (2012)</a></p><p class="src-meta">位置：DFT 的概念框架、近似泛函的地位与常见误解</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-podryabinkin-2017-active"><p class="src-kind">论文<span class="src-short">Podryabinkin &amp; Shapeev 2017</span></p><p class="src-cit"><a href="https://doi.org/10.1016/j.commatsci.2017.08.031" rel="noopener" target="_blank">E. V. Podryabinkin, A. V. Shapeev, Active learning of linearly parametrized interatomic potentials, Comput. Mater. Sci. 140, 171 (2017)</a></p><p class="src-meta">位置：主动学习：外推等级与选点</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-batatia-2023-mp0"><p class="src-kind">论文<span class="src-short">Batatia et al. 2023 (MACE-MP-0)</span></p><p class="src-cit"><a href="https://arxiv.org/abs/2401.00096" rel="noopener" target="_blank">I. Batatia et al., A foundation model for atomistic materials chemistry, arXiv:2401.00096 (2023)</a></p><p class="src-meta">版本：arXiv 预印本，按引用的版本号核对；位置：MACE-MP-0 通用势：训练数据、适用范围、微调示例</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;benchmark&quot;, &quot;reference data&quot;, &quot;train-test split&quot;, &quot;multifidelity training&quot;, &quot;scaling law&quot;, &quot;out-of-distribution&quot;, &quot;validation set design&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>计算方法论 · 概念 · 研究线：机器学习势、结构预测与能量景观 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="benchmarking">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +105,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%9F%BA%E5%87%86%E4%B8%8E%E9%AA%8C%E8%AF%81%EF%BC%88benchmarking%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Abenchmarking%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-09</span>候选：只有题目与范围</li><li><span>v0.2</span><span>2026-11-16</span>初稿正文：基准问题的三要素、误差分布而非单值、分布内与分布外、可复现的最小要求、结构预测与 MLIP 两类基准的差别；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%9F%BA%E5%87%86%E4%B8%8E%E9%AA%8C%E8%AF%81%EF%BC%88benchmarking%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Abenchmarking%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">
