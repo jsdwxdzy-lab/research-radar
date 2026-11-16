@@ -779,6 +779,87 @@
       "doi": "10.1103/PhysRevB.71.205214",
       "locator": "各向异性准简谐计算的实例",
       "consulted": []
+    },
+    {
+      "id": "torrie-1977-umbrella",
+      "short": "Torrie & Valleau 1977",
+      "kind": "paper",
+      "citation": "G. M. Torrie, J. P. Valleau, Nonphysical sampling distributions in Monte Carlo free-energy estimation: Umbrella sampling, J. Comput. Phys. 23, 187-199 (1977)",
+      "doi": "10.1016/0021-9991(77)90121-8",
+      "locator": "伞形采样方法与窗口偏置的原始提出",
+      "consulted": []
+    },
+    {
+      "id": "kumar-1992-wham",
+      "short": "Kumar et al. 1992",
+      "kind": "paper",
+      "citation": "S. Kumar, J. M. Rosenberg, D. Bouzida, R. H. Swendsen, P. A. Kollman, The weighted histogram analysis method for free-energy calculations on biomolecules. I. The method, J. Comput. Chem. 13, 1011-1021 (1992)",
+      "doi": "10.1002/jcc.540130812",
+      "locator": "WHAM 自洽方程",
+      "consulted": []
+    },
+    {
+      "id": "shirts-2008-mbar",
+      "short": "Shirts & Chodera 2008",
+      "kind": "paper",
+      "citation": "M. R. Shirts, J. D. Chodera, Statistically optimal analysis of samples from multiple equilibrium states, J. Chem. Phys. 129 (2008)",
+      "doi": "10.1063/1.2978177",
+      "locator": "MBAR 估计量与最优性",
+      "consulted": []
+    },
+    {
+      "id": "laio-2002-metad",
+      "short": "Laio & Parrinello 2002",
+      "kind": "paper",
+      "citation": "A. Laio, M. Parrinello, Escaping free-energy minima, Proc. Natl. Acad. Sci. USA 99, 12562-12566 (2002)",
+      "doi": "10.1073/pnas.202427399",
+      "locator": "元动力学与高斯填充",
+      "consulted": []
+    },
+    {
+      "id": "cruz-cabeza-2013-confpolymorph",
+      "short": "Cruz-Cabeza & Bernstein 2013",
+      "kind": "paper",
+      "citation": "A. J. Cruz-Cabeza, J. Bernstein, Conformational Polymorphism, Chem. Rev. 114, 2170-2191 (2014)",
+      "doi": "10.1021/cr400249d",
+      "locator": "构象多晶型的定义与分类",
+      "consulted": []
+    },
+    {
+      "id": "tadano-2015-scph",
+      "short": "Tadano & Tsuneyuki 2015",
+      "kind": "paper",
+      "citation": "T. Tadano, S. Tsuneyuki, Self-consistent phonon calculations of lattice dynamical properties in cubic SrTiO3 with first-principles anharmonic force constants, Phys. Rev. B 92, 054301 (2015)",
+      "doi": "10.1103/PhysRevB.92.054301",
+      "locator": "自洽声子方程",
+      "consulted": []
+    },
+    {
+      "id": "errea-2014-sscha",
+      "short": "Errea et al. 2014",
+      "kind": "paper",
+      "citation": "I. Errea, M. Calandra, F. Mauri, Anharmonic free energies and phonon dispersions from the stochastic self-consistent harmonic approximation: Application to platinum and palladium hydrides, Phys. Rev. B 89, 064302 (2014)",
+      "doi": "10.1103/PhysRevB.89.064302",
+      "locator": "SSCHA 变分框架",
+      "consulted": []
+    },
+    {
+      "id": "hellman-2011-tdep",
+      "short": "Hellman et al. 2011",
+      "kind": "paper",
+      "citation": "O. Hellman, I. A. Abrikosov, S. I. Simak, Lattice dynamics of anharmonic solids from first principles, Phys. Rev. B 84, 180301 (2011)",
+      "doi": "10.1103/PhysRevB.84.180301",
+      "locator": "温度依赖有效势 (TDEP)",
+      "consulted": []
+    },
+    {
+      "id": "makov-1995-finite-size",
+      "short": "Makov & Payne 1995",
+      "kind": "paper",
+      "citation": "G. Makov, M. C. Payne, Periodic boundary conditions in ab initio calculations, Phys. Rev. B 51, 4014-4022 (1995)",
+      "doi": "10.1103/PhysRevB.51.4014",
+      "locator": "超胞有限尺寸与带电体系修正",
+      "consulted": []
     }
   ]
 }
