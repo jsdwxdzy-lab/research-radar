@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-16（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:48 · 抓取窗口 11-14 20:48 → 现在 · 候选 306 → 本轮入库 26 → 今日累计 **9**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 15:19 · 抓取窗口 11-14 23:19 → 现在 · 候选 783 → 本轮入库 34 → 今日累计 **10**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Classifier-Guided Latent Diffusion for Small-Molecule Generation（13.2）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 生成模型相关数学 2 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · 机器学习势与通用势函数（MLIP / UMA） 1 · AI for Science 方法与自动化 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（22 篇）
+- **构成**：分子晶体结构预测（CSP）与能量图景 3 · 生成模型相关数学 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1 · 晶体生成模型与逆向设计 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -57,6 +57,13 @@
   <sub>命中：probability flow、wasserstein</sub>
   > Generative modeling based on stochastic interpolants requires specifying two key choices: an interpolant schedule bridging the initial and target distributions, and an efficient discretization of the…
 
+### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Fine-tuned atomistic foundation model for accurate sodium-carbon chemistry in Na-ion batteries](https://arxiv.org/abs/2611.18490)**
+  `MLIP` · *arXiv* · 2026-11-13 · [PDF](https://arxiv.org/pdf/2611.18490)
+  <sub>命中：fine-tuning、mace</sub>
+  > Atomistic foundation models have emerged as a promising route to DFT-level accuracy for materials simulation with complex chemical environments.
+
 ### AI for Science 方法与自动化 · 回落 ↓0.5×
 
 - **[Verifiable pXRD: Hill-climbing pXRD structure determination with LLM agents](https://arxiv.org/abs/2611.17539)**
@@ -82,12 +89,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 100 | ok |
+| arxiv | 666 | ok |
 | crossref | 50 | ok |
 | openalex | 76 | ok |
 | rss | 95 | ok |
 | github | 0 | ok |
 
-> 原始 321 → 去重 306 → 剔除标题噪声 23 → 低相关度 257 → 入库 26。
+> 原始 887 → 去重 783 → 剔除标题噪声 27 → 低相关度 722 → 入库 34。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
