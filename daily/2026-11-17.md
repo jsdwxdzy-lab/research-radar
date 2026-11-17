@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-17（周二）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 13:09 · 抓取窗口 11-15 21:09 → 现在 · 候选 844 → 本轮入库 41 → 今日累计 **11**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 16:30 · 抓取窗口 11-16 00:30 → 现在 · 候选 852 → 本轮入库 45 → 今日累计 **18**（本次 +7） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Nahual: A Sequence Model for Language and Atoms（9.3）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（19 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：化学相关生成模型（分子、材料与反应） 5 · 机器学习势与通用势函数（MLIP / UMA） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 生成模型相关数学 1
+- **构成**：化学相关生成模型（分子、材料与反应） 8 · 机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -32,15 +32,15 @@
    <sub>命中：diffusion models、score-based</sub>
    > We explore diffusion-based training as a flexible approach to molecular property prediction in settings shaped by chemical, biophysical, and latent heterogeneity. To address this, we build on score-based generative diffusion models and introduce a conditional diffusion module for predictive tasks, equipped with a joint…
 
-5. **[Deep learning of tautomer stability from crystallographic proton positions](https://doi.org/10.1039/d6sc03714c)**
+5. **[Out-of-training properties in frozen interatomic potential embeddings are decodable and ordered by physical scale](https://arxiv.org/abs/2611.21116)**
+   `MLIP` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.21116)
+   <sub>命中：interatomic potential、equivariant、mlip</sub>
+   > Machine-learned interatomic potentials (MLIPs) are trained on energies, forces and stresses, yet their frozen representations can predict other materials properties. We probe ORB-v3 and UMA-S across layers, read-outs and equivariant channels for nine properties of 154,875 Materials Project crystals.
+
+6. **[Deep learning of tautomer stability from crystallographic proton positions](https://doi.org/10.1039/d6sc03714c)**
    `生成模型` · *Chemical Science* · 2026-11-11
    <sub>命中：conformer generation、molecular design</sub>
    > Tautomerism plays a central role in molecular recognition, physicochemical properties, and chemical reactivity, yet rapid identification of stable tautomeric states remains a persistent challenge in molecular design and structure-based drug discovery.
-
-6. **[Exploring Energy Landscapes for Functional Materials: Ga vacancies in $β$-Ga$_{2}$O$_{3}$](https://arxiv.org/abs/2611.19365)**
-   `MLIP` · *arXiv* · 2026-11-14 · 👤David J. Wales · [PDF](https://arxiv.org/pdf/2611.19365)
-   <sub>命中：nequip</sub>
-   > Energy landscape exploration requires extensive energy and force evaluations, making efficient access to interatomic potentials an important practical challenge. We present a persistent socket interface that connects the landscape exploration tools in the GMIN, OPTIM, and PATHSAMPLE programs to potentials available thr…
 
 ## 按主题展开
 
@@ -56,12 +56,32 @@
   <sub>命中：molecular crystals</sub>
   > Relationships between crystal structures can be difficult to visualise. Here we present a tool for defining and reusing a simplified view of the molecule across multiple crystal structures to aid in s…
 
-### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.5×
+- **[Polymorphism and crystal suppression in symmetric mixtures with entropic interactions](https://arxiv.org/abs/2611.20944)**
+  `CSP` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.20944)
+  <sub>命中：polymorphism</sub>
+  > We investigate the phases of a binary mixture of hard spheres with equal diameter and negative non-additivity, favoring hetero-coordination in dense samples.
+
+### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.6×
+
+- **[A COMPASS to the Galaxy: Joint nucleosynthetic yield set comparison and parameter inference in Galactic chemical evolution](https://arxiv.org/abs/2611.21175)**
+  `生成模型` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.21175)
+  <sub>命中：diffusion model、score-based</sub>
+  > Galactic Chemical Evolution (GCE) models connect stellar nucleosynthesis to observed abundance patterns, but their interpretation requires simultaneous parameter inference and comparison between compe…
+
+- **[SemiNovo: Learning Beyond Search-Identified Spectra for De Novo Peptide Sequencing](https://arxiv.org/abs/2611.21079)**
+  `生成模型` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.21079)
+  <sub>命中：autoregressive、de novo</sub>
+  > Sensitive peptide identification is fundamental to protein characterization and novel protein discovery, for which de novo peptide sequencing (DNPS) from tandem mass spectra provides an important data…
 
 - **[Engineering Crystal Structures by Orthogonal Hydrogen and Halogen Bonding Synthons](https://doi.org/10.1021/acs.cgd.6c01126)**
   `生成模型` `CSP` `生成设计` · *Crystal Growth & Design* · 2026-11-16
   <sub>命中：de novo、crystal packing</sub>
   > Controlling crystal packing by deploying robust, orthogonal, and non-interfering intermolecular interactions along independent directions represents a cornerstone strategy in crystal engineering.
+
+- **[Classical structural priors improve neural molecular representations in molecule language models](https://arxiv.org/abs/2611.21276)**
+  `生成模型` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.21276)
+  <sub>命中：molecule generation</sub>
+  > Classical molecular similarity is central to chemical information systems, yet molecule-language models trained on paired structure-text data do not necessarily organize molecular embeddings according…
 
 ### 生成模型相关数学 · 回落 ↓0.6×
 
@@ -70,12 +90,29 @@
   <sub>命中：optimal transport、flow matching</sub>
   > We introduce a unified formulation of imitation learning from demonstrations as a conditional sampling problem solved by triangular transport: a policy is the second block of a triangular map that tra…
 
-### 机器学习势与通用势函数（MLIP / UMA） · 回落 ↓0.6×
+### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Exploring Energy Landscapes for Functional Materials: Ga vacancies in $β$-Ga$_{2}$O$_{3}$](https://arxiv.org/abs/2611.19365)**
+  `MLIP` · *arXiv* · 2026-11-14 · 👤David J. Wales · [PDF](https://arxiv.org/pdf/2611.19365)
+  <sub>命中：nequip</sub>
+  > Energy landscape exploration requires extensive energy and force evaluations, making efficient access to interatomic potentials an important practical challenge.
+
+- **[Local topology hallucinations in universal machine-learned interatomic potentials](https://arxiv.org/abs/2611.21489)**
+  `MLIP` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.21489)
+  <sub>命中：potential energy surface、mace</sub>
+  > Predicting metastable states with universal machine-learned interatomic potentials requires that they preserve the minima and saddles of the reference potential-energy surface.
 
 - **[Adsorbate-Free Screening of Dissociative Water Adsorption on Nickel Nanoparticles via Graph Neural Networks](https://arxiv.org/abs/2611.20706)**
   `MLIP` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.20706)
   <sub>命中：density functional theory、mace</sub>
   > Dissociative water adsorption is a key step in heterogeneous and electrochemical catalysis, but on finite Ni nanosystems the OH$^*$ and H$^*$ fragments can occupy many combinations of surface sites, m…
+
+### AI for Science 方法与自动化 · 持平
+
+- **[SciResearch-Eval: Evaluating Scientific Judgment in Autonomous Experimental Agents](https://arxiv.org/abs/2611.21541)**
+  `AI4S` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.21541)
+  <sub>命中：autonomous、benchmark、agent</sub>
+  > We introduce SciResearch-Eval, an interactive benchmark of scientific judgment built on a standard laboratory problem: measuring a material's thermal properties by heating it and fitting a heat-conduc…
 
 ## 工具与模型发布
 
@@ -99,12 +136,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 703 | ok |
-| crossref | 121 | ok |
+| arxiv | 733 | ok |
+| crossref | 120 | ok |
 | openalex | 77 | ok |
 | rss | 54 | ok |
 | github | 0 | ok |
 
-> 原始 955 → 去重 844 → 剔除标题噪声 33 → 低相关度 770 → 入库 41。
+> 原始 984 → 去重 852 → 剔除标题噪声 28 → 低相关度 779 → 入库 45。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
