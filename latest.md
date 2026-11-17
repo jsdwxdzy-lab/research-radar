@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-17（周二）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:08 · 抓取窗口 11-15 20:08 → 现在 · 候选 832 → 本轮入库 39 → 今日累计 **9**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 13:09 · 抓取窗口 11-15 21:09 → 现在 · 候选 844 → 本轮入库 41 → 今日累计 **11**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Nahual: A Sequence Model for Language and Atoms（9.3）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（18 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（19 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：化学相关生成模型（分子、材料与反应） 5 · 机器学习势与通用势函数（MLIP / UMA） 2 · 分子晶体结构预测（CSP）与能量图景 2
+- **构成**：化学相关生成模型（分子、材料与反应） 5 · 机器学习势与通用势函数（MLIP / UMA） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 生成模型相关数学 1
 
 ## 今日最值得看
 
@@ -63,6 +63,20 @@
   <sub>命中：de novo、crystal packing</sub>
   > Controlling crystal packing by deploying robust, orthogonal, and non-interfering intermolecular interactions along independent directions represents a cornerstone strategy in crystal engineering.
 
+### 生成模型相关数学 · 回落 ↓0.6×
+
+- **[Conditional Optimal Transport and Triangular Maps for Imitation Learning](https://arxiv.org/abs/2611.19815)**
+  `生成数学` · *arXiv* · 2026-11-15 · [PDF](https://arxiv.org/pdf/2611.19815)
+  <sub>命中：optimal transport、flow matching</sub>
+  > We introduce a unified formulation of imitation learning from demonstrations as a conditional sampling problem solved by triangular transport: a policy is the second block of a triangular map that tra…
+
+### 机器学习势与通用势函数（MLIP / UMA） · 回落 ↓0.6×
+
+- **[Adsorbate-Free Screening of Dissociative Water Adsorption on Nickel Nanoparticles via Graph Neural Networks](https://arxiv.org/abs/2611.20706)**
+  `MLIP` · *arXiv* · 2026-11-16 · [PDF](https://arxiv.org/pdf/2611.20706)
+  <sub>命中：density functional theory、mace</sub>
+  > Dissociative water adsorption is a key step in heterogeneous and electrochemical catalysis, but on finite Ni nanosystems the OH$^*$ and H$^*$ fragments can occupy many combinations of surface sites, m…
+
 ## 工具与模型发布
 
 _（窗口内没有关注工具的版本发布）_
@@ -85,12 +99,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 688 | ok |
-| crossref | 120 | ok |
+| arxiv | 703 | ok |
+| crossref | 121 | ok |
 | openalex | 77 | ok |
 | rss | 54 | ok |
 | github | 0 | ok |
 
-> 原始 939 → 去重 832 → 剔除标题噪声 29 → 低相关度 764 → 入库 39。
+> 原始 955 → 去重 844 → 剔除标题噪声 33 → 低相关度 770 → 入库 41。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
