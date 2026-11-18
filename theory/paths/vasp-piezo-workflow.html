@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>压电计算链里的 VASP：每一步背后的理论与边界 · 理论地图 · 科研雷达</title>
+<meta name="description" content="一条“结构优化 → 弹性 → 介电与压电”的 DFT 计算链里，每个参数背后是哪条理论？每一步在什么前提下可信，前提不成立时该换什么方法？">
+<link rel="stylesheet" href="../assets/theory.css">
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="path" data-prefix="../" data-path="vasp-piezo-workflow">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<main class="page" id="main">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><span>学习路径</span></nav>
+  <h1>压电计算链里的 VASP：每一步背后的理论与边界</h1>
+  <span class="status status-draft">草稿</span>
+  <figure class="question"><blockquote><p>一条用 VASP 计算有机分子晶体压电张量的流程里，每一步用到的方法对应什么理论？各自适用在哪里、局限在哪里？还可以延伸到哪些方法？</p></blockquote><figcaption>原始提问</figcaption></figure>
+  <p class="general"><span>提炼出的通用问题</span>一条“结构优化 → 弹性 → 介电与压电”的 DFT 计算链里，每个参数背后是哪条理论？每一步在什么前提下可信，前提不成立时该换什么方法？</p>
+  <section class="block"><h2>适用基础</h2><ul><li>用过 VASP 做结构优化和 DFPT，知道 INCAR 里常见参数的作用</li><li>对压电张量 e 与 d 的区别有初步了解</li></ul></section>
+  <section class="block"><h2>建议阅读顺序</h2><ol class="steps"><li data-node="vasp-workflow-map"><a href="../nodes/vasp-workflow-map.html">压电计算链里的 VASP 设置与理论对应</a><span class="status status-draft">草稿</span><p class="step-why">先看整张对照表：四步各用了哪些参数，对应哪些理论条目，哪一步含 D3、哪一步不含。</p><p class="step-purpose">把一条典型的有机分子晶体压电计算链里每一步用到的 VASP 参数对到背后的理论条目上，写清每一步在什么条件下可信、局限在哪里，以及计算链还没用到、可以延伸的方法。</p></li><li data-node="cell-relaxation"><a href="../nodes/cell-relaxation.html">晶体的结构优化：原子与晶胞</a><span class="status status-draft">草稿</span><p class="step-why">后面所有响应都在优化好的结构附近展开，参考点不干净，后面全部受影响。</p><p class="step-purpose">解释晶体结构优化在优化什么、为什么要同时用力和应力、各种算法和收敛判据的区别，以及优化结果作为后续响应计算参考点时需要满足的条件。</p></li><li data-node="smearing-occupations"><a href="../nodes/smearing-occupations.html">电子占据与展宽</a><span class="status status-draft">草稿</span><p class="step-why">确认 ISMEAR 和 SIGMA 对有带隙的分子晶体为什么无关紧要，以及什么时候会变得要紧。</p><p class="step-purpose">解释 ISMEAR 和 SIGMA 在做什么：布里渊区积分里怎样给能带分配占据数，为什么绝缘的分子晶体用 Gaussian 展宽、小 SIGMA 就够，什么时候展宽会带来误差。</p></li><li data-node="finite-difference-vs-dfpt"><a href="../nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a><span class="status status-draft">草稿</span><p class="step-why">第 ② 步和第 ③ 步是求同一组二阶导数的两种方法，理解两者何时一致、为什么这里不一致。</p><p class="step-purpose">两种算能量二阶导数的方法在什么条件下应给出相同结果，各自的数值误差从哪里来。</p></li><li data-node="piezoelectric-tensor"><a href="../nodes/piezoelectric-tensor.html">压电张量</a><span class="status status-draft">草稿</span><p class="step-why">看第 ④ 步怎样把夹持离子项和离子弛豫项组合成 e，再换成 d。</p><p class="step-purpose">e 与 d 两种约定、夹持离子项与内应变项，以及哪些点群允许压电。</p></li></ol><p class="small">顺序只是建议，可以随时跳到任何节点。</p></section>
+  <section class="block"><h2>读完后应能做到</h2><ul><li>对一条压电计算流程的每个 INCAR，说出关键参数对应的理论条目</li><li>解释为什么 DFPT 的力常数与有限差分的力常数不同，以及这对离子项意味着什么</li><li>列出计算链里至少三处“设置不一致会污染结果”的地方，并给出检查方法</li><li>说出有限电场方法和涨落公式各自补上了计算链的哪一块空白</li></ul></section>
+  <section class="block" id="branches"><h2>下一步可以往哪走</h2><div class="branches"><div class="branch-group dir-down"><p class="dir-label">向下追溯</p><p class="dir-hint">看不懂某一步为什么成立时，补定义、数学工具或物理假设</p><ul><li><p class="branch-title"><a href="../nodes/dispersion-corrections.html">色散校正的阻尼形式</a><span class="status status-draft">草稿</span></p><p class="branch-why">计算链用的是 D3 零阻尼，文献常用 D3(BJ)，比较前先弄清两者的差别。</p></li></ul></div><div class="branch-group dir-in"><p class="dir-label">向内深入</p><p class="dir-hint">理解直觉但无法重建方法时，展开推导和算法步骤</p><ul><li><p class="branch-title"><a href="../nodes/finite-field-polarization.html">有限电场方法</a><span class="status status-draft">草稿</span></p><p class="branch-why">想检查 PBE 低估带隙对电子响应的影响，需要用杂化泛函时 LEPSILON 不可用。</p></li></ul></div><div class="branch-group dir-across"><p class="dir-label">横向连接</p><p class="dir-hint">想理解两个方法的关系时，建立对照并写明条件</p><ul><li><p class="branch-title"><a href="../nodes/quasi-harmonic.html">热膨胀对晶胞的影响</a><span class="status status-draft">草稿</span></p><p class="branch-why">0 K 晶胞与室温实验晶胞不同时，先估计体积变化有多大。</p></li></ul></div><div class="branch-group dir-out"><p class="dir-label">向外迁移</p><p class="dir-hint">想知道能用于什么新问题时，连接其他应用和论文</p><ul><li><p class="branch-title"><a href="../nodes/fluctuation-response.html">有限温度：涨落公式</a><span class="status status-draft">草稿</span></p><p class="branch-why">想把 0 K 的 d 推到室温，并包含软模的非谐贡献。</p></li></ul></div></div></section>
+</main>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
