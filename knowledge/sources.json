@@ -779,6 +779,123 @@
       "doi": "10.1103/PhysRevB.71.205214",
       "locator": "各向异性准简谐计算的实例",
       "consulted": []
+    },
+    {
+      "id": "vasp-wiki-isif",
+      "short": "VASP Wiki: ISIF",
+      "kind": "docs",
+      "citation": "VASP Wiki, ISIF（结构优化时放开哪些自由度、是否计算应力）",
+      "url": "https://vasp.at/wiki/index.php/ISIF",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "vasp-wiki-ismear",
+      "short": "VASP Wiki: ISMEAR",
+      "kind": "docs",
+      "citation": "VASP Wiki, ISMEAR（占据函数与展宽方法的选择）",
+      "url": "https://vasp.at/wiki/index.php/ISMEAR",
+      "version": "在线文档，查阅时记录日期",
+      "consulted": []
+    },
+    {
+      "id": "methfessel-1989-smearing",
+      "short": "Methfessel & Paxton 1989",
+      "kind": "paper",
+      "citation": "M. Methfessel, A. T. Paxton, High-precision sampling for Brillouin-zone integration in metals, Phys. Rev. B 40, 3616–3621 (1989)",
+      "doi": "10.1103/PhysRevB.40.3616",
+      "locator": "Hermite 多项式展宽的定义",
+      "consulted": []
+    },
+    {
+      "id": "bloechl-1994-tetrahedron",
+      "short": "Blöchl, Jepsen & Andersen 1994",
+      "kind": "paper",
+      "citation": "P. E. Blöchl, O. Jepsen, O. K. Andersen, Improved tetrahedron method for Brillouin-zone integrations, Phys. Rev. B 49, 16223–16233 (1994)",
+      "doi": "10.1103/PhysRevB.49.16223",
+      "locator": "四面体方法及其修正",
+      "consulted": []
+    },
+    {
+      "id": "mermin-1965-finite-t",
+      "short": "Mermin 1965",
+      "kind": "paper",
+      "citation": "N. D. Mermin, Thermal Properties of the Inhomogeneous Electron Gas, Phys. Rev. 137, A1441–A1443 (1965)",
+      "doi": "10.1103/PhysRev.137.A1441",
+      "locator": "有限温度密度泛函与电子自由能",
+      "consulted": []
+    },
+    {
+      "id": "souza-2002-finite-field",
+      "short": "Souza, Íñiguez & Vanderbilt 2002",
+      "kind": "paper",
+      "citation": "I. Souza, J. Íñiguez, D. Vanderbilt, First-Principles Approach to Insulators in Finite Electric Fields, Phys. Rev. Lett. 89, 117602 (2002)",
+      "doi": "10.1103/PhysRevLett.89.117602",
+      "locator": "电焓泛函与临界电场",
+      "consulted": []
+    },
+    {
+      "id": "nunes-2001-berry-field",
+      "short": "Nunes & Gonze 2001",
+      "kind": "paper",
+      "citation": "R. W. Nunes, X. Gonze, Berry-phase treatment of the homogeneous electric field perturbation in insulators, Phys. Rev. B 63, 155107 (2001)",
+      "doi": "10.1103/PhysRevB.63.155107",
+      "locator": "Berry 相形式下的均匀电场微扰",
+      "consulted": []
+    },
+    {
+      "id": "umari-2002-field-md",
+      "short": "Umari & Pasquarello 2002",
+      "kind": "paper",
+      "citation": "P. Umari, A. Pasquarello, Ab initio Molecular Dynamics in a Finite Homogeneous Electric Field, Phys. Rev. Lett. 89, 157602 (2002)",
+      "doi": "10.1103/PhysRevLett.89.157602",
+      "locator": "有限电场下的第一性原理分子动力学",
+      "consulted": []
+    },
+    {
+      "id": "kubo-1966-fdt",
+      "short": "Kubo 1966",
+      "kind": "paper",
+      "citation": "R. Kubo, The fluctuation-dissipation theorem, Rep. Prog. Phys. 29, 255–284 (1966)",
+      "doi": "10.1088/0034-4885/29/1/306",
+      "locator": "涨落—耗散定理的综述",
+      "consulted": []
+    },
+    {
+      "id": "parrinello-1982-strain-fluct",
+      "short": "Parrinello & Rahman 1982",
+      "kind": "paper",
+      "citation": "M. Parrinello, A. Rahman, Strain fluctuations and elastic constants, J. Chem. Phys. 76, 2662–2666 (1982)",
+      "doi": "10.1063/1.443248",
+      "locator": "由应变涨落求弹性常数",
+      "consulted": []
+    },
+    {
+      "id": "neumann-1983-dipole-fluct",
+      "short": "Neumann 1983",
+      "kind": "paper",
+      "citation": "M. Neumann, Dipole moment fluctuation formulas in computer simulations of polar systems, Mol. Phys. 50, 841–858 (1983)",
+      "doi": "10.1080/00268978300102721",
+      "locator": "偶极涨落公式与边界条件",
+      "consulted": []
+    },
+    {
+      "id": "garcia-1998-batio3",
+      "short": "García & Vanderbilt 1998",
+      "kind": "paper",
+      "citation": "A. García, D. Vanderbilt, Electromechanical behavior of BaTiO3 from first principles, Appl. Phys. Lett. 72, 2981–2983 (1998)",
+      "doi": "10.1063/1.121514",
+      "locator": "有效哈密顿量模拟中压电响应随温度的变化",
+      "consulted": []
+    },
+    {
+      "id": "pfrommer-1997-quasi-newton",
+      "short": "Pfrommer et al. 1997",
+      "kind": "paper",
+      "citation": "B. G. Pfrommer, M. Côté, S. G. Louie, M. L. Cohen, Relaxation of Crystals with the Quasi-Newton Method, J. Comput. Phys. 131, 233–240 (1997)",
+      "doi": "10.1006/jcph.1996.5612",
+      "locator": "原子与晶胞同时优化的拟牛顿方法",
+      "consulted": []
     }
   ]
 }

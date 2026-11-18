@@ -1,0 +1,30 @@
+{
+  "id": "vasp-in-csppipeline",
+  "title": "压电计算链里的 VASP：每一步背后的理论与边界",
+  "status": "draft",
+  "question": "我在CSPpipeline中用到了VASP的一些计算方法，请你帮我把这些理论方法对应的理论以及一些适用、局限整理到之前的理论地图里去。最好还能延伸、拓展出新的知识节点",
+  "general_question": "一条“结构优化 → 弹性 → 介电与压电”的 DFT 计算链里，每个参数背后是哪条理论？每一步在什么前提下可信，前提不成立时该换什么方法？",
+  "base": [
+    "用过 VASP 做结构优化和 DFPT，知道 INCAR 里常见参数的作用",
+    "对压电张量 e 与 d 的区别有初步了解"
+  ],
+  "steps": [
+    {"node": "vasp-workflow-map", "why": "先看整张对照表：四步各用了哪些参数，对应哪些理论条目，哪一步含 D3、哪一步不含。"},
+    {"node": "cell-relaxation", "why": "后面所有响应都在优化好的结构附近展开，参考点不干净，后面全部受影响。"},
+    {"node": "smearing-occupations", "why": "确认 ISMEAR 和 SIGMA 对有带隙的分子晶体为什么无关紧要，以及什么时候会变得要紧。"},
+    {"node": "finite-difference-vs-dfpt", "why": "第 ② 步和第 ③ 步是求同一组二阶导数的两种方法，理解两者何时一致、为什么这里不一致。"},
+    {"node": "piezoelectric-tensor", "why": "看第 ④ 步怎样把夹持离子项和离子弛豫项组合成 e，再换成 d。"}
+  ],
+  "branches": [
+    {"direction": "in", "title": "有限电场方法", "node": "finite-field-polarization", "why": "想检查 PBE 低估带隙对电子响应的影响，需要用杂化泛函时 LEPSILON 不可用。"},
+    {"direction": "out", "title": "有限温度：涨落公式", "node": "fluctuation-response", "why": "想把 0 K 的 d 推到室温，并包含软模的非谐贡献。"},
+    {"direction": "across", "title": "热膨胀对晶胞的影响", "node": "quasi-harmonic", "why": "0 K 晶胞与室温实验晶胞不同时，先估计体积变化有多大。"},
+    {"direction": "down", "title": "色散校正的阻尼形式", "node": "dispersion-corrections", "why": "计算链用的是 D3 零阻尼，文献常用 D3(BJ)，比较前先弄清两者的差别。"}
+  ],
+  "goals": [
+    "对 CSPpipeline 的每个 INCAR，说出每个关键参数对应的理论条目",
+    "解释为什么 DFPT 的力常数与有限差分的力常数不同，以及这对离子项意味着什么",
+    "列出计算链里至少三处“设置不一致会污染结果”的地方，并给出检查方法",
+    "说出有限电场方法和涨落公式各自补上了计算链的哪一块空白"
+  ]
+}
