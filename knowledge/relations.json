@@ -37,8 +37,126 @@
       "type": "computes",
       "explanation": "两种方法都是计算力常数、玻恩有效电荷、内应变等二阶导数的数值途径。",
       "condition": "线性响应范围内，且两者各自的数值参数（有限差分步长、微扰自洽阈值）已收敛",
-      "sources": ["baroni-2001-dfpt"],
+      "sources": [
+        "baroni-2001-dfpt"
+      ],
       "status": "candidate"
+    },
+    {
+      "id": "bz-sum-needs-occupations",
+      "from": "reciprocal-space",
+      "to": "smearing-occupations",
+      "type": "prerequisite",
+      "explanation": "展宽是布里渊区 k 点求和里给每个本征态分配占据数的办法，先要理解 k 点求和本身。",
+      "condition": "无额外条件",
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "berry-phase-underlies-finite-field",
+      "from": "berry-phase-polarization",
+      "to": "finite-field-polarization",
+      "type": "foundation",
+      "explanation": "有限电场方法把电场与 Berry 相极化耦合成电焓泛函，周期体系里才有定义。",
+      "condition": "绝缘体，电场低于临界场",
+      "sources": [
+        "souza-2002-finite-field"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "finite-field-computes-born",
+      "from": "finite-field-polarization",
+      "to": "dielectric-born",
+      "type": "computes",
+      "explanation": "在几个小电场下自洽，用极化和力对电场的差商得到 ε∞ 与玻恩有效电荷。",
+      "condition": "夹持离子、线性区内",
+      "sources": [
+        "souza-2002-finite-field"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "finite-field-vs-dfpt-field",
+      "from": "finite-field-polarization",
+      "to": "perturbation-theory",
+      "type": "contrasts",
+      "explanation": "两者求同一组电场响应：有限电场用差商、需要电场步长，微扰方法解响应方程、不需要步长但要求泛函有响应实现。",
+      "condition": "同一泛函与数值设置下比较",
+      "sources": [
+        "souza-2002-finite-field",
+        "baroni-2001-dfpt"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "ensembles-underlie-fluctuation",
+      "from": "ensembles",
+      "to": "fluctuation-response",
+      "type": "foundation",
+      "explanation": "涨落公式是对正则（恒应力恒温）配分函数求外场导数的直接结果。",
+      "condition": "经典统计、平衡态",
+      "sources": [
+        "kubo-1966-fdt"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "fluctuation-computes-piezo",
+      "from": "fluctuation-response",
+      "to": "piezoelectric-tensor",
+      "type": "computes",
+      "explanation": "应变与极化的平衡协方差乘以 V/k_BT 就是恒应力压电系数 d。",
+      "condition": "线性区；系综给出正确的晶胞涨落；P 与 V 对应同一模拟盒子",
+      "sources": [
+        "parrinello-1982-strain-fluct",
+        "neumann-1983-dipole-fluct"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "md-samples-fluctuations",
+      "from": "molecular-dynamics",
+      "to": "fluctuation-response",
+      "type": "prerequisite",
+      "explanation": "涨落公式需要的平衡样本通常由恒压恒温分子动力学提供，误差由轨迹长度与自相关时间决定。",
+      "condition": "无额外条件",
+      "sources": [
+        "frenkel-2002-sim"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "fluctuation-equals-static-harmonic",
+      "from": "fluctuation-response",
+      "to": "energy-structure-response",
+      "type": "equivalent-under",
+      "explanation": "简谐、极化线性时，经典涨落公式给出的响应与 0 K 弛豫离子的静态二阶导数相同，与温度无关。",
+      "condition": "能量对位移和应变是二次的、极化是线性的、核按经典处理",
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "forces-stress-drive-relaxation",
+      "from": "hellmann-feynman",
+      "to": "cell-relaxation",
+      "type": "foundation",
+      "explanation": "结构优化的两组梯度是原子力和晶胞应力，二者都由 Hellmann–Feynman 定理直接得到。",
+      "condition": "基组不完备时应力要加 Pulay 修正",
+      "sources": [
+        "nielsen-1985-stress"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "relaxed-reference-for-elastic",
+      "from": "cell-relaxation",
+      "to": "elastic-tensor",
+      "type": "prerequisite",
+      "explanation": "弹性常数的有限差分在无应力参考点附近展开；残余应力会混入结果，所以先要有在同一设置下优化好的结构。",
+      "condition": "无额外条件",
+      "sources": [],
+      "status": "draft"
     }
   ]
 }
