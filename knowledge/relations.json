@@ -37,8 +37,56 @@
       "type": "computes",
       "explanation": "两种方法都是计算力常数、玻恩有效电荷、内应变等二阶导数的数值途径。",
       "condition": "线性响应范围内，且两者各自的数值参数（有限差分步长、微扰自洽阈值）已收敛",
-      "sources": ["baroni-2001-dfpt"],
+      "sources": [
+        "baroni-2001-dfpt"
+      ],
       "status": "candidate"
+    },
+    {
+      "id": "imag-modes-qualify-piezo-ionic",
+      "from": "imaginary-modes-in-response",
+      "to": "piezoelectric-tensor",
+      "type": "explains",
+      "explanation": "离子压电项里的力常数逆只在去掉平移后正定的子空间上成立；出现虚模时必须先处理稳定性或显式做正定投影，不能把投影结果默认为完整物理响应。",
+      "condition": "讨论弛豫离子压电（或同样含 K 逆的离子弹性/静态介电）时",
+      "sources": [
+        "wu-2005-strain"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "phonons-before-imag-in-response",
+      "from": "phonons",
+      "to": "imaginary-modes-in-response",
+      "type": "prerequisite",
+      "explanation": "先理解虚频、声学求和规则与光学模，才能判断响应重建里遇到的负本征值是数值假象还是结构不稳定。",
+      "condition": "无额外条件",
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "reopt-diagnoses-csp-transfer",
+      "from": "cross-hamiltonian-reoptimization",
+      "to": "csp-search-ranking",
+      "type": "explains",
+      "explanation": "CSP 粗排极小换到 DFT 精修时的晶格与内坐标漂移，是两套能量模型是否把同一结构放在邻近碗底的直接诊断，用来解释窗口外漏结构与排序剧变。",
+      "condition": "精修使用的哈密顿量与搜索/粗排不同时",
+      "sources": [
+        "beran-2016-review"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "dispersion-splits-fd-dfpt",
+      "from": "dispersion-corrections",
+      "to": "finite-difference-vs-dfpt",
+      "type": "explains",
+      "explanation": "成对色散校正进入有限差分力常数，但不进入 VASP 的 DFPT 声子；因此两条路线在开启 IVDW 时比较的不是同一个能量面的二阶导数。",
+      "condition": "使用 VASP 的 IVDW 色散校正，并同时比较 IBRION 有限差分与 DFPT 力常数时",
+      "sources": [
+        "vasp-wiki-ivdw"
+      ],
+      "status": "draft"
     }
   ]
 }
