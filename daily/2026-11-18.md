@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-18（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 15:58 · 抓取窗口 11-16 23:58 → 现在 · 候选 923 → 本轮入库 61 → 今日累计 **21**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 18:04 · 抓取窗口 11-17 02:04 → 现在 · 候选 862 → 本轮入库 59 → 今日累计 **22**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：NEAT-POCKET: Pocket-Conditioned Autoregressive 3D Molecular Generation with a Neighborhood…（12.4）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（25 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 10 · 化学相关生成模型（分子、材料与反应） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 晶体生成模型与逆向设计 1 · 手性分子与分子晶体 1 · 生成模型相关数学 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 10 · 化学相关生成模型（分子、材料与反应） 6 · 分子晶体结构预测（CSP）与能量图景 3 · 晶体生成模型与逆向设计 1 · 手性分子与分子晶体 1 · 生成模型相关数学 1
 
 ## 今日最值得看
 
@@ -56,7 +56,7 @@
   <sub>命中：energy landscape</sub>
   > The realization of spin glasses in the absence of structural disorder remains an enduring challenge in condensed matter physics and solid-state chemistry.
 
-### 晶体生成模型与逆向设计 · 升温 ↑2.2×
+### 晶体生成模型与逆向设计 · 升温 ↑2.5×
 
 - **[Synthetic Crystal Data Generation for Diffusion Pretraining in Material Property Prediction](https://arxiv.org/abs/2611.22140)**
   `生成设计` `生成模型` · *arXiv* · 2026-11-17 · [PDF](https://arxiv.org/pdf/2611.22140)
@@ -74,6 +74,11 @@
   `生成模型` · *Digital Discovery* · 2026-11-18
   <sub>命中：molecular generation</sub>
   > Pocket-based 3D molecular generation has emerged as an important direction in structure-based drug design by enabling ligands to be generated directly within protein binding environments.
+
+- **[De Novo Design of Single–Crystalline Peptide Frameworks Enables Structure–Encoded Molecular Recognition](https://doi.org/10.1021/jacs.6c18843)**
+  `生成模型` `生成设计` `手性晶体` · *Journal of the American Chemical Society* · 2026-11-18
+  <sub>命中：de novo、chiral</sub>
+  > Molecular recognition by proteins underlies many biological processes and depends on the precise spatial organization of functional residues within well-defined binding pockets.
 
 - **[De Novo Design of Blood-Brain Barrier-Penetrant, P-Glycoprotein-Evading EGFR Inhibitors and Hypoxia-Activated Trapping Analogs for Glioblastoma](https://doi.org/10.26434/chemrxiv.15012220/v1)**
   `生成模型` `生成设计` · *ChemRxiv* · 2026-11-15
@@ -124,7 +129,7 @@
   <sub>命中：density functional theory</sub>
   > Ammonia is a vital compound for the future, with significant potential in energy applications, such as hydrogen-powered vehicles, and in agriculture as a key ingredient in fertilizers essential for fo…
 
-### 手性分子与分子晶体 · 回落 ↓0.4×
+### 手性分子与分子晶体 · 回落 ↓0.5×
 
 - **[Molecular Engineering of Chiral–Polar One‐Dimensional Helical Perovskites for Circularly Polarized Light Detection and Zero‐Bias Photovoltaic Response](https://doi.org/10.1002/advs.78694)**
   `手性晶体` · *Advanced Science* · 2026-11-15
@@ -154,11 +159,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 745 | ok |
-| crossref | 163 | ok |
+| crossref | 102 | ok |
 | openalex | 85 | ok |
 | rss | 60 | ok |
 | github | 1 | ok |
 
-> 原始 1054 → 去重 923 → 剔除标题噪声 29 → 低相关度 833 → 入库 61。
+> 原始 993 → 去重 862 → 剔除标题噪声 27 → 低相关度 776 → 入库 59。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
