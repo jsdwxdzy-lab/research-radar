@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-19（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:08 · 抓取窗口 11-17 20:08 → 现在 · 候选 888 → 本轮入库 63 → 今日累计 **27**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:18 · 抓取窗口 11-17 20:18 → 现在 · 候选 947 → 本轮入库 72 → 今日累计 **28**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Constrained Crystal Structure Prediction（19.8）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（33 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 12 · 分子晶体结构预测（CSP）与能量图景 6 · 化学相关生成模型（分子、材料与反应） 6 · 手性分子与分子晶体 1 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 12 · 分子晶体结构预测（CSP）与能量图景 6 · 化学相关生成模型（分子、材料与反应） 6 · 生成模型相关数学 2 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -95,6 +95,11 @@
   <sub>命中：optimal transport、wasserstein</sub>
   > Action-conditioned world models let robots imagine the outcomes of their actions for planning and offline policy evaluation, but these uses need many rollouts, which multi-step diffusion makes expensi…
 
+- **[Horizontal Flow Matching for Single-Cell Spatiotemporal Dynamics](https://arxiv.org/abs/2611.24764)**
+  `生成数学` `生成模型` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24764)
+  <sub>命中：flow matching、wasserstein</sub>
+  > Learning the spatiotemporal dynamics of cells from spatial transcriptomics requires connecting snapshots of different cells acquired in different coordinate frames.
+
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
 - **[A Wrong Ground-State Structure of HfO2 Predicted by Machine-Learning Interatomic Potentials Based on the Perdew−Burke−Ernzerhof Functional](https://doi.org/10.1021/acs.chemmater.6c01853)**
@@ -163,11 +168,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 735 | ok |
-| crossref | 141 | ok |
-| openalex | 48 | ok |
+| crossref | 143 | ok |
+| openalex | 88 | ok |
 | rss | 99 | ok |
 | github | 1 | ok |
 
-> 原始 1024 → 去重 888 → 剔除标题噪声 26 → 低相关度 799 → 入库 63。
+> 原始 1066 → 去重 947 → 剔除标题噪声 34 → 低相关度 841 → 入库 72。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
