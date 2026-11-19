@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-19（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 08:08 · 抓取窗口 11-17 16:08 → 现在 · 候选 863 → 本轮入库 52 → 今日累计 **15**（本次 +15） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 09:08 · 抓取窗口 11-17 17:08 → 现在 · 候选 882 → 本轮入库 57 → 今日累计 **16**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Constrained Crystal Structure Prediction（19.8）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（27 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 分子晶体结构预测（CSP）与能量图景 4 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -37,10 +37,10 @@
    <sub>命中：density functional theory、mattersim、nequip、mlip</sub>
    > Machine-learning interatomic potentials (MLIPs) have become powerful tools for material simulations. Many MLIPs are trained based on density functional theory (DFT) datasets generated with the Perdew−Burke−Ernzerhof (PBE) exchange−correlation functional.
 
-6. **[Multiscale Modeling of Boron Carbide Across Extreme Conditions: From First-Principles Calculations to Machine-Learned Interatomic Potentials](https://doi.org/10.7939/85796)**
-   `MLIP` · *ERA: Education and Research Archive (Universit…* · 2026-11-17
-   <sub>命中：density functional theory、neural network potential、potential energy surface、active learning</sub>
-   > Advanced ceramics, such as boron carbide, exhibit favorable mechanical strength, low density, and chemical and thermal stability under extreme environments. These properties make them candidate materials for refractory applications such as aerospace components, thermal protection systems, neutron shielding, and armour.…
+6. **[CrystalFormer-CSP: Thinking fast and slow for crystal structure prediction](https://doi.org/10.1103/fnym-1ypn)**
+   `CSP` · *Physical review. B./Physical review. B* · 2026-11-17
+   <sub>命中：crystal structure prediction、crystal structure、space group</sub>
+   > Crystal structure prediction is a fundamental problem in materials science. We present CrystalFormer-CSP, an efficient framework that unifies data-driven heuristic and physics-driven optimization approaches to predict stable crystal structures for given chemical compositions.
 
 ## 按主题展开
 
@@ -69,6 +69,11 @@
   > Green chemistry designs chemical products and processes that avoid hazard rather than merely control it after the fact, reconsidering reactions, solvents, catalysts and materials from the earliest sta…
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Multiscale Modeling of Boron Carbide Across Extreme Conditions: From First-Principles Calculations to Machine-Learned Interatomic Potentials](https://doi.org/10.7939/85796)**
+  `MLIP` · *ERA: Education and Research Archive (Universit…* · 2026-11-17
+  <sub>命中：density functional theory、neural network potential、potential energy surface、active learning</sub>
+  > Advanced ceramics, such as boron carbide, exhibit favorable mechanical strength, low density, and chemical and thermal stability under extreme environments.
 
 - **[A stopping rule for completing computed phase diagrams with generative models](https://doi.org/10.26434/chemrxiv.15012360/v1)**
   `MLIP` · *ChemRxiv* · 2026-11-17
@@ -121,11 +126,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 708 | ok |
-| crossref | 138 | ok |
-| openalex | 49 | ok |
+| crossref | 139 | ok |
+| openalex | 67 | ok |
 | rss | 99 | ok |
 | github | 1 | ok |
 
-> 原始 995 → 去重 863 → 剔除标题噪声 24 → 低相关度 787 → 入库 52。
+> 原始 1014 → 去重 882 → 剔除标题噪声 28 → 低相关度 797 → 入库 57。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
