@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-19（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:08 · 抓取窗口 11-17 19:08 → 现在 · 候选 900 → 本轮入库 52 → 今日累计 **25**（本次 +6） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:08 · 抓取窗口 11-17 20:08 → 现在 · 候选 888 → 本轮入库 63 → 今日累计 **27**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Constrained Crystal Structure Prediction（19.8）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（32 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（33 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 11 · 分子晶体结构预测（CSP）与能量图景 6 · 化学相关生成模型（分子、材料与反应） 6 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 12 · 分子晶体结构预测（CSP）与能量图景 6 · 化学相关生成模型（分子、材料与反应） 6 · 手性分子与分子晶体 1 · 生成模型相关数学 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -88,6 +88,13 @@
   <sub>命中：flow matching</sub>
   > Predicting the transcriptional response to combined perturbations requires distinguishing interactions between interventions from errors in their individual effect estimates.
 
+### 生成模型相关数学 · 持平
+
+- **[Target-Consistent Action Guidance via Semi-Unbalanced Optimal Transport for Drifting World Models](https://arxiv.org/abs/2611.24222)**
+  `生成数学` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24222)
+  <sub>命中：optimal transport、wasserstein</sub>
+  > Action-conditioned world models let robots imagine the outcomes of their actions for planning and offline policy evaluation, but these uses need many rollouts, which multi-step diffusion makes expensi…
+
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
 - **[A Wrong Ground-State Structure of HfO2 Predicted by Machine-Learning Interatomic Potentials Based on the Perdew−Burke−Ernzerhof Functional](https://doi.org/10.1021/acs.chemmater.6c01853)**
@@ -155,12 +162,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 726 | ok |
+| arxiv | 735 | ok |
 | crossref | 141 | ok |
-| openalex | 31 | ok |
+| openalex | 48 | ok |
 | rss | 99 | ok |
 | github | 1 | ok |
 
-> 原始 998 → 去重 900 → 剔除标题噪声 18 → 低相关度 830 → 入库 52。
+> 原始 1024 → 去重 888 → 剔除标题噪声 26 → 低相关度 799 → 入库 63。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
