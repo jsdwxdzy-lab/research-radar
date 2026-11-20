@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-20（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:06 · 抓取窗口 11-18 20:06 → 现在 · 候选 719 → 本轮入库 53 → 今日累计 **13**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 15:47 · 抓取窗口 11-18 23:47 → 现在 · 候选 954 → 本轮入库 66 → 今日累计 **14**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：First-Principles and Machine Learning for Data-Driven Rational Design of High-Entropy Allo…（10.4）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（37 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 分子晶体结构预测（CSP）与能量图景 3 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1 · AI for Science 方法与自动化 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 分子晶体结构预测（CSP）与能量图景 3 · AI for Science 方法与自动化 2 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
@@ -87,6 +87,11 @@
   <sub>命中：autonomous、agent、llm</sub>
   > This paper presents an AI-driven framework, CodeReAct agent, designed to enhance industrial equipment maintenance through natural language (NL) interactions.
 
+- **[Perfumer: A Large Language Model-based Agentic Framework Accelerating Structural Relaxation and Electronic Band Prediction for First-Principle Calculation](https://arxiv.org/abs/2611.26349)**
+  `AI4S` · *arXiv* · 2026-11-19 · [PDF](https://arxiv.org/pdf/2611.26349)
+  <sub>命中：large language model、graph neural network、agent</sub>
+  > First-principles structural relaxation and band calculations require substantial computation and expertise. Here we present Perfumer, a large language model-based agentic framework that couples Quantu…
+
 ## 工具与模型发布
 
 _（窗口内没有关注工具的版本发布）_
@@ -106,12 +111,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 431 | ok |
-| crossref | 143 | ok |
+| arxiv | 731 | ok |
+| crossref | 149 | ok |
 | openalex | 98 | ok |
 | rss | 107 | ok |
 | github | 0 | ok |
 
-> 原始 779 → 去重 719 → 剔除标题噪声 28 → 低相关度 638 → 入库 53。
+> 原始 1085 → 去重 954 → 剔除标题噪声 27 → 低相关度 861 → 入库 66。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
