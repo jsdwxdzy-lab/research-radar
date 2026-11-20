@@ -1,148 +1,66 @@
-# 科研雷达 · 2026-11-19（周四）
+# 科研雷达 · 2026-11-20（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 18:14 · 抓取窗口 11-18 02:14 → 现在 · 候选 897 → 本轮入库 67 → 今日累计 **28**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 08:08 · 抓取窗口 11-18 16:08 → 现在 · 候选 886 → 本轮入库 63 → 今日累计 **9**（本次 +9） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Constrained Crystal Structure Prediction（19.8）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（33 篇）
-- **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 12 · 分子晶体结构预测（CSP）与能量图景 6 · 化学相关生成模型（分子、材料与反应） 6 · 生成模型相关数学 2 · 手性分子与分子晶体 1 · AI for Science 方法与自动化 1
+- **最高相关度**：First-Principles and Machine Learning for Data-Driven Rational Design of High-Entropy Allo…（10.4）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（35 篇）
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
-1. **[Constrained Crystal Structure Prediction](https://doi.org/10.1021/acs.cgd.6c01435)**
-   `CSP` · *Crystal Growth & Design* · 2026-11-18 · 👤Erin R. Johnson
-   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、polymorph screening、crystal structure、polymorph</sub>
-   > The aim of first-principles crystal structure prediction (CSP) is computational identification of a compound’s experimentally isolable polymorph(s). The structure generation stage of CSP typically leads to hundreds of thousands of candidate structures across multiple space groups.
+1. **[First-Principles and Machine Learning for Data-Driven Rational Design of High-Entropy Alloys: A Review](https://doi.org/10.1007/s11665-026-15482-7)**
+   `MLIP` · *Journal of Materials Engineering and Performan…* · 2026-11-17
+   <sub>命中：active learning、equivariant、allegro、nequip、mace</sub>
+   > High-entropy alloys (HEAs) exhibit excellent comprehensive properties. Nevertheless, their complex multicomponent compositions and prevalent chemical short-range order (SRO) impose substantial obstacles to conventional trial-and-error-based development.
 
-2. **[Solving Molecular Crystal Structures through Experimental PXRD-Guided Sequential Crystal Structure Prediction](https://doi.org/10.26434/chemrxiv.15012291/v1)**
-   `CSP` · *ChemRxiv* · 2026-11-16
-   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、molecular crystals、molecular crystal、crystal structure 等 7 个</sub>
-   > Structure determination of organic molecular crystals relies heavily on single-crystal X-ray diffraction, yet suitable single crystals are often difficult to obtain. A common alternative uses crystal structure prediction (CSP) to generate candidate structures for subsequent comparison with experimental powder X-ray dif…
+2. **[A Revised Force Field Parameterization for Iodine-Based Halogen-Bonded Cocrystals](https://doi.org/10.26434/chemrxiv.15012404/v1)**
+   `CSP` · *ChemRxiv* · 2026-11-17
+   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、cocrystal</sub>
+   > Halogen-bonded cocrystals have garnered attention due to their structural diversity and functional applications. Prediction of their crystal structures opens wide opportunities for computationally-driven design of functional materials based on halogen bonding.
 
-3. **[The Overprediction Problem: Aligning Computational Crystal Structure Prediction with Experimental Reality for Two Sulfa Drugs](https://doi.org/10.1021/jacs.6c14137)**
-   `CSP` · *Journal of the American Chemical Society* · 2026-11-18
-   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、lattice energy、polymorph</sub>
-   > Computational crystal structure prediction (CSP) methods usually overpredict the number of plausible polymorphs. In this study, we used sulfadiazine (SDZ) and sulfamerazine (SMZ), which are respectively monomorphic and pentamorphic (by the end of this study), to investigate the extent of CSP overprediction and its use…
+3. **[Green Polymorph Screening of Matrine: New Form with Enhanced Environmental Stability](https://doi.org/10.1021/acs.cgd.6c01421)**
+   `CSP` · *Crystal Growth & Design* · 2026-11-19
+   <sub>命中：polymorph screening、crystal structure、polymorph</sub>
+   > The sustainable development of agriculture urgently requires green pesticide strategies that maintain efficacy while minimizing environmental impact. Polymorph screening offers a promising way to optimize the solid-state properties of pesticides without introducing external components, representing an intrinsically gre…
 
-4. **[Tuning Cu/diamond interfacial thermal conductance via nitrogen-termination engineering](https://doi.org/10.1063/5.0351200)**
-   `MLIP` · *The Journal of Chemical Physics* · 2026-11-18
-   <sub>命中：machine learning interatomic potential、interatomic potential、mlip、mace</sub>
-   > Cu–diamond composites are recognized as promising high-thermal-conductivity candidates for electronic cooling, offering tunable properties and competitive cost. However, their performance is significantly limited by the poor Cu/diamond interfacial thermal conductance (ITC).
+4. **[High-Throughput Workflow for Polaron-Resolved Modeling of Reduced Ceria](https://doi.org/10.26434/chemrxiv.15012402/v1)**
+   `MLIP` · *ChemRxiv* · 2026-11-17
+   <sub>命中：density functional theory、mlip、mace</sub>
+   > Understanding the reduction of cerium oxide is key to optimize its performance in catalytic and technological applications. However, resolving the complex interplay between oxygen vacancies and Ce3+ polarons at high reduction levels is challenging because the vast configurational space of vacancy defects and polaron di…
 
-5. **[A Ferrielectric Quasi-Racemic Crystal from an Enantiopolar Racemate](https://doi.org/10.1021/jacs.6c14336)**
-   `手性晶体` · *Journal of the American Chemical Society* · 2026-11-18
-   <sub>命中：enantiomers、enantiomer、racemate、racemic</sub>
-   > Ferrielectrics, materials with partly switchable polarization, enable functional responses such as pyroelectricity and piezoelectricity. However, general design strategies for purely organic ferrielectric crystals remain scarce.
+5. **[AIMETRY: GEOMETRY-SENSITIVE 3D MOLECULAR REPRESENTATIONS FROM QUANTUM MECHANICAL LEARNED FEATURES](https://doi.org/10.26434/chemrxiv.15012428/v1)**
+   `MLIP` · *ChemRxiv* · 2026-11-18
+   <sub>命中：machine-learned interatomic potential、interatomic potential、fine-tuning</sub>
+   > Quantifying molecular similarity depends on both chemical composition and 3D structure, which are difficult to capture in a single fixed-length representation. Contrastive learning is a common machine learning approach to generate such representations (molecular embeddings), pulling each molecule toward a positive anch…
 
-6. **[Physics-Guided Crystal Structure Elucidation from Powder X-Ray Diffraction with Universal Machine-Learning Interatomic Potentials](https://arxiv.org/abs/2611.23760)**
-   `CSP` `MLIP` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.23760)
-   <sub>命中：crystal structure prediction (csp)、crystal structure prediction、crystal structure、space group、machine learning interatomic potential 等 8 个</sub>
-   > Determining unique atomic coordinates from powder X-ray diffraction (PXRD) remains challenging because peak overlap, weak scattering from light elements, limited scattering contrast between elements with similar atomic numbers, and experimental noise render the inverse problem underdetermined.
+6. **[Generative models in industrial drug discovery: perspectives from REINVENT](https://doi.org/10.1039/d6sc06542b)**
+   `生成模型` · *Chemical Science* · 2026-11-19
+   <sub>命中：generative models</sub>
+   > Generative models have become established tools for exploring chemical space in early-stage drug discovery and are among the most important practical applications of AI for science. Numerous studies have reported...
 
 ## 按主题展开
 
 ### 分子晶体结构预测（CSP）与能量图景 · 持平
 
-- **[CrystalFormer-CSP: Thinking fast and slow for crystal structure prediction](https://doi.org/10.1103/fnym-1ypn)**
-  `CSP` · *Physical review. B./Physical review. B* · 2026-11-17
-  <sub>命中：crystal structure prediction、crystal structure、space group</sub>
-  > Crystal structure prediction is a fundamental problem in materials science. We present CrystalFormer-CSP, an efficient framework that unifies data-driven heuristic and physics-driven optimization appr…
-
-- **[Access to Diverse Stacking Motifs and Colors in Tetracyanoethylene Charge Transfer Cocrystals with Tetramethoxyanthracene Donors](https://doi.org/10.1021/acs.cgd.6c01075)**
-  `CSP` · *Crystal Growth & Design* · 2026-11-18
-  <sub>命中：crystal packing</sub>
-  > Organic charge transfer cocrystals (OCTCs) are an appealing platform for solution processable electronics with tunable properties.
-
-### 化学相关生成模型（分子、材料与反应） · 持平
-
-- **[Variable Length Diffuse Everything: Arbitrary Length Generative Modeling on Arbitrary State Spaces](https://arxiv.org/abs/2611.23684)**
-  `生成模型` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.23684)
-  <sub>命中：molecule generation、generative models</sub>
-  > Diffusion and flow-based generative models have achieved remarkable results across diverse applications, but most assume data of fixed-dimension/length.
-
-- **[De Novo Folding Mechanisms of Lasso Peptides](https://doi.org/10.1021/jacs.6c06587)**
-  `生成模型` · *Journal of the American Chemical Society* · 2026-11-18
-  <sub>命中：de novo</sub>
-  > Lasso peptides adopt a distinctive [1] rotaxane conformation, yet the principles governing the folding of this kinetically trapped structure have remained elusive.
-
-- **[The exchange dynamics of client molecules in biomolecular condensates](https://doi.org/10.1063/5.0350655)**
-  `生成模型` · *The Journal of Chemical Physics* · 2026-11-18
-  <sub>命中：diffusion model</sub>
-  > Biomolecular condensates are dynamic assemblies whose functions depend on continuous exchange of molecular components with the surrounding environment.
-
-- **[A Universal Diffusion Model for the Quantum Position Operator](https://arxiv.org/abs/2611.24130)**
-  `生成模型` `生成设计` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24130)
-  <sub>命中：diffusion model</sub>
-  > The quantum position operator and its response to perturbations underpin the functional properties of insulating materials.
-
-- **[Artificial Intelligence for Green Chemistry and Environmental Protection From Predictive Chemistry to Sustainable and Responsible Innovation](https://doi.org/10.32628/ijsrst1313265)**
-  `生成模型` · *International Journal of Scientific Research i…* · 2026-11-16
-  <sub>命中：molecular design</sub>
-  > Green chemistry designs chemical products and processes that avoid hazard rather than merely control it after the fact, reconsidering reactions, solvents, catalysts and materials from the earliest sta…
-
-- **[ReliFlow: Reliability-Calibrated Residual Transport for Combinatorial Single-Cell Perturbation Prediction](https://arxiv.org/abs/2611.23999)**
-  `生成模型` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.23999)
-  <sub>命中：flow matching</sub>
-  > Predicting the transcriptional response to combined perturbations requires distinguishing interactions between interventions from errors in their individual effect estimates.
-
-### 生成模型相关数学 · 持平
-
-- **[Target-Consistent Action Guidance via Semi-Unbalanced Optimal Transport for Drifting World Models](https://arxiv.org/abs/2611.24222)**
-  `生成数学` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24222)
-  <sub>命中：optimal transport、wasserstein</sub>
-  > Action-conditioned world models let robots imagine the outcomes of their actions for planning and offline policy evaluation, but these uses need many rollouts, which multi-step diffusion makes expensi…
-
-- **[Horizontal Flow Matching for Single-Cell Spatiotemporal Dynamics](https://arxiv.org/abs/2611.24764)**
-  `生成数学` `生成模型` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24764)
-  <sub>命中：flow matching、wasserstein</sub>
-  > Learning the spatiotemporal dynamics of cells from spatial transcriptomics requires connecting snapshots of different cells acquired in different coordinate frames.
+- **[High-Pressure Reactivity and Phase Evolution of the SiC–CO2 System in Earth’s Mantle](https://doi.org/10.1021/acs.jpcc.6c06063)**
+  `CSP` · *The Journal of Physical Chemistry C* · 2026-11-19
+  <sub>命中：polymorph</sub>
+  > Moissanite or silicon carbide (SiC) is abundant in carbon-rich environments, yet it is a rare mineral in the earth’s interior.
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
-- **[A Wrong Ground-State Structure of HfO2 Predicted by Machine-Learning Interatomic Potentials Based on the Perdew−Burke−Ernzerhof Functional](https://doi.org/10.1021/acs.chemmater.6c01853)**
-  `MLIP` · *Chemistry of Materials* · 2026-11-17
-  <sub>命中：density functional theory、mattersim、nequip、mlip</sub>
-  > Machine-learning interatomic potentials (MLIPs) have become powerful tools for material simulations. Many MLIPs are trained based on density functional theory (DFT) datasets generated with the Perdew−…
+- **[8-Oxoguanine Is the Major Product of the Reaction of Guanine Radical Cations with •NO2: A Spin-Orchestrated, Anisotropic Reaction Landscape and Its Biological Implications](https://doi.org/10.1021/jacs.6c18309)**
+  `MLIP` · *Journal of the American Chemical Society* · 2026-11-19
+  <sub>命中：potential energy surface</sub>
+  > Formation of guanine radical cations (G•+) represents a hallmark DNA lesion produced by ionizing radiation and one-electron oxidation processes.
 
-- **[Machine learning interatomic potentials and orientational defects in polymers](https://arxiv.org/abs/2611.24148)**
-  `MLIP` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24148)
-  <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、mace</sub>
-  > Photopolymerization of acrylated epoxidized soybean oil (AESO) is a convenient model of a self-organizing process in a soft, bio-based material: ultraviolet light starts a free-radical chain reaction,…
-
-- **[Multiscale Modeling of Boron Carbide Across Extreme Conditions: From First-Principles Calculations to Machine-Learned Interatomic Potentials](https://doi.org/10.7939/85796)**
-  `MLIP` · *ERA: Education and Research Archive (Universit…* · 2026-11-17
-  <sub>命中：density functional theory、neural network potential、potential energy surface、active learning</sub>
-  > Advanced ceramics, such as boron carbide, exhibit favorable mechanical strength, low density, and chemical and thermal stability under extreme environments.
-
-- **[Uncovering the Structural, Electronic, and Electrostatic Landscapes of SrTiO$_3$ Grain Boundaries via Grand Canonical Monte Carlo with a Machine-Learning Interatomic Potential](https://arxiv.org/abs/2611.24097)**
-  `MLIP` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.24097)
-  <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential</sub>
-  > Grain boundaries in perovskites exhibit a rich variety of electronic, polar and magnetic properties, yet identifying their atomic structures and compositions remains challenging.
-
-- **[A stopping rule for completing computed phase diagrams with generative models](https://doi.org/10.26434/chemrxiv.15012360/v1)**
-  `MLIP` · *ChemRxiv* · 2026-11-17
-  <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential</sub>
-  > Phase diagrams constructed using known phases misjudge stability when key phases are missing. Generative models supply as many structures as needed, but how many structures to generate and which diagr…
-
-- **[Thermodynamic Model of Mixing and Photo-Demixing in MAPb(I,Br)3 from Machine-Learning Molecular Dynamics](https://doi.org/10.26434/chemrxiv.15012331/v1)**
-  `MLIP` · *ChemRxiv* · 2026-11-17
-  <sub>命中：machine-learned interatomic potential、density functional theory、interatomic potential</sub>
-  > Mixed-halide lead perovskites are promising materials for solar cells because of high photoconversion efficiencies and bandgaps that can be finely tuned through composition, but their application is l…
-
-- **[LLaMalysis: Language-guided inverse design of catalyst surfaces with targeted hydrogen adsorption energies](https://doi.org/10.26434/chemrxiv.15012306/v1)**
-  `MLIP` `生成模型` · *ChemRxiv* · 2026-11-16
-  <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、generative models、inverse design</sub>
-  > Computational catalyst discovery is constrained by vast compositional and structural spaces, whereas atomistic generative models typically rely on engineered conditioning variables.
-
-### AI for Science 方法与自动化 · 持平
-
-- **[High-Throughput Screening of Photocatalytic Metal–Organic Frameworks for CO2 Reduction Using Relational Data Extraction and Hierarchical Machine Learning](https://doi.org/10.1021/jacs.6c14994)**
-  `AI4S` · *Journal of the American Chemical Society* · 2026-11-18
-  <sub>命中：large language model、transfer learning、llm</sub>
-  > Photocatalytic carbon dioxide reduction (CO2RR) over metal–organic frameworks (MOFs) is governed by both framework features and reaction conditions, which complicate catalyst discovery and render gene…
+- **[FIRST-PRINCIPLES ANALYSIS OF AMMONIA DECOMPOSITION ON DISORDERED COMO ALLOYS](https://doi.org/10.25394/pgs.35031661)**
+  `MLIP` · *Purdue* · 2026-11-18
+  <sub>命中：density functional theory、active learning</sub>
+  > High-entropy alloys (HEAs) have emerged as promising heterogeneous catalysts because their surfaces present an enormous variety of local atomic environments, which may allow individual sites to escape…
 
 ## 工具与模型发布
 
@@ -152,27 +70,23 @@ _（窗口内没有关注工具的版本发布）_
 
 _（窗口内没有命中关注主题的新闻）_
 
-## 关注课题组的新作
-
-- [Quantum-accurate vibrational and conformational dynamics from small molecules to proteins with machine-learned force fields](https://doi.org/10.1038/s41467-026-79241-x) — *Nature Communications* · 2026-11-18（Alexandre Tkatchenko）
-- [Constrained Crystal Structure Prediction](https://doi.org/10.1021/acs.cgd.6c01435) — *Crystal Growth & Design* · 2026-11-18（Erin R. Johnson）
-
 ## 会议与活动（未来 120 天，日期以官网为准）
 
-- **12-01**（12 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
-- **12-08**（19 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
-- **03-10**（111 天后）[APS March Meeting](https://www.aps.org/meetings/march) — 凝聚态/材料模拟大本营，MLIP 与晶体方法学分会场集中
+- **12-01**（11 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
+- **12-08**（18 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
+- **03-10**（110 天后）[APS March Meeting](https://www.aps.org/meetings/march) — 凝聚态/材料模拟大本营，MLIP 与晶体方法学分会场集中
+- **03-20**（120 天后）[ACS Spring National Meeting](https://www.acs.org/meetings.html) — COMP 分会（计算化学）与晶体学相关 symposium
 
 ## 运行健康
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 741 | ok |
-| crossref | 111 | ok |
-| openalex | 88 | ok |
-| rss | 99 | ok |
+| arxiv | 707 | ok |
+| crossref | 141 | ok |
+| openalex | 75 | ok |
+| rss | 105 | ok |
 | github | 0 | ok |
 
-> 原始 1039 → 去重 897 → 剔除标题噪声 34 → 低相关度 796 → 入库 67。
+> 原始 1028 → 去重 886 → 剔除标题噪声 36 → 低相关度 787 → 入库 63。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
