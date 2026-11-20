@@ -1,14 +1,14 @@
 # 科研雷达 · 2026-11-20（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-18 18:08 → 现在 · 候选 909 → 本轮入库 68 → 今日累计 **11**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:08 · 抓取窗口 11-18 19:08 → 现在 · 候选 927 → 本轮入库 67 → 今日累计 **13**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：First-Principles and Machine Learning for Data-Driven Rational Design of High-Entropy Allo…（10.4）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（36 篇）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（37 篇）
 - **升温主题**：晶体生成模型与逆向设计
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 6 · 分子晶体结构预测（CSP）与能量图景 3 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 分子晶体结构预测（CSP）与能量图景 3 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1 · AI for Science 方法与自动化 1
 
 ## 今日最值得看
 
@@ -27,20 +27,20 @@
    <sub>命中：polymorph screening、crystal structure、polymorph</sub>
    > The sustainable development of agriculture urgently requires green pesticide strategies that maintain efficacy while minimizing environmental impact. Polymorph screening offers a promising way to optimize the solid-state properties of pesticides without introducing external components, representing an intrinsically gre…
 
-4. **[FamilySpace: From Emergent Chemical Semantics to Controllable Crystal Generation](https://arxiv.org/abs/2611.25452)**
+4. **[Alloying effects on the interface cohesion of grain boundaries in the Ni--Fe--Cr system](https://arxiv.org/abs/2611.25944)**
+   `MLIP` · *arXiv* · 2026-11-19 · [PDF](https://arxiv.org/pdf/2611.25944)
+   <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential、mlip</sub>
+   > Grain boundaries (GBs) in polycrystalline Ni-based alloys strongly influence mechanical strength and fracture behavior, yet the effect of alloying elements such as Fe and Cr on GB cohesion remains difficult to quantify systematically.
+
+5. **[FamilySpace: From Emergent Chemical Semantics to Controllable Crystal Generation](https://arxiv.org/abs/2611.25452)**
    `生成设计` · *arXiv* · 2026-11-19 · [PDF](https://arxiv.org/pdf/2611.25452)
    <sub>命中：variational autoencoder、crystal generation、generative models</sub>
    > Latent crystal generative models typically combine a variational autoencoder (VAE) for learning atom-wise representations with a flow model that transports a simple source distribution to the learned latent distribution.
 
-5. **[High-Throughput Workflow for Polaron-Resolved Modeling of Reduced Ceria](https://doi.org/10.26434/chemrxiv.15012402/v1)**
+6. **[High-Throughput Workflow for Polaron-Resolved Modeling of Reduced Ceria](https://doi.org/10.26434/chemrxiv.15012402/v1)**
    `MLIP` · *ChemRxiv* · 2026-11-17
    <sub>命中：density functional theory、mlip、mace</sub>
    > Understanding the reduction of cerium oxide is key to optimize its performance in catalytic and technological applications. However, resolving the complex interplay between oxygen vacancies and Ce3+ polarons at high reduction levels is challenging because the vast configurational space of vacancy defects and polaron di…
-
-6. **[AIMETRY: GEOMETRY-SENSITIVE 3D MOLECULAR REPRESENTATIONS FROM QUANTUM MECHANICAL LEARNED FEATURES](https://doi.org/10.26434/chemrxiv.15012428/v1)**
-   `MLIP` · *ChemRxiv* · 2026-11-18
-   <sub>命中：machine-learned interatomic potential、interatomic potential、fine-tuning</sub>
-   > Quantifying molecular similarity depends on both chemical composition and 3D structure, which are difficult to capture in a single fixed-length representation. Contrastive learning is a common machine learning approach to generate such representations (molecular embeddings), pulling each molecule toward a positive anch…
 
 ## 按主题展开
 
@@ -60,6 +60,11 @@
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
+- **[AIMETRY: GEOMETRY-SENSITIVE 3D MOLECULAR REPRESENTATIONS FROM QUANTUM MECHANICAL LEARNED FEATURES](https://doi.org/10.26434/chemrxiv.15012428/v1)**
+  `MLIP` · *ChemRxiv* · 2026-11-18
+  <sub>命中：machine-learned interatomic potential、interatomic potential、fine-tuning</sub>
+  > Quantifying molecular similarity depends on both chemical composition and 3D structure, which are difficult to capture in a single fixed-length representation.
+
 - **[Machine Learning-Driven High-Throughput Screening of Equimolar and Non-Equimolar High-Entropy Carbides](https://arxiv.org/abs/2611.25127)**
   `MLIP` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.25127)
   <sub>命中：interatomic potential、mace</sub>
@@ -74,6 +79,13 @@
   `MLIP` · *Purdue* · 2026-11-18
   <sub>命中：density functional theory、active learning</sub>
   > High-entropy alloys (HEAs) have emerged as promising heterogeneous catalysts because their surfaces present an enormous variety of local atomic environments, which may allow individual sites to escape…
+
+### AI for Science 方法与自动化 · 持平
+
+- **[An LLM-Agentic Framework for Intelligent Work Order Management in Industrial Maintenance](https://arxiv.org/abs/2611.25070)**
+  `AI4S` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.25070)
+  <sub>命中：autonomous、agent、llm</sub>
+  > This paper presents an AI-driven framework, CodeReAct agent, designed to enhance industrial equipment maintenance through natural language (NL) interactions.
 
 ## 工具与模型发布
 
@@ -94,12 +106,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 714 | ok |
-| crossref | 142 | ok |
+| arxiv | 725 | ok |
+| crossref | 143 | ok |
 | openalex | 98 | ok |
 | rss | 107 | ok |
 | github | 0 | ok |
 
-> 原始 1061 → 去重 909 → 剔除标题噪声 38 → 低相关度 803 → 入库 68。
+> 原始 1073 → 去重 927 → 剔除标题噪声 31 → 低相关度 829 → 入库 67。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
