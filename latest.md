@@ -1,13 +1,14 @@
 # 科研雷达 · 2026-11-20（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-18 17:08 → 现在 · 候选 902 → 本轮入库 66 → 今日累计 **9**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-18 18:08 → 现在 · 候选 909 → 本轮入库 68 → 今日累计 **11**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：First-Principles and Machine Learning for Data-Driven Rational Design of High-Entropy Allo…（10.4）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（35 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 分子晶体结构预测（CSP）与能量图景 3 · 化学相关生成模型（分子、材料与反应） 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（36 篇）
+- **升温主题**：晶体生成模型与逆向设计
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 6 · 分子晶体结构预测（CSP）与能量图景 3 · 晶体生成模型与逆向设计 1 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
@@ -26,20 +27,20 @@
    <sub>命中：polymorph screening、crystal structure、polymorph</sub>
    > The sustainable development of agriculture urgently requires green pesticide strategies that maintain efficacy while minimizing environmental impact. Polymorph screening offers a promising way to optimize the solid-state properties of pesticides without introducing external components, representing an intrinsically gre…
 
-4. **[High-Throughput Workflow for Polaron-Resolved Modeling of Reduced Ceria](https://doi.org/10.26434/chemrxiv.15012402/v1)**
+4. **[FamilySpace: From Emergent Chemical Semantics to Controllable Crystal Generation](https://arxiv.org/abs/2611.25452)**
+   `生成设计` · *arXiv* · 2026-11-19 · [PDF](https://arxiv.org/pdf/2611.25452)
+   <sub>命中：variational autoencoder、crystal generation、generative models</sub>
+   > Latent crystal generative models typically combine a variational autoencoder (VAE) for learning atom-wise representations with a flow model that transports a simple source distribution to the learned latent distribution.
+
+5. **[High-Throughput Workflow for Polaron-Resolved Modeling of Reduced Ceria](https://doi.org/10.26434/chemrxiv.15012402/v1)**
    `MLIP` · *ChemRxiv* · 2026-11-17
    <sub>命中：density functional theory、mlip、mace</sub>
    > Understanding the reduction of cerium oxide is key to optimize its performance in catalytic and technological applications. However, resolving the complex interplay between oxygen vacancies and Ce3+ polarons at high reduction levels is challenging because the vast configurational space of vacancy defects and polaron di…
 
-5. **[AIMETRY: GEOMETRY-SENSITIVE 3D MOLECULAR REPRESENTATIONS FROM QUANTUM MECHANICAL LEARNED FEATURES](https://doi.org/10.26434/chemrxiv.15012428/v1)**
+6. **[AIMETRY: GEOMETRY-SENSITIVE 3D MOLECULAR REPRESENTATIONS FROM QUANTUM MECHANICAL LEARNED FEATURES](https://doi.org/10.26434/chemrxiv.15012428/v1)**
    `MLIP` · *ChemRxiv* · 2026-11-18
    <sub>命中：machine-learned interatomic potential、interatomic potential、fine-tuning</sub>
    > Quantifying molecular similarity depends on both chemical composition and 3D structure, which are difficult to capture in a single fixed-length representation. Contrastive learning is a common machine learning approach to generate such representations (molecular embeddings), pulling each molecule toward a positive anch…
-
-6. **[Generative models in industrial drug discovery: perspectives from REINVENT](https://doi.org/10.1039/d6sc06542b)**
-   `生成模型` · *Chemical Science* · 2026-11-19
-   <sub>命中：generative models</sub>
-   > Generative models have become established tools for exploring chemical space in early-stage drug discovery and are among the most important practical applications of AI for science. Numerous studies have reported...
 
 ## 按主题展开
 
@@ -50,7 +51,19 @@
   <sub>命中：polymorph</sub>
   > Moissanite or silicon carbide (SiC) is abundant in carbon-rich environments, yet it is a rare mineral in the earth’s interior.
 
+### 化学相关生成模型（分子、材料与反应） · 持平
+
+- **[Generative models in industrial drug discovery: perspectives from REINVENT](https://doi.org/10.1039/d6sc06542b)**
+  `生成模型` · *Chemical Science* · 2026-11-19
+  <sub>命中：generative models</sub>
+  > Generative models have become established tools for exploring chemical space in early-stage drug discovery and are among the most important practical applications of AI for science.
+
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Machine Learning-Driven High-Throughput Screening of Equimolar and Non-Equimolar High-Entropy Carbides](https://arxiv.org/abs/2611.25127)**
+  `MLIP` · *arXiv* · 2026-11-18 · [PDF](https://arxiv.org/pdf/2611.25127)
+  <sub>命中：interatomic potential、mace</sub>
+  > Search for optimal compositions among high-entropy ceramics are challenging due to large composition space, which are unable to test either experimentally or by \textit{ab initio} calculations.
 
 - **[8-Oxoguanine Is the Major Product of the Reaction of Guanine Radical Cations with •NO2: A Spin-Orchestrated, Anisotropic Reaction Landscape and Its Biological Implications](https://doi.org/10.1021/jacs.6c18309)**
   `MLIP` · *Journal of the American Chemical Society* · 2026-11-19
@@ -81,12 +94,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 707 | ok |
-| crossref | 141 | ok |
+| arxiv | 714 | ok |
+| crossref | 142 | ok |
 | openalex | 98 | ok |
 | rss | 107 | ok |
 | github | 0 | ok |
 
-> 原始 1053 → 去重 902 → 剔除标题噪声 38 → 低相关度 798 → 入库 66。
+> 原始 1061 → 去重 909 → 剔除标题噪声 38 → 低相关度 803 → 入库 68。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
