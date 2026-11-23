@@ -1,22 +1,37 @@
 # 科研雷达 · 2026-11-23（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-21 17:08 → 现在 · 候选 739 → 本轮入库 42 → 今日累计 **2**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-21 18:08 → 现在 · 候选 683 → 本轮入库 37 → 今日累计 **5**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Crystallization by Gas Blow Coating Enables the Free-Additive Tunable Morphology of l -Ala…（5.3）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（28 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 2
+- **最高相关度**：Generating grain boundary structures at a specified energy with a symmetry-constrained dif…（10.3）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（31 篇）
+- **构成**：分子晶体结构预测（CSP）与能量图景 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1
 
 ## 今日最值得看
 
-1. **[Crystallization by Gas Blow Coating Enables the Free-Additive Tunable Morphology of l -Alanine](https://doi.org/10.1021/acs.cgd.6c01112)**
+1. **[Generating grain boundary structures at a specified energy with a symmetry-constrained diffusion model](https://arxiv.org/abs/2611.27188)**
+   `生成模型` `生成设计` `MLIP` · *arXiv* · 2026-11-20 · [PDF](https://arxiv.org/pdf/2611.27188)
+   <sub>命中：generative models、diffusion model、inverse design、MatterGen、machine learning interatomic potential 等 7 个</sub>
+   > Grain boundaries (GBs) govern many properties of polycrystalline materials, and inverse design would make the GB structure itself a design variable. Crystal generative models such as MatterGen operate on periodic cells, which contain two GBs.
+
+2. **[Crystallization by Gas Blow Coating Enables the Free-Additive Tunable Morphology of l -Alanine](https://doi.org/10.1021/acs.cgd.6c01112)**
    `CSP` · *Crystal Growth & Design* · 2026-11-22
    <sub>命中：crystal structure、polymorph</sub>
    > l-alanine (C3H7NO2) is the simplest chiral amino acid, which can find applications in nonlinear optics, piezoelectric devices, radiation dosimetry, and as an additive in the food industry; hence, it is very important to find techniques to achieve l-alanine crystals with a well-defined structure and properties.
 
-2. **[Professor Kevin Roberts’ Pathways Navigating the Intricate Interrelationships between Crystal Structure, Particles, Processes and Properties](https://doi.org/10.1021/acs.cgd.6c00700)**
+3. **[E2Former-V3: Atom-Role-Aware Equivariant Interatomic Potentials](https://arxiv.org/abs/2611.27111)**
+   `MLIP` · *arXiv* · 2026-11-20 · [PDF](https://arxiv.org/pdf/2611.27111)
+   <sub>命中：equivariant、omol25</sub>
+   > Machine-learned interatomic potentials approach density-functional accuracy, but explicit-solvent atom counts are dominated by hydrogens and water. Uniform equivariant architectures still give every atom the same latent width and number of expensive block updates.
+
+4. **[Pharos: Learning to Control Rare Events at Scale](https://arxiv.org/abs/2611.26765)**
+   `MLIP` · *arXiv* · 2026-11-19 · [PDF](https://arxiv.org/pdf/2611.26765)
+   <sub>命中：machine learning interatomic potential、interatomic potential</sub>
+   > Rare events drive transformations across physics, chemistry and biology, yet predicting their mechanisms and rates remains a fundamental challenge. Here we introduce Pharos, a framework that learns to make rare transitions accessible while predicting how frequently they occur under physical dynamics.
+
+5. **[Professor Kevin Roberts’ Pathways Navigating the Intricate Interrelationships between Crystal Structure, Particles, Processes and Properties](https://doi.org/10.1021/acs.cgd.6c00700)**
    `CSP` · *Crystal Growth & Design* · 2026-11-22
    <sub>命中：crystal structure</sub>
 
@@ -43,12 +58,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 592 | ok |
+| arxiv | 534 | ok |
 | crossref | 58 | ok |
-| openalex | 80 | ok |
+| openalex | 73 | ok |
 | rss | 108 | ok |
 | github | 0 | ok |
 
-> 原始 838 → 去重 739 → 剔除标题噪声 20 → 低相关度 677 → 入库 42。
+> 原始 773 → 去重 683 → 剔除标题噪声 15 → 低相关度 631 → 入库 37。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
