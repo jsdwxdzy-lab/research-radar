@@ -779,6 +779,99 @@
       "doi": "10.1103/PhysRevB.71.205214",
       "locator": "各向异性准简谐计算的实例",
       "consulted": []
+    },
+    {
+      "id": "ho-2020-ddpm",
+      "short": "Ho et al. 2020",
+      "kind": "paper",
+      "citation": "J. Ho, A. Jain, P. Abbeel, Denoising Diffusion Probabilistic Models, Advances in Neural Information Processing Systems 33 (2020); arXiv:2006.11239",
+      "doi": "10.48550/arXiv.2006.11239",
+      "url": "https://arxiv.org/abs/2006.11239",
+      "locator": "前向加噪过程、反向去噪过程与简化训练目标（第 3 节）",
+      "consulted": []
+    },
+    {
+      "id": "song-2021-score-sde",
+      "short": "Song et al. 2021",
+      "kind": "paper",
+      "citation": "Y. Song, J. Sohl-Dickstein, D. P. Kingma, A. Kumar, S. Ermon, B. Poole, Score-Based Generative Modeling through Stochastic Differential Equations, International Conference on Learning Representations (2021); arXiv:2011.13456",
+      "doi": "10.48550/arXiv.2011.13456",
+      "url": "https://arxiv.org/abs/2011.13456",
+      "locator": "前向/反向 SDE、概率流 ODE 与 score 参数化",
+      "consulted": []
+    },
+    {
+      "id": "lipman-2023-flowmatching",
+      "short": "Lipman et al. 2023",
+      "kind": "paper",
+      "citation": "Y. Lipman, R. T. Q. Chen, H. Ben-Hamu, M. Nickel, M. Le, Flow Matching for Generative Modeling, International Conference on Learning Representations (2023); arXiv:2210.02747",
+      "doi": "10.48550/arXiv.2210.02747",
+      "url": "https://arxiv.org/abs/2210.02747",
+      "locator": "条件流匹配目标与直线路径",
+      "consulted": []
+    },
+    {
+      "id": "harris-2004-powder",
+      "short": "Harris & Cheung 2004",
+      "kind": "paper",
+      "citation": "K. D. M. Harris, E. Y. Cheung, How to determine structures when single crystals cannot be grown: opportunities for structure determination of molecular materials using powder diffraction data, Chemical Society Reviews 33, 526-540 (2004)",
+      "doi": "10.1039/b409059b",
+      "locator": "分子材料粉末结构解析的整体流程与限制",
+      "consulted": []
+    },
+    {
+      "id": "coelho-2018-topas",
+      "short": "Coelho 2018",
+      "kind": "paper",
+      "citation": "A. A. Coelho, TOPAS and TOPAS-Academic: an optimization program integrating computer algebra and crystallographic objects written in C++, Journal of Applied Crystallography 51, 210-218 (2018)",
+      "doi": "10.1107/S1600576718000183",
+      "locator": "全局优化（模拟退火）与 Rietveld 精修的实现",
+      "consulted": []
+    },
+    {
+      "id": "hofgard-2026-pxrd",
+      "short": "Hofgard et al. 2026",
+      "kind": "paper",
+      "citation": "E. Hofgard, K. Min, N. Segal, D. Mittan-Moreau et al., Learning lattice parameters from powder X-ray diffraction data using invariants, Acta Crystallographica Section A 83 (2027, 2026 年在线发表)",
+      "doi": "10.1107/S2053273326010284",
+      "locator": "用不变量从粉末图学习晶格参数",
+      "consulted": []
+    },
+    {
+      "id": "skilling-2006-nested",
+      "short": "Skilling 2006",
+      "kind": "paper",
+      "citation": "J. Skilling, Nested sampling for general Bayesian computation, Bayesian Analysis 1, 833-859 (2006)",
+      "doi": "10.1214/06-BA127",
+      "locator": "嵌套采样的体积收缩与 evidence 估计",
+      "consulted": []
+    },
+    {
+      "id": "partay-2010-nested",
+      "short": "Partay et al. 2010",
+      "kind": "paper",
+      "citation": "L. B. Partay, A. P. Bartok, G. Csanyi, Efficient sampling of atomic configurational spaces, Journal of Physical Chemistry B 114, 10502-10512 (2010)",
+      "doi": "10.1021/jp1012973",
+      "locator": "把嵌套采样用于原子构型空间与相图",
+      "consulted": []
+    },
+    {
+      "id": "baldock-2016-phase",
+      "short": "Baldock et al. 2016",
+      "kind": "paper",
+      "citation": "R. J. N. Baldock, L. B. Partay, A. P. Bartok, M. C. Payne, G. Csanyi, Determining pressure-temperature phase diagrams of materials, Physical Review B 93, 174108 (2016)",
+      "doi": "10.1103/PhysRevB.93.174108",
+      "locator": "等压系综下的嵌套采样与相图",
+      "consulted": []
+    },
+    {
+      "id": "ashton-2022-nested",
+      "short": "Ashton et al. 2022",
+      "kind": "paper",
+      "citation": "G. Ashton et al., Nested sampling for physical scientists, Nature Reviews Methods Primers 2 (2022)",
+      "doi": "10.1038/s43586-022-00121-x",
+      "locator": "算法流程、误差估计与实践建议",
+      "consulted": []
     }
   ]
 }
