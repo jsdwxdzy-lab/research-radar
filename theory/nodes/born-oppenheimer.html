@@ -6,12 +6,14 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
 <title>多电子问题与 Born–Oppenheimer 近似 · 理论地图 · 科研雷达</title>
-<meta name="description" content="电子与核运动分离，得到势能面：结构、振动、分子动力学和机器学习势都定义在势能面上。">
+<meta name="description" content="电子与核运动分离，得到势能面：结构、振动、分子动力学和机器学习势都定义在势能面上，这个近似的适用边界决定了它们什么时候会失效。">
 <link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
 <script defer src="../assets/search-index.js"></script>
 <script defer src="../assets/theory.js"></script>
 </head>
-<body data-page="node" data-prefix="../" data-node="born-oppenheimer" data-node-title="多电子问题与 Born–Oppenheimer 近似" data-status="candidate">
+<body data-page="node" data-prefix="../" data-node="born-oppenheimer" data-node-title="多电子问题与 Born–Oppenheimer 近似" data-status="draft">
 <a class="skip" href="#main">跳到正文</a>
 <header class="top">
   <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
@@ -29,23 +31,64 @@
   </nav>
 </header>
 <div class="reader-shell" id="main">
-<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-quantum">量子力学</a></li><li aria-current="page">多电子问题与 Born–Oppenheimer 近似</li></ol><a class="small" href="../tree.html#t-born-oppenheimer">在整棵树里看</a></div><p class="resume hidden" id="resume"></p></details>
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-quantum">量子力学</a></li><li aria-current="page">多电子问题与 Born–Oppenheimer 近似</li></ol><a class="small" href="../tree.html#t-born-oppenheimer">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
 <article class="node" aria-labelledby="nodeTitle">
   <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-quantum">量子力学</a></nav>
   <h1 id="nodeTitle">多电子问题与 Born–Oppenheimer 近似</h1>
-  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-quantum">量子力学</a></span><span>v0.1 · 2026-11-09</span></p>
-  <div class="banner banner-candidate" role="note"><strong>候选</strong>只有题目、学习动机和拟连接的节点，还没有正文。</div>
-  <p class="purpose">电子与核运动分离，得到势能面：结构、振动、分子动力学和机器学习势都定义在势能面上。</p>
-  
-  
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-quantum">量子力学</a></span><span>v0.2 · 2026-11-23</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">电子与核运动分离，得到势能面：结构、振动、分子动力学和机器学习势都定义在势能面上，这个近似的适用边界决定了它们什么时候会失效。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li>原子核比电子重得多</li><li><a class="node-link" href="../nodes/variational-principle.html">变分原理</a>：基态能量是变分下界</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/hartree-fock.html">Hartree–Fock 方法</a> 与 <a class="node-link" href="../nodes/kohn-sham-dft.html">Kohn–Sham 密度泛函理论</a>：电子问题怎么解</li><li><a class="node-link" href="../nodes/perturbation-theory.html">微扰理论与线性响应</a>：微扰展开</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
   <div class="prose" id="prose">
-<p class="empty">这是候选节点，还没有正文。上面写了它打算讲什么，下面是它在树里的邻居。</p>
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>一个分子或晶体里，原子核比电子重至少约 1836 倍（质子对电子）。同样大小的动量下，核的速度慢得多。于是可以想象：核慢慢移动时，电子几乎立刻调整到当前核构型下的平衡状态。<strong>电子给核提供一个有效势能面 (potential energy surface, PES)，核在这个面上运动</strong>。</p>
+<p>这就是 Born–Oppenheimer 近似 <a class="cite" href="#src-born-oppenheimer-1927">[Born &amp; Oppenheimer 1927]</a>。它把“电子 + 核”的耦合问题拆成两层：</p>
+<ol><li>固定核构型 <span class="math" data-tex="\mathbf R">\mathbf R</span>，解电子本征值问题，得到电子能量 <span class="math" data-tex="E_0(\mathbf R)">E_0(\mathbf R)</span>；</li><li>把 <span class="math" data-tex="E_0(\mathbf R)">E_0(\mathbf R)</span> 当作核运动的势能，解核的薛定谔方程。</li></ol>
+<p>结构优化、声子、分子动力学、机器学习势，全部建立在这个图像上：它们都只在一个 PES 上工作。</p>
+<figure class="fig"><img src="../figs/born-oppenheimer-surfaces.svg" alt="（示意）两个电子态的势能曲线随核坐标 R 变化。远离交叉点时可以只取最低的一条；在 R_c 附近能隙很小，非绝热耦合变大，单 PES 近似失效。虚线是透热表示下的两条曲线。" loading="lazy"><figcaption>（示意）两个电子态的势能曲线随核坐标 R 变化。远离交叉点时可以只取最低的一条；在 R_c 附近能隙很小，非绝热耦合变大，单 PES 近似失效。虚线是透热表示下的两条曲线。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="R">R</span></td><td>核坐标（一个或多个）</td><td>横轴</td></tr><tr><td><span class="math" data-tex="E_0(R), E_1(R)">E_0(R), E_1(R)</span></td><td>电子基态与第一激发态的绝热能量</td><td>两条实线</td></tr><tr><td><span class="math" data-tex="R_c">R_c</span></td><td>两个电子态接近简并的位置</td><td>竖线</td></tr><tr><td>能隙</td><td><span class="math" data-tex="E_1 - E_0">E_1 - E_0</span>，在 <span class="math" data-tex="R_c">R_c</span> 最小</td><td>两条实线的间距</td></tr><tr><td>透热曲线</td><td>不随核坐标交换身份的电子态</td><td>虚线</td></tr><tr><td>非绝热耦合</td><td>电子波函数随 <span class="math" data-tex="R">R</span> 变化引起的态间耦合</td><td>能隙越小越强</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<h3>完整哈密顿量</h3>
+<p>在原子单位下，电子与核的总哈密顿量是</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="H = -\sum_I \frac{1}{2M_I}\nabla_I^2 - \sum_i \frac{1}{2}\nabla_i^2 + \sum_{i&lt;j}\frac{1}{r_{ij}} - \sum_{i,I}\frac{Z_I}{r_{iI}} + \sum_{I&lt;J}\frac{Z_I Z_J}{R_{IJ}}">H = -\sum_I \frac{1}{2M_I}\nabla_I^2 - \sum_i \frac{1}{2}\nabla_i^2 + \sum_{i&lt;j}\frac{1}{r_{ij}} - \sum_{i,I}\frac{Z_I}{r_{iI}} + \sum_{I&lt;J}\frac{Z_I Z_J}{R_{IJ}}</span></div>
+<p>其中 <span class="math" data-tex="I,J">I,J</span> 标记核，<span class="math" data-tex="M_I">M_I</span> 与 <span class="math" data-tex="Z_I">Z_I</span> 是核的质量与电荷；<span class="math" data-tex="i,j">i,j</span> 标记电子；前两项是核与电子的动能；其余是电子–电子、电子–核、核–核库仑项。多电子问题就是这一堆耦合项 <a class="cite" href="#src-martin-2020-electronic">[Martin 2020]</a>。</p>
+<h3>Born–Huang 展开</h3>
+<p>把总波函数按电子本征态展开：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\Psi(\mathbf r, \mathbf R) = \sum_k \chi_k(\mathbf R)\,\phi_k(\mathbf r; \mathbf R)">\Psi(\mathbf r, \mathbf R) = \sum_k \chi_k(\mathbf R)\,\phi_k(\mathbf r; \mathbf R)</span></div>
+<p>其中 <span class="math" data-tex="\phi_k(\mathbf r;\mathbf R)">\phi_k(\mathbf r;\mathbf R)</span> 是固定核构型下的第 <span class="math" data-tex="k">k</span> 个电子本征态；<span class="math" data-tex="\chi_k(\mathbf R)">\chi_k(\mathbf R)</span> 是对应的核波函数。代入总薛定谔方程，得到核的耦合方程：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\left[-\sum_I \frac{1}{2M_I}\nabla_I^2 + E_k(\mathbf R)\right]\chi_k + \sum_l \hat\Lambda_{kl}\,\chi_l = E\,\chi_k">\left[-\sum_I \frac{1}{2M_I}\nabla_I^2 + E_k(\mathbf R)\right]\chi_k + \sum_l \hat\Lambda_{kl}\,\chi_l = E\,\chi_k</span></div>
+<p>其中 <span class="math" data-tex="E_k(\mathbf R)">E_k(\mathbf R)</span> 是第 <span class="math" data-tex="k">k</span> 个电子态的能量（对 <span class="math" data-tex="k=0">k=0</span> 就是基态势能面）；<span class="math" data-tex="\hat\Lambda_{kl}">\hat\Lambda_{kl}</span> 是非绝热耦合算符，来自核动能作用在 <span class="math" data-tex="\phi_k">\phi_k</span> 的 <span class="math" data-tex="\mathbf R">\mathbf R</span> 依赖上，主要含一阶导数耦合 <span class="math" data-tex="\mathbf d_{kl}(\mathbf R) = \langle \phi_k | \nabla_{\mathbf R} | \phi_l\rangle">\mathbf d_{kl}(\mathbf R) = \langle \phi_k | \nabla_{\mathbf R} | \phi_l\rangle</span>。</p>
+<h3>Born–Oppenheimer 近似</h3>
+<p>只保留 <span class="math" data-tex="k=0">k=0</span> 一项，丢掉 <span class="math" data-tex="\hat\Lambda_{0l}">\hat\Lambda_{0l}</span>，就得到</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\left[-\sum_I \frac{1}{2M_I}\nabla_I^2 + E_0(\mathbf R)\right]\chi_0 = E\,\chi_0">\left[-\sum_I \frac{1}{2M_I}\nabla_I^2 + E_0(\mathbf R)\right]\chi_0 = E\,\chi_0</span></div>
+<p>这就是“在基态势能面上运动”。误差的量级是 <span class="math" data-tex="\sim m_e/M_I">\sim m_e/M_I</span> 乘以电子能隙的倒数：能隙大、核重时很好；能隙小、轻核（质子）时变差。</p>
+<aside class="claim claim-approximation" aria-label="近似"><p class="claim-head"><span class="claim-kind">近似</span><span class="claim-title">近似的边界</span></p><p>非绝热耦合在两种情况下变大：① 两个电子态能量接近（避免交叉、锥形交叉）；② 核很轻（氢、质子）。此时单 PES 不够，需要多态耦合、面跳跃或路径积分等非绝热方法。金属里电子态连续，绝热图像也要小心。</p></aside>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>DFT 与 MLIP 的共同前提</strong>：<a class="node-link" href="../nodes/kohn-sham-dft.html">Kohn–Sham 密度泛函理论</a> 在每个核构型下解电子基态；机器学习势学的就是 <span class="math" data-tex="E_0(\mathbf R)">E_0(\mathbf R)</span> 及其导数（力 = <span class="math" data-tex="-\nabla_{\mathbf R}E_0">-\nabla_{\mathbf R}E_0</span>，见 <a class="node-link" href="../nodes/hellmann-feynman.html">Hellmann–Feynman 定理：力与应力</a>）。如果训练数据里混入了不同电子态，模型会学到一个“平均”的、物理上不存在的 PES。</li><li><strong>声子</strong>：<a class="node-link" href="../nodes/phonons.html">声子与晶格动力学</a> 是 <span class="math" data-tex="E_0">E_0</span> 对核位移的二阶导数；BO 不成立时，声子谱里的虚频可能反映真实的电子不稳定性，而不是数值问题。</li><li><strong>分子晶体里的质子转移</strong>：<a class="node-link" href="../nodes/proton-position.html">质子归属：盐与共晶</a> 讨论的盐–共晶与质子位置，常常涉及 O–H···O 这类强氢键。质子的零点能和隧穿不在 BO 的 1D PES 图像里；判断质子是否“定域”时，要区分电子势垒和核量子效应。</li><li><strong>MD 与构象</strong>：<a class="node-link" href="../nodes/molecular-dynamics.html">分子动力学</a> 在单个 PES 上积分；光化学、激发态弛豫不能用同一套力场。</li></ul>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>对具体分子晶体（如 β-甘氨酸）的质子转移势垒，BO 近似与非绝热/核量子修正的差别有多大，需要按具体研究和文献核对，不在这里给数值。</li><li>锥形交叉附近的多态方法选择（面跳跃、多组态时间依赖 Hartree–Fock 等）不在本条目范围内，需要时另立条目。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>把 BO 近似和諧振近似混为一谈</strong>：BO 只要求电子跟随核，不要求势能是二次的；非谐、转动、大振幅运动都可以在单个 PES 上处理。</li><li><strong>在近简并处用单 PES 算力</strong>：两个态交叉附近，绝热 PES 有尖点或不连续，力和 MD 都会出问题。</li><li><strong>忽略核量子效应</strong>：BO 内质子仍是一个量子粒子；零点能、隧穿可以改变“哪个质子位置稳定”的结论。</li><li><strong>把电子态混合的训练数据喂给 MLIP</strong>：同一个核构型对应不同电子态时，<span class="math" data-tex="E(\mathbf R)">E(\mathbf R)</span> 不是单值函数，模型会学错。</li><li><strong>用基态 PES 解释激发态现象</strong>：光吸收、荧光、光化学循环需要至少两个 PES。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么 Born–Oppenheimer 近似的误差与电子能隙的倒数有关？用 Born–Huang 展开里被丢掉的项说明。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>对一个双原子分子，写出核的 BO 方程，并说明为什么约化质量 <span class="math" data-tex="\mu">\mu</span> 出现在动能项里；当 <span class="math" data-tex="\mu \to \infty">\mu \to \infty</span> 时会发生什么。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你在分子晶体里看到 O–H···O 氢键，DFT 优化后质子停在中间位置。要判断这是真实的对称氢键还是 BO 近似/有限温度造成的人为结果，你会检查哪些量？</p></aside>
+</section>
   </div>
   
   
-  
-  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;Born-Oppenheimer approximation&quot;, &quot;potential energy surface&quot;, &quot;many-electron problem&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
-  <p class="cat-foot"><span>分类</span>量子力学 · 概念 · 状态：候选</p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-born-oppenheimer-1927"><p class="src-kind">论文<span class="src-short">Born &amp; Oppenheimer 1927</span></p><p class="src-cit"><a href="https://doi.org/10.1002/andp.19273892002" rel="noopener" target="_blank">M. Born, R. Oppenheimer, Zur Quantentheorie der Molekeln, Annalen der Physik 389, 457-484 (1927)</a></p><p class="src-meta">位置：电子与核运动分离的原始表述</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-martin-2020-electronic"><p class="src-kind">教材<span class="src-short">Martin 2020</span></p><p class="src-cit"><a href="https://doi.org/10.1017/9781108555586" rel="noopener" target="_blank">R. M. Martin, Electronic Structure: Basic Theory and Practical Methods, 2nd ed., Cambridge University Press (2020)</a></p><p class="src-meta">版本：第 2 版；位置：Kohn–Sham 理论、交换相关近似、平面波与 PAW 相关章节（具体章节待查阅后补）</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;Born-Oppenheimer approximation&quot;, &quot;potential energy surface&quot;, &quot;non-adiabatic coupling&quot;, &quot;many-electron problem&quot;, &quot;conical intersection&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>量子力学 · 概念 · 状态：草稿</p>
   
   <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="born-oppenheimer">
   <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
@@ -57,7 +100,7 @@
   <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
 </section>
 </article>
-<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%A4%9A%E7%94%B5%E5%AD%90%E9%97%AE%E9%A2%98%E4%B8%8E%20Born%E2%80%93Oppenheimer%20%E8%BF%91%E4%BC%BC%EF%BC%88born-oppenheimer%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aborn-oppenheimer%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.2</span><span>2026-11-23</span>初稿正文：Born–Huang 展开、势能面、非绝热耦合、失效条件、在分子晶体与质子转移里的边界；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%A4%9A%E7%94%B5%E5%AD%90%E9%97%AE%E9%A2%98%E4%B8%8E%20Born%E2%80%93Oppenheimer%20%E8%BF%91%E4%BC%BC%EF%BC%88born-oppenheimer%20v0.2%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aborn-oppenheimer%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.2%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
 <button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
 </div>
 <footer class="foot">
