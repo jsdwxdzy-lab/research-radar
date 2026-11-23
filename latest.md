@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-23（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 16:17 · 抓取窗口 11-22 00:17 → 现在 · 候选 811 → 本轮入库 53 → 今日累计 **7**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 18:42 · 抓取窗口 11-22 02:42 → 现在 · 候选 575 → 本轮入库 48 → 今日累计 **8**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Generating grain boundary structures at a specified energy with a symmetry-constrained dif…（10.3）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（31 篇）
-- **构成**：化学相关生成模型（分子、材料与反应） 2 · 分子晶体结构预测（CSP）与能量图景 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · 生成模型相关数学 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（32 篇）
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 2 · 分子晶体结构预测（CSP）与能量图景 2 · 生成模型相关数学 1
 
 ## 今日最值得看
 
@@ -49,6 +49,13 @@
   `CSP` · *Crystal Growth & Design* · 2026-11-22
   <sub>命中：crystal structure</sub>
 
+### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[K ylin -PBC: A Gaussian-Type Orbital Program for Periodic Density Functional Theory with Low-Scaling Exact Exchange](https://doi.org/10.1021/acs.jctc.6c01653)**
+  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-23
+  <sub>命中：density functional theory</sub>
+  > We present Kylin-PBC, a periodic density functional theory program based on Gaussian-type orbitals, together with a local interpolative separable density fitting (LISDF) method that reduces the period…
+
 ## 工具与模型发布
 
 _（窗口内没有关注工具的版本发布）_
@@ -68,12 +75,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 703 | ok |
-| crossref | 28 | ok |
+| arxiv | 364 | ok |
+| crossref | 40 | ok |
 | openalex | 112 | ok |
-| rss | 108 | ok |
+| rss | 109 | ok |
 | github | 0 | ok |
 
-> 原始 951 → 去重 811 → 剔除标题噪声 23 → 低相关度 735 → 入库 53。
+> 原始 625 → 去重 575 → 剔除标题噪声 22 → 低相关度 505 → 入库 48。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
