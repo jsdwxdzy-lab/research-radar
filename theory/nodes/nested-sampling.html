@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>嵌套采样与有限温度自由能 · 理论地图 · 科研雷达</title>
+<meta name="description" content="低温下普通采样会卡在局部极小；嵌套采样按能量从高到低扫过整个构型空间，直接估计配分函数，从而得到不需要谐振近似的有限温度自由能与相变。">
+<link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="node" data-prefix="../" data-node="nested-sampling" data-node-title="嵌套采样与有限温度自由能" data-status="draft">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<div class="reader-shell" id="main">
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-statmech">统计力学与采样</a></li><li><a class="node-link" href="../nodes/free-energy.html">自由能与熵</a></li><li aria-current="page">嵌套采样与有限温度自由能</li></ol><a class="small" href="../tree.html#t-nested-sampling">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
+<article class="node" aria-labelledby="nodeTitle">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-statmech">统计力学与采样</a><span aria-hidden="true">/</span><a class="node-link" href="../nodes/free-energy.html">自由能与熵</a></nav>
+  <h1 id="nodeTitle">嵌套采样与有限温度自由能</h1>
+  <p class="node-meta"><span class="type">方法节点</span><span>领域：<a href="../tree.html#t-statmech">统计力学与采样</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=csp">结构预测与能量景观</a><a class="rline" href="../tree.html?line=mlip">机器学习势</a></span><span>v0.1 · 2026-11-23</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">低温下普通采样会卡在局部极小；嵌套采样按能量从高到低扫过整个构型空间，直接估计配分函数，从而得到不需要谐振近似的有限温度自由能与相变。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li><a class="node-link" href="../nodes/free-energy.html">自由能与熵</a>：配分函数与自由能</li><li><a class="node-link" href="../nodes/energy-landscape.html">能量景观与多晶型</a>：构型空间与局部极小</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/ensembles.html">系综与配分函数</a>：系综与配分函数</li><li><a class="node-link" href="../nodes/molecular-dynamics.html">分子动力学</a>：构型空间的采样</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
+  <div class="prose" id="prose">
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>有限温度下的稳定性要比较自由能，核心是配分函数</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="Z(\beta) = \int \mathrm{e}^{-\beta U(\mathbf x)}\,\mathrm{d}\mathbf x">Z(\beta) = \int \mathrm{e}^{-\beta U(\mathbf x)}\,\mathrm{d}\mathbf x</span></div>
+<p>其中 <span class="math" data-tex="\beta = 1/k_B T">\beta = 1/k_B T</span>；<span class="math" data-tex="U(\mathbf x)">U(\mathbf x)</span> 是势能；积分遍历整个构型空间。</p>
+<p>问题是：低温下 <span class="math" data-tex="\mathrm{e}^{-\beta U}">\mathrm{e}^{-\beta U}</span> 几乎只在你还没找到的低能盆地里非零，普通 MD/MC 从任意起点出发很可能卡在一个局部极小里，采样不到真正重要的区域。<strong>嵌套采样 (nested sampling)</strong> 换了个角度：不按温度采样，而是按能量从高到低“剥壳”。先在整个先验体积里撒一批活点 (live points)，每次去掉能量最高的那个，再在更低能量的区域里补一个新点。活点包围的体积按固定比例收缩，于是从高能一直扫到低能，自然穿过所有盆地 <a class="cite" href="#src-skilling-2006-nested">[Skilling 2006]</a>。</p>
+<figure class="fig"><img src="../figs/nested-sampling-volumes.svg" alt="左（示意）：二维玩具势能上的能量等值线与活点，活点逐渐收缩到低能区。右（示意）：把配分函数写成先验体积的一维积分，曲线下面积就是 Z；温度越低，权重越集中在高 X 端（低能区）。" loading="lazy"><figcaption>左（示意）：二维玩具势能上的能量等值线与活点，活点逐渐收缩到低能区。右（示意）：把配分函数写成先验体积的一维积分，曲线下面积就是 Z；温度越低，权重越集中在高 X 端（低能区）。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="\mathbf x">\mathbf x</span></td><td>构型坐标（原子位置、晶胞等）</td><td>左图平面坐标</td></tr><tr><td><span class="math" data-tex="U(\mathbf x)">U(\mathbf x)</span></td><td>势能</td><td>左图等值线</td></tr><tr><td>活点</td><td>当前能量上限内的采样点</td><td>左图橙点</td></tr><tr><td><span class="math" data-tex="X">X</span></td><td>先验体积：能量低于某值的构型占先验的比例</td><td>右图横轴</td></tr><tr><td><span class="math" data-tex="\mathrm{e}^{-\beta U(X)}">\mathrm{e}^{-\beta U(X)}</span></td><td>给定体积分数处的 Boltzmann 权重</td><td>右图曲线</td></tr><tr><td><span class="math" data-tex="Z">Z</span></td><td>配分函数，曲线下面积</td><td>右图阴影</td></tr></tbody></table></div>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<h3>体积换能量</h3>
+<p>定义“先验体积” (prior volume)</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="X(\lambda) = \int_{U(\mathbf x) &lt; \lambda} \pi(\mathbf x)\,\mathrm{d}\mathbf x">X(\lambda) = \int_{U(\mathbf x) &lt; \lambda} \pi(\mathbf x)\,\mathrm{d}\mathbf x</span></div>
+<p>其中 <span class="math" data-tex="\pi(\mathbf x)">\pi(\mathbf x)</span> 是先验分布（常取均匀分布，或带体积权重的分布）；<span class="math" data-tex="X">X</span> 是能量不超过 <span class="math" data-tex="\lambda">\lambda</span> 的构型所占的比例，从 1 单调降到 0。把 <span class="math" data-tex="\lambda">\lambda</span> 换成它的反函数 <span class="math" data-tex="U(X)">U(X)</span>，配分函数就变成一个一维积分：</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="Z(\beta) = \int_0^1 \mathrm{e}^{-\beta U(X)}\,\mathrm{d}X">Z(\beta) = \int_0^1 \mathrm{e}^{-\beta U(X)}\,\mathrm{d}X</span></div>
+<p>这就是右图：曲线下面积。<span class="math" data-tex="X">X</span> 从 1（高能、体积大）走到 0（低能、体积小），温度越低权重越集中在 <span class="math" data-tex="X \to 0">X \to 0</span> 的一端。</p>
+<h3>活点与收缩</h3>
+<p>用 <span class="math" data-tex="N">N</span> 个活点近似这个积分。每一步：</p>
+<ol><li>找出当前能量最高的活点，记它的能量 <span class="math" data-tex="U_i">U_i</span>；</li><li>它占据的体积分数 <span class="math" data-tex="X_i">X_i</span> 按统计规律收缩：<span class="math" data-tex="X_i = t_i X_{i-1}">X_i = t_i X_{i-1}</span>，其中 <span class="math" data-tex="t_i">t_i</span> 服从 <span class="math" data-tex="\mathrm{Beta}(N,1)">\mathrm{Beta}(N,1)</span> 分布，期望收缩因子是 <span class="math" data-tex="N/(N+1)">N/(N+1)</span>；</li><li>在 <span class="math" data-tex="U &lt; U_i">U &lt; U_i</span> 的区域内重新采一个点，补进活点集合。</li></ol>
+<p>于是 <span class="math" data-tex="Z">Z</span> 的估计是</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\hat Z = \sum_i \mathrm{e}^{-\beta U_i}\,(X_{i-1} - X_i)">\hat Z = \sum_i \mathrm{e}^{-\beta U_i}\,(X_{i-1} - X_i)</span></div>
+<p>其中 <span class="math" data-tex="i">i</span> 遍历被移除的活点；<span class="math" data-tex="X_i">X_i</span> 是第 <span class="math" data-tex="i">i</span> 步的体积分数。自由能 <span class="math" data-tex="F = -k_B T \ln Z">F = -k_B T \ln Z</span>。</p>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">热容与相变</span></p><p>由 <span class="math" data-tex="Z">Z</span> 得到内能 <span class="math" data-tex="U_{\mathrm{avg}} = -\partial \ln Z/\partial \beta">U_{\mathrm{avg}} = -\partial \ln Z/\partial \beta</span>，热容</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="C_V = \frac{\partial U_{\mathrm{avg}}}{\partial T} = k_B \beta^2\left(\langle U^2\rangle - \langle U\rangle^2\right)">C_V = \frac{\partial U_{\mathrm{avg}}}{\partial T} = k_B \beta^2\left(\langle U^2\rangle - \langle U\rangle^2\right)</span></div>
+<p>其中 <span class="math" data-tex="\langle\cdot\rangle">\langle\cdot\rangle</span> 是按 Boltzmann 权重的平均。<span class="math" data-tex="C_V">C_V</span> 的峰对应相变：嵌套采样在一次运行里同时给出整个温度范围的 <span class="math" data-tex="Z">Z</span>，比逐个温度跑 MD 更省。</p></aside>
+<h3>等压系综与相图</h3>
+<p>要比较不同晶胞体积的结构，用等压系综：把体积 <span class="math" data-tex="V">V</span> 也当作采样坐标，先验里带 <span class="math" data-tex="V^N">V^N</span> 的权重（<span class="math" data-tex="N">N</span> 是粒子数），势能换成 <span class="math" data-tex="U + pV">U + pV</span> <a class="cite" href="#src-baldock-2016-phase">[Baldock et al. 2016]</a>。这样一次嵌套采样就能画出压力–温度相图，而不是每个 <span class="math" data-tex="(p,T)">(p,T)</span> 点单独算。</p>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>多晶型排序</strong>：<a class="node-link" href="../nodes/free-energy.html">自由能与熵</a> 里讲的热力学积分和自由能微扰给的是相对自由能，需要一条从参考态到目标态的路径；嵌套采样直接给绝对配分函数，不需要指定路径，也不依赖谐振近似。</li><li><strong>用 MLIP 评估能量</strong>：嵌套采样要对成千上万个构型求 <span class="math" data-tex="U">U</span>，DFT 太贵。通用机器学习势（<a class="node-link" href="../nodes/mace.html">MACE 与等变消息传递</a>）在这里的角色就是便宜的势能评估器；代价是 MLIP 的误差直接进入 <span class="math" data-tex="Z">Z</span>，外推区域的误差会被低温权重放大。</li><li><strong>与准简谐的分工</strong>：<a class="node-link" href="../nodes/quasi-harmonic.html">准简谐近似与热膨胀</a> 便宜，适合筛查；嵌套采样贵，适合对少数候选做有限温度确认。两者结果不一致时，先查准简谐的低频模式和 MLIP 的频率精度。</li><li><strong>分子晶体</strong>：需要采样分子取向和晶胞体积；活点初始化可以从多个已知多晶型出发，保证每个盆地都被覆盖。</li></ul>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>本周雷达里的 GPU 嵌套采样框架 <a href="https://arxiv.org/abs/2611.24088" rel="noopener" target="_blank">arXiv:2611.24088</a> 只按标题概括，具体实现与加速比尚未核对。</li><li>活点数 <span class="math" data-tex="N">N</span>、终止判据和误差估计的实践建议，按 Ashton 等的综述核对后再写详细结论 <a class="cite" href="#src-ashton-2022-nested">[Ashton et al. 2022]</a>。</li><li>原子构型空间的先验选择（体积权重、分子取向的 Jacobian）对结果的影响，按 Pártay 等的工作核对 <a class="cite" href="#src-partay-2010-nested">[Partay et al. 2010]</a>。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>活点太少</strong>：<span class="math" data-tex="Z">Z</span> 的统计误差大约随 <span class="math" data-tex="1/\sqrt{N}">1/\sqrt{N}</span> 下降；相变附近需要更多活点，否则 <span class="math" data-tex="C_V">C_V</span> 的峰是噪声。</li><li><strong>先验选错</strong>：先验体积元不是“均匀撒点”那么简单，分子取向和晶胞体积要带正确的 Jacobian 权重。</li><li><strong>势能面不连续</strong>：能量排序有平台或跳变时，收缩过程会出错；先检查 MLIP 在采样范围内的光滑性。</li><li><strong>把 MLIP 误差当统计误差</strong>：嵌套采样的误差棒只反映采样误差，不包含势能模型误差。</li><li><strong>跨组成比较</strong>：不同分子数或不同化学组成的 <span class="math" data-tex="Z">Z</span> 不能直接比，需要化学势项。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么低温下普通 MD 容易卡在局部极小，而嵌套采样能从高能一路扫到低能？用体积收缩的机制说明。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>对一维谐振子 <span class="math" data-tex="U = \tfrac12 k x^2">U = \tfrac12 k x^2</span>，先验取 <span class="math" data-tex="x \in [-L, L]">x \in [-L, L]</span> 的均匀分布，写出 <span class="math" data-tex="X(\lambda)">X(\lambda)</span> 和 <span class="math" data-tex="Z(\beta)">Z(\beta)</span> 的解析表达式，并验证低温极限下 <span class="math" data-tex="F \approx \tfrac12 \hbar\omega">F \approx \tfrac12 \hbar\omega</span> 的量级（经典近似下比较 <span class="math" data-tex="k_B T \ln(\beta\hbar\omega)">k_B T \ln(\beta\hbar\omega)</span>）。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>你要用 MACE 加嵌套采样比较两个有机分子晶体多晶型在 300 K 的自由能。列出三个最可能让结论出错的因素，以及各自的检查方法。</p></aside>
+</section>
+  </div>
+  
+  <p class="related"><span>相关条目</span><a class="node-link" href="../nodes/free-energy.html">自由能与熵</a></p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-skilling-2006-nested"><p class="src-kind">论文<span class="src-short">Skilling 2006</span></p><p class="src-cit"><a href="https://doi.org/10.1214/06-BA127" rel="noopener" target="_blank">J. Skilling, Nested sampling for general Bayesian computation, Bayesian Analysis 1, 833-859 (2006)</a></p><p class="src-meta">位置：嵌套采样的体积收缩与 evidence 估计</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-partay-2010-nested"><p class="src-kind">论文<span class="src-short">Partay et al. 2010</span></p><p class="src-cit"><a href="https://doi.org/10.1021/jp1012973" rel="noopener" target="_blank">L. B. Partay, A. P. Bartok, G. Csanyi, Efficient sampling of atomic configurational spaces, Journal of Physical Chemistry B 114, 10502-10512 (2010)</a></p><p class="src-meta">位置：把嵌套采样用于原子构型空间与相图</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-baldock-2016-phase"><p class="src-kind">论文<span class="src-short">Baldock et al. 2016</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevB.93.174108" rel="noopener" target="_blank">R. J. N. Baldock, L. B. Partay, A. P. Bartok, M. C. Payne, G. Csanyi, Determining pressure-temperature phase diagrams of materials, Physical Review B 93, 174108 (2016)</a></p><p class="src-meta">位置：等压系综下的嵌套采样与相图</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-ashton-2022-nested"><p class="src-kind">论文<span class="src-short">Ashton et al. 2022</span></p><p class="src-cit"><a href="https://doi.org/10.1038/s43586-022-00121-x" rel="noopener" target="_blank">G. Ashton et al., Nested sampling for physical scientists, Nature Reviews Methods Primers 2 (2022)</a></p><p class="src-meta">位置：算法流程、误差估计与实践建议</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;nested sampling&quot;, &quot;partition function&quot;, &quot;Bayesian evidence&quot;, &quot;phase diagram&quot;, &quot;finite temperature&quot;, &quot;live points&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>统计力学与采样 · 方法 · 研究线：结构预测与能量景观、机器学习势 · 状态：草稿</p>
+  
+  <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="nested-sampling">
+  <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
+  <label class="field-label" for="myQuestion">我还没想通的地方</label>
+  <textarea id="myQuestion" rows="3" placeholder="写下读到这里的疑问，首页会列出未解决的疑问…"></textarea>
+  <label class="field-label" for="myNote">我的笔记</label>
+  <textarea id="myNote" rows="4" placeholder="用自己的话复述，或记下推导中卡住的一步…"></textarea>
+  <fieldset class="dims"><legend>自评（读过不等于掌握，按需填写）</legend><div class="dim"><label for="dim-explain">能解释核心概念</label><select id="dim-explain" data-dim="explain"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="explain" aria-label="能解释核心概念：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-derive">能重建关键推导</label><select id="dim-derive" data-dim="derive"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="derive" aria-label="能重建关键推导：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-limits">理解成立条件和局限</label><select id="dim-limits" data-dim="limits"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="limits" aria-label="理解成立条件和局限：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-connect">能与其他节点正确联系</label><select id="dim-connect" data-dim="connect"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="connect" aria-label="能与其他节点正确联系：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-apply">能应用于新问题</label><select id="dim-apply" data-dim="apply"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="apply" aria-label="能应用于新问题：我的说明" placeholder="说明（可选）…"></div></fieldset>
+  <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
+</section>
+</article>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><p class="empty">还没有记录与其他节点的关系。</p></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-23</span>初稿：体积换能量的一维积分、活点与收缩、自由能与热容、等压扩展、与 MLIP 结合、常见坑；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%B5%8C%E5%A5%97%E9%87%87%E6%A0%B7%E4%B8%8E%E6%9C%89%E9%99%90%E6%B8%A9%E5%BA%A6%E8%87%AA%E7%94%B1%E8%83%BD%EF%BC%88nested-sampling%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Anested-sampling%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
+</div>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
