@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-23（周一）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 10:08 · 抓取窗口 11-21 18:08 → 现在 · 候选 683 → 本轮入库 37 → 今日累计 **5**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 11:08 · 抓取窗口 11-21 19:08 → 现在 · 候选 828 → 本轮入库 53 → 今日累计 **6**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Generating grain boundary structures at a specified energy with a symmetry-constrained dif…（10.3）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（31 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 2 · 机器学习势与通用势函数（MLIP / UMA） 2 · 化学相关生成模型（分子、材料与反应） 1
+- **构成**：化学相关生成模型（分子、材料与反应） 2 · 分子晶体结构预测（CSP）与能量图景 2 · 机器学习势与通用势函数（MLIP / UMA） 2
 
 ## 今日最值得看
 
@@ -31,7 +31,12 @@
    <sub>命中：machine learning interatomic potential、interatomic potential</sub>
    > Rare events drive transformations across physics, chemistry and biology, yet predicting their mechanisms and rates remains a fundamental challenge. Here we introduce Pharos, a framework that learns to make rare transitions accessible while predicting how frequently they occur under physical dynamics.
 
-5. **[Professor Kevin Roberts’ Pathways Navigating the Intricate Interrelationships between Crystal Structure, Particles, Processes and Properties](https://doi.org/10.1021/acs.cgd.6c00700)**
+5. **[Hierarchical Hybrid-Coordinate Flow Matching for Accurate and Physically Plausible Apo-to-Holo Protein Generation](https://arxiv.org/abs/2611.27162)**
+   `生成模型` · *arXiv* · 2026-11-20 · [PDF](https://arxiv.org/pdf/2611.27162)
+   <sub>命中：flow matching</sub>
+   > Predicting holo-like protein conformations from apo structures is essential in structure-based drug design. Most existing apo-to-holo models operate in Cartesian space and achieve strong global accuracy. However, high global accuracy does not ensure physically valid local backbone geometry.
+
+6. **[Professor Kevin Roberts’ Pathways Navigating the Intricate Interrelationships between Crystal Structure, Particles, Processes and Properties](https://doi.org/10.1021/acs.cgd.6c00700)**
    `CSP` · *Crystal Growth & Design* · 2026-11-22
    <sub>命中：crystal structure</sub>
 
@@ -58,12 +63,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 534 | ok |
+| arxiv | 696 | ok |
 | crossref | 58 | ok |
-| openalex | 73 | ok |
+| openalex | 112 | ok |
 | rss | 108 | ok |
 | github | 0 | ok |
 
-> 原始 773 → 去重 683 → 剔除标题噪声 15 → 低相关度 631 → 入库 37。
+> 原始 974 → 去重 828 → 剔除标题噪声 25 → 低相关度 750 → 入库 53。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
