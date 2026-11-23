@@ -779,6 +779,35 @@
       "doi": "10.1103/PhysRevB.71.205214",
       "locator": "各向异性准简谐计算的实例",
       "consulted": []
+    },
+    {
+      "id": "born-oppenheimer-1927",
+      "short": "Born & Oppenheimer 1927",
+      "kind": "paper",
+      "citation": "M. Born, R. Oppenheimer, Zur Quantentheorie der Molekeln, Annalen der Physik 389, 457-484 (1927)",
+      "doi": "10.1002/andp.19273892002",
+      "locator": "电子与核运动分离的原始表述",
+      "consulted": []
+    },
+    {
+      "id": "xie-2022-cdvae",
+      "short": "Xie et al. 2022",
+      "kind": "paper",
+      "citation": "T. Xie, X. Fu, O. Görner, R. Barzilay, T. Jaakkola, Crystal Diffusion Variational Autoencoder for Periodic Material Generation, International Conference on Learning Representations (2022); arXiv:2110.06197",
+      "doi": "10.48550/arXiv.2110.06197",
+      "url": "https://arxiv.org/abs/2110.06197",
+      "locator": "周期晶体的扩散式生成与 VAE 潜空间",
+      "consulted": []
+    },
+    {
+      "id": "jiao-2024-crystalformer",
+      "short": "Jiao et al. 2024",
+      "kind": "paper",
+      "citation": "R. Jiao, W. Huang, Y. Liu, D. Zhao, Y. Liu, CrystalFormer: Infinitely Connected Attention for Periodic Structure Encoding, International Conference on Learning Representations (2024); arXiv:2403.11686",
+      "doi": "10.48550/arXiv.2403.11686",
+      "url": "https://arxiv.org/abs/2403.11686",
+      "locator": "周期结构 token 化与自回归生成",
+      "consulted": []
     }
   ]
 }
