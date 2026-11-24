@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-24（周二）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 11:08 · 抓取窗口 11-22 19:08 → 现在 · 候选 814 → 本轮入库 52 → 今日累计 **9**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 12:08 · 抓取窗口 11-22 20:08 → 现在 · 候选 840 → 本轮入库 53 → 今日累计 **11**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Crystal Structure Prediction of Imidacloprid（10.0）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（27 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 化学相关生成模型（分子、材料与反应） 2 · 分子晶体结构预测（CSP）与能量图景 1 · 生成模型相关数学 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 5 · 化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 1 · 生成模型相关数学 1 · 晶体生成模型与逆向设计 1
 
 ## 今日最值得看
 
@@ -35,12 +35,26 @@
    <sub>命中：potential energy surface、mlip</sub>
    > Machine learning interatomic potentials (MLIPs) offer an efficient paradigm for large-scale atomistic simulations with near first-principles accuracy. However, developing and deploying these potentials often involves intricate procedures that require substantial manual effort and domain expertise.
 
-6. **[Time-Resolved Monitoring of Surface-Adsorbed H2O Migration into Mesoporous Media at Submillimeter Spatial Resolution through Hyperpolarized Xenon-129 NMR Spectroscopy](https://doi.org/10.1021/acs.jpcc.6c05184)**
-   `生成模型` · *The Journal of Physical Chemistry C* · 2026-11-23
-   <sub>命中：diffusion model</sub>
-   > Diffusion of surface-adsorbed water in porous media can be difficult to observe through 1H NMR pulsed field gradient measurements due to strong signal broadening and resulting low signal-to-noise (SNR) ratios.
+6. **[RxnScope: Accurate joint generation of product and transition-state pairs from reactants via flow matching](https://arxiv.org/abs/2611.29492)**
+   `生成模型` · *arXiv* · 2026-11-22 · [PDF](https://arxiv.org/pdf/2611.29492)
+   <sub>命中：flow matching</sub>
+   > Reaction networks are central to understanding chemical reactivity and guiding reaction design. Constructing them when products are unknown remains a major challenge in computational chemistry, requiring the identification of products and their corresponding transition states (TSs) across elementary steps.
 
 ## 按主题展开
+
+### 晶体生成模型与逆向设计 · 持平
+
+- **[AmorphGen: A Python package for amorphous structure generation with machine-learning and classical interatomic potentials](https://arxiv.org/abs/2611.29539)**
+  `生成设计` · *arXiv* · 2026-11-22 · [PDF](https://arxiv.org/pdf/2611.29539)
+  <sub>命中：structure generation</sub>
+  > AmorphGen is an open-source Python package for generating and analyzing amorphous structures from a composition or a crystal.
+
+### 化学相关生成模型（分子、材料与反应） · 持平
+
+- **[Time-Resolved Monitoring of Surface-Adsorbed H2O Migration into Mesoporous Media at Submillimeter Spatial Resolution through Hyperpolarized Xenon-129 NMR Spectroscopy](https://doi.org/10.1021/acs.jpcc.6c05184)**
+  `生成模型` · *The Journal of Physical Chemistry C* · 2026-11-23
+  <sub>命中：diffusion model</sub>
+  > Diffusion of surface-adsorbed water in porous media can be difficult to observe through 1H NMR pulsed field gradient measurements due to strong signal broadening and resulting low signal-to-noise (SNR…
 
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
 
@@ -83,12 +97,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 688 | ok |
+| arxiv | 705 | ok |
 | crossref | 86 | ok |
 | openalex | 110 | ok |
 | rss | 73 | ok |
 | github | 0 | ok |
 
-> 原始 957 → 去重 814 → 剔除标题噪声 24 → 低相关度 738 → 入库 52。
+> 原始 974 → 去重 840 → 剔除标题噪声 20 → 低相关度 767 → 入库 53。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
