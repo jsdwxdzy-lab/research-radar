@@ -779,6 +779,34 @@
       "doi": "10.1103/PhysRevB.71.205214",
       "locator": "各向异性准简谐计算的实例",
       "consulted": []
+    },
+    {
+      "id": "brannon-2018-voigt-mandel",
+      "short": "Brannon 2018",
+      "kind": "textbook",
+      "citation": "R. M. Brannon, Voigt and Mandel components, in Rotation, Reflection, and Frame Changes (IOP Publishing, 2018)",
+      "doi": "10.1088/978-0-7503-1454-1ch26",
+      "locator": "Voigt 与 Mandel 分量定义；剪切方向的 √2 因子",
+      "note": "对照工程应变与保持内积的归一化记号。",
+      "consulted": []
+    },
+    {
+      "id": "chandrasekharan-1977-rigid-molecule",
+      "short": "Chandrasekharan & Walmsley 1977",
+      "kind": "paper",
+      "citation": "V. Chandrasekharan, S. H. Walmsley, The rigid molecule approximation in lattice dynamics, Mol. Phys. 33, 371 (1977)",
+      "doi": "10.1080/00268977700100491",
+      "locator": "刚体分子近似下晶格动力学的自由度与力常数构造",
+      "consulted": []
+    },
+    {
+      "id": "gray-day-2004-rigid-dynamics",
+      "short": "Gray, Day, Leslie & Price 2004",
+      "kind": "paper",
+      "citation": "A. E. Gray, G. M. Day, M. Leslie, S. L. Price, Dynamics in crystals of rigid organic molecules: contrasting the phonon frequencies calculated by molecular dynamics with harmonic lattice dynamics for imidazole and 5-azauracil, Mol. Phys. 102, 1067 (2004)",
+      "doi": "10.1080/00268970412331284208",
+      "locator": "有机分子晶体中刚体近似声子与分子动力学的对照",
+      "consulted": []
     }
   ]
 }

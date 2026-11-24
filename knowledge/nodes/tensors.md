@@ -6,7 +6,8 @@
   "parent": "math",
   "keywords": [
     "Voigt notation",
-    "coordinate transformation"
+    "coordinate transformation",
+    "Mandel notation"
   ],
   "purpose": "张量在坐标变换下怎样变，Voigt 记号怎样压缩下标，以及晶体对称性怎样让一部分分量为零。",
   "prereq": {
@@ -20,18 +21,25 @@
     ]
   },
   "status": "draft",
-  "version": "0.2",
-  "updated": "2026-11-10",
+  "version": "0.3",
+  "updated": "2026-11-24",
   "sources": [
-    "ieee-176-piezo"
+    "ieee-176-piezo",
+    "brannon-2018-voigt-mandel"
   ],
   "changelog": [
     {
       "version": "0.2",
       "date": "2026-11-10",
       "note": "初稿正文：坐标变换规则、阶数与物理量、Voigt 记号及其因子、对称性约束；配图 1 张"
+    },
+    {
+      "version": "0.3",
+      "date": "2026-11-24",
+      "note": "工作提炼：补充 Mandel 记号与 Voigt 剪切因子 √2 的区别"
     }
-  ]
+  ],
+  "origin": "工作提炼（2026-11-24）"
 }
 ```
 ## 直觉 {intuition}
@@ -95,6 +103,16 @@ $$\eta_4 = 2\eta_{23}, \qquad \eta_5 = 2\eta_{13}, \qquad \eta_6 = 2\eta_{12}$$
 - $d$、$e$ 两个压电张量在 Voigt 压缩时哪个带因子 2，按 [@ieee-176-piezo] 逐项核对；这里写的是常见约定。
 :::
 
+### Mandel 记号（与 Voigt 的 √2）
+
+Voigt 记号为了让 $\sigma_I = \sum_J C_{IJ}\eta_J$ 在工程剪切应变下形式简洁，对剪切分量取 $\eta_4 = 2\eta_{23}$ 等，**不**保持对称张量空间里的标准内积。Mandel（有时也称 Kelvin–Mandel）记号则把对称张量写成 6 维向量时，剪切分量乘上 $\sqrt{2}$：
+
+$$\boldsymbol{\varepsilon}^{\mathrm{M}} = \bigl(\varepsilon_{11},\varepsilon_{22},\varepsilon_{33},\sqrt{2}\varepsilon_{23},\sqrt{2}\varepsilon_{13},\sqrt{2}\varepsilon_{12}\bigr)$$
+
+其中 $\varepsilon_{ij}$ 是张量应变。于是 $\|\boldsymbol{\varepsilon}^{\mathrm{M}}\|^2 = \sum_{ij}\varepsilon_{ij}^{2}$，正交变换在 6 维里仍对应正交矩阵 [@brannon-2018-voigt-mandel]。
+
+写有限差分应变、组装弹性矩阵或把剪切步长从“工程 $\gamma$”换成“张量 $\varepsilon$”时，漏掉 $\sqrt{2}$（或 Voigt 的因子 2）会让剪切相关的 $C_{44}$ 等错因子。两种记号可以互相换算，但不能在同一次推导里混用。
+
 ### 对称性怎样让分量为零
 
 如果某个操作 $R$ 把晶体变回自身，性质张量在这个变换下也必须不变：$T' = T$。这就是 Neumann 原理，它把一部分分量逼成零，或让几个分量相等。具体例子见 [[crystal-symmetry]]。
@@ -107,6 +125,7 @@ $$\eta_4 = 2\eta_{23}, \qquad \eta_5 = 2\eta_{13}, \qquad \eta_6 = 2\eta_{12}$$
 
 ## 常见坑 {mapping}
 
+- **Mandel 与 Voigt 混用**：剪切方向差 $\sqrt{2}$ 或 2 的因子；有限差分步长和矩阵组装必须与所选记号一致。
 - **Voigt 顺序不统一**：有的程序剪切顺序是 $xy, yz, zx$，有的是 $yz, xz, xy$。
 - **因子 2 用错**：剪切分量差 2 倍或 4 倍，最常见于弹性常数 $C_{44}$ 和压电剪切分量。
 - **把 Voigt 矩阵当普通矩阵旋转**：$6\times6$ 的 $C_{IJ}$ 不能直接用 $R$ 旋转，要先展开成四阶张量，或用专门的 $6\times6$ 变换矩阵。
