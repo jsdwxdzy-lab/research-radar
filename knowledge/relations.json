@@ -37,8 +37,60 @@
       "type": "computes",
       "explanation": "两种方法都是计算力常数、玻恩有效电荷、内应变等二阶导数的数值途径。",
       "condition": "线性响应范围内，且两者各自的数值参数（有限差分步长、微扰自洽阈值）已收敛",
-      "sources": ["baroni-2001-dfpt"],
+      "sources": [
+        "baroni-2001-dfpt"
+      ],
       "status": "candidate"
+    },
+    {
+      "id": "piezo-to-longitudinal",
+      "from": "piezoelectric-tensor",
+      "to": "longitudinal-piezoelectricity",
+      "type": "foundation",
+      "explanation": "纵向系数 d_L(n) 由完整压电张量经方向投影得到；没有 e/d 的定义就谈不上方向极大。",
+      "condition": "在同一套边界条件与坐标约定下投影",
+      "sources": [
+        "ieee-176-piezo"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "elastic-softens-longitudinal",
+      "from": "elastic-tensor",
+      "to": "longitudinal-piezoelectricity",
+      "type": "explains",
+      "explanation": "d = e s，软的弹性本征方向使柔顺很大，从而放大该方向的纵向 |d_L| 及其误差。",
+      "condition": "用恒电场柔顺 s^E 由 e 组装 d，且讨论的方向靠近 C 的软本征方向",
+      "sources": [
+        "ieee-176-piezo",
+        "wu-2005-strain"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "rigid-approx-piezo",
+      "from": "rigid-molecule-piezoelectricity",
+      "to": "piezoelectric-tensor",
+      "type": "approximates",
+      "explanation": "刚体分子近似把内应变限制在分子平动与转动子空间，用来近似全原子离子压电项。",
+      "condition": "对响应贡献大的位移主要是分子整体运动；强分子内弛豫或质子转移体系除外",
+      "sources": [
+        "chandrasekharan-1977-rigid-molecule",
+        "wu-2005-strain"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "molecular-crystals-rigid-piezo",
+      "from": "molecular-crystals",
+      "to": "rigid-molecule-piezoelectricity",
+      "type": "prerequisite",
+      "explanation": "刚体近似依赖分子内共价键明显强于分子间作用这一分子晶体图像。",
+      "condition": "讨论的是由可识别分子组成的分子晶体",
+      "sources": [
+        "gray-day-2004-rigid-dynamics"
+      ],
+      "status": "draft"
     }
   ]
 }
