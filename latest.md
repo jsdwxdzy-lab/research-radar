@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-25（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 17:12 · 抓取窗口 11-24 01:12 → 现在 · 候选 888 → 本轮入库 55 → 今日累计 **20**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 19:12 · 抓取窗口 11-24 03:12 → 现在 · 候选 903 → 本轮入库 57 → 今日累计 **22**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：OMNI-P3x universal neural network potential for large-scale computational photochemistry w…（11.9）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（25 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 5 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 3 · 手性分子与分子晶体 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 6 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 3 · 手性分子与分子晶体 2
 
 ## 今日最值得看
 
@@ -16,30 +16,30 @@
    <sub>命中：machine-learned interatomic potential、neural network potential、interatomic potential、fine-tuning、mlip</sub>
    > Computational photochemistry supports the design and understanding of new materials. However, the high cost of excited-state quantum-mechanical (QM) calculations makes screening large molecular libraries prohibitively expensive.
 
-2. **[Interplay between crystal packing and spectral properties of 3′,4′-dimethoxy-3-hydroxyflavone polymorphs](https://doi.org/10.1515/zkri-2026-0046)**
+2. **[Chiral induction in BiPO 4 nanorods by amino acids](https://doi.org/10.1039/d6nr03503e)**
+   `手性晶体` · *Nanoscale* · 2026-11-17
+   <sub>命中：enantiomeric、enantiopure、enantiomers、racemic、chiral</sub>
+   > We report the amino-acid-directed crystallization of chiral bismuth phosphate (BiPO4, ximengite) nanorods under mild aqueous conditions at room temperature. Enantiopure L- and D-aspartic acid enantiomers were employed as molecular inducers, producing BiPO4 nanorods with opposite chiroptical responses and controlled mor…
+
+3. **[Interplay between crystal packing and spectral properties of 3′,4′-dimethoxy-3-hydroxyflavone polymorphs](https://doi.org/10.1515/zkri-2026-0046)**
    `CSP` `手性晶体` · *Zeitschrift für Kristallographie - Crystalline…* · 2026-11-23
    <sub>命中：crystal packing、polymorphism、space group、polymorph、Sohncke 等 6 个</sub>
    > This research focuses on the impact of crystal polymorphism on the spectral properties and excited-state intramolecular proton transfer (ESIPT) kinetics of 3′,4′-dimethoxy-3-hydroxyflavone (DMHF).
 
-3. **[Accelerating Equivariant Interatomic Potentials for Molecular Dynamics through Radial tabulation and Kernel Fusion](https://arxiv.org/abs/2611.31865)**
+4. **[Accelerating Equivariant Interatomic Potentials for Molecular Dynamics through Radial tabulation and Kernel Fusion](https://arxiv.org/abs/2611.31865)**
    `MLIP` · *arXiv* · 2026-11-24 · [PDF](https://arxiv.org/pdf/2611.31865)
    <sub>命中：equivariant、nequip、mlip、mace</sub>
    > Equivariant machine-learned interatomic potentials (MLIPs) achieve near-quantum-chemical accuracy, but their computational cost and GPU memory footprint restrict molecular dynamics (MD) at extended length and time scales.
 
-4. **[Mechanism of Alkene Skeletal Isomerization in Zeolites Revealed by Coupled‐Cluster Accurate Free‐Energy Simulations](https://doi.org/10.1002/ange.5971003)**
+5. **[Mechanism of Alkene Skeletal Isomerization in Zeolites Revealed by Coupled‐Cluster Accurate Free‐Energy Simulations](https://doi.org/10.1002/ange.5971003)**
    `MLIP` · *Angewandte Chemie* · 2026-11-23
    <sub>命中：density functional theory、interatomic potential、mlip</sub>
    > The mechanism of Brønsted acid‐catalyzed transformations in zeolites is generally described in terms of carbocationic intermediates, yet their thermodynamic stability and mechanistic role remain controversial.
 
-5. **[Resolving Chlorine Sites in Pharmaceuticals by Integrated Site-Resolved Zeeman-Perturbed NQR, Solid-State NMR, and Electron Diffraction Crystallography](https://doi.org/10.1021/jacs.6c15658)**
+6. **[Resolving Chlorine Sites in Pharmaceuticals by Integrated Site-Resolved Zeeman-Perturbed NQR, Solid-State NMR, and Electron Diffraction Crystallography](https://doi.org/10.1021/jacs.6c15658)**
    `CSP` · *Journal of the American Chemical Society* · 2026-11-24
    <sub>命中：crystal packing、polymorph</sub>
    > Many active pharmaceutical ingredients (APIs) and high-value chemicals feature covalently bonded chlorine functionalities that influence molecular packing, stability, and bioavailability.
-
-6. **[Scaffold-guided generative AI for Type I photosensitizer design in hypoxic photodynamic therapy](https://doi.org/10.1039/d6sc07010h)**
-   `生成模型` · *Chemical Science* · 2026-11-24
-   <sub>命中：molecular generation</sub>
-   > Scaffold-guided AI integrates molecular generation, prediction, and multi-stage screening to design novel Type I PSs for hypoxic tumor photodynamic therapy. Among six synthesized candidates, A1 showed promising efficacy in vitro and in vivo .
 
 ## 按主题展开
 
@@ -55,12 +55,22 @@
   <sub>命中：molecular crystal</sub>
   > Solving the Bethe-Salpeter equation (BSE) for the two-particle Green’s function is the most widely used approach for taking into account the particle-hole (exciton) interaction in electronic excitatio…
 
+- **[A Rare Asymmetric Threefold Interpenetrated Co(II) Framework Crystallizing in a Chiral Space Group: Auxiliary Ligand-Directed Assembly, Magnetic and Antibacterial Properties](https://doi.org/10.1021/acs.cgd.6c01334)**
+  `CSP` · *Crystal Growth & Design* · 2026-11-25
+  <sub>命中：space group</sub>
+  > Two cobalt(II)-based coordination polymers, namely [Co3(2,6-NDC)3(py)4]n (1) and [Co3(2,6-NDC)3(4,4′-bipy)1.5]n (2), were successfully synthesized by employing achiral 2,6-naphthalenedicarboxylate (2,…
+
 - **[Cross-Linked Halide Networks for Lithium Superionic Conduction](https://doi.org/10.1021/jacs.6c10351)**
   `CSP` · *Journal of the American Chemical Society* · 2026-11-25
   <sub>命中：energy landscape</sub>
   > All-solid-state batteries (ASSBs) hold great promise for next-generation energy storage owing to their high safety and energy density, yet their performance critically depends on solid electrolytes (S…
 
 ### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.5×
+
+- **[Scaffold-guided generative AI for Type I photosensitizer design in hypoxic photodynamic therapy](https://doi.org/10.1039/d6sc07010h)**
+  `生成模型` · *Chemical Science* · 2026-11-24
+  <sub>命中：molecular generation</sub>
+  > Scaffold-guided AI integrates molecular generation, prediction, and multi-stage screening to design novel Type I PSs for hypoxic tumor photodynamic therapy.
 
 - **[Multi-Objective Inverse Design of High-Performance Polymers via Contrastive-Pretrained Graph Attention Networks and NSGA-II](https://doi.org/10.1039/d6dd00106h)**
   `生成模型` · *Digital Discovery* · 2026-11-24
@@ -116,7 +126,7 @@
   <sub>命中：fine-tuning、mattersim</sub>
   > General-purpose machine-learning interatomic potentials (MLIPs) achieve near-DFT accuracy for equilibrium properties, yet their reliability for rare, non-equilibrium events—such as Li migration in gra…
 
-### 手性分子与分子晶体 · 回落 ↓0.5×
+### 手性分子与分子晶体 · 回落 ↓0.4×
 
 - **[Novel supramolecular architectures interventions in molecular self assembly and its blueprint for practice in agriculture and cancer nanomedicines](https://doi.org/10.1007/s44371-026-01102-9)**
   `手性晶体` · *Discover Chemistry.* · 2026-11-23
@@ -143,11 +153,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 736 | ok |
-| crossref | 90 | ok |
-| openalex | 115 | ok |
-| rss | 81 | ok |
+| crossref | 97 | ok |
+| openalex | 123 | ok |
+| rss | 84 | ok |
 | github | 0 | ok |
 
-> 原始 1022 → 去重 888 → 剔除标题噪声 29 → 低相关度 804 → 入库 55。
+> 原始 1040 → 去重 903 → 剔除标题噪声 29 → 低相关度 817 → 入库 57。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
