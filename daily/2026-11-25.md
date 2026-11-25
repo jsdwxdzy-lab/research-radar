@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-25（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:08 · 抓取窗口 11-23 20:08 → 现在 · 候选 909 → 本轮入库 60 → 今日累计 **18**（本次 +4） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 13:32 · 抓取窗口 11-23 21:32 → 现在 · 候选 924 → 本轮入库 60 → 今日累计 **19**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：OMNI-P3x universal neural network potential for large-scale computational photochemistry w…（11.9）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（25 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 4 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 2 · 手性分子与分子晶体 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 4 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 3 · 手性分子与分子晶体 1
 
 ## 今日最值得看
 
@@ -74,6 +74,11 @@
   <sub>命中：optimal transport、wasserstein</sub>
   > Training data selection for machine learning models is a critical bottleneck in industrial applications where expert annotation is costly and time-consuming.
 
+- **[Contact Geometry for Generative Models: An Unbalanced Optimal Transport Formulation](https://arxiv.org/abs/2611.32547)**
+  `生成数学` · *arXiv* · 2026-11-24 · [PDF](https://arxiv.org/pdf/2611.32547)
+  <sub>命中：optimal transport、wasserstein</sub>
+  > Real-world generative problems in biology, medical imaging, or robotics, rarely come with perfectly paired source and target distributions.
+
 - **[Every Edit Its Own Budget: Per-Instruction Token Freezing for Training-Free Acceleration of Multi-Edit Image Editing](https://arxiv.org/abs/2611.32407)**
   `生成数学` · *arXiv* · 2026-11-24 · [PDF](https://arxiv.org/pdf/2611.32407)
   <sub>命中：optimal transport、flow matching</sub>
@@ -132,12 +137,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 727 | ok |
-| crossref | 127 | ok |
+| arxiv | 736 | ok |
+| crossref | 128 | ok |
 | openalex | 115 | ok |
 | rss | 81 | ok |
 | github | 0 | ok |
 
-> 原始 1050 → 去重 909 → 剔除标题噪声 30 → 低相关度 819 → 入库 60。
+> 原始 1060 → 去重 924 → 剔除标题噪声 29 → 低相关度 835 → 入库 60。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
