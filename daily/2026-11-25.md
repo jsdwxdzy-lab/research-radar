@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-25（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-23 17:08 → 现在 · 候选 876 → 本轮入库 55 → 今日累计 **11**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-23 18:08 → 现在 · 候选 888 → 本轮入库 57 → 今日累计 **13**（本次 +2） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Interplay between crystal packing and spectral properties of 3′,4′-dimethoxy-3-hydroxyflav…（9.8）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
-- **构成**：分子晶体结构预测（CSP）与能量图景 4 · 机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（21 篇）
+- **构成**：分子晶体结构预测（CSP）与能量图景 4 · 机器学习势与通用势函数（MLIP / UMA） 4 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 1 · 手性分子与分子晶体 1
 
 ## 今日最值得看
 
@@ -16,32 +16,44 @@
    <sub>命中：crystal packing、polymorphism、space group、polymorph、Sohncke 等 6 个</sub>
    > This research focuses on the impact of crystal polymorphism on the spectral properties and excited-state intramolecular proton transfer (ESIPT) kinetics of 3′,4′-dimethoxy-3-hydroxyflavone (DMHF).
 
-2. **[Mechanism of Alkene Skeletal Isomerization in Zeolites Revealed by Coupled‐Cluster Accurate Free‐Energy Simulations](https://doi.org/10.1002/ange.5971003)**
+2. **[Accelerating Equivariant Interatomic Potentials for Molecular Dynamics through Radial tabulation and Kernel Fusion](https://arxiv.org/abs/2611.31865)**
+   `MLIP` · *arXiv* · 2026-11-24 · [PDF](https://arxiv.org/pdf/2611.31865)
+   <sub>命中：equivariant、nequip、mlip、mace</sub>
+   > Equivariant machine-learned interatomic potentials (MLIPs) achieve near-quantum-chemical accuracy, but their computational cost and GPU memory footprint restrict molecular dynamics (MD) at extended length and time scales.
+
+3. **[Mechanism of Alkene Skeletal Isomerization in Zeolites Revealed by Coupled‐Cluster Accurate Free‐Energy Simulations](https://doi.org/10.1002/ange.5971003)**
    `MLIP` · *Angewandte Chemie* · 2026-11-23
    <sub>命中：density functional theory、interatomic potential、mlip</sub>
    > The mechanism of Brønsted acid‐catalyzed transformations in zeolites is generally described in terms of carbocationic intermediates, yet their thermodynamic stability and mechanistic role remain controversial.
 
-3. **[Resolving Chlorine Sites in Pharmaceuticals by Integrated Site-Resolved Zeeman-Perturbed NQR, Solid-State NMR, and Electron Diffraction Crystallography](https://doi.org/10.1021/jacs.6c15658)**
+4. **[Resolving Chlorine Sites in Pharmaceuticals by Integrated Site-Resolved Zeeman-Perturbed NQR, Solid-State NMR, and Electron Diffraction Crystallography](https://doi.org/10.1021/jacs.6c15658)**
    `CSP` · *Journal of the American Chemical Society* · 2026-11-24
    <sub>命中：crystal packing、polymorph</sub>
    > Many active pharmaceutical ingredients (APIs) and high-value chemicals feature covalently bonded chlorine functionalities that influence molecular packing, stability, and bioavailability.
 
-4. **[Scaffold-guided generative AI for Type I photosensitizer design in hypoxic photodynamic therapy](https://doi.org/10.1039/d6sc07010h)**
+5. **[Scaffold-guided generative AI for Type I photosensitizer design in hypoxic photodynamic therapy](https://doi.org/10.1039/d6sc07010h)**
    `生成模型` · *Chemical Science* · 2026-11-24
    <sub>命中：molecular generation</sub>
    > Scaffold-guided AI integrates molecular generation, prediction, and multi-stage screening to design novel Type I PSs for hypoxic tumor photodynamic therapy. Among six synthesized candidates, A1 showed promising efficacy in vitro and in vivo .
 
-5. **[A New Monomethyl Fumarate Co-Crystal with Nicotinamide: Synthesis, Structure, Thermodynamic Stability, and Solubility Advantage](https://doi.org/10.1021/acs.cgd.6c01437)**
-   `CSP` · *Crystal Growth & Design* · 2026-11-24
-   <sub>命中：co-crystal</sub>
-   > Monomethyl fumarate (MMF) is a clinically relevant bioactive compound used in the treatment of multiple sclerosis and increasingly explored for a broad range of therapeutic applications.
-
-6. **[All-Electron Dynamical Bethe-Salpeter Equation for Extended Systems with Atom-Centered Orbital Basis](https://doi.org/10.1021/acs.jctc.6c01133)**
-   `CSP` · *Journal of Chemical Theory and Computation* · 2026-11-24
-   <sub>命中：molecular crystal</sub>
-   > Solving the Bethe-Salpeter equation (BSE) for the two-particle Green’s function is the most widely used approach for taking into account the particle-hole (exciton) interaction in electronic excitation in the context of the many-body theory based on Green’s function.
+6. **[SOTS: Signature-based Optimal Transport Selection](https://arxiv.org/abs/2611.31525)**
+   `生成数学` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.31525)
+   <sub>命中：optimal transport、wasserstein</sub>
+   > Training data selection for machine learning models is a critical bottleneck in industrial applications where expert annotation is costly and time-consuming. Existing coreset selection methods for time series either ignore temporal structure entirely or cannot handle variable-length, irregularly sampled, multi-channel…
 
 ## 按主题展开
+
+### 分子晶体结构预测（CSP）与能量图景 · 持平
+
+- **[A New Monomethyl Fumarate Co-Crystal with Nicotinamide: Synthesis, Structure, Thermodynamic Stability, and Solubility Advantage](https://doi.org/10.1021/acs.cgd.6c01437)**
+  `CSP` · *Crystal Growth & Design* · 2026-11-24
+  <sub>命中：co-crystal</sub>
+  > Monomethyl fumarate (MMF) is a clinically relevant bioactive compound used in the treatment of multiple sclerosis and increasingly explored for a broad range of therapeutic applications.
+
+- **[All-Electron Dynamical Bethe-Salpeter Equation for Extended Systems with Atom-Centered Orbital Basis](https://doi.org/10.1021/acs.jctc.6c01133)**
+  `CSP` · *Journal of Chemical Theory and Computation* · 2026-11-24
+  <sub>命中：molecular crystal</sub>
+  > Solving the Bethe-Salpeter equation (BSE) for the two-particle Green’s function is the most widely used approach for taking into account the particle-hole (exciton) interaction in electronic excitatio…
 
 ### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.5×
 
@@ -55,7 +67,7 @@
   <sub>命中：molecular design</sub>
   > Optoelectronic functional molecules serve as core components of organic optoelectronic devices, and play a central role in light emission, charge transport and photoconversion processes.
 
-### 机器学习势与通用势函数（MLIP / UMA） · 回落 ↓0.5×
+### 机器学习势与通用势函数（MLIP / UMA） · 回落 ↓0.6×
 
 - **[Molecular Dynamics Assessment of Monomer-level Approximations in Density Functional Theory of Polymer Electrolytes: From Bulk to Ceramic Interfaces](https://doi.org/10.26434/chemrxiv.15012611/v1)**
   `MLIP` · *ChemRxiv* · 2026-11-23
@@ -93,12 +105,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 688 | ok |
+| arxiv | 698 | ok |
 | crossref | 126 | ok |
 | openalex | 115 | ok |
 | rss | 80 | ok |
 | github | 0 | ok |
 
-> 原始 1009 → 去重 876 → 剔除标题噪声 27 → 低相关度 794 → 入库 55。
+> 原始 1019 → 去重 888 → 剔除标题噪声 28 → 低相关度 803 → 入库 57。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
