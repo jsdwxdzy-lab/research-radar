@@ -1,109 +1,78 @@
-# 科研雷达 · 2026-11-24（周二）
+# 科研雷达 · 2026-11-25（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 20:24 · 抓取窗口 11-23 04:24 → 现在 · 候选 884 → 本轮入库 47 → 今日累计 **17**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 08:08 · 抓取窗口 11-23 16:08 → 现在 · 候选 876 → 本轮入库 55 → 今日累计 **11**（本次 +11） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
-- **最高相关度**：Crystal Structure Prediction of Imidacloprid（10.0）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（30 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 化学相关生成模型（分子、材料与反应） 4 · 分子晶体结构预测（CSP）与能量图景 2 · 生成模型相关数学 2 · 晶体生成模型与逆向设计 1
+- **最高相关度**：Interplay between crystal packing and spectral properties of 3′,4′-dimethoxy-3-hydroxyflav…（9.8）
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（20 篇）
+- **构成**：分子晶体结构预测（CSP）与能量图景 4 · 机器学习势与通用势函数（MLIP / UMA） 3 · 化学相关生成模型（分子、材料与反应） 3 · 手性分子与分子晶体 1
 
 ## 今日最值得看
 
-1. **[Crystal Structure Prediction of Imidacloprid](https://doi.org/10.1039/d6ce00877a)**
-   `CSP` · *CrystEngComm* · 2026-11-23 · 👤Erin R. Johnson
-   <sub>命中：crystal structure prediction、crystal structure</sub>
-   > Inspired by the recent experimental discovery of seven new polymorphs by Zhu et al. [J. Am. Chem. Soc., 2021, 143, 17144-17152], this work presents a first-principles crystal structure prediction study...
+1. **[Interplay between crystal packing and spectral properties of 3′,4′-dimethoxy-3-hydroxyflavone polymorphs](https://doi.org/10.1515/zkri-2026-0046)**
+   `CSP` `手性晶体` · *Zeitschrift für Kristallographie - Crystalline…* · 2026-11-23
+   <sub>命中：crystal packing、polymorphism、space group、polymorph、Sohncke 等 6 个</sub>
+   > This research focuses on the impact of crystal polymorphism on the spectral properties and excited-state intramolecular proton transfer (ESIPT) kinetics of 3′,4′-dimethoxy-3-hydroxyflavone (DMHF).
 
-2. **[Machine-Learned NMR Shieldings in Molecular Solids with Built-In Hybrid-Functional Molecular Corrections](https://doi.org/10.1021/acs.jpclett.6c02955)**
-   `MLIP` · *The Journal of Physical Chemistry Letters* · 2026-11-23 · 👤Michele Ceriotti
-   <sub>命中：machine-learned interatomic potential、interatomic potential</sub>
-   > Fast and accurate chemical shielding estimators are essential for shielding-driven Nuclear Magnetic Resonance (NMR) crystallography. Machine-learning models for shielding predictions have matured significantly and today are primarily limited by the electronic structure reference data they are trained on.
+2. **[Mechanism of Alkene Skeletal Isomerization in Zeolites Revealed by Coupled‐Cluster Accurate Free‐Energy Simulations](https://doi.org/10.1002/ange.5971003)**
+   `MLIP` · *Angewandte Chemie* · 2026-11-23
+   <sub>命中：density functional theory、interatomic potential、mlip</sub>
+   > The mechanism of Brønsted acid‐catalyzed transformations in zeolites is generally described in terms of carbocationic intermediates, yet their thermodynamic stability and mechanistic role remain controversial.
 
-3. **[Enhancing Distribution Matching in Target-Aware 3D Molecular Generation via a Variational Diffusion Model](https://doi.org/10.5626/jok.2026.53.11.1216)**
-   `生成模型` · *Journal of KIISE* · 2026-11-23
-   <sub>命中：molecular generation、diffusion model</sub>
+3. **[Resolving Chlorine Sites in Pharmaceuticals by Integrated Site-Resolved Zeeman-Perturbed NQR, Solid-State NMR, and Electron Diffraction Crystallography](https://doi.org/10.1021/jacs.6c15658)**
+   `CSP` · *Journal of the American Chemical Society* · 2026-11-24
+   <sub>命中：crystal packing、polymorph</sub>
+   > Many active pharmaceutical ingredients (APIs) and high-value chemicals feature covalently bonded chlorine functionalities that influence molecular packing, stability, and bioavailability.
 
-4. **[High-Throughput Screening of Phononic Bandgap in Experimentally Realized Materials](https://arxiv.org/abs/2611.30344)**
-   `MLIP` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.30344)
-   <sub>命中：machine learning interatomic potential、density functional theory、interatomic potential</sub>
-   > Materials with a phonon band gap offer a unique mechanism to restrict phonon scattering, making them promising candidates for developing functional materials for targeted thermal applications.
+4. **[Scaffold-guided generative AI for Type I photosensitizer design in hypoxic photodynamic therapy](https://doi.org/10.1039/d6sc07010h)**
+   `生成模型` · *Chemical Science* · 2026-11-24
+   <sub>命中：molecular generation</sub>
+   > Scaffold-guided AI integrates molecular generation, prediction, and multi-stage screening to design novel Type I PSs for hypoxic tumor photodynamic therapy. Among six synthesized candidates, A1 showed promising efficacy in vitro and in vivo .
 
-5. **[Unveiling the Complex high-pressure phases of Sodium at the Melting Curve Minimum via Data-Drive Crystal Structure Prediction](https://arxiv.org/abs/2611.29889)**
-   `CSP` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.29889)
-   <sub>命中：crystal structure prediction、crystal structure</sub>
-   > Sodium exhibits a remarkable concentration of complex crystalline phases near its melting-curve minimum, yet the atomic arrangements of several experimentally observed phases remain unresolved.
+5. **[A New Monomethyl Fumarate Co-Crystal with Nicotinamide: Synthesis, Structure, Thermodynamic Stability, and Solubility Advantage](https://doi.org/10.1021/acs.cgd.6c01437)**
+   `CSP` · *Crystal Growth & Design* · 2026-11-24
+   <sub>命中：co-crystal</sub>
+   > Monomethyl fumarate (MMF) is a clinically relevant bioactive compound used in the treatment of multiple sclerosis and increasingly explored for a broad range of therapeutic applications.
 
-6. **[Diagnostic Accuracy Is Not Deployment Value: Decision-Aligned Reliability Evaluation for Foundation MLIPs in Materials Discovery](https://arxiv.org/abs/2611.30066)**
-   `MLIP` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.30066)
-   <sub>命中：mlip、mace</sub>
-   > In AI-guided materials discovery, machine-learning models increasingly decide which candidate materials should receive expensive first-principles or experimental evaluation. Standard reliability metrics such as uncertainty, calibration, novelty, and ranking accuracy evaluate properties of the predictions, but success o…
+6. **[All-Electron Dynamical Bethe-Salpeter Equation for Extended Systems with Atom-Centered Orbital Basis](https://doi.org/10.1021/acs.jctc.6c01133)**
+   `CSP` · *Journal of Chemical Theory and Computation* · 2026-11-24
+   <sub>命中：molecular crystal</sub>
+   > Solving the Bethe-Salpeter equation (BSE) for the two-particle Green’s function is the most widely used approach for taking into account the particle-hole (exciton) interaction in electronic excitation in the context of the many-body theory based on Green’s function.
 
 ## 按主题展开
 
-### 晶体生成模型与逆向设计 · 持平
+### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.5×
 
-- **[AmorphGen: A Python package for amorphous structure generation with machine-learning and classical interatomic potentials](https://arxiv.org/abs/2611.29539)**
-  `生成设计` · *arXiv* · 2026-11-22 · [PDF](https://arxiv.org/pdf/2611.29539)
-  <sub>命中：structure generation</sub>
-  > AmorphGen is an open-source Python package for generating and analyzing amorphous structures from a composition or a crystal.
+- **[Multi-Objective Inverse Design of High-Performance Polymers via Contrastive-Pretrained Graph Attention Networks and NSGA-II](https://doi.org/10.1039/d6dd00106h)**
+  `生成模型` · *Digital Discovery* · 2026-11-24
+  <sub>命中：inverse design</sub>
+  > The simultaneous optimization of low dielectric constant (k) and high glass transition temperature (Tg) remains a fundamental challenge in the design of high-performance polymer materials for advanced…
 
-### 化学相关生成模型（分子、材料与反应） · 持平
+- **[An Uncertainty-Aware Hierarchical Reinforcement Learning Framework for the Conditional Generation of Optoelectronic Molecules](https://doi.org/10.1021/acs.jctc.6c01827)**
+  `生成模型` · *Journal of Chemical Theory and Computation* · 2026-11-24
+  <sub>命中：molecular design</sub>
+  > Optoelectronic functional molecules serve as core components of organic optoelectronic devices, and play a central role in light emission, charge transport and photoconversion processes.
 
-- **[RxnScope: Accurate joint generation of product and transition-state pairs from reactants via flow matching](https://arxiv.org/abs/2611.29492)**
-  `生成模型` · *arXiv* · 2026-11-22 · [PDF](https://arxiv.org/pdf/2611.29492)
-  <sub>命中：flow matching</sub>
-  > Reaction networks are central to understanding chemical reactivity and guiding reaction design. Constructing them when products are unknown remains a major challenge in computational chemistry, requir…
+### 机器学习势与通用势函数（MLIP / UMA） · 回落 ↓0.5×
 
-- **[Time-Resolved Monitoring of Surface-Adsorbed H2O Migration into Mesoporous Media at Submillimeter Spatial Resolution through Hyperpolarized Xenon-129 NMR Spectroscopy](https://doi.org/10.1021/acs.jpcc.6c05184)**
-  `生成模型` · *The Journal of Physical Chemistry C* · 2026-11-23
-  <sub>命中：diffusion model</sub>
-  > Diffusion of surface-adsorbed water in porous media can be difficult to observe through 1H NMR pulsed field gradient measurements due to strong signal broadening and resulting low signal-to-noise (SNR…
-
-- **[De Novo Generation of Odorant Molecules with Targeted Olfactory Receptor Activation Patterns](https://arxiv.org/abs/2611.30509)**
-  `生成模型` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.30509)
-  <sub>命中：de novo</sub>
-  > Odor perception arises from a combinatorial code in which each molecule activates a specific subset of olfactory receptors (ORs), and the resulting activation pattern determines the perceived smell.
-
-### 生成模型相关数学 · 持平
-
-- **[Neural Schrödinger Bridge via Yasue Action with Applications to Generative Modeling](https://arxiv.org/abs/2611.28623)**
-  `生成数学` · *arXiv* · 2026-11-21 · [PDF](https://arxiv.org/pdf/2611.28623)
-  <sub>命中：stochastic differential、schrödinger bridge</sub>
-  > We propose a novel neural solver for inferring the continuous state evolution of the Schrödinger bridge problem.
-
-- **[FMSNO: Scaling Surface Neural Operators by Learned Flow Matching Reparametrisation](https://arxiv.org/abs/2611.30341)**
-  `生成数学` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.30341)
-  <sub>命中：optimal transport、flow matching</sub>
-  > We propose the Flow Matching Surface Neural Operator (FMSNO), which combines learning a shared map from irregular surface meshes to a regular two-dimensional grid on the sphere and training a neural o…
-
-### 机器学习势与通用势函数（MLIP / UMA） · 持平
-
-- **[CLFF: Automated Framework for Concurrent Learning Force Fields and Material Property Calculations](https://arxiv.org/abs/2611.29187)**
-  `MLIP` · *arXiv* · 2026-11-22 · [PDF](https://arxiv.org/pdf/2611.29187)
-  <sub>命中：potential energy surface、mlip</sub>
-  > Machine learning interatomic potentials (MLIPs) offer an efficient paradigm for large-scale atomistic simulations with near first-principles accuracy.
-
-- **[Accelerating interatomic potential development through student-driven exploration and reliability-aware distillation](https://arxiv.org/abs/2611.30229)**
-  `MLIP` · *arXiv* · 2026-11-23 · [PDF](https://arxiv.org/pdf/2611.30229)
+- **[Molecular Dynamics Assessment of Monomer-level Approximations in Density Functional Theory of Polymer Electrolytes: From Bulk to Ceramic Interfaces](https://doi.org/10.26434/chemrxiv.15012611/v1)**
+  `MLIP` · *ChemRxiv* · 2026-11-23
   <sub>命中：density functional theory、interatomic potential</sub>
-  > Conventional two-stage distillation first establishes a teacher through teacher-driven configuration exploration, a costly first stage for complex materials, and then uses its predictions to supervise…
+  > Determining the interactions and chain or ion dynamics in the bulk polymer phase and at polymer-ceramic interfaces is crucial for next-generation polymer-ceramic composite electrolyte design, where po…
 
-- **[Machine-learning molecular dynamics reveals dynamic interfacial structure and active-site accessibility in Fe–N–C single-atom catalysts](https://doi.org/10.1063/5.0359254)**
-  `MLIP` · *The Journal of Chemical Physics* · 2026-11-23
-  <sub>命中：density functional theory、equivariant</sub>
-  > Fe–N–C single-atom catalysts are promising Pt-free catalysts for the oxygen reduction reaction. However, molecular-level understanding of their aqueous interfaces remains limited because ab initio mol…
+- **[Building a grain-boundary machine-learning force field by reactive sampling and data curation, and its application to large-scale grain-boundary transport in Li6PS5X (X =Cl, Br)](https://doi.org/10.26434/chemrxiv.15012608/v1)**
+  `MLIP` · *ChemRxiv* · 2026-11-23
+  <sub>命中：fine-tuning、mattersim</sub>
+  > General-purpose machine-learning interatomic potentials (MLIPs) achieve near-DFT accuracy for equilibrium properties, yet their reliability for rare, non-equilibrium events—such as Li migration in gra…
 
-- **[AdaptiveNet: Accurate Electron Density Prediction with Adaptive Global Charge Equilibration for Accelerating Large-Scale DFT Calculations](https://doi.org/10.1021/acs.jctc.6c01610)**
-  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-23
-  <sub>命中：equivariant</sub>
-  > Accurate prediction of extended systems requires accounting for charge redistribution that reaches beyond the local coordination environment, and machine learning models offer various strategies to ad…
+### 手性分子与分子晶体 · 回落 ↓0.5×
 
-- **[Nuclear-Electronic Orbital Subsystem Density Functional Theory](https://doi.org/10.1021/acs.jctc.6c01732)**
-  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-23
-  <sub>命中：density functional theory</sub>
-  > We present a new computational approach based on Nuclear-Electronic Orbital and Subsystem Density Functional Theory.
+- **[Novel supramolecular architectures interventions in molecular self assembly and its blueprint for practice in agriculture and cancer nanomedicines](https://doi.org/10.1007/s44371-026-01102-9)**
+  `手性晶体` · *Discover Chemistry.* · 2026-11-23
+  <sub>命中：chirality、chiral</sub>
+  > Modern chemistry relies on supramolecular chirality to link molecular architecture and functional materials through hierarchical self-assembly.
 
 ## 工具与模型发布
 
@@ -113,28 +82,23 @@ _（窗口内没有关注工具的版本发布）_
 
 _（窗口内没有命中关注主题的新闻）_
 
-## 关注课题组的新作
-
-- [Crystal Structure Prediction of Imidacloprid](https://doi.org/10.1039/d6ce00877a) — *CrystEngComm* · 2026-11-23（Erin R. Johnson）
-- [Machine-Learned NMR Shieldings in Molecular Solids with Built-In Hybrid-Functional Molecular Corrections](https://doi.org/10.1021/acs.jpclett.6c02955) — *The Journal of Physical Chemistry Le…* · 2026-11-23（Michele Ceriotti）
-
 ## 会议与活动（未来 120 天，日期以官网为准）
 
-- **12-01**（7 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
-- **12-08**（14 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
-- **03-10**（106 天后）[APS March Meeting](https://www.aps.org/meetings/march) — 凝聚态/材料模拟大本营，MLIP 与晶体方法学分会场集中
-- **03-20**（116 天后）[ACS Spring National Meeting](https://www.acs.org/meetings.html) — COMP 分会（计算化学）与晶体学相关 symposium
+- **12-01**（6 天后）[MRS Fall Meeting](https://www.mrs.org/fall-meeting) — 材料计算与 AI 相关 session
+- **12-08**（13 天后）[NeurIPS + ML4PS / AI4Science workshops](https://neurips.cc/) — 机器学习与物理科学交叉方法的最新动向
+- **03-10**（105 天后）[APS March Meeting](https://www.aps.org/meetings/march) — 凝聚态/材料模拟大本营，MLIP 与晶体方法学分会场集中
+- **03-20**（115 天后）[ACS Spring National Meeting](https://www.acs.org/meetings.html) — COMP 分会（计算化学）与晶体学相关 symposium
 
 ## 运行健康
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 737 | ok |
-| crossref | 107 | ok |
-| openalex | 77 | ok |
-| rss | 85 | ok |
+| arxiv | 688 | ok |
+| crossref | 126 | ok |
+| openalex | 115 | ok |
+| rss | 80 | ok |
 | github | 0 | ok |
 
-> 原始 1006 → 去重 884 → 剔除标题噪声 21 → 低相关度 816 → 入库 47。
+> 原始 1009 → 去重 876 → 剔除标题噪声 27 → 低相关度 794 → 入库 55。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
