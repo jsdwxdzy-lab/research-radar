@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-25（周三）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 13:32 · 抓取窗口 11-23 21:32 → 现在 · 候选 924 → 本轮入库 60 → 今日累计 **19**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 17:12 · 抓取窗口 11-24 01:12 → 现在 · 候选 888 → 本轮入库 55 → 今日累计 **20**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：OMNI-P3x universal neural network potential for large-scale computational photochemistry w…（11.9）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（25 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 4 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 3 · 手性分子与分子晶体 1
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 8 · 分子晶体结构预测（CSP）与能量图景 5 · 化学相关生成模型（分子、材料与反应） 3 · 生成模型相关数学 3 · 手性分子与分子晶体 1
 
 ## 今日最值得看
 
@@ -54,6 +54,11 @@
   `CSP` · *Journal of Chemical Theory and Computation* · 2026-11-24
   <sub>命中：molecular crystal</sub>
   > Solving the Bethe-Salpeter equation (BSE) for the two-particle Green’s function is the most widely used approach for taking into account the particle-hole (exciton) interaction in electronic excitatio…
+
+- **[Cross-Linked Halide Networks for Lithium Superionic Conduction](https://doi.org/10.1021/jacs.6c10351)**
+  `CSP` · *Journal of the American Chemical Society* · 2026-11-25
+  <sub>命中：energy landscape</sub>
+  > All-solid-state batteries (ASSBs) hold great promise for next-generation energy storage owing to their high safety and energy density, yet their performance critically depends on solid electrolytes (S…
 
 ### 化学相关生成模型（分子、材料与反应） · 回落 ↓0.5×
 
@@ -138,11 +143,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 736 | ok |
-| crossref | 128 | ok |
+| crossref | 90 | ok |
 | openalex | 115 | ok |
 | rss | 81 | ok |
 | github | 0 | ok |
 
-> 原始 1060 → 去重 924 → 剔除标题噪声 29 → 低相关度 835 → 入库 60。
+> 原始 1022 → 去重 888 → 剔除标题噪声 29 → 低相关度 804 → 入库 55。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
