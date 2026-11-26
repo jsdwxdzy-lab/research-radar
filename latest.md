@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-26（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 16:55 · 抓取窗口 11-25 00:55 → 现在 · 候选 922 → 本轮入库 54 → 今日累计 **19**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 18:49 · 抓取窗口 11-25 02:49 → 现在 · 候选 930 → 本轮入库 55 → 今日累计 **20**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Machine Learning Interatomic Potentials and Agentic AI as Enabling Tools for the Computati…（10.6）
 - **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（34 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 14 · 化学相关生成模型（分子、材料与反应） 5
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 14 · 化学相关生成模型（分子、材料与反应） 5 · 分子晶体结构预测（CSP）与能量图景 1
 
 ## 今日最值得看
 
@@ -42,6 +42,13 @@
    > Computing the infrared (IR) spectrum of a molecule from its structure is routine. The inverse problem is not. In practice, IR spectra are used to identify the functional groups present in a molecule, while the determination of its complete structure requires additional measurements.
 
 ## 按主题展开
+
+### 分子晶体结构预测（CSP）与能量图景 · 持平
+
+- **[Machine Learning-Assisted Raman Spectroscopy for Quantitative Phase Analysis of TiO2 Nanomaterials](https://doi.org/10.1021/acsanm.6c04581)**
+  `CSP` · *ACS Applied Nano Materials* · 2026-11-25
+  <sub>命中：polymorph</sub>
+  > Machine learning has recently emerged as a powerful tool for extracting composition−structure relationships from complex materials characterization data.
 
 ### 化学相关生成模型（分子、材料与反应） · 持平
 
@@ -121,11 +128,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 742 | ok |
-| crossref | 102 | ok |
-| openalex | 116 | ok |
-| rss | 101 | ok |
+| crossref | 106 | ok |
+| openalex | 117 | ok |
+| rss | 104 | ok |
 | github | 0 | ok |
 
-> 原始 1061 → 去重 922 → 剔除标题噪声 28 → 低相关度 840 → 入库 54。
+> 原始 1069 → 去重 930 → 剔除标题噪声 27 → 低相关度 848 → 入库 55。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
