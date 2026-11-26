@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-26（周四）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 09:08 · 抓取窗口 11-24 17:08 → 现在 · 候选 913 → 本轮入库 54 → 今日累计 **7**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 10:08 · 抓取窗口 11-24 18:08 → 现在 · 候选 928 → 本轮入库 57 → 今日累计 **10**（本次 +3） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Machine Learning Interatomic Potentials and Agentic AI as Enabling Tools for the Computati…（10.6）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（24 篇）
-- **构成**：机器学习势与通用势函数（MLIP / UMA） 4 · 化学相关生成模型（分子、材料与反应） 3
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（27 篇）
+- **构成**：机器学习势与通用势函数（MLIP / UMA） 7 · 化学相关生成模型（分子、材料与反应） 3
 
 ## 今日最值得看
 
@@ -36,19 +36,36 @@
    <sub>命中：equivariant、mace</sub>
    > Direct prediction of molecular Hessians with SE(3)-equivariant graph neural networks avoids the O(3N ) automatic-differentiation cost of scalar machine learning interatomic potentials, yet extrapolating from small training molecules (N ≤ 22) to compact conformers (N = 30-100) exposes severe local coordination density s…
 
-6. **[SilicoDock: physics-constrained diffusion sampling and surface-based mixture-density scoring for accurate and physically valid molecular docking](https://doi.org/10.1039/d6cp03972c)**
-   `生成模型` · *Physical Chemistry Chemical Physics* · 2026-11-23
-   <sub>命中：diffusion model</sub>
-   > Molecular docking underpins structure-based drug discovery but is limited by two coupled subproblems: classical programs rank poses with hand-built scoring functions of limited transferability, whereas deep learning models generate poses rapidly but often chemically invalid ones.
+6. **[ILMlip: fast and universal machine-learning interatomic potentials](https://arxiv.org/abs/2611.33538)**
+   `MLIP` · *arXiv* · 2026-11-24 · [PDF](https://arxiv.org/pdf/2611.33538)
+   <sub>命中：equivariant、fine-tuning、mace</sub>
+   > Large-scale pretrained machine-learned interatomic potentials keep growing more accurate as new models appear at a rapid pace, and more expensive: the current leader of Matbench Discovery as of November 2026 (F1 score 0.935) has $9.9\times10^7$ parameters and took 3.6 thousand GPU-hours to train.
 
 ## 按主题展开
 
+### 化学相关生成模型（分子、材料与反应） · 持平
+
+- **[SilicoDock: physics-constrained diffusion sampling and surface-based mixture-density scoring for accurate and physically valid molecular docking](https://doi.org/10.1039/d6cp03972c)**
+  `生成模型` · *Physical Chemistry Chemical Physics* · 2026-11-23
+  <sub>命中：diffusion model</sub>
+  > Molecular docking underpins structure-based drug discovery but is limited by two coupled subproblems: classical programs rank poses with hand-built scoring functions of limited transferability, wherea…
+
 ### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[OrbACE: Orbital and Atomic Cluster Expansion](https://arxiv.org/abs/2611.33743)**
+  `MLIP` · *arXiv* · 2026-11-25 · [PDF](https://arxiv.org/pdf/2611.33743)
+  <sub>命中：equivariant、mace</sub>
+  > Accurate electronic-structure reference data are expensive, motivating interatomic potentials that learn effectively from limited training sets.
 
 - **[Constrained Multipole Moment Density Functional Theory for the Charge-Transfer and Polarization Contributions in Non-Covalent Complexes](https://doi.org/10.1021/acs.jctc.6c01487)**
   `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-25
   <sub>命中：density functional theory</sub>
   > The constrained multipole moment density functional theory allows the control of the dipole, quadrupole, and octupole moments in a variational and nonempirical way.
+
+- **[Computing hydration free energies and crystalline solubility of drug-like molecules with MACE](https://arxiv.org/abs/2611.33408)**
+  `MLIP` · *arXiv* · 2026-11-24 · [PDF](https://arxiv.org/pdf/2611.33408)
+  <sub>命中：mace</sub>
+  > Accurate prediction of thermodynamic solubility is critical in drug discovery, where it influences oral bioavailability and drives decisions in formulation chemistry.
 
 ## 工具与模型发布
 
@@ -69,12 +86,12 @@ _（窗口内没有命中关注主题的新闻）_
 
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
-| arxiv | 694 | ok |
+| arxiv | 711 | ok |
 | crossref | 133 | ok |
 | openalex | 116 | ok |
 | rss | 100 | ok |
 | github | 0 | ok |
 
-> 原始 1043 → 去重 913 → 剔除标题噪声 34 → 低相关度 825 → 入库 54。
+> 原始 1060 → 去重 928 → 剔除标题噪声 34 → 低相关度 837 → 入库 57。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
