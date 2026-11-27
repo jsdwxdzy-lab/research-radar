@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>弛豫离子弹性常数中的近相消 · 理论地图 · 科研雷达</title>
+<meta name="description" content="说明弛豫离子弹性常数怎样由两项大数相减得到，以及为什么分子晶体里这种近相消会把不大的绝对数值误差变成软本征方向上很大的相对误差。">
+<link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="node" data-prefix="../" data-node="near-cancellation-relaxed-elastic" data-node-title="弛豫离子弹性常数中的近相消" data-status="draft">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<div class="reader-shell" id="main">
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-response">响应与张量性质</a></li><li><a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a></li><li><a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a></li><li aria-current="page">弛豫离子弹性常数中的近相消</li></ol><a class="small" href="../tree.html#t-near-cancellation-relaxed-elastic">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与关键公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
+<article class="node" aria-labelledby="nodeTitle">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-response">响应与张量性质</a><span aria-hidden="true">/</span><a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a><span aria-hidden="true">/</span><a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a></nav>
+  <h1 id="nodeTitle">弛豫离子弹性常数中的近相消</h1>
+  <p class="node-meta"><span class="type">概念节点</span><span>领域：<a href="../tree.html#t-response">响应与张量性质</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=piezo">压电与响应计算</a></span><span>v0.1 · 2026-11-27</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">说明弛豫离子弹性常数怎样由两项大数相减得到，以及为什么分子晶体里这种近相消会把不大的绝对数值误差变成软本征方向上很大的相对误差。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li><a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a> 里夹持离子与弛豫离子</li><li><a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a> 里“软方向放大误差”</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li>矩阵求逆与本征值条件数的基本概念</li><li><a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a> 中 <span class="math" data-tex="d = e\,s">d = e\,s</span> 的换算</li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
+  <div class="prose" id="prose">
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>弛豫离子弹性常数不是“另算一套曲率”，而是把夹持离子曲率里<strong>会被原子弛豫抹掉的那一块减掉</strong>。分子晶体里，夹持离子项往往很大（分子内共价键很硬），离子弛豫项也几乎同样大（应变后分子可以整体平移、转动把力卸掉）。两者相减，剩下的才是分子间作用决定的有效刚度，常常只有几个 GPa 甚至更小。</p>
+<p>这是典型的<strong>近相消</strong> (near cancellation / subtractive cancellation)：结果远小于参与运算的两项。两项里只要各自带一点绝对误差，相对误差就会被放大到结果上。<a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a> 说的“软方向放大误差”解释的是：曲率已经很小之后，再出错会怎样；本条目解释的是：为什么软曲率会以“两项大数相减”的方式出现。</p>
+<figure class="fig"><img src="../figs/near-cancellation-elastic.svg" alt="示意：夹持离子项与离子弛豫项都很大、彼此接近，相减后的弛豫离子弹性常数很小。" loading="lazy"><figcaption>示意：夹持离子项与离子弛豫项都很大、彼此接近，相减后的弛豫离子弹性常数很小。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="\bar C">\bar C</span></td><td>夹持离子弹性常数</td><td>左侧蓝色高柱</td></tr><tr><td><span class="math" data-tex="\Lambda K^{-1}\Lambda/\Omega">\Lambda K^{-1}\Lambda/\Omega</span></td><td>离子弛豫贡献（示意）</td><td>中间橙色高柱</td></tr><tr><td><span class="math" data-tex="C">C</span></td><td>弛豫离子弹性常数</td><td>右侧绿色矮柱</td></tr><tr><td>“−”</td><td>从夹持项减去弛豫贡献</td><td>两柱之间的箭头</td></tr></tbody></table></div>
+<p>图是示意，柱高不对应任何具体材料的数值。</p>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与关键公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<p>在均匀应变 <span class="math" data-tex="\eta">\eta</span> 下，先让原子保持分数坐标（夹持），再允许内坐标 <span class="math" data-tex="u">u</span> 弛豫到新的力为零。对弛豫后的能量求二阶导数，得到 <a class="cite" href="#src-wu-2005-strain">[Wu, Vanderbilt &amp; Hamann 2005]</a></p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="C_{ij} = \bar C_{ij} - \frac{1}{\Omega}\sum_{m,n}\Lambda_{mi}\,(K^{-1})_{mn}\,\Lambda_{nj}.">C_{ij} = \bar C_{ij} - \frac{1}{\Omega}\sum_{m,n}\Lambda_{mi}\,(K^{-1})_{mn}\,\Lambda_{nj}.</span></div>
+<p>其中 <span class="math" data-tex="\bar C">\bar C</span> 是夹持离子弹性张量；<span class="math" data-tex="\Omega">\Omega</span> 是晶胞体积；<span class="math" data-tex="\Lambda_{mi}=-\partial^{2}E/\partial u_m\partial\eta_i">\Lambda_{mi}=-\partial^{2}E/\partial u_m\partial\eta_i</span> 是内应变耦合（应变在原子上产生的力）；<span class="math" data-tex="K">K</span> 是去掉整体平移后的力常数矩阵。第二项半正定，所以弛豫只会让晶体变软或不变（见 <a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a>）。</p>
+<p>取某一个单位应变方向 <span class="math" data-tex="v">v</span>，记标量</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\lambda = v^{\mathsf T} C v,\qquad
+\lambda_{\mathrm{cl}} = v^{\mathsf T}\bar C v,\qquad
+\lambda_{\mathrm{ion}} = v^{\mathsf T}\!\left(\frac{1}{\Omega}\Lambda^{\mathsf T}K^{-1}\Lambda\right)\!v.">\lambda = v^{\mathsf T} C v,\qquad
+\lambda_{\mathrm{cl}} = v^{\mathsf T}\bar C v,\qquad
+\lambda_{\mathrm{ion}} = v^{\mathsf T}\!\left(\frac{1}{\Omega}\Lambda^{\mathsf T}K^{-1}\Lambda\right)\!v.</span></div>
+<p>则 <span class="math" data-tex="\lambda = \lambda_{\mathrm{cl}}-\lambda_{\mathrm{ion}}">\lambda = \lambda_{\mathrm{cl}}-\lambda_{\mathrm{ion}}</span>。当 <span class="math" data-tex="\lambda_{\mathrm{cl}}\approx\lambda_{\mathrm{ion}}\gg\lambda">\lambda_{\mathrm{cl}}\approx\lambda_{\mathrm{ion}}\gg\lambda</span> 时，相对误差的一阶估计是</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="\frac{\delta\lambda}{\lambda}
+\approx
+\frac{\delta\lambda_{\mathrm{cl}}-\delta\lambda_{\mathrm{ion}}}{\lambda}.">\frac{\delta\lambda}{\lambda}
+\approx
+\frac{\delta\lambda_{\mathrm{cl}}-\delta\lambda_{\mathrm{ion}}}{\lambda}.</span></div>
+<p>其中 <span class="math" data-tex="\delta\lambda_{\mathrm{cl}}">\delta\lambda_{\mathrm{cl}}</span>、<span class="math" data-tex="\delta\lambda_{\mathrm{ion}}">\delta\lambda_{\mathrm{ion}}</span> 是两项各自的绝对误差。若它们的量级不随 <span class="math" data-tex="\lambda">\lambda</span> 变小而变小（例如有限差分步长噪声、自洽残余、色散是否进入力常数等带来的绝对底噪），则相对误差大致按 <span class="math" data-tex="1/\lambda">1/\lambda</span> 放大。</p>
+<aside class="claim claim-definition" aria-label="定义"><p class="claim-head"><span class="claim-kind">定义</span><span class="claim-title">近相消放大因子（示意定义）</span></p><p>在固定方向 <span class="math" data-tex="v">v</span> 上，把放大因子写成 <span class="math" data-tex="A=\lambda_{\mathrm{cl}}/\lambda">A=\lambda_{\mathrm{cl}}/\lambda</span>（当 <span class="math" data-tex="\lambda&gt;0">\lambda&gt;0</span>）。<span class="math" data-tex="A">A</span> 大，说明结果只占夹持项的很小一部分；同样大小的绝对误差，相对影响约为无相消时的 <span class="math" data-tex="A">A</span> 倍。</p></aside>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>具体程序里 <span class="math" data-tex="\bar C">\bar C</span> 与离子项是否在同一次计算、同一能量面上得到，按所用实现核对；若夹持项与离子项来自不同哈密顿量或不同数值设定，上式仍可形式写出，但不再是同一势能面的精确分解。</li><li>“绝对底噪大致不随材料软硬改变”是对数值误差结构的经验说法，不是定理；需要在具体方法（有限差分步长、自洽阈值、对称性处理）下核验。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>换算 <span class="math" data-tex="d">d</span></strong>：实验常报告的压电应变系数满足 <span class="math" data-tex="d=e\,s^{E}">d=e\,s^{E}</span>，<span class="math" data-tex="s^{E}=C^{-1}">s^{E}=C^{-1}</span> <a class="cite" href="#src-ieee-176-piezo">[IEEE Std 176]</a>。<span class="math" data-tex="\lambda">\lambda</span> 越小，<span class="math" data-tex="s">s</span> 在该方向越大，<span class="math" data-tex="d">d</span> 对 <span class="math" data-tex="C">C</span> 的误差越敏感。近相消同时推高了“需要很大 <span class="math" data-tex="d">d</span> 的软晶体”和“算不准 <span class="math" data-tex="C">C</span> 的风险”。</li><li><strong>交叉检查</strong>：同一能量面上，用不同数值路线（例如应变有限差分与位移有限差分，或有限差分与微扰）比较 <span class="math" data-tex="\lambda_{\mathrm{cl}}">\lambda_{\mathrm{cl}}</span>、<span class="math" data-tex="\lambda_{\mathrm{ion}}">\lambda_{\mathrm{ion}}</span> 和 <span class="math" data-tex="\lambda">\lambda</span>。若两项各自接近、只有差 <span class="math" data-tex="\lambda">\lambda</span> 分歧大，优先怀疑近相消放大，而不是“压电 <span class="math" data-tex="e">e</span> 算错了”（见 <a class="node-link" href="../nodes/finite-difference-vs-dfpt.html">有限差分与微扰方法</a>）。</li><li><strong>报告方式</strong>：对很软的方向，除了报 <span class="math" data-tex="C">C</span> 或 <span class="math" data-tex="d">d</span>，同时报 <span class="math" data-tex="\lambda">\lambda</span> 或该方向的杨氏模量量级，并说明 <span class="math" data-tex="\lambda_{\mathrm{cl}}">\lambda_{\mathrm{cl}}</span> 与 <span class="math" data-tex="\lambda_{\mathrm{ion}}">\lambda_{\mathrm{ion}}</span> 是否接近。</li></ul>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>把符号不稳的 <span class="math" data-tex="\lambda">\lambda</span> 当成材料性质</strong>：当 <span class="math" data-tex="|\lambda|">|\lambda|</span> 已落到绝对数值底噪量级时，正负号可以由噪声决定，不能直接当力学失稳或高 <span class="math" data-tex="d">d</span> 的证据。</li><li><strong>只收紧总能相关参数</strong>：提高截断能或收紧能量判据，主要压的是绝对误差；若 <span class="math" data-tex="A">A</span> 已经很大，相对误差仍可能大。要对目标量本身（软本征值、<span class="math" data-tex="d">d</span>）做收敛，见 <a class="node-link" href="../nodes/convergence-testing.html">收敛测试</a>。</li><li><strong>夹持项与离子项能量面不一致</strong>：一边含色散校正、一边不含，或截断能、k 点不同，会在相减里留下系统偏差；偏差同样按 <span class="math" data-tex="1/\lambda">1/\lambda</span> 放大。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么“夹持离子弹性常数算得很准”仍可能得不到可靠的弛豫离子 <span class="math" data-tex="C">C</span>？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>设 <span class="math" data-tex="\lambda_{\mathrm{cl}}=100">\lambda_{\mathrm{cl}}=100</span>、<span class="math" data-tex="\lambda_{\mathrm{ion}}=97">\lambda_{\mathrm{ion}}=97</span>，两项的绝对误差都是 <span class="math" data-tex="\pm 0.5">\pm 0.5</span>（彼此无关）。估计 <span class="math" data-tex="\lambda">\lambda</span> 的相对误差量级。</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>若某方向上 <span class="math" data-tex="\lambda">\lambda</span> 已经接近你估计的数值底噪，你会优先改计算参数，还是改报告口径（例如只报告 <span class="math" data-tex="e">e</span> 与 <span class="math" data-tex="\lambda">\lambda</span> 的区间）？理由是什么？</p></aside>
+</section>
+  </div>
+  
+  <p class="related"><span>相关条目</span><a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a>、<a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a>、<a class="node-link" href="../nodes/applied-stress-berry-piezo-d.html">定应力下 Berry 相差分求压电应变系数</a></p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-wu-2005-strain"><p class="src-kind">论文<span class="src-short">Wu, Vanderbilt &amp; Hamann 2005</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevB.72.035105" rel="noopener" target="_blank">X. Wu, D. Vanderbilt, D. R. Hamann, Systematic treatment of displacements, strains, and electric fields in density-functional perturbation theory, Phys. Rev. B 72, 035105 (2005)</a></p><p class="src-meta">位置：压电张量的夹持离子项与离子弛豫项；与弹性、介电张量的关系</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-ieee-176-piezo"><p class="src-kind">官方文档<span class="src-short">IEEE Std 176</span></p><p class="src-cit"><a href="https://doi.org/10.1109/IEEESTD.1988.79638" rel="noopener" target="_blank">IEEE Standard on Piezoelectricity, ANSI/IEEE Std 176-1987</a></p><p class="src-meta">位置：压电系数 d、e、g、h 的定义与边界条件</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;subtractive cancellation&quot;, &quot;clamped-ion elastic constants&quot;, &quot;ionic relaxation contribution&quot;, &quot;internal strain&quot;, &quot;condition number&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>响应与张量性质 · 概念 · 研究线：压电与响应计算 · 状态：草稿</p>
+  
+  <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="near-cancellation-relaxed-elastic">
+  <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
+  <label class="field-label" for="myQuestion">我还没想通的地方</label>
+  <textarea id="myQuestion" rows="3" placeholder="写下读到这里的疑问，首页会列出未解决的疑问…"></textarea>
+  <label class="field-label" for="myNote">我的笔记</label>
+  <textarea id="myNote" rows="4" placeholder="用自己的话复述，或记下推导中卡住的一步…"></textarea>
+  <fieldset class="dims"><legend>自评（读过不等于掌握，按需填写）</legend><div class="dim"><label for="dim-explain">能解释核心概念</label><select id="dim-explain" data-dim="explain"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="explain" aria-label="能解释核心概念：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-derive">能重建关键推导</label><select id="dim-derive" data-dim="derive"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="derive" aria-label="能重建关键推导：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-limits">理解成立条件和局限</label><select id="dim-limits" data-dim="limits"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="limits" aria-label="理解成立条件和局限：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-connect">能与其他节点正确联系</label><select id="dim-connect" data-dim="connect"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="connect" aria-label="能与其他节点正确联系：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-apply">能应用于新问题</label><select id="dim-apply" data-dim="apply"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="apply" aria-label="能应用于新问题：我的说明" placeholder="说明（可选）…"></div></fieldset>
+  <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
+</section>
+</article>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><ul class="rel-list"><li class="rel rel-special-case"><p class="rel-head"><span class="rel-tag">特例</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><strong class="self">本节点</strong> 是 <a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a> 的特例</p><p class="rel-expl">近相消讨论的是弛豫离子弹性公式中夹持项与离子项接近时的数值结构，是弹性张量分解在软分子晶体方向上的具体情形。</p><p class="rel-cond"><span>成立条件</span>仅当所讨论方向上夹持离子贡献与离子弛豫贡献同量级且远大于其差值时</p><p class="rel-src">依据：<a href="#src-wu-2005-strain">Wu, Vanderbilt &amp; Hamann 2005</a></p></li><li class="rel rel-explains"><p class="rel-head"><span class="rel-tag">用于解释</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><strong class="self">本节点</strong> 用于解释 <a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a></p><p class="rel-expl">说明软曲率本征值如何以两项大数相减的形式出现，从而把“软方向放大误差”接到弹性分解的代数结构上。</p><p class="rel-cond"><span>成立条件</span>限于可由夹持离子项减离子弛豫项得到的弛豫离子二阶导数（弹性；压电离子项有平行结构）</p><p class="rel-src">依据：<a href="#src-wu-2005-strain">Wu, Vanderbilt &amp; Hamann 2005</a></p></li><li class="rel rel-contrasts"><p class="rel-head"><span class="rel-tag">对照</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><a class="node-link" href="../nodes/applied-stress-berry-piezo-d.html">定应力下 Berry 相差分求压电应变系数</a> 与 <strong class="self">本节点</strong> 形成对照</p><p class="rel-expl">定应力 Berry 相差分不显式求 C 的逆，从而避开弛豫离子弹性近相消后再求逆的放大通道；两者在充分收敛时应与 d=e s 一致。</p><p class="rel-cond"><span>成立条件</span>同一能量面与同一电学边界；用于对照或验收，不自动保证某条路线数值误差更小</p><p class="rel-src">依据：<a href="#src-ieee-176-piezo">IEEE Std 176</a></p></li></ul></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-27</span>初稿：近相消的代数结构、相对误差估计、与压电换算的联系；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%BC%9B%E8%B1%AB%E7%A6%BB%E5%AD%90%E5%BC%B9%E6%80%A7%E5%B8%B8%E6%95%B0%E4%B8%AD%E7%9A%84%E8%BF%91%E7%9B%B8%E6%B6%88%EF%BC%88near-cancellation-relaxed-elastic%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Anear-cancellation-relaxed-elastic%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
+</div>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
