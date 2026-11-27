@@ -37,8 +37,72 @@
       "type": "computes",
       "explanation": "两种方法都是计算力常数、玻恩有效电荷、内应变等二阶导数的数值途径。",
       "condition": "线性响应范围内，且两者各自的数值参数（有限差分步长、微扰自洽阈值）已收敛",
-      "sources": ["baroni-2001-dfpt"],
+      "sources": [
+        "baroni-2001-dfpt"
+      ],
       "status": "candidate"
+    },
+    {
+      "id": "cancellation-specializes-elastic",
+      "from": "near-cancellation-relaxed-elastic",
+      "to": "elastic-tensor",
+      "type": "special-case",
+      "explanation": "近相消讨论的是弛豫离子弹性公式中夹持项与离子项接近时的数值结构，是弹性张量分解在软分子晶体方向上的具体情形。",
+      "condition": "仅当所讨论方向上夹持离子贡献与离子弛豫贡献同量级且远大于其差值时",
+      "sources": [
+        "wu-2005-strain"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "cancellation-explains-soft-response",
+      "from": "near-cancellation-relaxed-elastic",
+      "to": "energy-structure-response",
+      "type": "explains",
+      "explanation": "说明软曲率本征值如何以两项大数相减的形式出现，从而把“软方向放大误差”接到弹性分解的代数结构上。",
+      "condition": "限于可由夹持离子项减离子弛豫项得到的弛豫离子二阶导数（弹性；压电离子项有平行结构）",
+      "sources": [
+        "wu-2005-strain"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "stress-berry-computes-d",
+      "from": "applied-stress-berry-piezo-d",
+      "to": "piezoelectric-tensor",
+      "type": "computes",
+      "explanation": "在约定电学边界下，用定应力（或约束应力）弛豫后的 Berry 相极化差分直接估计压电应变系数 d。",
+      "condition": "线性响应区、极化分支连续，且每个应力点已弛豫到目标应力",
+      "sources": [
+        "ieee-176-piezo",
+        "king-smith-1993-polarization"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "berry-foundation-stress-d",
+      "from": "berry-phase-polarization",
+      "to": "applied-stress-berry-piezo-d",
+      "type": "foundation",
+      "explanation": "定应力差分的读数是宏观极化变化；周期体系里该变化由 Berry 相定义。",
+      "condition": "路径上绝缘、能定义 Berry 相极化",
+      "sources": [
+        "king-smith-1993-polarization",
+        "resta-1994-polarization"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "stress-d-contrasts-cancellation",
+      "from": "applied-stress-berry-piezo-d",
+      "to": "near-cancellation-relaxed-elastic",
+      "type": "contrasts",
+      "explanation": "定应力 Berry 相差分不显式求 C 的逆，从而避开弛豫离子弹性近相消后再求逆的放大通道；两者在充分收敛时应与 d=e s 一致。",
+      "condition": "同一能量面与同一电学边界；用于对照或验收，不自动保证某条路线数值误差更小",
+      "sources": [
+        "ieee-176-piezo"
+      ],
+      "status": "draft"
     }
   ]
 }

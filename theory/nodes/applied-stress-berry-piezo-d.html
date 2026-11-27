@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a2130" media="(prefers-color-scheme: dark)">
+<title>定应力下 Berry 相差分求压电应变系数 · 理论地图 · 科研雷达</title>
+<meta name="description" content="说明怎样用外加（或约束）应力下的 Berry 相极化差分直接求压电应变系数 d，从而绕开由弹性张量求逆带来的近相消放大。">
+<link rel="stylesheet" href="../assets/theory.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" integrity="sha384-WwGtaC6ywCHxA5cstpj/3+xIZvTez8dq2IcBQaXRkenHZ7FVVq1ZROtURwfbtTlG" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" integrity="sha384-a1WQdjRj162i159OYq041X6I4K8NenkrI09LlPmiHg0YOb7CR+wJOraXwK9abpnE" crossorigin="anonymous"></script>
+<script defer src="../assets/search-index.js"></script>
+<script defer src="../assets/theory.js"></script>
+</head>
+<body data-page="node" data-prefix="../" data-node="applied-stress-berry-piezo-d" data-node-title="定应力下 Berry 相差分求压电应变系数" data-status="draft">
+<a class="skip" href="#main">跳到正文</a>
+<header class="top">
+  <a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">理论地图</span><span class="brand-sub">科研雷达</span></span></a>
+  <div class="search" role="search">
+    <label class="visually-hidden" for="theorySearch">搜索节点</label>
+    <input id="theorySearch" type="search" placeholder="搜索概念、方法或问题…" autocomplete="off" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <ul id="searchResults" class="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+  </div>
+  <nav class="top-nav" aria-label="站点">
+    <a href="../tree.html">知识树</a>
+    <a href="../guide.html">内容规则</a>
+    <a href="../../index.html">论文雷达</a>
+    <button class="icon-btn" type="button" data-action="theme" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </nav>
+</header>
+<div class="reader-shell" id="main">
+<details class="rail rail-left" data-rail open><summary>位置、路径与目录</summary><div class="rail-block"><p class="rail-label">在知识树中的位置</p><ol class="tree-trail"><li><a href="../tree.html#t-response">响应与张量性质</a></li><li><a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a></li><li><a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a></li><li aria-current="page">定应力下 Berry 相差分求压电应变系数</li></ol><a class="small" href="../tree.html#t-applied-stress-berry-piezo-d">在整棵树里看</a></div><div class="rail-block"><p class="rail-label">本页目录</p><ol class="toc"><li><a href="#sec-1">直觉</a><span class="layer-dot layer-intuition" title="直观解释"></span></li><li><a href="#sec-2">定义与关键公式</a><span class="layer-dot layer-math" title="数学与推导"></span></li><li><a href="#sec-3">在本研究线里的样子</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-4">常见坑</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li><li><a href="#sec-5">检验自己</a><span class="layer-dot layer-mapping" title="对应与边界"></span></li></ol></div><p class="resume hidden" id="resume"></p></details>
+<article class="node" aria-labelledby="nodeTitle">
+  <nav class="crumbs" aria-label="当前位置"><a href="../index.html">理论地图</a><span aria-hidden="true">/</span><a href="../tree.html#t-response">响应与张量性质</a><span aria-hidden="true">/</span><a class="node-link" href="../nodes/energy-structure-response.html">从能量到结构与响应</a><span aria-hidden="true">/</span><a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a></nav>
+  <h1 id="nodeTitle">定应力下 Berry 相差分求压电应变系数</h1>
+  <p class="node-meta"><span class="type">方法节点</span><span>领域：<a href="../tree.html#t-response">响应与张量性质</a></span><span class="rlines">研究线：<a class="rline" href="../tree.html?line=piezo">压电与响应计算</a></span><span>v0.1 · 2026-11-27</span></p>
+  <div class="banner banner-draft" role="note"><strong>草稿</strong>已有正文，但来源和推导还没有核查完，不能当作定论。</div>
+  <p class="purpose">说明怎样用外加（或约束）应力下的 Berry 相极化差分直接求压电应变系数 d，从而绕开由弹性张量求逆带来的近相消放大。</p>
+  <section class="prereq" aria-label="已有认识与必要先修"><div><p class="pre-label">直观阅读需要</p><ul><li><a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a> 里 e 与 d 的区别</li><li><a class="node-link" href="../nodes/berry-phase-polarization.html">极化与 Berry 相</a>：极化变化才有意义</li></ul></div><div><p class="pre-label">完整推导还需要</p><ul><li><a class="node-link" href="../nodes/elastic-tensor.html">弹性张量</a> 与 <span class="math" data-tex="d=e\,s">d=e\,s</span></li><li><a class="node-link" href="../nodes/near-cancellation-relaxed-elastic.html">弛豫离子弹性常数中的近相消</a></li></ul></div><p class="pre-hint">只是提示，不需要先读完才能往下看。</p></section>
+  <div class="layer-bar" role="group" aria-label="阅读层次"><button type="button" data-layer-filter="" aria-pressed="true">连续阅读</button><button type="button" data-layer-filter="intuition" aria-pressed="false"><span class="layer-dot layer-intuition" aria-hidden="true"></span>只看直观解释</button><button type="button" data-layer-filter="math" aria-pressed="false"><span class="layer-dot layer-math" aria-hidden="true"></span>只看数学与推导</button><button type="button" data-layer-filter="mapping" aria-pressed="false"><span class="layer-dot layer-mapping" aria-hidden="true"></span>只看对应与边界</button></div>
+  <div class="prose" id="prose">
+<section class="node-section" id="sec-1" data-layer="intuition">
+<h2><a class="anchor" href="#sec-1">直觉</a><span class="layer-tag layer-intuition">直观解释</span></h2>
+<p>压电应变系数问的是：给晶体一个<strong>应力</strong>，极化变多少？定义本身就是 <span class="math" data-tex="d\sim\partial P/\partial\sigma">d\sim\partial P/\partial\sigma</span>（在约定的电学边界下）<a class="cite" href="#src-ieee-176-piezo">[IEEE Std 176]</a>。常见计算路线却是先算 <span class="math" data-tex="e=\partial P/\partial\eta">e=\partial P/\partial\eta</span> 和弹性刚度 <span class="math" data-tex="C">C</span>，再令 <span class="math" data-tex="d=e\,C^{-1}">d=e\,C^{-1}</span>。当 <span class="math" data-tex="C">C</span> 因近相消而病态时（见 <a class="node-link" href="../nodes/near-cancellation-relaxed-elastic.html">弛豫离子弹性常数中的近相消</a>），误差主要来自求逆，不一定来自极化本身。</p>
+<p>另一条路是回到定义：真正施加（或约束到）一组小应力，让晶胞与原子弛豫到新的力学平衡，用 Berry 相读极化，再对应力做有限差分。这条路<strong>不显式求 <span class="math" data-tex="C^{-1}">C^{-1}</span></strong>，因而避开“两项大数相减再求逆”的放大通道；代价是每个应力点都要做一次完整的定应力结构优化，并处理极化分支。</p>
+<figure class="fig"><img src="../figs/applied-stress-berry-d.svg" alt="示意：无应力参考结构与定应力弛豫后的结构，用 Berry 相读极化差以逼近 d。" loading="lazy"><figcaption>示意：无应力参考结构与定应力弛豫后的结构，用 Berry 相读极化差以逼近 d。</figcaption></figure>
+<div class="table-wrap" tabindex="0"><table><thead><tr><th scope="col">符号</th><th scope="col">是什么</th><th scope="col">图里对应</th></tr></thead><tbody><tr><td><span class="math" data-tex="P^{(0)}">P^{(0)}</span></td><td>无外应力参考结构的极化（Berry 相）</td><td>左侧红点</td></tr><tr><td><span class="math" data-tex="\sigma">\sigma</span></td><td>外加或约束的应力</td><td>中间橙色箭头</td></tr><tr><td><span class="math" data-tex="P(\sigma)">P(\sigma)</span></td><td>定应力弛豫后的极化</td><td>右侧红点与箭头</td></tr><tr><td>蓝/绿框</td><td>参考晶胞与变形后晶胞（示意）</td><td>左右几何轮廓</td></tr></tbody></table></div>
+<p>图是示意，不代表任何材料的实测轨迹。</p>
+</section>
+<section class="node-section" id="sec-2" data-layer="math">
+<h2><a class="anchor" href="#sec-2">定义与关键公式</a><span class="layer-tag layer-math">数学与推导</span></h2>
+<p>在零电场（或约定的电学边界）下，压电应变系数的笛卡尔形式写为</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="d_{\alpha ij} = \left.\frac{\partial P_\alpha}{\partial \sigma_{ij}}\right|_{\mathcal{E}}.">d_{\alpha ij} = \left.\frac{\partial P_\alpha}{\partial \sigma_{ij}}\right|_{\mathcal{E}}.</span></div>
+<p>其中 <span class="math" data-tex="P_\alpha">P_\alpha</span> 是宏观极化的笛卡尔分量；<span class="math" data-tex="\sigma_{ij}">\sigma_{ij}</span> 是应力；偏导在给定电学边界下取值 <a class="cite" href="#src-ieee-176-piezo">[IEEE Std 176]</a>。周期晶体中 <span class="math" data-tex="P">P</span> 用现代极化理论（Berry 相）定义，只有<strong>相对参考结构的变化</strong>有确定意义 [@king-smith-1993-polarization; @resta-1994-polarization]。</p>
+<p>有限差分形式（中心差分示意）为</p>
+<div class="math-block" tabindex="0" role="math" aria-label="公式"><span class="math" data-display="1" data-tex="d_{\alpha ij}\approx\frac{P_\alpha(+\sigma_{ij})-P_\alpha(-\sigma_{ij})}{2\,\Delta\sigma_{ij}},">d_{\alpha ij}\approx\frac{P_\alpha(+\sigma_{ij})-P_\alpha(-\sigma_{ij})}{2\,\Delta\sigma_{ij}},</span></div>
+<p>其中每个 <span class="math" data-tex="P(\pm\sigma)">P(\pm\sigma)</span> 都在<strong>该应力约束下</strong>弛豫到力学平衡后计算。线性响应要求 <span class="math" data-tex="\Delta\sigma">\Delta\sigma</span> 足够小，使响应落在线性区；又要足够大，使 <span class="math" data-tex="\Delta P">\Delta P</span> 不被自洽噪声淹没。</p>
+<p>与 <span class="math" data-tex="d=e\,s^{E}">d=e\,s^{E}</span> 路线对照：若 <span class="math" data-tex="e">e</span>、<span class="math" data-tex="C">C</span>（因而 <span class="math" data-tex="s^{E}">s^{E}</span>）与定应力差分都在同一能量面、同一电学边界下充分收敛，两者应一致。不一致时，优先检查 <span class="math" data-tex="C">C</span> 的软本征方向、极化分支，以及应力点是否充分弛豫。</p>
+<aside class="claim claim-unverified" aria-label="待核验"><p class="claim-head"><span class="claim-kind">待核验</span><span class="claim-title">待核验</span></p><ul><li>具体程序里“定应力”是通过目标应力约束、焓最小化，还是通过一系列固定应变再换算，实现细节因软件而异；本条目只固定物理定义。</li><li>压电晶体中恒电场与恒电位移边界下的 <span class="math" data-tex="d">d</span> 记号对应，按 <a class="cite" href="#src-ieee-176-piezo">[IEEE Std 176]</a> 核对后再与具体计算设定一一对齐。</li></ul></aside>
+</section>
+<section class="node-section" id="sec-3" data-layer="mapping">
+<h2><a class="anchor" href="#sec-3">在本研究线里的样子</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>何时值得用</strong>：当 <span class="math" data-tex="e">e</span> 已稳定、但 <span class="math" data-tex="d=e\,C^{-1}">d=e\,C^{-1}</span> 因软本征方向剧烈放大时，定应力差分可作独立验收，或作为不依赖病态求逆的报告路径。</li><li><strong>Berry 相读数</strong>：每个应力点用 <code>LCALCPOL</code> 一类开关输出偶极/极化 <a class="cite" href="#src-vasp-wiki-lcalcpol">[VASP Wiki: LCALCPOL]</a>；只比较同一分支上的差值（见 <a class="node-link" href="../nodes/berry-phase-polarization.html">极化与 Berry 相</a>）。</li><li><strong>与有限电场方法不同</strong>：有限电场改的是电学扰动（见开放讨论中的有限电场条目）；这里扰动是力学上的应力。两者都可做有限差分，但响应的自变量不同。</li></ul>
+</section>
+<section class="node-section" id="sec-4" data-layer="mapping">
+<h2><a class="anchor" href="#sec-4">常见坑</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<ul><li><strong>分支跳变</strong>：软晶体在应力扫描时晶胞变化大，<span class="math" data-tex="\Delta P">\Delta P</span> 可能跨过极化量子。必须先与量子比较，再决定是否加减整数支。</li><li><strong>未弛豫到目标应力</strong>：若残余应力仍与标称 <span class="math" data-tex="\sigma">\sigma</span> 差一截，差分的分母名不副实。</li><li><strong>步长超出线性区</strong>：步长太大混入高阶弹性与高阶压电；步长太小则 <span class="math" data-tex="\Delta P">\Delta P</span> 被噪声淹没。需要对关键分量做步长扫描。</li><li><strong>能量面不一致</strong>：几何优化与极化计算若色散、截断或 k 点不同，得到的不是同一曲面的 <span class="math" data-tex="\partial P/\partial\sigma">\partial P/\partial\sigma</span>。</li></ul>
+</section>
+<section class="node-section" id="sec-5" data-layer="mapping">
+<h2><a class="anchor" href="#sec-5">检验自己</a><span class="layer-tag layer-mapping">对应与边界</span></h2>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">解释</span></p><p>为什么定应力 Berry 相差分在原理上能避开 <span class="math" data-tex="C^{-1}">C^{-1}</span> 的近相消放大，却仍可能对结构优化的收敛很敏感？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">推导</span></p><p>写出一维示意：<span class="math" data-tex="P(\sigma)=P_0+d\,\sigma+\tfrac12\beta\sigma^{2}">P(\sigma)=P_0+d\,\sigma+\tfrac12\beta\sigma^{2}</span>。用 <span class="math" data-tex="\pm\Delta\sigma">\pm\Delta\sigma</span> 的中心差分估计 <span class="math" data-tex="d">d</span>，截断误差是什么量级？</p></aside>
+<aside class="claim claim-question" aria-label="检验问题"><p class="claim-head"><span class="claim-kind">检验问题</span><span class="claim-title">迁移</span></p><p>若定应力差分与 <span class="math" data-tex="e\,C^{-1}">e\,C^{-1}</span> 在硬方向一致、只在最软方向分歧，你会先怀疑哪一类误差来源？</p></aside>
+</section>
+  </div>
+  
+  <p class="related"><span>相关条目</span><a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a>、<a class="node-link" href="../nodes/berry-phase-polarization.html">极化与 Berry 相</a>、<a class="node-link" href="../nodes/near-cancellation-relaxed-elastic.html">弛豫离子弹性常数中的近相消</a></p>
+  <section class="refs" aria-labelledby="refsTitle"><h2 id="refsTitle">参考资料</h2><ol class="src-list"><li id="src-ieee-176-piezo"><p class="src-kind">官方文档<span class="src-short">IEEE Std 176</span></p><p class="src-cit"><a href="https://doi.org/10.1109/IEEESTD.1988.79638" rel="noopener" target="_blank">IEEE Standard on Piezoelectricity, ANSI/IEEE Std 176-1987</a></p><p class="src-meta">位置：压电系数 d、e、g、h 的定义与边界条件</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-king-smith-1993-polarization"><p class="src-kind">论文<span class="src-short">King-Smith &amp; Vanderbilt 1993</span></p><p class="src-cit"><a href="https://doi.org/10.1103/PhysRevB.47.1651" rel="noopener" target="_blank">R. D. King-Smith, D. Vanderbilt, Theory of polarization of crystalline solids, Phys. Rev. B 47, 1651 (1993)</a></p><p class="src-meta">位置：周期体系中极化的 Berry 相位表述</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-resta-1994-polarization"><p class="src-kind">论文<span class="src-short">Resta 1994</span></p><p class="src-cit"><a href="https://doi.org/10.1103/RevModPhys.66.899" rel="noopener" target="_blank">R. Resta, Macroscopic polarization in crystalline dielectrics: the geometric phase approach, Rev. Mod. Phys. 66, 899 (1994)</a></p><p class="src-meta">位置：为什么晶胞偶极不能定义极化；极化变化作为可测量量</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li><li id="src-vasp-wiki-lcalcpol"><p class="src-kind">官方文档<span class="src-short">VASP Wiki: LCALCPOL</span></p><p class="src-cit"><a href="https://vasp.at/wiki/index.php/LCALCPOL" rel="noopener" target="_blank">VASP Wiki, LCALCPOL（Berry 相方法计算宏观极化）</a></p><p class="src-meta">版本：在线文档，查阅时记录日期</p><p class="src-state todo">尚未实际查阅，目前只是拟查阅书目</p></li></ol></section>
+  <section class="radar-papers hidden" id="radarPapers" aria-labelledby="radarPapersTitle" data-keywords="[&quot;applied stress&quot;, &quot;Berry phase polarization&quot;, &quot;piezoelectric strain coefficient&quot;, &quot;finite difference polarization&quot;, &quot;constrained stress&quot;]"><h2 id="radarPapersTitle">论文雷达里的相关论文</h2><ul></ul><p class="small">按关键词匹配，最近的在前；点开在雷达里阅读。</p></section>
+  <p class="cat-foot"><span>分类</span>响应与张量性质 · 方法 · 研究线：压电与响应计算 · 状态：草稿</p>
+  
+  <section class="mine" id="mine" aria-labelledby="mineTitle" data-node="applied-stress-berry-piezo-d">
+  <div class="mine-head"><h2 id="mineTitle">我的理解</h2><span class="save-state" id="saveState" aria-live="polite">只保存在这台设备</span></div>
+  <label class="field-label" for="myQuestion">我还没想通的地方</label>
+  <textarea id="myQuestion" rows="3" placeholder="写下读到这里的疑问，首页会列出未解决的疑问…"></textarea>
+  <label class="field-label" for="myNote">我的笔记</label>
+  <textarea id="myNote" rows="4" placeholder="用自己的话复述，或记下推导中卡住的一步…"></textarea>
+  <fieldset class="dims"><legend>自评（读过不等于掌握，按需填写）</legend><div class="dim"><label for="dim-explain">能解释核心概念</label><select id="dim-explain" data-dim="explain"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="explain" aria-label="能解释核心概念：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-derive">能重建关键推导</label><select id="dim-derive" data-dim="derive"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="derive" aria-label="能重建关键推导：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-limits">理解成立条件和局限</label><select id="dim-limits" data-dim="limits"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="limits" aria-label="理解成立条件和局限：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-connect">能与其他节点正确联系</label><select id="dim-connect" data-dim="connect"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="connect" aria-label="能与其他节点正确联系：我的说明" placeholder="说明（可选）…"></div><div class="dim"><label for="dim-apply">能应用于新问题</label><select id="dim-apply" data-dim="apply"><option value="">未评估</option><option value="learning">正在理解</option><option value="confident">已有把握</option><option value="review">需要复习</option></select><input type="text" data-dim-note="apply" aria-label="能应用于新问题：我的说明" placeholder="说明（可选）…"></div></fieldset>
+  <label class="check"><input type="checkbox" id="resolved"> 疑问已解决</label>
+</section>
+</article>
+<details class="rail rail-right" data-rail open><summary>关联与核验</summary><div class="rail-block"><h2 class="rail-label">关联</h2><ul class="rel-list"><li class="rel rel-computes"><p class="rel-head"><span class="rel-tag">用于计算</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><strong class="self">本节点</strong> 用于计算 <a class="node-link" href="../nodes/piezoelectric-tensor.html">压电张量</a></p><p class="rel-expl">在约定电学边界下，用定应力（或约束应力）弛豫后的 Berry 相极化差分直接估计压电应变系数 d。</p><p class="rel-cond"><span>成立条件</span>线性响应区、极化分支连续，且每个应力点已弛豫到目标应力</p><p class="rel-src">依据：<a href="#src-ieee-176-piezo">IEEE Std 176</a>、<a href="#src-king-smith-1993-polarization">King-Smith &amp; Vanderbilt 1993</a></p></li><li class="rel rel-foundation"><p class="rel-head"><span class="rel-tag">推导基础</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><a class="node-link" href="../nodes/berry-phase-polarization.html">极化与 Berry 相</a> 是 <strong class="self">本节点</strong> 某一层推导的基础</p><p class="rel-expl">定应力差分的读数是宏观极化变化；周期体系里该变化由 Berry 相定义。</p><p class="rel-cond"><span>成立条件</span>路径上绝缘、能定义 Berry 相极化</p><p class="rel-src">依据：<a href="#src-king-smith-1993-polarization">King-Smith &amp; Vanderbilt 1993</a>、<a href="#src-resta-1994-polarization">Resta 1994</a></p></li><li class="rel rel-contrasts"><p class="rel-head"><span class="rel-tag">对照</span><span class="status status-draft">草稿</span></p><p class="rel-sentence"><strong class="self">本节点</strong> 与 <a class="node-link" href="../nodes/near-cancellation-relaxed-elastic.html">弛豫离子弹性常数中的近相消</a> 形成对照</p><p class="rel-expl">定应力 Berry 相差分不显式求 C 的逆，从而避开弛豫离子弹性近相消后再求逆的放大通道；两者在充分收敛时应与 d=e s 一致。</p><p class="rel-cond"><span>成立条件</span>同一能量面与同一电学边界；用于对照或验收，不自动保证某条路线数值误差更小</p><p class="rel-src">依据：<a href="#src-ieee-176-piezo">IEEE Std 176</a></p></li></ul></div><div class="rail-block"><h2 class="rail-label">核验与修订</h2><p class="empty">暂无核验记录。</p><p class="rev-label">修订记录</p><ul class="changelog"><li><span>v0.1</span><span>2026-11-27</span>初稿：定应力差分定义、与 e·s 路线对照、分支与线性区；配图 1 张</li></ul></div><div class="rail-block"><h2 class="rail-label">发现问题</h2><p class="small">在 GitHub 上公开提交纠错，会附上节点编号和版本，不含你的笔记。</p><a class="btn" href="https://github.com/jsdwxdzy-lab/research-radar/issues/new?title=%5B%E7%90%86%E8%AE%BA%E5%9C%B0%E5%9B%BE%E7%BA%A0%E9%94%99%5D%20%E5%AE%9A%E5%BA%94%E5%8A%9B%E4%B8%8B%20Berry%20%E7%9B%B8%E5%B7%AE%E5%88%86%E6%B1%82%E5%8E%8B%E7%94%B5%E5%BA%94%E5%8F%98%E7%B3%BB%E6%95%B0%EF%BC%88applied-stress-berry-piezo-d%20v0.1%EF%BC%89&amp;body=%E8%8A%82%E7%82%B9%EF%BC%9Aapplied-stress-berry-piezo-d%0A%E7%89%88%E6%9C%AC%EF%BC%9Av0.1%0A%0A%E5%93%AA%E4%B8%80%E5%A4%84%E6%9C%89%E9%97%AE%E9%A2%98%EF%BC%88%E5%B0%8F%E8%8A%82%E6%88%96%E5%8E%9F%E5%8F%A5%EF%BC%89%EF%BC%9A%0A%0A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E9%97%AE%E9%A2%98%E3%80%81%E4%BE%9D%E6%8D%AE%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%0A%0A%E5%BB%BA%E8%AE%AE%E6%80%8E%E4%B9%88%E6%94%B9%EF%BC%9A%0A" rel="noopener" target="_blank">提交纠错</a></div></details>
+<button type="button" class="rail-toggle" data-action="toggle-rails" aria-pressed="false">收起侧栏</button>
+</div>
+<footer class="foot">
+  <p>草稿与候选内容未经核验，只是整理中的思路。正式结论以“已核验”节点及其核验范围为准。</p>
+  <p>你的疑问、笔记和自评只保存在这台设备的浏览器里，不会上传。<button type="button" class="link-btn" data-action="export">导出备份</button><button type="button" class="link-btn" data-action="import">从备份恢复</button></p>
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
