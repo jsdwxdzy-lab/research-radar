@@ -1,13 +1,13 @@
 # 科研雷达 · 2026-11-27（周五）
 
 > 领域：计算化学 / 有机分子晶体结构预测、化学生成模型、有机铁电计算与手性分子晶体；低优先级跟踪视觉生成  
-> 自动生成 12:08 · 抓取窗口 11-25 20:08 → 现在 · 候选 921 → 本轮入库 53 → 今日累计 **7**（本次 +0） · 来源 arxiv/crossref/openalex/rss/github
+> 自动生成 13:12 · 抓取窗口 11-25 21:12 → 现在 · 候选 923 → 本轮入库 54 → 今日累计 **8**（本次 +1） · 来源 arxiv/crossref/openalex/rss/github
 
 ## 今日速览
 
 - **最高相关度**：Quasi-Zero-Dimensional Iron-Based Hybrid Perovskites (BrC5H13N)FeA4 (A = Cl, Br): Ferroele…（11.2）
-- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（32 篇）
-- **构成**：化学相关生成模型（分子、材料与反应） 3 · 分子晶体结构预测（CSP）与能量图景 2 · 铁电计算（有机与分子材料） 1 · 机器学习势与通用势函数（MLIP / UMA） 1
+- **本周条目最多**：机器学习势与通用势函数（MLIP / UMA）（33 篇）
+- **构成**：化学相关生成模型（分子、材料与反应） 3 · 机器学习势与通用势函数（MLIP / UMA） 2 · 分子晶体结构预测（CSP）与能量图景 2 · 铁电计算（有机与分子材料） 1
 
 ## 今日最值得看
 
@@ -50,6 +50,13 @@
   <sub>命中：diffusion model</sub>
   > MOTIVATION: Single-cell multi-omics sequencing enables joint profiling of gene expression and chromatin accessibility, yet high-quality paired data remain scarce.
 
+### 机器学习势与通用势函数（MLIP / UMA） · 持平
+
+- **[Double-Hybrid Multiconfigurational Pair-Density Functional Theory](https://doi.org/10.1021/acs.jctc.6c02049)**
+  `MLIP` · *Journal of Chemical Theory and Computation* · 2026-11-27
+  <sub>命中：density functional theory</sub>
+  > We introduce double-hybrid (DH) multiconfigurational pair-density functional theory (DH-MC-PDFT), a method that extends the DH design principle of Kohn–Sham density functional theory to strongly corre…
+
 ## 工具与模型发布
 
 _（窗口内没有关注工具的版本发布）_
@@ -70,11 +77,11 @@ _（窗口内没有命中关注主题的新闻）_
 | 数据源 | 抓取 | 状态 |
 | --- | --- | --- |
 | arxiv | 711 | ok |
-| crossref | 128 | ok |
+| crossref | 129 | ok |
 | openalex | 112 | ok |
-| rss | 104 | ok |
+| rss | 107 | ok |
 | github | 1 | ok |
 
-> 原始 1056 → 去重 921 → 剔除标题噪声 32 → 低相关度 836 → 入库 53。
+> 原始 1060 → 去重 923 → 剔除标题噪声 32 → 低相关度 837 → 入库 54。
 
 <sub>配置 `config/config.json` · 历史 `state/radar.sqlite3` · 重跑 `./run_daily.sh` · 调试 `python3 -m radar explain '标题'`</sub>
